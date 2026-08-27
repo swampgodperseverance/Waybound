@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\npcs\\dungeon\\cruor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\npcs\\dungeon\\cruor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\common\\modsystems\\wayboundworld.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:common\\modsystems\\wayboundworld.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\placeable\\bosses\\cruortrophy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\placeable\\bosses\\cruortrophy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\dusts\\cruordust.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\dusts\\cruordust.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WayboundWorld.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Common\\ModSystems\\WayboundWorld.cs",
+              "RelativeDocumentMoniker": "Common\\ModSystems\\WayboundWorld.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Common\\ModSystems\\WayboundWorld.cs",
+              "RelativeToolTip": "Common\\ModSystems\\WayboundWorld.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T17:06:00.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GlobalUsings.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\GlobalUsings.cs",
+              "RelativeDocumentMoniker": "GlobalUsings.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\GlobalUsings.cs",
+              "RelativeToolTip": "GlobalUsings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T17:02:21.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CruorTrophy.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Placeable\\Bosses\\CruorTrophy.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Placeable\\Bosses\\CruorTrophy.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Placeable\\Bosses\\CruorTrophy.cs",
+              "RelativeToolTip": "Content\\Items\\Placeable\\Bosses\\CruorTrophy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T16:59:55.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CruorDust.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Dusts\\CruorDust.cs",
+              "RelativeDocumentMoniker": "Content\\Dusts\\CruorDust.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Dusts\\CruorDust.cs",
+              "RelativeToolTip": "Content\\Dusts\\CruorDust.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T16:58:12.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Cruor.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\NPCs\\Dungeon\\Cruor.cs",
+              "RelativeDocumentMoniker": "Content\\NPCs\\Dungeon\\Cruor.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\NPCs\\Dungeon\\Cruor.cs",
+              "RelativeToolTip": "Content\\NPCs\\Dungeon\\Cruor.cs",
+              "ViewState": "AgIAAAYBAAAAAAAAAAApwB0BAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T16:57:07.192Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
