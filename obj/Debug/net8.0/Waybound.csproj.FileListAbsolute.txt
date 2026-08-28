@@ -1,0 +1,6 @@
+C:\Users\kiril\Documents\My Games\Terraria\tModLoader\ModSources\Waybound\obj\Debug\net8.0\Waybound.csproj.AssemblyReference.cache
+C:\Users\kiril\Documents\My Games\Terraria\tModLoader\ModSources\Waybound\obj\Debug\net8.0\Waybound.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kiril\Documents\My Games\Terraria\tModLoader\ModSources\Waybound\obj\Debug\net8.0\Waybound.AssemblyInfoInputs.cache
+C:\Users\kiril\Documents\My Games\Terraria\tModLoader\ModSources\Waybound\obj\Debug\net8.0\Waybound.AssemblyInfo.cs
+C:\Users\kiril\Documents\My Games\Terraria\tModLoader\ModSources\Waybound\obj\Debug\net8.0\Waybound.csproj.CoreCompileInputs.cache
+C:\Users\kiril\Documents\My Games\Terraria\tModLoader\ModSources\Waybound\obj\Debug\net8.0\Waybound.sourcelink.json

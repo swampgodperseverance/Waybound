@@ -2,6 +2,15 @@ Projectiles: {
 	CruorStar.DisplayName: Cruor Star
 	CruorSpike.DisplayName: Cruor Spike
 	JewelerProj.DisplayName: Jeweler Proj
+	Gut.DisplayName: Gut
+	GutsJew.DisplayName: Guts Jew
+	FriendlyStar.DisplayName: Friendly Star
+	GoldBearerProj.DisplayName: Gold Bearer Proj
+	OssuaryStaffProj.DisplayName: Ossuary Staff Proj
+	ProdigalSeraph.DisplayName: Prodigal Seraph
+	ProdigyAshen.DisplayName: Prodigy Ashen
+	ProdigyGold.DisplayName: Prodigy Gold
+	ProdigyLava.DisplayName: Prodigy Lava
 }
 
 NPCs.Cruor.DisplayName: Cruor
@@ -41,4 +50,111 @@ Items: {
 		DisplayName: Cogworm Relic Item
 		Tooltip: ""
 	}
+
+	CoreburnedBreastplate: {
+		DisplayName: Coreburned Breastplate
+		Tooltip: ""
+	}
+
+	CoreburnedHelmet: {
+		DisplayName: Coreburned Helmet
+		Tooltip: ""
+	}
+
+	CoreburnedLeggings: {
+		DisplayName: Coreburned Leggings
+		Tooltip: ""
+	}
+
+	ThunderBody: {
+		DisplayName: Thunder Body
+		Tooltip: ""
+	}
+
+	ThunderHead: {
+		DisplayName: Thunder Head
+		Tooltip: ""
+	}
+
+	ThunderLegs: {
+		DisplayName: Thunder Legs
+		Tooltip: ""
+	}
+
+	Gutshelmet: {
+		DisplayName: Gutshelmet
+		Tooltip: ""
+	}
+
+	Gutslegs: {
+		DisplayName: Gutslegs
+		Tooltip: ""
+	}
+
+	Gutsplate: {
+		DisplayName: Gutsplate
+		Tooltip: ""
+	}
+
+	DreadArmor: {
+		DisplayName: Dread Armor
+		Tooltip: ""
+	}
+
+	DreadHelmet: {
+		DisplayName: Dread Helmet
+		Tooltip: ""
+	}
+
+	DreadLeggings: {
+		DisplayName: Dread Leggings
+		Tooltip: ""
+	}
+
+	Bonecling: {
+		DisplayName: Bonecling
+		Tooltip: ""
+	}
+
+	Echelonis: {
+		DisplayName: Echelonis
+		Tooltip: ""
+	}
+
+	GoldBearer: {
+		DisplayName: Gold Bearer
+		Tooltip: ""
+	}
+
+	Starcaller: {
+		DisplayName: Starcaller
+		Tooltip: ""
+	}
+}
+
+Buffs: {
+	Starlord: {
+		DisplayName: Starlord
+		Description: Mods.Waybound.Buffs.Starlord.Description
+	}
+
+	ProdigyBuff: {
+		Description: Mods.Waybound.Buffs.ProdigyBuff.Description
+		DisplayName: Prodigy Buff
+	}
+
+	OssuaryBuff: {
+		Description: Mods.Waybound.Buffs.OssuaryBuff.Description
+		DisplayName: Ossuary Buff
+	}
+
+	GoldBearerBuff: {
+		Description: Mods.Waybound.Buffs.GoldBearerBuff.Description
+		DisplayName: Gold Bearer Buff
+	}
+}
+
+Keybinds: {
+	ToggleAuraMode.DisplayName: Toggle Aura Mode
+	ArmorSetBonusActivate.DisplayName: Armor Set Bonus Activate
 }

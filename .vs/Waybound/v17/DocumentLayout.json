@@ -3,6 +3,98 @@
   "WorkspaceRootPath": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\armor\\summon\\guts\\gutsplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\armor\\summon\\guts\\gutsplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\armor\\summon\\guts\\gutslegs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\armor\\summon\\guts\\gutslegs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\armor\\summon\\guts\\gutshelmet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\armor\\summon\\guts\\gutshelmet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\armor\\thrower\\dread\\dreadhelmet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\armor\\thrower\\dread\\dreadhelmet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\common\\globalplayer\\armorplayers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:common\\globalplayer\\armorplayers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\helpers\\playerhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:helpers\\playerhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\dusts\\fog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\dusts\\fog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\weapons\\summon\\starcaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\weapons\\summon\\starcaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\weapons\\summon\\goldbearer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\weapons\\summon\\goldbearer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\weapons\\summon\\echelonis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\weapons\\summon\\echelonis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\items\\weapons\\summon\\bonecling.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\items\\weapons\\summon\\bonecling.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\projectiles\\summon\\prodigalseraph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\projectiles\\summon\\prodigalseraph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\projectiles\\summon\\prodigyashen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\projectiles\\summon\\prodigyashen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\projectiles\\summon\\prodigylava.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\projectiles\\summon\\prodigylava.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\projectiles\\summon\\prodigygold.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\projectiles\\summon\\prodigygold.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\projectiles\\summon\\ossuarystaffproj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\projectiles\\summon\\ossuarystaffproj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\buffs\\minions\\starlord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\buffs\\minions\\starlord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\projectiles\\summon\\friendlystar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\projectiles\\summon\\friendlystar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\projectiles\\summon\\goldbearerproj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\projectiles\\summon\\goldbearerproj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\trails\\baseprimtriangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:trails\\baseprimtriangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\buffs\\minions\\prodigybuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\buffs\\minions\\prodigybuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\buffs\\minions\\ossuarybuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\buffs\\minions\\ossuarybuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\content\\buffs\\minions\\goldbearerbuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:content\\buffs\\minions\\goldbearerbuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|c:\\users\\kiril\\documents\\my games\\terraria\\tmodloader\\modsources\\waybound\\common\\modsystems\\wayboundworld.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4CCACDE0-F5AA-64CD-33FE-8CF63496D4A4}|Waybound.csproj|solutionrelative:common\\modsystems\\wayboundworld.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,6 +127,289 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Gutsplate.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Armor\\Summon\\Guts\\Gutsplate.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Armor\\Summon\\Guts\\Gutsplate.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Armor\\Summon\\Guts\\Gutsplate.cs",
+              "RelativeToolTip": "Content\\Items\\Armor\\Summon\\Guts\\Gutsplate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T15:30:08.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Gutslegs.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Armor\\Summon\\Guts\\Gutslegs.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Armor\\Summon\\Guts\\Gutslegs.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Armor\\Summon\\Guts\\Gutslegs.cs",
+              "RelativeToolTip": "Content\\Items\\Armor\\Summon\\Guts\\Gutslegs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T15:30:02.905Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Gutshelmet.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Armor\\Summon\\Guts\\Gutshelmet.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Armor\\Summon\\Guts\\Gutshelmet.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Armor\\Summon\\Guts\\Gutshelmet.cs",
+              "RelativeToolTip": "Content\\Items\\Armor\\Summon\\Guts\\Gutshelmet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T15:27:12.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PlayerHelpers.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Helpers\\PlayerHelpers.cs",
+              "RelativeDocumentMoniker": "Helpers\\PlayerHelpers.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Helpers\\PlayerHelpers.cs",
+              "RelativeToolTip": "Helpers\\PlayerHelpers.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T15:25:54.609Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ArmorPlayers.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Common\\GlobalPlayer\\ArmorPlayers.cs",
+              "RelativeDocumentMoniker": "Common\\GlobalPlayer\\ArmorPlayers.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Common\\GlobalPlayer\\ArmorPlayers.cs",
+              "RelativeToolTip": "Common\\GlobalPlayer\\ArmorPlayers.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAwwDwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T15:24:33.132Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Fog.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Dusts\\Fog.cs",
+              "RelativeDocumentMoniker": "Content\\Dusts\\Fog.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Dusts\\Fog.cs",
+              "RelativeToolTip": "Content\\Dusts\\Fog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T15:14:38.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DreadHelmet.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Armor\\Thrower\\Dread\\DreadHelmet.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Armor\\Thrower\\Dread\\DreadHelmet.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Armor\\Thrower\\Dread\\DreadHelmet.cs",
+              "RelativeToolTip": "Content\\Items\\Armor\\Thrower\\Dread\\DreadHelmet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T14:12:16.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Starcaller.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Weapons\\Summon\\Starcaller.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\Starcaller.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Weapons\\Summon\\Starcaller.cs",
+              "RelativeToolTip": "Content\\Items\\Weapons\\Summon\\Starcaller.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T12:08:51.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GoldBearer.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Weapons\\Summon\\GoldBearer.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\GoldBearer.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Weapons\\Summon\\GoldBearer.cs",
+              "RelativeToolTip": "Content\\Items\\Weapons\\Summon\\GoldBearer.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T12:08:26.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Echelonis.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Weapons\\Summon\\Echelonis.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\Echelonis.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Weapons\\Summon\\Echelonis.cs",
+              "RelativeToolTip": "Content\\Items\\Weapons\\Summon\\Echelonis.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T12:05:28.896Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Bonecling.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Weapons\\Summon\\Bonecling.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\Bonecling.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Weapons\\Summon\\Bonecling.cs",
+              "RelativeToolTip": "Content\\Items\\Weapons\\Summon\\Bonecling.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAIA+wEQAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T12:04:53.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ProdigyLava.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\ProdigyLava.cs",
+              "RelativeDocumentMoniker": "Content\\Projectiles\\Summon\\ProdigyLava.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\ProdigyLava.cs",
+              "RelativeToolTip": "Content\\Projectiles\\Summon\\ProdigyLava.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T12:01:55.095Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ProdigyGold.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\ProdigyGold.cs",
+              "RelativeDocumentMoniker": "Content\\Projectiles\\Summon\\ProdigyGold.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\ProdigyGold.cs",
+              "RelativeToolTip": "Content\\Projectiles\\Summon\\ProdigyGold.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T12:01:29.882Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ProdigyAshen.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\ProdigyAshen.cs",
+              "RelativeDocumentMoniker": "Content\\Projectiles\\Summon\\ProdigyAshen.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\ProdigyAshen.cs",
+              "RelativeToolTip": "Content\\Projectiles\\Summon\\ProdigyAshen.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T11:53:23.594Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ProdigalSeraph.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\ProdigalSeraph.cs",
+              "RelativeDocumentMoniker": "Content\\Projectiles\\Summon\\ProdigalSeraph.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\ProdigalSeraph.cs",
+              "RelativeToolTip": "Content\\Projectiles\\Summon\\ProdigalSeraph.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAAwKYAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T11:52:42.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "OssuaryStaffProj.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\OssuaryStaffProj.cs",
+              "RelativeDocumentMoniker": "Content\\Projectiles\\Summon\\OssuaryStaffProj.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\OssuaryStaffProj.cs",
+              "RelativeToolTip": "Content\\Projectiles\\Summon\\OssuaryStaffProj.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAYwDEAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T11:52:13.268Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "BasePrimTriangle.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Trails\\BasePrimTriangle.cs",
+              "RelativeDocumentMoniker": "Trails\\BasePrimTriangle.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Trails\\BasePrimTriangle.cs",
+              "RelativeToolTip": "Trails\\BasePrimTriangle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T11:47:36.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "GoldBearerProj.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\GoldBearerProj.cs",
+              "RelativeDocumentMoniker": "Content\\Projectiles\\Summon\\GoldBearerProj.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\GoldBearerProj.cs",
+              "RelativeToolTip": "Content\\Projectiles\\Summon\\GoldBearerProj.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T20:21:24.064Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "FriendlyStar.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\FriendlyStar.cs",
+              "RelativeDocumentMoniker": "Content\\Projectiles\\Summon\\FriendlyStar.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Projectiles\\Summon\\FriendlyStar.cs",
+              "RelativeToolTip": "Content\\Projectiles\\Summon\\FriendlyStar.cs",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAAwLIAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T20:20:50.895Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Starlord.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Buffs\\Minions\\Starlord.cs",
+              "RelativeDocumentMoniker": "Content\\Buffs\\Minions\\Starlord.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Buffs\\Minions\\Starlord.cs",
+              "RelativeToolTip": "Content\\Buffs\\Minions\\Starlord.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T20:18:58.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ProdigyBuff.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Buffs\\Minions\\ProdigyBuff.cs",
+              "RelativeDocumentMoniker": "Content\\Buffs\\Minions\\ProdigyBuff.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Buffs\\Minions\\ProdigyBuff.cs",
+              "RelativeToolTip": "Content\\Buffs\\Minions\\ProdigyBuff.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T20:18:51.583Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "OssuaryBuff.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Buffs\\Minions\\OssuaryBuff.cs",
+              "RelativeDocumentMoniker": "Content\\Buffs\\Minions\\OssuaryBuff.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Buffs\\Minions\\OssuaryBuff.cs",
+              "RelativeToolTip": "Content\\Buffs\\Minions\\OssuaryBuff.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T20:18:32.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "GoldBearerBuff.cs",
+              "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Buffs\\Minions\\GoldBearerBuff.cs",
+              "RelativeDocumentMoniker": "Content\\Buffs\\Minions\\GoldBearerBuff.cs",
+              "ToolTip": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Buffs\\Minions\\GoldBearerBuff.cs",
+              "RelativeToolTip": "Content\\Buffs\\Minions\\GoldBearerBuff.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-27T20:15:32.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "WayboundWorld.cs",
               "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Common\\ModSystems\\WayboundWorld.cs",
               "RelativeDocumentMoniker": "Common\\ModSystems\\WayboundWorld.cs",
@@ -42,12 +417,11 @@
               "RelativeToolTip": "Common\\ModSystems\\WayboundWorld.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-27T17:06:00.243Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-27T17:06:00.243Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 25,
               "Title": "GlobalUsings.cs",
               "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\GlobalUsings.cs",
               "RelativeDocumentMoniker": "GlobalUsings.cs",
@@ -55,12 +429,11 @@
               "RelativeToolTip": "GlobalUsings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-27T17:02:21.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-27T17:02:21.698Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 26,
               "Title": "CruorTrophy.cs",
               "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Items\\Placeable\\Bosses\\CruorTrophy.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Placeable\\Bosses\\CruorTrophy.cs",
@@ -68,12 +441,11 @@
               "RelativeToolTip": "Content\\Items\\Placeable\\Bosses\\CruorTrophy.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-27T16:59:55.846Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-27T16:59:55.846Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 27,
               "Title": "CruorDust.cs",
               "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\Dusts\\CruorDust.cs",
               "RelativeDocumentMoniker": "Content\\Dusts\\CruorDust.cs",
@@ -81,12 +453,11 @@
               "RelativeToolTip": "Content\\Dusts\\CruorDust.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-27T16:58:12.203Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-27T16:58:12.203Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 24,
               "Title": "Cruor.cs",
               "DocumentMoniker": "C:\\Users\\kiril\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Waybound\\Content\\NPCs\\Dungeon\\Cruor.cs",
               "RelativeDocumentMoniker": "Content\\NPCs\\Dungeon\\Cruor.cs",
@@ -94,8 +465,7 @@
               "RelativeToolTip": "Content\\NPCs\\Dungeon\\Cruor.cs",
               "ViewState": "AgIAAAYBAAAAAAAAAAApwB0BAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-27T16:57:07.192Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-27T16:57:07.192Z"
             }
           ]
         }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Waybound")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53c26be28e6eaccdd3d5d9fa5e0606e51b2df3c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a6b8a16306fe9c3fc392c55ea7c902a378832d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Waybound")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Waybound")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
