@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Waybound.Common.ModSystems;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

@@ -158,3 +158,10 @@ Keybinds: {
 	ToggleAuraMode.DisplayName: Toggle Aura Mode
 	ArmorSetBonusActivate.DisplayName: Armor Set Bonus Activate
 }
+
+Biomes: {
+	SnowVillage: {
+		DisplayName: Snow Village
+		TownNPCDialogueName: the Snow Village
+	}
+}

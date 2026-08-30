@@ -1,5 +1,5 @@
 ﻿using Waybound.Common.GlobalPlayer;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 using Terraria;
 using Terraria.ID;
 
