@@ -4,18 +4,18 @@ namespace Waybound.Common.ModSystems
 {
     public class VanillaKeybinds : ModSystem
     {
-        public static ModKeybind ToggleAuraModeKeybind { get; private set; }
+        public static ModKeybind DesfosBagActivation { get; private set; }
         public static ModKeybind ArmorSetBonusActivation { get; private set; }
 
         public override void Load()
         {
-            ToggleAuraModeKeybind = KeybindLoader.RegisterKeybind(Mod, "ToggleAuraMode", "J");
+            DesfosBagActivation = KeybindLoader.RegisterKeybind(Mod, "DesfosBagActivate", "B");
             ArmorSetBonusActivation = KeybindLoader.RegisterKeybind(Mod, "ArmorSetBonusActivate", "K");
         }
 
         public override void Unload()
         {
-            ToggleAuraModeKeybind = null;
+            DesfosBagActivation = null;
             ArmorSetBonusActivation = null;
         }
     }
