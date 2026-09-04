@@ -360,7 +360,7 @@ namespace Waybound.Common.ModSystems.WorldGens
         }
         static void GenerateBarrelLoot(Item[] ChestInventory, int BarrelIndex)
         {
-            ChestInventory[BarrelIndex].SetDefaults(Utils.SelectRandom(WorldGen.genRand, ItemID.IceBlade, ItemID.IceBoomerang, ItemID.Snowball));
+            ChestInventory[BarrelIndex].SetDefaults(Terraria.Utils.SelectRandom(WorldGen.genRand, ItemID.IceBlade, ItemID.IceBoomerang, ItemID.Snowball));
             ChestInventory[BarrelIndex].stack = ChestInventory[BarrelIndex].type == ItemID.Snowball ? 150 : 1; BarrelIndex++;
             WorldHelper.RandomLootInCoutainer(ChestInventory, ref BarrelIndex, 1, 1, ItemID.BlizzardinaBottle, ItemID.FlurryBoots, ItemID.IceSkates);
             WorldHelper.LootInContainers(ChestInventory, ref BarrelIndex, ItemID.Fish, 1, 1);

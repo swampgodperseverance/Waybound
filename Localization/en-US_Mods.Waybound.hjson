@@ -135,12 +135,13 @@ Items: {
 
 	ThunderSigil: {
 		DisplayName: Bloody Necklace
-		Tooltip: 
+		Tooltip:
 			'''
 			When equipping, if you target an enemy creature bar: [TBPreview: 1]
 			if the strip is completely filled: [TBPreview: FullBar] 
 			You'll be able to dodge one attack
 			'''
+	}
 
 	Titanoboa: {
 		Tooltip: ""

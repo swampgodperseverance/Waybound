@@ -37,6 +37,7 @@ internal static class Ons {
     }
     static void DrawBar(On_Main.orig_DrawInterface_36_Cursor orig) {
         orig();
+        if (Main.gameMenu) { return; }
         ThunderSigilPlayer modPlayer = Main.LocalPlayer.GetModPlayer<ThunderSigilPlayer>();
         if (modPlayer.BarAlpha > 0) {
             ref SpriteBatch sB = ref Main.spriteBatch;  
@@ -49,20 +50,13 @@ internal static class Ons {
             if (barProgress > 2 && barProgress <= 26) { UI.DrawTexture(sB, asset[3].Value, mousePos.X(4 + barProgress).Y(4), color: Color.White * modPlayer.BarAlpha, origin: Vector2.Zero); };
             if (modPlayer.OutLineAlpha > 0) {
                 Effect effect = Resources.Effects.OutLine.Value;
-
                 effect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
                 effect.Parameters["alpha"].SetValue(modPlayer.OutLineAlpha);
-
                 sB.End();
                 sB.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, effect, Main.UIScaleMatrix);
- 
                 UI.DrawTexture(sB, asset[4].Value, mousePos.X(-2).Y(-2), null, Color.White, origin: Vector2.Zero);
-
                 sB.End();
                 sB.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.SamplerStateForCursor, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.UIScaleMatrix);
-
-                //Main.NewText(modPlayer.OutLineAlpha);
-                //Lighting.AddLight(new(mousePos.X + asset[1].Value.Width / 2, mousePos.Y - asset[1].Value.Height / 2), new Vector3(1.0f, 0.75f, 0.2f));
             };
         };
     }
