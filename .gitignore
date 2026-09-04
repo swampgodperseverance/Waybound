@@ -1,5 +1,4 @@
 /.vs
-/obj
 /bin
 /Changes
 /Changes
@@ -10,3 +9,7 @@
 *.bin
 *.bin
 *.db
+
+/obj
+.editorconfig
+

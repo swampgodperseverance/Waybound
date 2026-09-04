@@ -1,25 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+namespace Waybound;
+public class Waybound : Mod {
+    public Waybound() => _instance = this;
 
-namespace Waybound
-{
-	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
-	public class Waybound : Mod
-	{
-        public static Waybound Instance { get; private set; }
+    public static Mod Instance => _instance;
+    static Mod _instance = null;
 
-        public override void Load()
-        {
-            Instance = this;
-        }
+    public static string ModName => Instance == null ? "Waybound" : Instance.DisplayName;
 
-        public override void Unload()
-        {
-            Instance = null;
-        }
-    }
-}
+    public override void Load() => Loader.Load(this);
+    public override void Unload() => Loader.Unload();
+
+
+};
+

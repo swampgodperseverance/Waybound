@@ -33,7 +33,7 @@ namespace Waybound.Content.Items.Armor.Thrower.Dread
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = LocUtil.ItemTooltip(LocUtil.ARM, "DreadSetBonus");
+            player.setBonus = Loc.GetTips("Armor.DreadSetBonus");
             player.endurance += 0.12f;
             DreadDashPlayer dashPlayer = player.GetModPlayer<DreadDashPlayer>();
             dashPlayer.dashAvailable = true;

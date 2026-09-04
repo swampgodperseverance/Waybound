@@ -1,3 +1,4 @@
+using Terraria;
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Waybound.Common.ModSystems;
@@ -5,7 +6,8 @@ using Waybound.Common.WUtils;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
+using Waybound.Common.ModSystems;
+using Waybound.Common.Utils;
 
 namespace Waybound.Content.Items.Armor.Melee.Coreburned
 {
@@ -43,7 +45,7 @@ namespace Waybound.Content.Items.Armor.Melee.Coreburned
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = LocUtil.ItemTooltip(LocUtil.ARM, "CoreburnedSetBonus");
+            player.setBonus = Loc.GetTips("Armor.CoreburnedSetBonus");
             player.GetDamage(DamageClass.Melee) += 0.10f;
             player.GetModPlayer<CoreburnedPlayer>().coreburnedSet = true;
         }

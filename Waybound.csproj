@@ -5,12 +5,9 @@
 
 	<!-- General -->
 	<PropertyGroup>
-		
+		  <LangVersion>14.0</LangVersion>
 	</PropertyGroup>
 
 	<!-- References -->
-	<ItemGroup>
-		
-	</ItemGroup>
 
 </Project>

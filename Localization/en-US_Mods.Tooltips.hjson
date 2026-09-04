@@ -1,0 +1,12 @@
+Items: {
+}
+
+Armor: {
+	CoreburnedSetBonus: TEXT
+	ThunderSetBonus: TEXT
+	GutsSetBonus: TEXT
+	DreadSetBonus: TEXT
+}
+
+Acc: {
+}
