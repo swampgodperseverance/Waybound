@@ -130,6 +130,21 @@ Items: {
 		DisplayName: Starcaller
 		Tooltip: ""
 	}
+
+	ThunderSigil: {
+		DisplayName: Bloody Necklace
+		Tooltip: 
+			'''
+			When equipping, if you target an enemy creature bar: [TBPreview: 1]
+			if the strip is completely filled: [TBPreview: FullBar] 
+			You'll be able to dodge one attack
+			'''
+	}
+
+	DesfosBag: {
+		DisplayName: Desfos Bag
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -158,3 +173,5 @@ Keybinds: {
 	ToggleAuraMode.DisplayName: Toggle Aura Mode
 	ArmorSetBonusActivate.DisplayName: Armor Set Bonus Activate
 }
+
+Tiles.NoticeBoard.MapEntry: Notice Board

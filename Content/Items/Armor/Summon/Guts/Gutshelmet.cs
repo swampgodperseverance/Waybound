@@ -41,7 +41,7 @@ namespace Waybound.Content.Items.Armor.Summon.Guts
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = LocUtil.ItemTooltip(LocUtil.ARM, "GutsSetBonus");
+            player.setBonus = Loc.GetTips("Armor.GutsSetBonus");
             player.GetDamage(DamageClass.Summon) += 0.18f;
 
             var modPlayer = player.GetModPlayer<GutsArmorPlayer>();

@@ -21,7 +21,7 @@ public sealed class ThunderHead : ModItem {
     }
     public override bool IsArmorSet(Item head, Item body, Item legs) => body.type == ItemType<ThunderBody>() && legs.type == ItemType<ThunderLegs>() && head.type == Type;
     public override void UpdateArmorSet(Player player) {
-        player.setBonus = LocUtil.ItemTooltip(LocUtil.ARM, "ThunderSetBonus");
+        player.setBonus = Loc.GetTips("Armor.ThunderSetBonus");
         player.GetDamage(DamageClass.Melee) += 0.10f;
         player.GetModPlayer<ArmorPlayers>().thunderSet = true;
     }
