@@ -11,6 +11,8 @@ Projectiles: {
 	ProdigyAshen.DisplayName: Prodigy Ashen
 	ProdigyGold.DisplayName: Prodigy Gold
 	ProdigyLava.DisplayName: Prodigy Lava
+	AnacondaProj.DisplayName: Anaconda Proj
+	TitanoboaHoldout.DisplayName: Titanoboa Holdout
 }
 
 NPCs.Cruor.DisplayName: Cruor
@@ -139,6 +141,10 @@ Items: {
 			if the strip is completely filled: [TBPreview: FullBar] 
 			You'll be able to dodge one attack
 			'''
+
+	Titanoboa: {
+		Tooltip: ""
+		DisplayName: Titanoboa
 	}
 
 	DesfosBag: {
@@ -172,6 +178,14 @@ Buffs: {
 Keybinds: {
 	ToggleAuraMode.DisplayName: Toggle Aura Mode
 	ArmorSetBonusActivate.DisplayName: Armor Set Bonus Activate
+	DesfosBagActivate.DisplayName: Desfos Bag Activate
+}
+
+Biomes: {
+	SnowVillage: {
+		DisplayName: Snow Village
+		TownNPCDialogueName: the Snow Village
+	}
 }
 
 Tiles.NoticeBoard.MapEntry: Notice Board

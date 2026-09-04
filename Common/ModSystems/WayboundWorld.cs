@@ -2,6 +2,8 @@
 using System.IO;
 using Terraria;
 using Terraria.ModLoader.IO;
+using Waybound.Common.ModSystems.WorldGens;
+using Waybound.Helpers;
 
 
 namespace Waybound.Common.ModSystems {
@@ -10,7 +12,7 @@ namespace Waybound.Common.ModSystems {
 
         public static int SwampChestindex { get; set; } = -1;
 
-       // public static bool FirstEnterInSnowVillage { get; internal set; }
+        public static bool FirstEnterInSnowVillage { get; internal set; }
        // public static bool FirstEnterInHellVillage { get; internal set; }
         //public static bool SpawnDwarf { get; internal set; }
 
@@ -28,7 +30,7 @@ namespace Waybound.Common.ModSystems {
         public override void ClearWorld() {
             SwampChestindex = -1;
 
-           // FirstEnterInSnowVillage = false;
+            FirstEnterInSnowVillage = false;
           //  FirstEnterInHellVillage = false;
             //SpawnDwarf = false;
            // sinlordDead = false;
@@ -40,7 +42,7 @@ namespace Waybound.Common.ModSystems {
         public override void OnWorldLoad() {
             SwampChestindex = -1;
 
-           // FirstEnterInSnowVillage = false;
+            FirstEnterInSnowVillage = false;
            // FirstEnterInHellVillage = false;
            // SpawnDwarf = false;
           //  sinlordDead = false;
@@ -50,7 +52,7 @@ namespace Waybound.Common.ModSystems {
          //   OpenChest = false;
         }
         public override void SaveWorldData(TagCompound tag) {
-            //tag["FirstEnterInSnowVillage"] = FirstEnterInSnowVillage;
+            tag["FirstEnterInSnowVillage"] = FirstEnterInSnowVillage;
             //tag["FirstEnterInHellVillage"] = FirstEnterInHellVillage;
             //tag["SpawnDwarf"] = SpawnDwarf;
             //tag["SinlordDead"] = sinlordDead;
@@ -59,7 +61,7 @@ namespace Waybound.Common.ModSystems {
          //   tag["OpenChest"] = OpenChest;
         }
         public override void LoadWorldData(TagCompound tag) {
-            //FirstEnterInSnowVillage = tag.GetBool("FirstEnterInSnowVillage");
+            FirstEnterInSnowVillage = tag.GetBool("FirstEnterInSnowVillage");
             //FirstEnterInHellVillage = tag.GetBool("FirstEnterInHellVillage");
             //SpawnDwarf = tag.GetBool("SpawnDwarf");
             //sinlordDead = tag.GetBool("SinlordDead");
@@ -68,26 +70,26 @@ namespace Waybound.Common.ModSystems {
            // OpenChest = tag.GetBool("OpenChest");
         }
         sealed public override void NetSend(BinaryWriter writer) {
-            //writer.Write(FirstEnterInSnowVillage);
+            writer.Write(FirstEnterInSnowVillage);
             //writer.Write(FirstEnterInHellVillage);
             //writer.Write(SpawnDwarf);
             //writer.Write(SpawnCristal);
             //writer.Write(OpenChest);
         }
         sealed public override void NetReceive(BinaryReader reader) {
-            //FirstEnterInSnowVillage = reader.ReadBoolean();
+            FirstEnterInSnowVillage = reader.ReadBoolean();
             //FirstEnterInHellVillage = reader.ReadBoolean();
             //SpawnDwarf = reader.ReadBoolean();
             //SpawnCristal = reader.ReadBoolean();
             //OpenChest = reader.ReadBoolean();
         }
         public override void PostWorldGen() {
-            //WorldHelper.AddContainersLoot(13, 3, SkyChest, ItemType<Starcaller>());
+         //   WorldHelper.AddContainersLoot(13, 3, SkyChest, ItemType<Starcaller>());
             //WorldHelper.CleaningLiquid(HellVillageX - 220, HellVillageY - 115, HellVillageX - 57, HellVillageY - 67);
             //WorldHelper.CleaningLiquid(HellLakeX - 214, HellVillageY - 112, HellLakeX, HellVillageY - 80);
         }
         public override void PostUpdateWorld() {
-            //if (!SnowVillageGen) { FirstEnterInSnowVillage = true; }
+            if (!WayboundGenVars.SnowVillageGen) { FirstEnterInSnowVillage = true; }
             //if (!HellVillageGen) { FirstEnterInHellVillage = true; }
             //if (NPC.downedGolemBoss && !DownedBossSystem.DownedSinlordBoss && !SpawnCristal) {
             //    SynegiaHelper.SpawnNPC((HellArenaPositionX - 198 + 110) * 16, (HellArenaPositionY - 28) * 16, NPCType<HellheartMonolith>());

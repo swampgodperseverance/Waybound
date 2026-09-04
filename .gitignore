@@ -1,5 +1,3 @@
-.editorconfig
 /.vs
-bin/Debug/net8.0/Waybound.deps.json
 /bin
 /obj
