@@ -6,3 +6,7 @@
 /Changes
 /Changes/VanillaChanges/NPCs
 /Changes/VanillaChanges/NPCs
+/.vs
+*.bin
+*.bin
+*.db
