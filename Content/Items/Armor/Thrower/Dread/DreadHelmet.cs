@@ -1,12 +1,11 @@
 ﻿using System;
+using Terraria;
+using Terraria.GameInput;
+using Terraria.ID;
 using Waybound.Common.ModSystems;
 using Waybound.Common.Rarities;
 using Waybound.Common.Utils;
 using Waybound.Content.Dusts;
-using Terraria;
-using Terraria.GameInput;
-using Terraria.Graphics.Renderers;
-using Terraria.ID;
 
 namespace Waybound.Content.Items.Armor.Thrower.Dread
 {
