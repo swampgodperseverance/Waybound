@@ -133,6 +133,15 @@ Items: {
 		Tooltip: ""
 	}
 
+	ThunderSigil: {
+		DisplayName: Bloody Necklace
+		Tooltip: 
+			'''
+			When equipping, if you target an enemy creature bar: [TBPreview: 1]
+			if the strip is completely filled: [TBPreview: FullBar] 
+			You'll be able to dodge one attack
+			'''
+
 	Titanoboa: {
 		Tooltip: ""
 		DisplayName: Titanoboa
@@ -178,3 +187,5 @@ Biomes: {
 		TownNPCDialogueName: the Snow Village
 	}
 }
+
+Tiles.NoticeBoard.MapEntry: Notice Board
