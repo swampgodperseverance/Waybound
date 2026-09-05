@@ -27,7 +27,9 @@ public static class UI {
         }
         return arr;
     }
-    public static string GetButtonName(ModKeybind key) => key.GetAssignedKeys().Count > 0 ? key.GetAssignedKeys()[0] : Loc.Get("Keybinds.NotKey");
+    public static string GetButtonName(ModKeybind key) => key.GetAssignedKeys().Count > 0 ? key.GetAssignedKeys()[0] : 
+        
+        Loc.Get("Keybinds.NotKey");
     public static bool LeftClick() => Main.mouseLeft && Main.mouseLeftRelease;
     public static bool RightClick() => Main.mouseRight && Main.mouseRightRelease;
     public static Vector2 GetMousePos() => new(Main.mouseX, Main.mouseY);

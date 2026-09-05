@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Waybound.Common.Utils;
 
-namespace Waybound.Content.Tiles;
+namespace Waybound.Content.Tiles.Functional;
 
 public class NoticeBoard : ModTile {
     public override void SetStaticDefaults() {

@@ -1,3 +1,10 @@
+
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Waybound.Common.GlobalPlayer;
+using Waybound.Common.Rarities;
+using Waybound.Common.Utils;
 ﻿using System.Linq;
 using Terraria;
 using Terraria.ID;
