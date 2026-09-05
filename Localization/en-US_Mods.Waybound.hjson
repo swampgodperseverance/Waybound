@@ -137,11 +137,11 @@ Items: {
 
 	ThunderSigil: {
 		DisplayName: Bloody Necklace
+		DisplayName: Thunder Sigil
 		Tooltip:
 			'''
-			When equipping, if you target an enemy creature bar: [TBPreview: 1]
-			if the strip is completely filled: [TBPreview: FullBar] 
-			You'll be able to dodge one attack
+			If the cursor is over an enemy, a bar will appear: [TBPreview: 1]
+			If the bar is full: [TBPreview: FullBar]. you'll be able to dodge one attack
 			'''
 	}
 
@@ -185,6 +185,16 @@ Buffs: {
 	GoldBearerBuff: {
 		Description: Mods.Waybound.Buffs.GoldBearerBuff.Description
 		DisplayName: Gold Bearer Buff
+	}
+
+	ThunderSigilBuff: {
+		DisplayName: Thunder Shield
+		Description:
+			'''
+			You emit light
+			When fully charged, the light is brighter, 
+			And you may not take damage from a single attack.
+			'''
 	}
 }
 

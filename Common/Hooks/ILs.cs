@@ -1,7 +1,6 @@
 ﻿using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using Terraria;
-using Terraria.GameContent.UI.Chat;
 using Terraria.ID;
 using Waybound.Common.GlobalPlayer;
 
@@ -29,10 +28,18 @@ internal static class ILs {
                     modPlayer.visualOnly = true;
                     if (modPlayer.OutLineAlpha == 0) {
                         if (modPlayer.BarAlpha == 0) { modPlayer.npcIndex = -1; };
-                        modPlayer.WorkTime -= 5;
+                        if (modPlayer.activeEffect) { modPlayer.UpdateAlpha(true); }
+                        else { modPlayer.WorkTime -= 2; };
                         if (modPlayer.WorkTime == 0) { modPlayer.UpdateAlpha(true); };
-                    }
-                } else { modPlayer.UpdateAlpha(false); };
+                    };
+                    if (modPlayer.activeEffect) {
+                        modPlayer.UpdateOutLineAlpha(true);
+                        if (modPlayer.BarAlpha == 0) { modPlayer.npcIndex = -1; };
+                    };
+                } else { 
+                    modPlayer.UpdateAlpha(false);
+                    modPlayer.visualOnly = false;
+                };
             };
         });
         c.GotoNext(MoveType.After, i => i.MatchLdstr("/"));
