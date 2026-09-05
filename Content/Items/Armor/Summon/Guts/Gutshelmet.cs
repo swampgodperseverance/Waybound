@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Waybound.Common.GlobalPlayer;
 using Waybound.Common.Rarities;
-using Waybound.Common.WUtils;
+using Waybound.Common.Utils;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

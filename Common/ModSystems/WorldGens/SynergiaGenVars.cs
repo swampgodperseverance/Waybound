@@ -8,9 +8,12 @@ namespace Waybound.Common.ModSystems.WorldGens {
     public class WayboundGenVars : ModSystem {
         public static List<Vector2> VillageTiles { get; set; } = [];
         public static List<Vector2> VillageWalles { get; set; } = [];
-
+        public static List<Vector2> DesertPillar1Tiles { get; set; } = [];
+        public static List<Vector2> DesertPillar1Walles { get; set; } = [];
         public static int SnowVillagePositionX { get; set; }
         public static int SnowVillagePositionY { get; set; }
+        public static int DesertPillar1PositionX { get; set; }
+        public static int DesertPillar1PositionY { get; set; }
         //public static int HellArenaPositionX { get; set; }
         //public static int HellArenaPositionY { get; set; }
         //public static int HellVillageX { get; set; }
@@ -24,13 +27,18 @@ namespace Waybound.Common.ModSystems.WorldGens {
 
         public static bool SnowVillageGen { get; set; }
         //public static bool HellVillageGen { get; set; }
-
+        public static bool DesertPillar1Gen { get; set; }
         public override void OnWorldLoad() {
             VillageTiles.Clear();
             VillageWalles.Clear();
 
             SnowVillagePositionX = 0;
             SnowVillagePositionY = 0;
+
+            DesertPillar1Tiles.Clear();
+            DesertPillar1Walles.Clear();
+            DesertPillar1PositionX = 0;
+            DesertPillar1PositionY = 0;
             //HellArenaPositionX = 0;
             //HellArenaPositionY = 0;
             //HellVillageX = 0;
@@ -43,6 +51,7 @@ namespace Waybound.Common.ModSystems.WorldGens {
             //HLTY = 0;
 
             SnowVillageGen = false;
+            SnowVillageGen = false;
             //HellVillageGen = false;
         }
         public override void SaveWorldData(TagCompound tag) {
@@ -51,6 +60,12 @@ namespace Waybound.Common.ModSystems.WorldGens {
 
             tag["SnowVillagePositionX"] = SnowVillagePositionX;
             tag["SnowVillagePositionY"] = SnowVillagePositionY;
+
+            tag["DesertPillar1Tiles"] = DesertPillar1Tiles;
+            tag["DesertPillar1Walles"] = DesertPillar1Walles;
+
+            tag["DesertPillar1PositionX"] = DesertPillar1PositionX;
+            tag["DesertPillar1PositionY"] = DesertPillar1PositionY;
             //tag["HellArenaPositionX"] = HellArenaPositionX;
             //tag["HellArenaPositionY"] = HellArenaPositionY;
             //tag["hellVillageX"] = HellVillageX;
@@ -63,6 +78,7 @@ namespace Waybound.Common.ModSystems.WorldGens {
             //tag["HLTY"] = HLTY;
 
             tag["SnowVillageGen"] = SnowVillageGen;
+            tag["DesertPillar1Gen"] = DesertPillar1Gen;
             //tag["HellVillageGen"] = HellVillageGen;
         }
         public override void LoadWorldData(TagCompound tag) {
@@ -71,6 +87,12 @@ namespace Waybound.Common.ModSystems.WorldGens {
 
             SnowVillagePositionX = tag.GetInt("SnowVillagePositionX");
             SnowVillagePositionY = tag.GetInt("SnowVillagePositionY");
+
+            DesertPillar1Tiles = tag.Get<List<Vector2>>("DesertPillar1Tiles");
+            DesertPillar1Walles = tag.Get<List<Vector2>>("DesertPillar1Walles");
+
+            DesertPillar1PositionX = tag.GetInt("DesertPillar1PositionX");
+            DesertPillar1PositionY = tag.GetInt("DesertPillar1PositionY");
             //HellArenaPositionX = tag.GetInt("HellArenaPositionX");
             //HellArenaPositionY = tag.GetInt("HellArenaPositionY");
             //HellVillageX = tag.GetInt("hellVillageX");
@@ -83,12 +105,13 @@ namespace Waybound.Common.ModSystems.WorldGens {
             //HLTY = tag.GetInt("HLTY");
 
             SnowVillageGen = tag.GetBool("SnowVillageGen");
+            DesertPillar1Gen = tag.GetBool("DesertPillar1Gen");
             //HellVillageGen = tag.GetBool("HellVillageGen");
 
             //if (ModList.Fargo != null) {
             //    Rectangle arena = new((Main.maxTilesX - 1493 + HellArenaPositionX - HellLakeX) * 16, (Main.maxTilesY - 162) * 16, (HellLakeX + 236) * 16, (HellLakeY - 119) * 16);
             //    ModList.Fargo.Call("AddIndestructibleRectangle", arena);
-            
+
         }
         public override void NetSend(BinaryWriter writer) {
             writer.Write(VillageTiles.Count);
@@ -98,6 +121,14 @@ namespace Waybound.Common.ModSystems.WorldGens {
 
             writer.Write(SnowVillagePositionX);
             writer.Write(SnowVillagePositionY);
+
+            writer.Write(DesertPillar1Tiles.Count);
+            foreach (Vector2 v in DesertPillar1Tiles) writer.WriteVector2(v);
+            writer.Write(DesertPillar1Walles.Count);
+            foreach (Vector2 v in DesertPillar1Walles) writer.WriteVector2(v);
+
+            writer.Write(DesertPillar1PositionX);
+            writer.Write(DesertPillar1PositionY);
             //writer.Write(HellArenaPositionX);
             //writer.Write(HellArenaPositionY);
             //writer.Write(HellVillageX);
@@ -110,6 +141,7 @@ namespace Waybound.Common.ModSystems.WorldGens {
             //writer.Write(HLTY);
 
             writer.Write(SnowVillageGen);
+            writer.Write(DesertPillar1Gen);
             //writer.Write(HellVillageGen);
         }
         public override void NetReceive(BinaryReader reader) {

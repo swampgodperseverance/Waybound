@@ -6,6 +6,8 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.WorldBuilding;
+using Waybound.Content.Tiles;
+using Waybound.Content.Tiles.Functional;
 
 namespace Waybound.Common.ModSystems.WorldGens
 {
@@ -223,7 +225,7 @@ namespace Waybound.Common.ModSystems.WorldGens
 
             WorldGen.PlaceObject(WayboundGenVars.SnowVillagePositionX + 86, WayboundGenVars.SnowVillagePositionY - 9, TileID.Lampposts);
             WorldGen.PlaceObject(WayboundGenVars.SnowVillagePositionX + 80, WayboundGenVars.SnowVillagePositionY - 9, TileID.Tables, mute: false, 28);
-            // WorldGen.PlaceObject(WayboundGenVars.SnowVillagePositionX + 66, WayboundGenVars.SnowVillagePositionY - 9, Valhalla.Find<ModTile>("Millstone").Type);
+           WorldGen.PlaceObject(WayboundGenVars.SnowVillagePositionX + 66, WayboundGenVars.SnowVillagePositionY - 10, ModContent.TileType<NoticeBoard>());
             WorldGen.PlaceObject(WayboundGenVars.SnowVillagePositionX + 5, WayboundGenVars.SnowVillagePositionY - 10, TileID.Statues, mute: false, 32);
             WorldGen.PlaceObject(WayboundGenVars.SnowVillagePositionX + 21, WayboundGenVars.SnowVillagePositionY - 11, TileID.Statues);
             WorldGen.PlaceObject(WayboundGenVars.SnowVillagePositionX + 62, WayboundGenVars.SnowVillagePositionY - 10, TileID.Lampposts);
@@ -360,7 +362,7 @@ namespace Waybound.Common.ModSystems.WorldGens
         }
         static void GenerateBarrelLoot(Item[] ChestInventory, int BarrelIndex)
         {
-            ChestInventory[BarrelIndex].SetDefaults(Utils.SelectRandom(WorldGen.genRand, ItemID.IceBlade, ItemID.IceBoomerang, ItemID.Snowball));
+            ChestInventory[BarrelIndex].SetDefaults(Terraria.Utils.SelectRandom(WorldGen.genRand, ItemID.IceBlade, ItemID.IceBoomerang, ItemID.Snowball));
             ChestInventory[BarrelIndex].stack = ChestInventory[BarrelIndex].type == ItemID.Snowball ? 150 : 1; BarrelIndex++;
             WorldHelper.RandomLootInCoutainer(ChestInventory, ref BarrelIndex, 1, 1, ItemID.BlizzardinaBottle, ItemID.FlurryBoots, ItemID.IceSkates);
             WorldHelper.LootInContainers(ChestInventory, ref BarrelIndex, ItemID.Fish, 1, 1);

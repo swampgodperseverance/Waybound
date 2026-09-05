@@ -13,8 +13,8 @@ Projectiles: {
 	ProdigyLava.DisplayName: Prodigy Lava
 	AnacondaProj.DisplayName: Anaconda Proj
 	TitanoboaHoldout.DisplayName: Titanoboa Holdout
-	nmrwskiHeldProj.DisplayName: nmrwski Held Proj
 	nmrwskiProj.DisplayName: nmrwski Proj
+	nmrwskiHeldProj.DisplayName: nmrwski Held Proj
 }
 
 NPCs.Cruor.DisplayName: Cruor
@@ -137,12 +137,13 @@ Items: {
 
 	ThunderSigil: {
 		DisplayName: Bloody Necklace
-		Tooltip: 
+		Tooltip:
 			'''
 			When equipping, if you target an enemy creature bar: [TBPreview: 1]
 			if the strip is completely filled: [TBPreview: FullBar] 
 			You'll be able to dodge one attack
 			'''
+	}
 
 	Titanoboa: {
 		Tooltip: ""
@@ -160,8 +161,8 @@ Items: {
 	}
 
 	WickedStoneBlock: {
-		DisplayName: Wicked Stone Block
 		Tooltip: ""
+		DisplayName: Wicked Stone Block
 	}
 }
 
@@ -200,4 +201,7 @@ Biomes: {
 	}
 }
 
-Tiles.NoticeBoard.MapEntry: Notice Board
+Tiles: {
+	NoticeBoard.MapEntry: Notice Board
+	ErisSwordTile.MapEntry: Eris Sword Tile
+}
