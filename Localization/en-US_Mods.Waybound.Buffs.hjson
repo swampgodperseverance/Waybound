@@ -1,0 +1,29 @@
+Starlord: {
+	DisplayName: Starlord
+	Description: Mods.Waybound.Buffs.Starlord.Description
+}
+
+ProdigyBuff: {
+	Description: Mods.Waybound.Buffs.ProdigyBuff.Description
+	DisplayName: Prodigy Buff
+}
+
+OssuaryBuff: {
+	Description: Mods.Waybound.Buffs.OssuaryBuff.Description
+	DisplayName: Ossuary Buff
+}
+
+GoldBearerBuff: {
+	Description: Mods.Waybound.Buffs.GoldBearerBuff.Description
+	DisplayName: Gold Bearer Buff
+}
+
+ThunderSigilBuff: {
+	DisplayName: Thunder Shield
+	Description:
+		'''
+		You emit light
+		When fully charged, the light is brighter, 
+		And you may not take damage from a single attack.
+		'''
+}

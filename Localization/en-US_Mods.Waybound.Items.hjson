@@ -1,0 +1,143 @@
+CruorTrophy: {
+	Tooltip: ""
+	DisplayName: Cruor Trophy
+}
+
+CruorRelicItem: {
+	Tooltip: ""
+	DisplayName: Cruor Relic Item
+}
+
+CogwormTrophy: {
+	Tooltip: ""
+	DisplayName: Cogworm Trophy
+}
+
+Jeweler: {
+	DisplayName: Jeweler
+	Tooltip: ""
+}
+
+MortalStones: {
+	DisplayName: Mortal Stones
+	Tooltip: ""
+}
+
+TheOriginOfSymmetry: {
+	DisplayName: The Origin Of Symmetry
+	Tooltip: ""
+}
+
+CogwormRelicItem: {
+	DisplayName: Cogworm Relic Item
+	Tooltip: ""
+}
+
+CoreburnedBreastplate: {
+	DisplayName: Coreburned Breastplate
+	Tooltip: ""
+}
+
+CoreburnedHelmet: {
+	DisplayName: Coreburned Helmet
+	Tooltip: ""
+}
+
+CoreburnedLeggings: {
+	DisplayName: Coreburned Leggings
+	Tooltip: ""
+}
+
+ThunderBody: {
+	DisplayName: Thunder Body
+	Tooltip: ""
+}
+
+ThunderHead: {
+	DisplayName: Thunder Head
+	Tooltip: ""
+}
+
+ThunderLegs: {
+	DisplayName: Thunder Legs
+	Tooltip: ""
+}
+
+Gutshelmet: {
+	DisplayName: Gutshelmet
+	Tooltip: ""
+}
+
+Gutslegs: {
+	DisplayName: Gutslegs
+	Tooltip: ""
+}
+
+Gutsplate: {
+	DisplayName: Gutsplate
+	Tooltip: ""
+}
+
+DreadArmor: {
+	DisplayName: Dread Armor
+	Tooltip: ""
+}
+
+DreadHelmet: {
+	DisplayName: Dread Helmet
+	Tooltip: ""
+}
+
+DreadLeggings: {
+	DisplayName: Dread Leggings
+	Tooltip: ""
+}
+
+Bonecling: {
+	DisplayName: Bonecling
+	Tooltip: ""
+}
+
+Echelonis: {
+	DisplayName: Echelonis
+	Tooltip: ""
+}
+
+GoldBearer: {
+	DisplayName: Gold Bearer
+	Tooltip: ""
+}
+
+Starcaller: {
+	DisplayName: Starcaller
+	Tooltip: ""
+}
+
+ThunderSigil: {
+	DisplayName: Thunder Sigil
+	Tooltip:
+		'''
+		If the cursor is over an enemy, a bar will appear: [TBPreview: 1]
+		If the bar is full: [TBPreview: FullBar]. you'll be able to dodge one attack
+		'''
+}
+
+Titanoboa: {
+	Tooltip: ""
+	DisplayName: Titanoboa
+}
+
+DesfosBag: {
+	DisplayName: Desfos Bag
+	Tooltip: ""
+}
+
+nmrwski: {
+	Tooltip: ""
+	DisplayName: nmrwski
+}
+
+WickedStoneBlock: {
+	DisplayName: Wicked Stone Block
+	Tooltip: ""
+}
