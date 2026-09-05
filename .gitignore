@@ -1,5 +1,15 @@
 /.vs
 /bin
+/Changes
+/Changes
+/Changes
+/Changes/VanillaChanges/NPCs
+/Changes/VanillaChanges/NPCs
+/.vs
+*.bin
+*.bin
+*.db
+
 /obj
 .editorconfig
-bin/Debug/net8.0/Waybound.dll
+/bin/Debug/net8.0/Waybound.dll

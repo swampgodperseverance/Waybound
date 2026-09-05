@@ -13,6 +13,8 @@ Projectiles: {
 	ProdigyLava.DisplayName: Prodigy Lava
 	AnacondaProj.DisplayName: Anaconda Proj
 	TitanoboaHoldout.DisplayName: Titanoboa Holdout
+	nmrwskiHeldProj.DisplayName: nmrwski Held Proj
+	nmrwskiProj.DisplayName: nmrwski Proj
 }
 
 NPCs.Cruor.DisplayName: Cruor
@@ -149,6 +151,16 @@ Items: {
 
 	DesfosBag: {
 		DisplayName: Desfos Bag
+		Tooltip: ""
+	}
+
+	nmrwski: {
+		Tooltip: ""
+		DisplayName: nmrwski
+	}
+
+	WickedStoneBlock: {
+		DisplayName: Wicked Stone Block
 		Tooltip: ""
 	}
 }
