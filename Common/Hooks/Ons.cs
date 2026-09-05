@@ -10,6 +10,7 @@ internal static class Ons {
         On_Main.DrawHealthBar += FixNPCHPBar; // if(HP != MaxHP) { Draw(); };
         On_Main.MouseTextHackZoom_string_int_byte_string += EditTextPos; // fix hover NPC text
         On_Main.DrawInterface_36_Cursor += DrawBar; // Draw bar for acc ThunderSigil
+
         //On_UICharacterCreation.Draw += On_UICharacterCreation_Draw; // Draw custom race;
     }
 

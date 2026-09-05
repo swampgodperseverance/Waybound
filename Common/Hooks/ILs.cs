@@ -31,11 +31,11 @@ internal static class ILs {
                         if (modPlayer.activeEffect) { modPlayer.UpdateAlpha(true); }
                         else { modPlayer.WorkTime -= 2; };
                         if (modPlayer.WorkTime == 0) { modPlayer.UpdateAlpha(true); };
-                    }
+                    };
                     if (modPlayer.activeEffect) {
                         modPlayer.UpdateOutLineAlpha(true);
                         if (modPlayer.BarAlpha == 0) { modPlayer.npcIndex = -1; };
-                    }
+                    };
                 } else { 
                     modPlayer.UpdateAlpha(false);
                     modPlayer.visualOnly = false;
