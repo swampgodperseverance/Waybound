@@ -15,6 +15,7 @@ Projectiles: {
 	TitanoboaHoldout.DisplayName: Titanoboa Holdout
 	nmrwskiProj.DisplayName: nmrwski Proj
 	nmrwskiHeldProj.DisplayName: nmrwski Held Proj
+	QuasimodoProj.DisplayName: Quasimodo Proj
 }
 
 NPCs.Cruor.DisplayName: Cruor
@@ -136,7 +137,6 @@ Items: {
 	}
 
 	ThunderSigil: {
-		DisplayName: Bloody Necklace
 		DisplayName: Thunder Sigil
 		Tooltip:
 			'''
@@ -163,6 +163,41 @@ Items: {
 	WickedStoneBlock: {
 		Tooltip: ""
 		DisplayName: Wicked Stone Block
+	}
+
+	FrozenApple: {
+		DisplayName: Frozen Apple
+		Tooltip: ""
+	}
+
+	Espresso: {
+		Tooltip: ""
+		DisplayName: Espresso
+	}
+
+	ChoCocktail: {
+		Tooltip: ""
+		DisplayName: Cho Cocktail
+	}
+
+	Brine: {
+		Tooltip: ""
+		DisplayName: Brine
+	}
+
+	FruitCocktail: {
+		DisplayName: Fruit Cocktail
+		Tooltip: ""
+	}
+
+	Surstromming: {
+		DisplayName: Surstromming
+		Tooltip: ""
+	}
+
+	Quasimodo: {
+		Tooltip: ""
+		DisplayName: Quasimodo
 	}
 }
 
@@ -195,6 +230,11 @@ Buffs: {
 			When fully charged, the light is brighter, 
 			And you may not take damage from a single attack.
 			'''
+	}
+
+	Drunk: {
+		Description: Mods.Waybound.Buffs.Drunk.Description
+		DisplayName: Drunk
 	}
 }
 
