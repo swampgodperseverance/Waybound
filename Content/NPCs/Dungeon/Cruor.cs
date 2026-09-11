@@ -1,6 +1,5 @@
 ﻿using Waybound.Content.Items.Accessories.Hardmode;
 using Waybound.Content.Projectiles.Hostile.Cruor;
-using Waybound.Content.Dusts;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -12,6 +11,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 using Waybound.Content.Items.Placeable.Bosses;
+using Waybound.Content.Dusts;
 
 namespace Waybound.Content.NPCs.Dungeon
 {

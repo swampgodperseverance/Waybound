@@ -10,7 +10,7 @@ public static class Effects {
     internal static void Load(Mod mod) {
         if (!Terraria.Main.dedServ) {
             AssetRepository asset = mod.Assets;
-            OutLine = asset.Request<Effect>(FilePath("OutLine"), AssetRequestMode.ImmediateLoad);
+            OutLine = asset.Request<Effect>(FilePath("OutLine"), AssetRequestMode.AsyncLoad);
         };
     }
     internal static void Unload() {

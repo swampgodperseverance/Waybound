@@ -141,3 +141,13 @@ WickedStoneBlock: {
 	DisplayName: Wicked Stone Block
 	Tooltip: ""
 }
+
+Nmrwski: {
+	DisplayName: Nmrwski
+	Tooltip: ""
+}
+
+BloodyNecklace: {
+	DisplayName: Bloody Necklace
+	Tooltip: ""
+}

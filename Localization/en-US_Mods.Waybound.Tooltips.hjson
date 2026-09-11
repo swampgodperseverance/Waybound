@@ -8,5 +8,7 @@ Armor: {
 	DreadSetBonus: TEXT
 }
 
-Acc: {
+Acc:{
+BloodyNecklace: Press <{0}> for donation hp and up bonus
 }
+

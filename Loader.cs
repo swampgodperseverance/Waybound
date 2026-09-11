@@ -6,10 +6,10 @@ internal static class Loader {
         Resources.Effects.Load(mod);
         Resources.Audio.Load();
 
-        Common.Hooks.Ons.Load(mod);
-        Common.Hooks.ILs.Load(mod);
+        Common.Hooks.Ons.Load();
+        Common.Hooks.ILs.Load();
 
-        Terraria.UI.Chat.ChatManager.Register<Common.TagHandlers.Bar>("TBPreview"); // TagHendler
+        Common.TagHandlers.TagLoader.Load();
     }
     internal static void Unload() {
         Resources.Textures.Unload();

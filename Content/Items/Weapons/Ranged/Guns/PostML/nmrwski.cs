@@ -1,11 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace Waybound.Content.Items.Weapons.Ranged.Guns.PostML
 {
-    public class nmrwski : ModItem
+    public class Nmrwski : ModItem
     {
         public override void SetDefaults()
         {
@@ -68,7 +66,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.PostML
 
     public class nmrwskiHeldProj : ModProjectile
     {
-        public override string Texture => "Waybound/Content/Items/Weapons/Ranged/Guns/PostML/nmrwski"; 
+        public override string Texture => "Waybound/Content/Items/Weapons/Ranged/Guns/PostML/Nmrwski"; 
 
         public override void SetDefaults()
         {

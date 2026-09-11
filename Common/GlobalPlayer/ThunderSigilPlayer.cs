@@ -17,6 +17,7 @@ public class ThunderSigilPlayer : ModPlayer {
     public int npcIndex = -1;
     public int _currentIndex = -1;
 
+    public float EquippedAlpha { get; private set; } = 0f;
     public float BarAlpha { get; private set; } = 0f;
     public float OutLineAlpha { get; private set; } = 0f;
     float _plaza = 0f;
@@ -29,7 +30,15 @@ public class ThunderSigilPlayer : ModPlayer {
 
     public override void ResetEffects() => equipped = false;
     public override void PostUpdate() {
-        if (equipped) { Player.AddBuff(BuffType<ThunderSigilBuff>(), 1); }
+        if (equipped) {
+            Player.AddBuff(BuffType<ThunderSigilBuff>(), 1);
+            UpdateEquippedAlpha(false);
+        }
+        else {
+            UpdateEquippedAlpha(true);
+            WorkTime = 0;
+            _tick = false;
+        };
         if (!equipped && activeEffect) { SetActiveEffect(false); };
         if (!equipped) {
             UpdateAlpha(true);
@@ -76,6 +85,13 @@ public class ThunderSigilPlayer : ModPlayer {
             if (OutLineAlpha < 0.01f) { OutLineAlpha = 0f; };
         }
         else { OutLineAlpha = MathHelper.Clamp(OutLineAlpha + 0.02f, 0f, 1f); };
+    }
+    public void UpdateEquippedAlpha(bool negative) {
+        if (negative) {
+            EquippedAlpha = MathHelper.Clamp(EquippedAlpha - 0.04f, 0f, 1f);
+            if (EquippedAlpha < 0.01f) { EquippedAlpha = 0f; };
+        }
+        else { EquippedAlpha = MathHelper.Clamp(EquippedAlpha + 0.04f, 0f, 1f); };
     }
     public override bool FreeDodge(Player.HurtInfo info) {
         if (activeEffect) {

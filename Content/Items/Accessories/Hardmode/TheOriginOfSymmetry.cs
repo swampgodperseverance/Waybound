@@ -1,11 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Waybound.Content.Items.Accessories.Hardmode
 {
@@ -47,19 +43,7 @@ namespace Waybound.Content.Items.Accessories.Hardmode
             if (Main.dedServ)
                 return;
 
-            Filters.Scene["Waybound:OriginOfSymmetry"] =
-                new Filter(
-                    new ScreenShaderData(
-                        new Ref<Effect>(
-                            ModContent.Request<Effect>(
-                                "Waybound/Assets/Effects/OriginOfSymmetry",
-                                ReLogic.Content.AssetRequestMode.ImmediateLoad
-                            ).Value
-                        ),
-                        "Pass1"
-                    ),
-                    EffectPriority.VeryHigh
-                );
+            Filters.Scene["Waybound:OriginOfSymmetry"] = new Filter(new ScreenShaderData(new Ref<Effect>(Request<Effect>("Waybound/Assets/Effects/OriginOfSymmetry", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value), "Pass1"), EffectPriority.VeryHigh);
         }
 
         public override void PostUpdateEverything()
