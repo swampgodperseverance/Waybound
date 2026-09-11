@@ -151,3 +151,8 @@ BloodyNecklace: {
 	DisplayName: Bloody Necklace
 	Tooltip: ""
 }
+
+Quasimodo: {
+	DisplayName: Quasimodo
+	Tooltip: ""
+}
