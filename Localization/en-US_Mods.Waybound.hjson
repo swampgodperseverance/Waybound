@@ -1,3 +1,4 @@
+
 Projectiles: {
 	CruorStar.DisplayName: Cruor Star
 	CruorSpike.DisplayName: Cruor Spike
@@ -265,3 +266,4 @@ Tiles: {
 	NoticeBoard.MapEntry: Notice Board
 	ErisSwordTile.MapEntry: Eris Sword Tile
 }
+

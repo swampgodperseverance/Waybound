@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<!-- Import tModLoader mod properties -->
 	<Import Project="..\tModLoader.targets" />
@@ -7,6 +7,9 @@
 	<PropertyGroup>
 		  <LangVersion>14.0</LangVersion>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Folder Include="Assets\Sounds\Music\" />
+	</ItemGroup>
 
 	<!-- References -->
 

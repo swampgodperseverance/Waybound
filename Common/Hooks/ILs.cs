@@ -8,9 +8,30 @@ namespace Waybound.Common.Hooks;
 
 // I LOVE ILCode
 internal static class ILs {
-    internal static void Load(Mod mod) {
+    internal static void Load() {
         IL_Main.HoverOverNPCs += HoverNPC; // Added Point if mouse in NPC
         IL_Main.DrawInterface_14_EntityHealthBars += DrawBar; // Active draw if hp == maxHp
+        IL_Main.CraftItem += IL_Main_CraftItem;
+
+        IL_CombatTextHook.Load();
+        IL_ResourceOverlayHook.Load();
+        IL_UICharacterCreationHook.Load();
+    }
+
+    static void IL_Main_CraftItem(ILContext il) {
+        ILCursor c = new(il);
+        c.Index += 25;
+        c.RemoveRange(15);
+        c.Emit(OpCodes.Ldloc, 0);
+        c.EmitDelegate((Item item) => {
+            bool flag = true;
+            if (flag) {
+                int stack = item.stack;
+                item = new Item(2) { stack = stack };
+            }
+            if (Main.mouseItem.stack > 0) { ItemLoader.StackItems(Main.mouseItem, item, out _); }
+            else { Main.mouseItem = item; }
+        });
     }
 
     static void HoverNPC(ILContext il) {
@@ -33,8 +54,9 @@ internal static class ILs {
                         if (modPlayer.WorkTime == 0) { modPlayer.UpdateAlpha(true); };
                     };
                     if (modPlayer.activeEffect) {
-                        modPlayer.UpdateOutLineAlpha(true);
-                        if (modPlayer.BarAlpha == 0) { modPlayer.npcIndex = -1; };
+                        //modPlayer.UpdateOutLineAlpha(true);
+                        modPlayer.npcIndex = -1;
+                        //if (modPlayer.BarAlpha == 0) { modPlayer.npcIndex = -1; };
                     };
                 } else { 
                     modPlayer.UpdateAlpha(false);
@@ -61,9 +83,14 @@ internal static class ILs {
         ILCursor c = new(il) { Index = 86 };
         c.RemoveRange(8);
     }
+   
 
     internal static void Unload() {
         IL_Main.HoverOverNPCs -= HoverNPC;
         IL_Main.DrawInterface_14_EntityHealthBars -= DrawBar;
+
+        IL_CombatTextHook.Unloadd();
+        IL_ResourceOverlayHook.Unload();
+        IL_UICharacterCreationHook.Unload();
     }
 };

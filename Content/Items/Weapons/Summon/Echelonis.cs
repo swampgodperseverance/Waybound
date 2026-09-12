@@ -1,12 +1,10 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Waybound.Common.Rarities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.ModLoader;
+using Terraria.Localization;
+using Waybound.Common.Rarities;
 using Waybound.Content.Buffs.Minions;
 
 
@@ -41,7 +39,7 @@ namespace Waybound.Content.Items.Weapons.Summon
             Item.height = 40;
             Item.useTime = 30;
             Item.useAnimation = 30;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.noUseGraphic = false;
             Item.staff[Item.type] = true;
             Item.UseSound = SoundID.Item44;
@@ -149,7 +147,7 @@ namespace Waybound.Content.Items.Weapons.Summon
         {
             if (HasConflict(player))
             {
-                player.Hurt(PlayerDeathReason.ByCustomReason("Echelonis Curse..."), 50, 0, false, false, -1);
+                player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Common.Utils.Loc.GetChat("Echelonis"))), 50, 0, false, false, -1);
                 return false;
             }
 

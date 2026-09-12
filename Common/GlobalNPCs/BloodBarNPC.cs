@@ -2,7 +2,7 @@
 using Terraria.GameContent;
 using Waybound.Common.GlobalPlayer;
 
-namespace Waybound.Common {
+namespace Waybound.Common.GlobalNPCs {
     public class BloodBarNPC : GlobalNPC {
         public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position) {
             //if (!npc.friendly) {

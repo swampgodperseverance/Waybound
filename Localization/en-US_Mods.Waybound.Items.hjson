@@ -81,3 +81,18 @@ nmrwski: {
 
 WickedStoneBlock: {
 }
+
+Nmrwski: {
+	DisplayName: Nmrwski
+	Tooltip: ""
+}
+
+BloodyNecklace: {
+	DisplayName: Bloody Necklace
+	Tooltip: ""
+}
+
+Quasimodo: {
+	DisplayName: Quasimodo
+	Tooltip: ""
+}

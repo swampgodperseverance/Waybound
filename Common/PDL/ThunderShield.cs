@@ -8,7 +8,7 @@ namespace Waybound.Common.PDL;
 
 public class ThunderShield : PlayerDrawLayer {
     public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.IceBarrier);
-    public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<ThunderSigilPlayer>().equipped;
+    public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<ThunderSigilPlayer>().EquippedAlpha > 0 && !drawInfo.drawPlayer.dead;
     protected override void Draw(ref PlayerDrawSet drawInfo) {
         Player drawPlayer = drawInfo.drawPlayer;
         ThunderSigilPlayer modPlayer = drawPlayer.GetModPlayer<ThunderSigilPlayer>();
@@ -23,11 +23,11 @@ public class ThunderShield : PlayerDrawLayer {
         barrierElementPos.Y += (float)System.Math.Sin(Main.GlobalTimeWrappedHourly * 4);
 
         DrawData cristalSkletBg;
-        if (modPlayer.activeEffect) { cristalSkletBg = new(asset[7].Value, barrierPos.X(4).Y(14), new Color(180, 180, 180, 200)); }
-        else { cristalSkletBg = new(asset[7].Value, barrierPos.X(4).Y(14), new Color(120, 120, 120, 140)); };
+        if (modPlayer.activeEffect) { cristalSkletBg = new(asset[5].Value, barrierPos.X(4).Y(14), new Color(230, 230, 230, 240) * modPlayer.EquippedAlpha); }
+        else { cristalSkletBg = new(asset[5].Value, barrierPos.X(4).Y(14), new Color(120, 120, 120, 140) * modPlayer.EquippedAlpha); };
         drawInfo.DrawDataCache.Add(cristalSkletBg);
 
-        DrawData cristalSklet = new(asset[6].Value, barrierPos, new(255, 255, 255, 255));
+        DrawData cristalSklet = new(asset[4].Value, barrierPos, Color.White * modPlayer.EquippedAlpha);
         drawInfo.DrawDataCache.Add(cristalSklet);
 
         //DrawData elementTop = new(asset[5].Value, barrierElementPos, asset[5].Value.Frame(1, 2, 0, 0), Color.White);

@@ -34,7 +34,7 @@ sealed class MultiplayerSystem : ModSystem {
     public static T GetPacket<T>() where T : NetPacket => ModContent.GetInstance<T>();
 
     // Send
-    public static void SendPacket<T>(T packet, int toClient = -1, int ignoreClient = -1, Func<Player, bool>? sendDelegate = null) where T : NetPacket {
+    public static void SendPacket<T>(T packet, int toClient = -1, int ignoreClient = -1, Func<Player, bool> sendDelegate = null) where T : NetPacket {
         if (Main.netMode == NetmodeID.SinglePlayer) { return; };
 
         ModPacket modPacket = Instance.Mod.GetPacket();

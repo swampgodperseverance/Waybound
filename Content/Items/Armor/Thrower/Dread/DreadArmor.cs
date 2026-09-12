@@ -1,10 +1,4 @@
-
-﻿using Waybound.Common.Rarities;
-using Waybound.Common.Utils;
 using Terraria;
-using Terraria.ID;
-
-﻿using Terraria;
 using Waybound.Common.Rarities;
 
 namespace Waybound.Content.Items.Armor.Thrower.Dread

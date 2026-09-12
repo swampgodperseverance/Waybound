@@ -1,0 +1,24 @@
+PlayerRaceMenu: {
+	Create: Race
+	MainPage: Choose your race
+}
+
+BloodyNecklacePlayer: {
+	CurrentMode: {
+		Text: Current Mode:
+		0: not active
+	}
+
+	Bonus: {
+		Text: Active bonus:
+		0: Non
+		1: Damage bonus
+		2: Life Regen
+		3: Damage Bonus
+		4: Bonus
+	}
+
+	Max: Max donation
+}
+
+ModifyHPTexture.Donated: "[c/8B0000: Donated]"
