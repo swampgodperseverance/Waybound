@@ -16,7 +16,7 @@ public static class Textures {
     public static Asset<Texture2D> Test = null;
 
     readonly static Asset<Texture2D>[] _extaras = new Asset<Texture2D>[8];
-    readonly static Asset<Texture2D>[] _raceElements = new Asset<Texture2D>[8];
+    readonly static Asset<Texture2D>[] _raceElements = new Asset<Texture2D>[10];
     readonly static Dictionary<string, Asset<Texture2D>[]> _heartAsset = [];
     readonly static Asset<Texture2D>[] _tiles = new Asset<Texture2D>[2];
 
@@ -32,11 +32,16 @@ public static class Textures {
         _extaras[4] = LoadTextures(Patch + "Extras/ThunderSigil_Barrier_Sklet");
         _extaras[5] = LoadTextures(Patch + "Extras/ThunderSigil_Barrier_Sklet_Bg");
 
-        _raceElements[0] = LoadTextures(Patch + "UIs/Race/Bg");
-        _raceElements[1] = LoadTextures(Patch + "UIs/Race/BgFrame0");
-        _raceElements[2] = LoadTextures(Patch + "UIs/Race/BgFrame1");
-        _raceElements[3] = LoadTextures(Patch + "UIs/Race/BgFrame2");
-        _raceElements[4] = LoadTextures(Patch + "UIs/Race/BgFrame3");
+        _raceElements[0] = LoadTextures(Patch + "UIs/Race/BgFullIcon");
+        _raceElements[1] = LoadTextures(Patch + "UIs/Race/BgFullIcon_Hover");
+        _raceElements[2] = LoadTextures(Patch + "UIs/Race/BgIcon");
+        _raceElements[3] = LoadTextures(Patch + "UIs/Race/BgIcon_Hover");
+        _raceElements[4] = LoadTextures(Patch + "UIs/Race/Stat_HP");
+        _raceElements[5] = LoadTextures(Patch + "UIs/Race/Stat_HP_Regen");
+        _raceElements[6] = LoadTextures(Patch + "UIs/Race/Stat_MP");
+        _raceElements[7] = LoadTextures(Patch + "UIs/Race/Stat_MP_Regen");
+        _raceElements[8] = LoadTextures(Patch + "UIs/Race/Stat_DamageResist");
+        _raceElements[9] = LoadTextures(Patch + "UIs/Race/Stat_MiningSpeed");
 
         _tiles[0] = LoadTextures(Patch + "NoticeBoardTile");
         Test = LoadTextures(Patch + "Acc/top");

@@ -4,8 +4,10 @@ public class Audio {
     static readonly System.Collections.Generic.Dictionary<string, Terraria.Audio.SoundStyle> registerSounds = [];
 
     public static Terraria.Audio.SoundStyle Get(string name) => registerSounds.TryGetValue(name, out var value) == true ? value : throw new System.Exception("No item in dictionary");
-    static void Set(string name, bool music = false) => registerSounds.TryAdd(name, new("Waybound/Assets/Sounds" + (music ? "Music" : "Misc") + "/" + name));
+    static void Set(string name, bool music = false) => registerSounds.TryAdd(name, new("Waybound/Assets/Sounds/" + (music ? "Music" : "Effect") + "/" + name));
 
-    internal static void Load() { }
+    internal static void Load() {
+        Set("BloodyNecklace");
+    }
     internal static void Unload() { }
 };

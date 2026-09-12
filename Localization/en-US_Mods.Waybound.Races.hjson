@@ -1,0 +1,24 @@
+Human: {
+	Info: has neither negative nor positive bonuses
+	Name: Human
+}
+
+Desfo: {
+	Info: Cool2
+	Name: Desfo
+}
+
+Dwarf: {
+	Info: Cool3
+	Name: Dwarf
+}
+
+Lihzard: {
+	Info: Cool4
+	Name: Lihzard
+}
+
+Viking: {
+	Info: Cool5
+	Name: Viking
+}

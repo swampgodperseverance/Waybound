@@ -24,11 +24,17 @@ public class BloodyNecklacePlayer : ModPlayer {
     int _activeMode = 0;
     int _maxHP = 0;
 
-    public bool MaxDonation => ActiveMode == 4;
+    bool _maxDonation = false;
     public bool equipped = false;
 
-    public override void LoadData(TagCompound tag) => _activeMode = tag.GetInt($"{Waybound.ModName}: Active mode");
-    public override void SaveData(TagCompound tag) => tag[$"{Waybound.ModName}: Active mode"] = _activeMode;
+    public override void LoadData(TagCompound tag) {
+        _activeMode = tag.GetInt($"{Waybound.ModName}: Active mode");
+        _maxDonation = tag.GetBool($"{Waybound.ModName}: Active Buff");
+    }
+    public override void SaveData(TagCompound tag) {
+        tag[$"{Waybound.ModName}: Active mode"] = _activeMode;
+        tag[$"{Waybound.ModName}: Active Buff"] = _maxDonation;
+    }
     public override void ResetEffects() => equipped = false;
     public override void PostUpdate() {
         if (ActiveMode == 0) { return; }
@@ -38,11 +44,12 @@ public class BloodyNecklacePlayer : ModPlayer {
     }
     public override void UpdateLifeRegen() => Player.lifeRegen += ActiveMode == 2 ? 10 : 0;
     public override void ProcessTriggers(TriggersSet triggersSet) {
-        if (VanillaKeybinds.AccBonusActivation.JustPressed && equipped) {
+        if (VanillaKeybinds.AccBonusActivation.JustPressed && equipped && !Player.dead) {
             if (ActiveMode < 4) { ActiveMode++; }
-            if (MaxDonation) {
+            if (_maxDonation) {
                 Player.GetModPlayer<GlobalPlayerData>().ActiveTextData.Add(new(Loc.GetUI("BloodyNecklacePlayer.Max")) { hasAlpha = false, multMaxTime = 60 });
                 CombatText.NewText(Player.getRect(), Color.DarkRed, Loc.GetUI("BloodyNecklacePlayer.Max"));
+                SoundEngine.PlaySound(SoundID.MaxMana, Player.position);
                 return;
             };
 
@@ -50,12 +57,16 @@ public class BloodyNecklacePlayer : ModPlayer {
             string text = GetLevel(levelText + Loc.GetUI("BloodyNecklacePlayer.CurrentMode.0") + BonusText(ActiveMode), levelText + ActiveMode + BonusText(ActiveMode), levelText + ActiveMode + BonusText(ActiveMode), levelText + ActiveMode + BonusText(ActiveMode), levelText + ActiveMode + BonusText(ActiveMode));
             Player.GetModPlayer<GlobalPlayerData>().ActiveTextData.Add(new(text) { hasAlpha = false, multMaxTime = 60 });
             CombatText.NewText(Player.getRect(), Color.DarkRed, text);
-            SoundEngine.PlaySound(SoundID.MaxMana, Player.position);
+            SoundEngine.PlaySound(Resources.Audio.Get("BloodyNecklace"), Player.position);
+            if (ActiveMode == 4) { _maxDonation = true; }
             for (int i = 0; i < 17 + 3 * ActiveMode; i++) { Dust.NewDust(Player.position, Player.width, Player.height, DustID.LifeDrain, 0f, 0f, 255, default, Main.rand.Next(20, 26) * 0.1f); };
             static string BonusText(int lvl) => "\n" + Loc.GetUI("BloodyNecklacePlayer.Bonus.Text") + " " + Loc.GetUI($"BloodyNecklacePlayer.Bonus.{lvl}");
         }
     }
-    public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) => ActiveMode = 0;
+    public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
+        ActiveMode = 0;
+        _maxDonation = false;
+    }
     T GetLevel<T>(T value0, T value1, T value2, T value3, T value4) {
         T value = value0;
         if (ActiveMode == 0) { value = value0; };

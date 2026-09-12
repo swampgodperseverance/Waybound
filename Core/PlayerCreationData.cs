@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.UI;
+using Waybound.Content.Race;
 
 namespace Waybound.Core;
 
@@ -11,7 +12,7 @@ public class PlayerCreationData(Player player) {
     public UIElement topContainer = null;
     public UIElement parent = null;
 
-    public int race = 0;
+    public RaceInfo race = null;
 
-    public bool openRaceUI;
+    public bool openRaceUI = false;
 };

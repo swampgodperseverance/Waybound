@@ -1,4 +1,7 @@
-PlayerRaceMenu.Create: Race
+PlayerRaceMenu: {
+	Create: Race
+	MainPage: Choose your race
+}
 
 BloodyNecklacePlayer: {
 	CurrentMode: {
