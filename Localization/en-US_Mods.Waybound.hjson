@@ -1,4 +1,3 @@
-
 Projectiles: {
 	CruorStar.DisplayName: Cruor Star
 	CruorSpike.DisplayName: Cruor Spike
@@ -199,6 +198,16 @@ Items: {
 	Quasimodo: {
 		Tooltip: ""
 		DisplayName: Quasimodo
+	}
+
+	AqualliteBlock: {
+		DisplayName: Aquallite Block
+		Tooltip: ""
+	}
+
+	AqualliteWall: {
+		DisplayName: Aquallite Wall
+		Tooltip: ""
 	}
 }
 
