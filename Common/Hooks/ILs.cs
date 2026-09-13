@@ -17,7 +17,6 @@ internal static class ILs {
         IL_ResourceOverlayHook.Load();
         IL_UICharacterCreationHook.Load();
     }
-
     static void IL_Main_CraftItem(ILContext il) {
         ILCursor c = new(il);
         c.Index += 25;

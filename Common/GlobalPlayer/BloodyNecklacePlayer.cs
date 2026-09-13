@@ -58,7 +58,7 @@ public class BloodyNecklacePlayer : ModPlayer {
             Player.GetModPlayer<GlobalPlayerData>().ActiveTextData.Add(new(text) { hasAlpha = false, multMaxTime = 60 });
             CombatText.NewText(Player.getRect(), Color.DarkRed, text);
             SoundEngine.PlaySound(Resources.Audio.Get("BloodyNecklace"), Player.position);
-            if (ActiveMode == 4) { _maxDonation = true; }
+            if (ActiveMode == 4) { _maxDonation = true; };
             for (int i = 0; i < 17 + 3 * ActiveMode; i++) { Dust.NewDust(Player.position, Player.width, Player.height, DustID.LifeDrain, 0f, 0f, 255, default, Main.rand.Next(20, 26) * 0.1f); };
             static string BonusText(int lvl) => "\n" + Loc.GetUI("BloodyNecklacePlayer.Bonus.Text") + " " + Loc.GetUI($"BloodyNecklacePlayer.Bonus.{lvl}");
         }
