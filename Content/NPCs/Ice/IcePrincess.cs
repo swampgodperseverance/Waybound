@@ -1,4 +1,4 @@
-﻿using Waybound.Content.Projectiles.Hostile;
+using Waybound.Content.Projectiles.Hostile;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -33,8 +33,8 @@ namespace Waybound.Content.NPCs.Ice
 			NPC.noTileCollide = true;
 			NPC.netAlways = true;
 			NPC.aiStyle = -1;
-			NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
+			NPC.HitSound = SoundID.NPCHit5;
+			NPC.DeathSound = SoundID.NPCDeath7;
 			NPC.value = Item.sellPrice(0, 0, 9, 9);
 		}
 		//and the bestiary shit here
@@ -60,8 +60,8 @@ namespace Waybound.Content.NPCs.Ice
 				NPC.TargetClosest();
 				target = NPC.target > -1 ? Main.player[NPC.target] : null;
 				if (target == null || !target.active || target.dead || target.Distance(NPC.Center) > 1000f) {
-					if (NPC.alpha >= 255) NPC.active = false;
-					else NPC.alpha += 17;
+					if (NPC.timeLeft > 60) NPC.timeLeft = 60;
+					NPC.velocity.Y += 0.1f;
 					return; 
 				}
 			}
