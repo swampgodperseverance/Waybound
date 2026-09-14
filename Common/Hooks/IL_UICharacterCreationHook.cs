@@ -1,17 +1,16 @@
 ﻿using Mono.Cecil.Cil;
 using MonoMod.Cil;
-using ReLogic.Content;
 using System;
 using System.Reflection;
-using System.Xml.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
 using Terraria.ID;
+using Terraria.IO;
 using Terraria.Localization;
 using Terraria.UI;
-using Terraria.WorldBuilding;
+using Waybound.Common.GlobalPlayer;
 using Waybound.Common.Utils;
 using Waybound.Core;
 using Waybound.UIs;
@@ -19,29 +18,15 @@ using Waybound.UIs;
 namespace Waybound.Common.Hooks;
 
 internal static class IL_UICharacterCreationHook {
-    static PlayerCreationData saveData = null;
+    internal static PlayerCreationData saveData = null;
 
     internal static void Load() {
-        IL_UICharacterCreation.BuildPage += IL_UICharacterCreation_BuildPage;
+        IL_UICharacterCreation.BuildPage += Init; // Init PlayerCreationData
         IL_UICharacterCreation.MakeBackAndCreatebuttons += DrawButton; // Draw Race Button
-        IL_UICharacterCreation.Draw += IL_UICharacterCreation_Draw;
-        On_UICharacterCreation.FinishCreatingCharacter += On_UICharacterCreation_FinishCreatingCharacter;
+        IL_UICharacterCreation.Draw += Draw; // Draw !
+        IL_UICharacterCreation.FinishCreatingCharacter += SaveRezultat; // Set player race
     }
-
-    private static void On_UICharacterCreation_FinishCreatingCharacter(On_UICharacterCreation.orig_FinishCreatingCharacter orig, UICharacterCreation self) {
-        orig(self);
-        //Player player = (Player)typeof(UICharacterCreation).GetField("_player", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(self);
-        //Type type = typeof(UICharacterCreation);
-        //BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
-        //MethodInfo info = type.GetMethod("SetupPlayerStatsAndInventoryBasedOnDifficulty", flags, null, [], null);
-        //info.Invoke(self, []);
-        //PlayerFileData.CreateAndSave(player);
-        //Main.LoadPlayers();
-        //player.GetModPlayer<BloodyNecklacePlayer>();
-        //Main.menuMode = 1;
-    }
-
-    static void IL_UICharacterCreation_BuildPage(ILContext il) {
+    static void Init(ILContext il) {
         ILCursor c = new(il);
         c.GotoNext(i => i.MatchCallvirt("Terraria.UI.UIElement", "SetPadding"));
         c.Emit(OpCodes.Ldarg, 0);
@@ -94,6 +79,9 @@ internal static class IL_UICharacterCreationHook {
                 UIColoredImageButton charInfo = (UIColoredImageButton)type.GetField("_charInfoCategoryButton", flags).GetValue(self);
 
                 if (saveData.openRaceUI) {
+                    SoundEngine.PlaySound(SoundID.MenuOpen);
+                    saveData.raceConfirmUI?.Remove();
+                    saveData.raceConfirmUI = null;
                     saveData.element = new Race(saveData);
                     saveData.element.OnInitialize();
                     saveData.element.Append(new UIText(Language.GetText(Loc.GetUI("PlayerRaceMenu.MainPage")), 0.55f, true) {
@@ -113,6 +101,7 @@ internal static class IL_UICharacterCreationHook {
                     topContainer.Remove();
                 }
                 else {
+                    SoundEngine.PlaySound(SoundID.MenuClose);
                     saveData.element?.Remove();
                     saveData.element = null;
                     if (saveData.parent != null) {
@@ -126,77 +115,26 @@ internal static class IL_UICharacterCreationHook {
             outerContainer.Append(raceButton);
         });
     }
-
-    private static void Element_OnLeftClick(UIMouseEvent evt, UIElement listeningElement) {
-        throw new NotImplementedException();
-    }
-
-    static void IL_UICharacterCreation_Draw(ILContext il) {
+    static void Draw(ILContext il) {
         ILCursor c = new(il);
         c.Emit(OpCodes.Ldarg, 1);
         c.EmitDelegate((SpriteBatch sB) => {         
             if (saveData.openRaceUI) {
-                //UIElement element = saveData.element;
-                //Asset<Texture2D>[] asset = Resources.Textures.RaceElements;
-                //Vector2 pos = new(saveData.raceUI.GetDimensions().X, saveData.raceUI.GetDimensions().Y);
-
-                ////sB.Draw(asset[0], pos, Color.White);
-                //element.Append(new UIText(Language.GetText(Loc.GetUI("PlayerRaceMenu.MainPage")), 0.55f, true) {
-                //    Left = StyleDimension.FromPixels(152f),
-                //    Top = StyleDimension.FromPixels(62f)
-                //});
-
-                //UIImage mainSlot = new(asset[0]) {
-                //    Left = StyleDimension.FromPixels(20),
-                //    Top = StyleDimension.FromPixels(88),
-                //};
-
-                ////UIImage fullLeft = new(asset[1]) {
-                ////    Left = StyleDimension.FromPixels(130),
-                ////    Top = StyleDimension.FromPixels(88),
-                ////};
-                //UITextPanel<LocalizedText> fullLeft = new(Language.GetText(Loc.GetUI("PlayerRaceMenu.Create")), 0.7f, large: true) {
-                //    Width = StyleDimension.FromPixelsAndPercent(-10f, 0.35f),
-                //    Height = StyleDimension.FromPixels(50f),
-                //    VAlign = 1f,
-                //    HAlign = 0.5f,
-                //    Top = StyleDimension.FromPixels(-45f)
-                //};
-                //fullLeft.OnMouseOver += (evt, element) => {
-                //    SoundEngine.PlaySound(SoundID.MenuTick);
-                //    Main.instance.MouseText("Text");
-                //};
-                ////OnMouseOver(fullLeft, "Race1");
-                //UIImage left = new(asset[1]) {
-                //    Left = StyleDimension.FromPixels(195),
-                //    Top = StyleDimension.FromPixels(88),
-                //};
-                //UIImage mid = new(asset[1]) {
-                //    Left = StyleDimension.FromPixels(260),
-                //    Top = StyleDimension.FromPixels(88),
-                //};
-                //UIImage right = new(asset[1]) {
-                //    Left = StyleDimension.FromPixels(325),
-                //    Top = StyleDimension.FromPixels(88),
-                //};
-                //UIImage fullRight = new(asset[1]) {
-                //    Left = StyleDimension.FromPixels(390),
-                //    Top = StyleDimension.FromPixels(88),
-                //};
-
-                //element.Append(mainSlot);
-                //element.Append(fullLeft);
-                //element.Append(left);
-                //element.Append(mid);
-                //element.Append(right);
-                //element.Append(fullRight);
-                //saveData.raceUI.Append(element);
             }
         });
     }
+    static void SaveRezultat(ILContext il) {
+        ILCursor c = new(il);
+        c.GotoNext(MoveType.Before, i => i.MatchCall(typeof(PlayerFileData), nameof(PlayerFileData.CreateAndSave)));
+        c.Emit(OpCodes.Ldarg_0);
+        c.EmitDelegate((UICharacterCreation self) => {
+            Player player = (Player)typeof(UICharacterCreation).GetField("_player", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(self);
+            player.GetModPlayer<RacePlayer>().race = saveData.race;
+        });
+    }
     internal static void Unload() {
-        IL_UICharacterCreation.BuildPage -= IL_UICharacterCreation_BuildPage;
+        IL_UICharacterCreation.BuildPage -= Init;
         IL_UICharacterCreation.MakeBackAndCreatebuttons -= DrawButton;
-        IL_UICharacterCreation.Draw -= IL_UICharacterCreation_Draw;
+        IL_UICharacterCreation.Draw -= Draw;
     }
 }

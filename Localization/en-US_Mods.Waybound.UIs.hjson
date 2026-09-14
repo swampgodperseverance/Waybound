@@ -1,6 +1,8 @@
 PlayerRaceMenu: {
 	Create: Race
 	MainPage: Choose your race
+	NeerRace: To continue, select a race!
+	Race: Race:
 }
 
 BloodyNecklacePlayer: {
