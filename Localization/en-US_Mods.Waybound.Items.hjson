@@ -93,6 +93,14 @@ BloodyNecklace: {
 }
 
 Quasimodo: {
-	DisplayName: Quasimodo
+}
+
+AqualliteChestItem: {
+	DisplayName: Aquallite Chest Item
+	Tooltip: ""
+}
+
+AquallitePlatform: {
+	DisplayName: Aquallite Platform
 	Tooltip: ""
 }

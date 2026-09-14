@@ -13,10 +13,10 @@ namespace Waybound.Content.Tiles.Blocks
     {
         private Asset<Texture2D> outlineTexture;
 
-        private const float FadeInTime = 2.0f;     
-        private const float VisibleTime = 3.8f;    
-        private const float FadeOutTime = 2.4f;     
-        private const float MaxAlpha = 0.55f;       
+        private const float FadeInTime = 0.7f;
+        private const float VisibleTime = 1.4f;
+        private const float FadeOutTime = 0.9f;
+        private const float MaxAlpha = 0.55f;
 
         public override void Load()
         {
@@ -30,16 +30,14 @@ namespace Waybound.Content.Tiles.Blocks
             Main.tileMergeDirt[Type] = false;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
-
             Main.tileMerge[Type][TileID.Dirt] = true;
             Main.tileMerge[TileID.Dirt][Type] = true;
-
             SafeSetDefaults();
         }
 
         public virtual void SafeSetDefaults()
         {
-            AddMapEntry(new Color(165, 179, 198));
+            AddMapEntry(new Color(26, 46, 55));
             MineResist = 1.5f;
             HitSound = SoundID.Tink;
             DustType = DustID.Silver;
@@ -61,11 +59,11 @@ namespace Waybound.Content.Tiles.Blocks
             int seed = i * 397 + j * 7919;
             UnifiedRandom rand = new UnifiedRandom(seed);
 
-            float cycleLength = FadeInTime + VisibleTime + FadeOutTime + 9f; 
+            float cycleLength = FadeInTime + VisibleTime + FadeOutTime + 3.5f;
             float time = (float)Main.GameUpdateCount * 0.0167f;
-            float localTime = time + rand.NextFloat(0f, 45f);
-
+            float localTime = time + rand.NextFloat(0f, 20f);
             float phase = localTime % cycleLength;
+
             float alpha = 0f;
 
             if (phase < FadeInTime)
@@ -88,12 +86,10 @@ namespace Waybound.Content.Tiles.Blocks
                 return;
 
             alpha = MathHelper.SmoothStep(0f, 1f, alpha);
-
             alpha *= MaxAlpha;
 
             Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
             Vector2 drawPos = new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero;
-
             Color color = Color.White * alpha;
 
             spriteBatch.Draw(

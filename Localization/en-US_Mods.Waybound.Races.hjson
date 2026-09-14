@@ -1,24 +1,34 @@
 Human: {
-	Info: has neither negative nor positive bonuses
 	Name: Human
+	Info: The most common race. Humans mostly known as intelligent race which can easily avoid conflicts, but when they do resort to them, they persist in them just as long. Has no downsides, although something...
+	Pozitiv: Balanced.
+	Negativ: Not able to make offerings for the idols.
 }
 
 Desfo: {
-	Info: Cool2
 	Name: Desfo
+	Info: The greediest race in the world which worships the god Ra. Not much really known but they don't get along very well with others. They are definitely hiding something..
+	Pozitiv: The player starts with a Bag of the Greediest.
+	Negativ: Not able to use crafting.
 }
 
 Dwarf: {
-	Info: Cool3
 	Name: Dwarf
+	Info: The most hardworking and conflict-averse Race in the world. They don’t lie, but they often speak in riddles. Legends say they are born in mines. They hate the Vikings
+	Pozitiv: The mines are your new home. Spatial manipulations
+	Negativ: Not able to use wings.
 }
 
 Lihzard: {
-	Info: Cool4
 	Name: Lihzard
+	Info: Those who stay in the shadows answer for nothing; those who stand accountable have everything to lose. Insanely smart and evil
+	Pozitiv: Born to be a magicians, born to deal with dilemmas.
+	Negativ: Not able to make dashes. Slow.
 }
 
 Viking: {
-	Info: Cool5
 	Name: Viking
+	Info: Evil and unforgivable race. Mostly, they are using their strength to reach the goals. Stupid and filled with hatred. They hate the Dwarves
+	Pozitiv: Berserker's Rage, unbelievable warriors.
+	Negativ: Not able to use potions and regeneration related accessories.
 }
