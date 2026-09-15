@@ -3,49 +3,99 @@ Human: {
 	Info:
 		'''
 		The most common race. 
-		Humans mostly known as intelligent race which can easily avoid conflicts, 
-		but when they do resort to them, 
+		Humans mostly known as an adaptable race who can 
+		easily avoid conflicts, but when they do resort to them, 
 		they persist in them just as long. 
-		Has no downsides, although something...
+		Thez have no downsides, although something lingers.
 		'''
 	Pozitiv: Balanced.
-	Negativ: Not able to make offerings for the idols.
+	Negativ: Not able to make offerings to the idols.
 }
 
 Desfo: {
 	Name: Desfo
 	Info:
 		'''
-		The greediest race in the world which worships the god Ra. 
-		Not much really known but they don't get along very well with others. 
+		The greediest race in the world
+		who worship the god Ra. 
+		Very little is known about them. Their relationships
+		with other races are infamous.
 		They are definitely hiding something..
 		'''
-	Pozitiv: The player starts with a Bag of the Greediest.
-	Negativ: Not able to use crafting.
+	Pozitiv:
+		'''
+		The player starts with the Avarice Bag.
+		The bag is a portable transmutation craft station
+		that devours the items but gives something in return
+		'''
+	Negativ: Unable to use standart crafting.
 }
 
 Dwarf: {
-	Name: Dwarf	
+	Name: Dwarf
 	Info:
 		'''
-		The most hardworking and conflict-averse Race in the world.
+		The most hardworking and conflict-averse race.
 		They don’t lie, but they often speak in riddles. 
-		Legends say they are born in mines. They hate the Vikings
+		Legends say that they were born in mines.
+		Vikings are their most hated enemies.
 		'''
-	Pozitiv: The mines are your new home. Spatial manipulations
-	Negativ: Not able to use wings.
+	Pozitiv:
+		'''
+		Dwarfes' powers are increased while underground.
+		They can spawn a ghosty platforms in the air. 
+		Spatial manipulations. Higher jumps.
+		'''
+	Negativ:
+		'''
+		Dwarfes' powers are weaked at the surface.
+		They are too heavy to wear wings. 
+		Slower speed.
+		'''
 }
 
 Lihzard: {
 	Name: Lihzard
-	Info: Those who stay in the shadows answer for nothing; those who stand accountable have everything to lose. Insanely smart and evil
-	Pozitiv: Born to be a magicians, born to deal with dilemmas.
-	Negativ: Not able to make dashes. Slow.
+	Info:
+		'''
+		Those who stay in the shadows answer for nothing; 
+		those who stand accountable have everything to lose.
+		Insanely smart and inherently evil.
+		'''
+	Pozitiv:
+		'''
+		Born to be magicians, born to deal with dilemmas.
+		More maximum mana.
+		Player can choose 2 out of 4 buffs 
+		that dynamically change during the game.
+		'''
+	Negativ:
+		'''
+		Slow race that is unable to make dashes.
+		Melee damage is absurdly low
+		'''
 }
 
 Viking: {
 	Name: Viking
-	Info: Evil and unforgivable race. Mostly, they are using their strength to reach the goals. Stupid and filled with hatred. They hate the Dwarves
-	Pozitiv: Berserker's Rage, unbelievable warriors.
-	Negativ: Not able to use potions and regeneration related accessories.
+	Info:
+		'''
+		Unforgivable race.
+		Mostly, they are using
+		their brute strength to reach their goals.
+		Known as a stupid race, who filled with hatred.
+		Dwarfes are their most hated enemies.
+		'''
+	Pozitiv:
+		'''
+		Too stupid to have more than 60 mana.
+		Berserker's Rage that gives unique effects depending
+		on what stage of game player currently is.
+		Melee damage is permanently increased.  
+		'''
+	Negativ:
+		'''
+		Can not use potions.
+		Unable to use regeneration accessories.
+		'''
 }
