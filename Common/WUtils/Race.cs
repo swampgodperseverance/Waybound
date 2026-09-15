@@ -2,7 +2,7 @@
 
 namespace Waybound.Common.WUtils;
 
-internal class Race {
+public class Race {
     public static int GetID(RaceInfo race) {
         return race switch {
             Human => 0,
@@ -23,4 +23,11 @@ internal class Race {
             _ => new Human(),
         };
     }
+    public class ID {
+        public const int Human = 0;
+        public const int Dwarf = 1;
+        public const int Lihzard = 2;
+        public const int Viking = 3;
+        public const int Desfo = 4;
+    };
 };

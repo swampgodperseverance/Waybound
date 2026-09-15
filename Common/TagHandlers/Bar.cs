@@ -2,7 +2,7 @@
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.UI.Chat;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Common.TagHandlers;
 

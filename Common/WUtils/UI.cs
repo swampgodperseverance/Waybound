@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.UI.Chat;
 
-namespace Waybound.Common.Utils;
+namespace Waybound.Common.WUtils;
 
 public static class UI {
     public static float GetProgress(int startPos, int endPos, bool reflect = false) {
@@ -48,6 +48,16 @@ public static class UI {
         scale ??= Vector2.One;
         if (color1 != null) { ChatManager.DrawColorCodedStringWithShadow(sB, font, text, pos, (Color)color, (Color)color1, 0f, (Vector2)orgin, (Vector2)scale); }
         else { ChatManager.DrawColorCodedStringWithShadow(sB, font, text, pos, (Color)color, 0f, (Vector2)orgin, (Vector2)scale); }
+    }
+    public static void DrawMouseText(SpriteBatch sB, string text, Color? color = null, Color? color1 = null) {
+        color ??= new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor);
+        color1 ??= Color.Black;
+        Vector2 vector = new Vector2(Main.mouseX, Main.mouseY) + new Vector2(16f);
+
+        if (vector.Y > (float)(Main.screenHeight - 30)) { vector.Y = Main.screenHeight - 30; };
+        if (vector.X > (float)Main.screenWidth - FontAssets.MouseText.Value.MeasureString(text).X) { vector.X = Main.screenWidth - 460; };
+
+        Terraria.Utils.DrawBorderStringFourWay(sB, FontAssets.MouseText.Value, text, vector.X, vector.Y, color.Value, color1.Value, Vector2.Zero);
     }
     public static void DrawTexture<T>(SpriteBatch sB, Texture2D texture, T VectorOrRect, Rectangle? sourceRectangle = null, Color? color = null, float rotation = 0f, Vector2? origin = null, float scale = 1f, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0) { 
         color ??= Color.White;

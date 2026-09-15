@@ -1,7 +1,5 @@
-﻿using System.Drawing;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Waybound.Common.Utils;
 
 namespace Waybound.Content.Tiles.Misc;
 

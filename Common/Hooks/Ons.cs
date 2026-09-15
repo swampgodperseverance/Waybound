@@ -8,13 +8,13 @@ using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Waybound.Common.GlobalPlayer;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 using Waybound.Content.Race;
 using Waybound.Core;
-using Waybound.UIs;
 
 namespace Waybound.Common.Hooks;
 
@@ -26,11 +26,44 @@ internal static class Ons {
         On_Main.DrawInterface_36_Cursor += DrawBar; // Draw bar for acc ThunderSigil
 
         On_PlayerDrawLayers.DrawPlayer_28_ArmOverItem += FixNeck;
+
+        On_UIPanel.DrawPanel += On_UIPanel_DrawPanel;
+
         On_UICharacterListItem.DrawSelf += DrawRaceName;
         On_UICharacterCreation.Click_NamingAndCreating += NeedRace; // For continue player need race
+        On_UICharacterCreation.Click_GoBack += On_UICharacterCreation_Click_GoBack;
     }
 
-    private static void DrawRaceName(On_UICharacterListItem.orig_DrawSelf orig, UICharacterListItem self, SpriteBatch spriteBatch) {
+    private static void On_UICharacterCreation_Click_GoBack(On_UICharacterCreation.orig_Click_GoBack orig, UICharacterCreation self, UIMouseEvent evt, UIElement listeningElement) {
+        IL_UICharacterCreationHook.saveData.openRaceUI = false;
+        orig(self, evt, listeningElement);
+    }
+
+    static void On_UIPanel_DrawPanel(On_UIPanel.orig_DrawPanel orig, UIPanel self, SpriteBatch spriteBatch, Texture2D texture, Color color) {
+        if (IL_UICharacterCreationHook.saveData == null) {
+            orig(self, spriteBatch, texture, color);
+            return;
+        }
+        if (IL_UICharacterCreationHook.saveData.openRaceUI) {
+            if (self is UITextPanel<LocalizedText> button) {
+                if (button.Text == Language.GetText("UI.Back").Value || button.Text == Language.GetText("UI.Create").Value || button.Text == Loc.GetUI("PlayerRaceMenu.Create")) {
+                    CalculatedStyle dimensions = button.GetDimensions();
+                    Point point = new((int)dimensions.X, (int)dimensions.Y);
+                    UI.DrawTexture(spriteBatch, Resources.Textures.RaceElements[18].Value, point.ToVector2().X(82).Y(24));
+                    if (button.IsMouseHovering) { UI.DrawTexture(spriteBatch, Resources.Textures.RaceElements[19].Value, point.ToVector2().X(82).Y(24), color: Color.Gold); };
+                    return;
+                }
+                else {
+                    orig(self, spriteBatch, texture, color);
+                    return;
+                }
+            }
+            else { return; }
+        }
+        else { orig(self, spriteBatch, texture, color); }
+    }
+
+    static void DrawRaceName(On_UICharacterListItem.orig_DrawSelf orig, UICharacterListItem self, SpriteBatch spriteBatch) {
         orig(self, spriteBatch);
         Vector2 textPos = self.GetDimensions().Position().X(460).Y(4);
         Player player = self.Data.Player;
@@ -73,7 +106,7 @@ internal static class Ons {
                 return;
             };
 
-            System.Type type = typeof(UICharacterCreation);
+            Type type = typeof(UICharacterCreation);
             BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
 
             UIElement middleContainer = (UIElement)type.GetField("_middleContainer", flags).GetValue(self);
@@ -84,7 +117,7 @@ internal static class Ons {
 
             if (saveData.raceConfirmUI == null) {
                 SoundEngine.PlaySound(SoundID.MenuOpen);
-                Race race = new(saveData) {
+                UIs.Race race = new(saveData) {
                     posScaleX = -347,
                     posScaleY = -301
                 };

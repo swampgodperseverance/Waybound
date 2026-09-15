@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.DataStructures;
 using Waybound.Common.GlobalPlayer;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Common.PDL;
 

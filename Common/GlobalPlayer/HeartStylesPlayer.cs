@@ -1,5 +1,5 @@
 ﻿using Waybound.Common.HeartStyles;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Common.GlobalPlayer;
 
@@ -28,13 +28,21 @@ public class HeartStylesPlayer : ModPlayer {
         foreach (HeartStyle style in Core.CustomClassData.Heart) {
             if (style == exclude) { continue; }
             if (!style.Active(Player, activeStyleName)) { continue; };
-            int scale = activeStyleName == "HorizontalBarsWithFullText" || activeStyleName == "HorizontalBarsWithText" || activeStyleName == "HorizontalBars" ? 1 : 0;
+
+            int scale = 0;
+            int scale2 = 0;
+            if (activeStyleName == "HorizontalBarsWithFullText" || activeStyleName == "HorizontalBarsWithText" || activeStyleName == "HorizontalBars") {
+                scale = 1;
+                if ((Race.GetID(Player.GetModPlayer<RacePlayer>().Race) == Race.ID.Viking || Race.GetID(Player.GetModPlayer<RacePlayer>().Race) == Race.ID.Dwarf) && Player.ConsumedLifeFruit == 0) { scale2 = 2; };
+            }
+            if (activeStyleName == "Default" && (Race.GetID(Player.GetModPlayer<RacePlayer>().Race) == Race.ID.Viking || Race.GetID(Player.GetModPlayer<RacePlayer>().Race) == Race.ID.Dwarf) && Player.ConsumedLifeFruit == 0) { scale2 = -1; }
+
             int count = style.Count(Player);
             if (count <= 0) { continue; };
 
             bool contains;
 
-            if (style.Flip) { contains = index >= MaxCount - count + scale && index <= MaxCount; }
+            if (style.Flip) { contains = index >= MaxCount - count + scale && index <= MaxCount + scale2; }
             else { contains = index >= 0 && index < count; };
             if (!contains) { continue; };
             if (result == null || style.Priority(Player) < resultPriority) {

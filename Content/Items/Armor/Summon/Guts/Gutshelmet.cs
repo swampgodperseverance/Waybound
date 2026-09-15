@@ -2,7 +2,7 @@ using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Waybound.Common.Rarities;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 using Waybound.Content.Projectiles.Armor;
 
 namespace Waybound.Content.Items.Armor.Summon.Guts

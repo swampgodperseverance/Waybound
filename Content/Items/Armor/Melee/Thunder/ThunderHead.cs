@@ -1,7 +1,7 @@
 ﻿using Waybound.Common.GlobalPlayer;
-using Waybound.Common.Utils;
 using Terraria;
 using Terraria.ID;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Content.Items.Armor.Melee.Thunder;
 
