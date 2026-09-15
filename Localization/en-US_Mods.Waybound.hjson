@@ -209,6 +209,11 @@ Items: {
 		DisplayName: Aquallite Wall
 		Tooltip: ""
 	}
+
+	AqualliteLamp: {
+		Tooltip: ""
+		DisplayName: Aquallite Lamp
+	}
 }
 
 Buffs: {
@@ -264,4 +269,5 @@ Biomes: {
 Tiles: {
 	NoticeBoard.MapEntry: Notice Board
 	ErisSwordTile.MapEntry: Eris Sword Tile
+	AqualliteChest.MapEntry: Mods.Waybound.Tiles.AqualliteChest.MapEntry
 }

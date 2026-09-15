@@ -26,12 +26,14 @@ Desfo: {
 
 Dwarf: {
 	Name: Dwarf
+	Info: The most hardworking and conflict-averse Race in the world. They don’t lie, but they often speak in riddles. Legends say they are born in mines. They hate the Vikings
 	Info:
 		'''
 		The most hardworking and conflict-averse Race in the world.
 		They don’t lie, but they often speak in riddles. 
 		Legends say they are born in mines. They hate the Vikings
 		'''
+
 	Pozitiv: The mines are your new home. Spatial manipulations
 	Negativ: Not able to use wings.
 }

@@ -1,3 +1,4 @@
 displayName = Waybound
 author = Waybound Crew
+modReferences = ParticleLibrary
 version = 0.1

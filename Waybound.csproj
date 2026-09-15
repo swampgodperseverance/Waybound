@@ -10,6 +10,11 @@
 	<ItemGroup>
 	  <Folder Include="Assets\Sounds\Music\" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="ParticleLibrary">
+	    <HintPath>Lib\ParticleLibrary.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 
 	<!-- References -->
 
