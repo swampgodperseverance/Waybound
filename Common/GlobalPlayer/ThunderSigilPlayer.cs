@@ -4,7 +4,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Waybound.Common.NetcodeUtil.Packets;
 using Waybound.Common.NetCodeUtil;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 using Waybound.Content.Buffs.Misc;
 
 namespace Waybound.Common.GlobalPlayer;

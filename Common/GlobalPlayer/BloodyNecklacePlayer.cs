@@ -6,7 +6,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
 using Waybound.Common.ModSystems;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Common.GlobalPlayer;
 

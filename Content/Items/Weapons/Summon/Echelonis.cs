@@ -147,7 +147,7 @@ namespace Waybound.Content.Items.Weapons.Summon
         {
             if (HasConflict(player))
             {
-                player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Common.Utils.Loc.GetChat("Echelonis"))), 50, 0, false, false, -1);
+                player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Common.WUtils.Loc.GetChat("Echelonis"))), 50, 0, false, false, -1);
                 return false;
             }
 

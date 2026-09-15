@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Waybound.Common.ModSystems;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Content.Items.Armor.Melee.Coreburned
 {

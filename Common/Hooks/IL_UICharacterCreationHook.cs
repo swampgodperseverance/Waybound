@@ -11,7 +11,7 @@ using Terraria.IO;
 using Terraria.Localization;
 using Terraria.UI;
 using Waybound.Common.GlobalPlayer;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 using Waybound.Core;
 using Waybound.UIs;
 
@@ -82,7 +82,7 @@ internal static class IL_UICharacterCreationHook {
                     SoundEngine.PlaySound(SoundID.MenuOpen);
                     saveData.raceConfirmUI?.Remove();
                     saveData.raceConfirmUI = null;
-                    saveData.element = new Race(saveData);
+                    saveData.element = new UIs.Race(saveData);
                     saveData.element.OnInitialize();
                     saveData.element.Append(new UIText(Language.GetText(Loc.GetUI("PlayerRaceMenu.MainPage")), 0.55f, true) {
                         Left = StyleDimension.FromPixels(152f),
@@ -130,6 +130,7 @@ internal static class IL_UICharacterCreationHook {
         c.EmitDelegate((UICharacterCreation self) => {
             Player player = (Player)typeof(UICharacterCreation).GetField("_player", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(self);
             player.GetModPlayer<RacePlayer>().race = saveData.race;
+            saveData.openRaceUI = false;
         });
     }
     internal static void Unload() {

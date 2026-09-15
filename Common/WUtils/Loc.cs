@@ -1,6 +1,6 @@
 using Terraria.Localization;
 
-namespace Waybound.Common.Utils;
+namespace Waybound.Common.WUtils;
 
 // Localization Util
 public static class Loc {

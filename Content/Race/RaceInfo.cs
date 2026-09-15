@@ -1,4 +1,4 @@
-﻿using Waybound.Common.Utils;
+﻿using Waybound.Common.WUtils;
 
 namespace Waybound.Content.Race;
 

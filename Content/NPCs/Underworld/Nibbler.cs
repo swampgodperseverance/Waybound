@@ -1,4 +1,4 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
@@ -8,11 +8,14 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 namespace Waybound.Content.NPCs.Underworld
 {
 	public class Nibbler : ModNPC
 	{
+		//this prevents multiple nibblers from attacking at the same time so the swarming doesn't feel unfair
+		private static int lastAttackingNibbler = -1;
 		//Just change these
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[Type] = 6;
@@ -23,8 +26,8 @@ namespace Waybound.Content.NPCs.Underworld
 		}
 		//and the stats here
 		public override void SetDefaults() {
-			NPC.width = 34;
-			NPC.height = 24;
+			NPC.width = 30;
+			NPC.height = 34;
 			NPC.damage = 40;
 			NPC.defense = 10;
 			NPC.lifeMax = 400;
@@ -43,12 +46,12 @@ namespace Waybound.Content.NPCs.Underworld
 		});
 		public override void FindFrame(int frameHeight) {
 			NPC.spriteDirection = NPC.direction;
-			if(NPC.frame.Y != frameHeight || NPC.ai[0] < 60f) if(++NPC.frameCounter >= (NPC.ai[0] > 60f ? 2 : 5)) {
+			if(NPC.frame.Y != frameHeight || NPC.ai[0] < 60f) if(++NPC.frameCounter >= (NPC.ai[0] > 60f ? 2 : NPC.ai[0] > 0f ? 4 : 5 - (int)NPC.velocity.Length() / 4)) {
 				NPC.frameCounter = 0;
 				NPC.frame.Y += frameHeight;
 				NPC.frame.Y %= frameHeight * (Main.npcFrameCount[NPC.type] - 1);
 			}
-			//NPC.rotation = NPC.velocity.X / 45f; idk, it looks bad with this
+			NPC.rotation = NPC.velocity.Y / 45f * NPC.spriteDirection;
 		}
 		public override void AI() {
 			Player target = NPC.target > -1 ? Main.player[NPC.target] : null;
@@ -60,17 +63,19 @@ namespace Waybound.Content.NPCs.Underworld
 					return; 
 				}
 			}
-			if(target != null) if(NPC.ai[0] > 0f) {
+			if(target != null) if(NPC.ai[0] > 0f && (lastAttackingNibbler == NPC.whoAmI || lastAttackingNibbler == -1)) {
 				if(++NPC.ai[0] == 60f) {
 					NPC.velocity = Vector2.UnitX * NPC.direction * 16f;
-					SoundEngine.PlaySound(SoundID.Zombie21, NPC.Center);
 					SoundEngine.PlaySound(SoundID.Item46 with {MaxInstances = 8}, NPC.Center);
 				}
 				else if(NPC.ai[0] < 60f) {
+					if(NPC.ai[0] < 3f) lastAttackingNibbler = NPC.whoAmI;
+					if(Main.expertMode) NPC.ai[0]++;
 					NPC.velocity += (target.Center - Vector2.UnitX * NPC.direction * 160f - NPC.Center).SafeNormalize(Vector2.Zero) * 0.08f * Vector2.UnitX;
 					NPC.velocity *= 0.96f;
 				}
-				else if(Math.Sign(NPC.velocity.X) != Math.Sign(target.Center.X + NPC.direction * 64 - NPC.Center.X) || NPC.velocity.X == 0f) {
+				else if(Math.Sign(NPC.velocity.X) != Math.Sign(target.Center.X - NPC.Center.X) || NPC.velocity.X == 0f) {
+					lastAttackingNibbler = -1;
 					NPC.ai[0] = -Main.rand.Next(120, 181);
 					NPC.ai[1] = Main.rand.Next(-16, 33);
 					NPC.netUpdate = true;
@@ -86,11 +91,14 @@ namespace Waybound.Content.NPCs.Underworld
 				NPC.velocity += (hoverPos - NPC.Center).SafeNormalize(Vector2.Zero) * (Math.Sign(NPC.velocity.X) == NPC.direction ? 0.24f : 0.14f);
 				NPC.velocity *= 0.96f;
 				if(NPC.ai[0] != 0f) NPC.ai[0]++;
-				else if(Main.rand.NextBool(25) && NPC.Bottom.Y >= target.position.Y && NPC.position.Y <= target.Bottom.Y && Main.netMode != 1) {
+				else if(lastAttackingNibbler == -1 && Main.rand.NextBool(Main.getGoodWorld ? 2 : Main.expertMode ? 15 : 25) && NPC.Bottom.Y >= target.position.Y && NPC.position.Y <= target.Bottom.Y && Main.netMode != 1) {
+					lastAttackingNibbler = NPC.whoAmI;
 					NPC.ai[0]++;
 					NPC.netUpdate = true;
 				}
-				if(NPC.ai[0] == 1f) SoundEngine.PlaySound(NPC.direction > 0 ? SoundID.Zombie22 : SoundID.Zombie23, NPC.Center);
+				if(NPC.ai[0] == 1f) if(lastAttackingNibbler != -1 && lastAttackingNibbler != NPC.whoAmI) NPC.ai[0]--;
+				else SoundEngine.PlaySound(NPC.direction > 0 ? SoundID.Zombie22 : SoundID.Zombie23, NPC.Center);
+				
 			}
 		}
 		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers) {
@@ -103,10 +111,9 @@ namespace Waybound.Content.NPCs.Underworld
 				SoundEngine.PlaySound(SoundID.NPCDeath1, NPC.Center);
 			}
 		}
-
-		public override bool CheckDead() {
+		public override void OnKill() {
+			lastAttackingNibbler = -1;
 			for (int i = 0; i < 40; i++) Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, Main.rand.Next(-3, 4), Main.rand.Next(-3, 4), 100, default, 1.8f);
-			return true;
 		}
 		public override bool PreDraw(SpriteBatch sprite, Vector2 screenPos, Color drawColor) {
 			Texture2D texture = TextureAssets.Npc[Type].Value;
@@ -117,5 +124,8 @@ namespace Waybound.Content.NPCs.Underworld
 			sprite.Draw(texture, NPC.Center - screenPos, NPC.frame, NPC.GetNPCColorTintedByBuffs(NPC.GetAlpha(drawColor)), NPC.rotation, origin, NPC.scale, spriteEffects, 0f);
 			return false;
 		}
+		public override void SendExtraAI(BinaryWriter writer) => writer.Write(lastAttackingNibbler);
+		public override void ReceiveExtraAI(BinaryReader reader) => lastAttackingNibbler = reader.ReadInt32();
+		public override bool? CanFallThroughPlatforms() => NPC.target > -1 && NPC.Center.Y < Main.player[NPC.target].Center.Y ? true : null;
 	}
 }

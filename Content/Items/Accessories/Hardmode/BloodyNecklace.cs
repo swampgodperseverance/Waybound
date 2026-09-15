@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Content.Items.Accessories.Hardmode;
 

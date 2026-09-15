@@ -1,7 +1,7 @@
 ﻿using ReLogic.Content;
 using Terraria;
 using Waybound.Common.GlobalPlayer;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Common.HeartStyles;
 

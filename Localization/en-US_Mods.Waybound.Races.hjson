@@ -1,13 +1,25 @@
 Human: {
 	Name: Human
-	Info: The most common race. Humans mostly known as intelligent race which can easily avoid conflicts, but when they do resort to them, they persist in them just as long. Has no downsides, although something...
+	Info:
+		'''
+		The most common race. 
+		Humans mostly known as intelligent race which can easily avoid conflicts, 
+		but when they do resort to them, 
+		they persist in them just as long. 
+		Has no downsides, although something...
+		'''
 	Pozitiv: Balanced.
 	Negativ: Not able to make offerings for the idols.
 }
 
 Desfo: {
 	Name: Desfo
-	Info: The greediest race in the world which worships the god Ra. Not much really known but they don't get along very well with others. They are definitely hiding something..
+	Info:
+		'''
+		The greediest race in the world which worships the god Ra. 
+		Not much really known but they don't get along very well with others. 
+		They are definitely hiding something..
+		'''
 	Pozitiv: The player starts with a Bag of the Greediest.
 	Negativ: Not able to use crafting.
 }

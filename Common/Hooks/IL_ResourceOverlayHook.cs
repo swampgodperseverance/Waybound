@@ -7,7 +7,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.UI.ResourceSets;
 using Waybound.Common.GlobalPlayer;
 using Waybound.Common.HeartStyles;
-using Waybound.Common.Utils;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Common.Hooks;
 
