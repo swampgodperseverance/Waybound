@@ -16,9 +16,14 @@ Projectiles: {
 	nmrwskiProj.DisplayName: nmrwski Proj
 	nmrwskiHeldProj.DisplayName: nmrwski Held Proj
 	QuasimodoProj.DisplayName: Quasimodo Proj
+	IcePrincessArm.DisplayName: Ice Princess Arm
 }
 
-NPCs.Cruor.DisplayName: Cruor
+NPCs: {
+	Cruor.DisplayName: Cruor
+	IcePrincess.DisplayName: Ice Princess
+	Nibbler.DisplayName: Nibbler
+}
 
 Items: {
 	CruorTrophy: {
