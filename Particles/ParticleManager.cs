@@ -11,6 +11,7 @@ namespace Waybound.Particles
     public class ParticleSystem : ModSystem
     {
         public static ParticleBuffer<MegasparkParticle> MegasparkBuffer;
+        public static ParticleBuffer<IceSparkParticle> IceSparkBuffer;
 
         public override void Load()
         {
@@ -19,16 +20,21 @@ namespace Waybound.Particles
 
             MegasparkBuffer = new ParticleBuffer<MegasparkParticle>(512);
             MegasparkBuffer.SetBlendState(BlendState.Additive);
-
             ParticleManagerV3.RegisterUpdatable(MegasparkBuffer);
             ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, MegasparkBuffer);
 
-            Mod.Logger.Info("=== MegasparkBuffer SUCCESSFULLY REGISTERED ===");
+            IceSparkBuffer = new ParticleBuffer<IceSparkParticle>(512);
+            IceSparkBuffer.SetBlendState(BlendState.Additive);
+            ParticleManagerV3.RegisterUpdatable(IceSparkBuffer);
+            ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, IceSparkBuffer);
+
+            Mod.Logger.Info("=== Particle buffers SUCCESSFULLY REGISTERED ===");
         }
 
         public override void Unload()
         {
             MegasparkBuffer = null;
+            IceSparkBuffer = null;
         }
     }
 }
