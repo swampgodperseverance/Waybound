@@ -13,12 +13,12 @@ using Terraria.UI;
 using Waybound.Common.GlobalPlayer;
 using Waybound.Common.WUtils;
 using Waybound.Core;
-using Waybound.UIs;
 
 namespace Waybound.Common.Hooks;
 
 internal static class IL_UICharacterCreationHook {
     internal static PlayerCreationData saveData = null;
+    internal static FieldInfo PlayerInfo => typeof(UICharacterCreation).GetField("_player", BindingFlags.NonPublic | BindingFlags.Instance);
 
     internal static void Load() {
         IL_UICharacterCreation.BuildPage += Init; // Init PlayerCreationData
@@ -28,11 +28,9 @@ internal static class IL_UICharacterCreationHook {
     }
     static void Init(ILContext il) {
         ILCursor c = new(il);
-        c.GotoNext(i => i.MatchCallvirt("Terraria.UI.UIElement", "SetPadding"));
         c.Emit(OpCodes.Ldarg, 0);
-        c.Emit(OpCodes.Ldloc, 1);
-        c.EmitDelegate((UICharacterCreation self, UIElement element) => {
-            Player player = (Player)typeof(UICharacterCreation).GetField("_player", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(self);
+        c.EmitDelegate((UICharacterCreation self) => {
+            Player player = (Player)PlayerInfo.GetValue(self);
             saveData = new(player);
         });
     }
@@ -82,12 +80,8 @@ internal static class IL_UICharacterCreationHook {
                     SoundEngine.PlaySound(SoundID.MenuOpen);
                     saveData.raceConfirmUI?.Remove();
                     saveData.raceConfirmUI = null;
-                    saveData.element = new UIs.Race(saveData);
+                    saveData.element = new UIs.Race(saveData, Loc.GetUI("PlayerRaceMenu.MainPage"));
                     saveData.element.OnInitialize();
-                    saveData.element.Append(new UIText(Language.GetText(Loc.GetUI("PlayerRaceMenu.MainPage")), 0.55f, true) {
-                        Left = StyleDimension.FromPixels(152f),
-                        Top = StyleDimension.FromPixels(62f)
-                    });
                     outerContainer.Append(saveData.element);
                     if (saveData.middleContainer == null) {
                         saveData.middleContainer = middleContainer;
@@ -99,8 +93,7 @@ internal static class IL_UICharacterCreationHook {
                     charInfo.SetSelected(false);
                     middleContainer.Remove();
                     topContainer.Remove();
-                }
-                else {
+                } else { 
                     SoundEngine.PlaySound(SoundID.MenuClose);
                     saveData.element?.Remove();
                     saveData.element = null;
@@ -108,7 +101,7 @@ internal static class IL_UICharacterCreationHook {
                         saveData.parent.Append(saveData.topContainer);
                         saveData.parent.Append(saveData.middleContainer);
                     };
-                };
+                }
             };
 
             raceButton.SetSnapPoint("Race", 0);
@@ -117,10 +110,10 @@ internal static class IL_UICharacterCreationHook {
     }
     static void Draw(ILContext il) {
         ILCursor c = new(il);
+        c.Emit(OpCodes.Ldarg, 0);
         c.Emit(OpCodes.Ldarg, 1);
-        c.EmitDelegate((SpriteBatch sB) => {         
-            if (saveData.openRaceUI) {
-            }
+        c.EmitDelegate((UICharacterCreation self, SpriteBatch sB) => {
+
         });
     }
     static void SaveRezultat(ILContext il) {
@@ -128,8 +121,9 @@ internal static class IL_UICharacterCreationHook {
         c.GotoNext(MoveType.Before, i => i.MatchCall(typeof(PlayerFileData), nameof(PlayerFileData.CreateAndSave)));
         c.Emit(OpCodes.Ldarg_0);
         c.EmitDelegate((UICharacterCreation self) => {
-            Player player = (Player)typeof(UICharacterCreation).GetField("_player", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(self);
+            Player player = (Player)PlayerInfo.GetValue(self);
             player.GetModPlayer<RacePlayer>().race = saveData.race;
+            player.GetModPlayer<RacePlayer>().StartItem();
             saveData.openRaceUI = false;
         });
     }
@@ -137,5 +131,6 @@ internal static class IL_UICharacterCreationHook {
         IL_UICharacterCreation.BuildPage -= Init;
         IL_UICharacterCreation.MakeBackAndCreatebuttons -= DrawButton;
         IL_UICharacterCreation.Draw -= Draw;
+        IL_UICharacterCreation.FinishCreatingCharacter -= SaveRezultat;
     }
 }

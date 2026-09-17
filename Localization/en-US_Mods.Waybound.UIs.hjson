@@ -1,7 +1,7 @@
 PlayerRaceMenu: {
 	Create: Race
 	MainPage: Choose your race
-	NeerRace: To continue, select a race!
+	NeedRace: To continue, select a race!
 	Race: Race:
 	PL: Previous line
 	NL: Next line

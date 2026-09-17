@@ -57,7 +57,7 @@ public class ThunderSigilPlayer : ModPlayer {
         }
         if (activeEffect) {
             if (!_tick) { 
-                SoundEngine.PlaySound(SoundID.MaxMana, Player.Center);
+                SoundEngine.PlaySound(Resources.Audio.Get("ThunderSigil_Restoration"), Player.Center);
                 _tick = true;
             };
             UpdateOutLineAlpha(false);
@@ -107,6 +107,7 @@ public class ThunderSigilPlayer : ModPlayer {
         else { return base.FreeDodge(info); };
     }
     internal void DodgeEffect() {
+        SoundEngine.PlaySound(Resources.Audio.Get("ThunderSigil_Destruction"), Player.Center);
         for (int i = 0; i < 17; i++) {
             int index = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Pixie, 0f, 0f, 255, default, Main.rand.Next(20, 26) * 0.1f);
             Main.dust[index].noLight = true;
