@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Waybound.Content.Abstractions;
 using Waybound.Content.Projectiles.Ranged.Bows;
 
 namespace Waybound.Content.Items.Weapons.Ranged.Bows
@@ -34,5 +33,6 @@ namespace Waybound.Content.Items.Weapons.Ranged.Bows
         public override int DustType => DustID.GemEmerald;
         public override int ProjectileType => ModContent.ProjectileType<AnacondaProj>();
         public override SoundStyle ShotSound => SoundID.Item5;
+        public override Vector3 LightColor => new Vector3(0.15f, 0.45f, 0.2f);
     }
 }

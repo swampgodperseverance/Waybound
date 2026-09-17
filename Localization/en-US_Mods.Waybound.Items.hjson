@@ -104,3 +104,8 @@ AquallitePlatform: {
 	DisplayName: Aquallite Platform
 	Tooltip: ""
 }
+
+Quirk: {
+	DisplayName: Quirk
+	Tooltip: ""
+}

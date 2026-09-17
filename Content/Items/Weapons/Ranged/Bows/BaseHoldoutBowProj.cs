@@ -7,7 +7,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Waybound.Content.Abstractions
+namespace Waybound.Content.Items.Weapons.Ranged.Bows
 {
     public abstract class BaseHoldoutBow : ModItem
     {
@@ -38,7 +38,7 @@ namespace Waybound.Content.Abstractions
         public virtual int SmokeDustCount => 4;
         public virtual float DustScale => 1.5f;
         public virtual float SmokeDustScale => 0.8f;
-
+     
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
@@ -95,9 +95,9 @@ namespace Waybound.Content.Abstractions
 
     public abstract class BaseHoldoutProjectile : ModProjectile
     {
-        private int _shotTimer;
-        private float _targetHoldoutDistance;
-        private float _recoilProgress;
+        public int _shotTimer;
+        public float _targetHoldoutDistance;
+        public float _recoilProgress;
         private float _smoothHoldDistance;
         private float _fadeInTimer;
         private float _maxFadeInTime;
@@ -122,6 +122,7 @@ namespace Waybound.Content.Abstractions
         public virtual int SmokeDustCount => 4;
         public virtual float DustScale => 1.5f;
         public virtual float SmokeDustScale => 0.8f;
+        public virtual Vector3 LightColor => new Vector3(0.35f, 0.35f, 0.35f);
 
         public override void SetStaticDefaults()
         {
@@ -234,7 +235,7 @@ namespace Waybound.Content.Abstractions
                 FireShot(player);
             }
 
-            Lighting.AddLight(Projectile.Center, new Vector3(0f, 0.3f, 0f));
+            Lighting.AddLight(Projectile.Center, LightColor);
         }
 
         private void UpdateAim(Vector2 source, Player player)
@@ -256,7 +257,7 @@ namespace Waybound.Content.Abstractions
             Projectile.velocity = aimVector;
         }
 
-        private void FireShot(Player player)
+        protected virtual void FireShot(Player player)
         {
             if (Main.myPlayer != player.whoAmI)
                 return;
