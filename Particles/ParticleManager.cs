@@ -19,16 +19,17 @@ namespace Waybound.Particles
 
             MegasparkBuffer = new ParticleBuffer<MegasparkParticle>(512);
             MegasparkBuffer.SetBlendState(BlendState.Additive);
-
             ParticleManagerV3.RegisterUpdatable(MegasparkBuffer);
             ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, MegasparkBuffer);
 
-            Mod.Logger.Info("=== MegasparkBuffer SUCCESSFULLY REGISTERED ===");
+
+            Mod.Logger.Info("=== Particle buffers SUCCESSFULLY REGISTERED ===");
         }
 
         public override void Unload()
         {
             MegasparkBuffer = null;
+
         }
     }
 }
