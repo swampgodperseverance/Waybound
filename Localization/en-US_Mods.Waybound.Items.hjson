@@ -109,3 +109,13 @@ Quirk: {
 	DisplayName: Quirk
 	Tooltip: ""
 }
+
+AxeOfDisgrace: {
+	Tooltip: ""
+	DisplayName: Axe Of Disgrace
+}
+
+IcebornRifle: {
+	DisplayName: Iceborn Rifle
+	Tooltip: ""
+}
