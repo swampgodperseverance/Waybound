@@ -109,16 +109,49 @@ namespace Waybound.Content.WorldGen
                     t.HasTile = false;
                     t.LiquidAmount = 255;
                     t.LiquidType = 0;
-
                     CryoWaterSystem.RegisterTile(x, y);
                 }
             }
 
+            PlaceSnowShell(centerX, centerY, radiusX, radiusY);
+
             return true;
         }
-    }
 
-    public class CryoWaterSystem : ModSystem
+        private void PlaceSnowShell(int centerX, int centerY, int radiusX, int radiusY)
+        {
+            int shellOuter = 5;
+            for (int i = -radiusX - shellOuter; i <= radiusX + shellOuter; i++)
+            {
+                for (int j = -radiusY - shellOuter; j <= radiusY + shellOuter + 3; j++)
+                {
+                    int x = centerX + i;
+                    int y = centerY + j;
+                    if (!Terraria.WorldGen.InWorld(x, y, 10)) continue;
+                    float dx = i / (float)(radiusX + 1);
+                    float dy = j / (float)(radiusY + 1);
+                    float dist = dx * dx + dy * dy;
+                    if (j < 0)
+                        dist *= 0.82f + Terraria.WorldGen.genRand.NextFloat(0f, 0.18f);
+                    if (dist > 1.35f) continue;
+                    if (dist < 0.92f) continue;
+                    Tile t = Framing.GetTileSafely(x, y);
+                    if (t.HasTile && Main.tileSolid[t.TileType] &&
+                        t.TileType != TileID.Dirt && t.TileType != TileID.Stone && t.TileType != TileID.ClayBlock)
+                        continue;
+                    int tileType = Terraria.WorldGen.genRand.NextBool(7)
+                        ? TileID.IceBrick
+                        : TileID.SnowBlock;
+                    t.HasTile = true;
+                    t.TileType = (ushort)tileType;
+                    t.LiquidAmount = 0;
+                    t.Slope = 0;
+                    t.IsHalfBlock = false;
+                }
+            }
+        }
+    }
+        public class CryoWaterSystem : ModSystem
     {
         private static readonly List<Point> _pending = new();
         private static int[] _xs = Array.Empty<int>();
