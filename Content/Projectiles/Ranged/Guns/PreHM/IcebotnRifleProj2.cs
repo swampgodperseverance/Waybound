@@ -46,6 +46,36 @@ namespace Waybound.Content.Projectiles.Ranged.Guns.PreHM
             hasExploded = false;
         }
 
+        private void SpawnShortFlash()
+        {
+            ParticleSystem.FlashBuffer.Create(new ParticleInfo(
+                position: Projectile.Center.ToNumerics(),
+                velocity: System.Numerics.Vector2.Zero,
+                rotation: Main.rand.NextFloat(MathHelper.TwoPi),
+                scale: new System.Numerics.Vector2(Main.rand.NextFloat(110f, 135f)),
+                color: new Color(230, 248, 255, 255),
+                duration: 13
+            ));
+
+            ParticleSystem.FlashBuffer.Create(new ParticleInfo(
+                position: Projectile.Center.ToNumerics(),
+                velocity: System.Numerics.Vector2.Zero,
+                rotation: Main.rand.NextFloat(MathHelper.TwoPi),
+                scale: new System.Numerics.Vector2(Main.rand.NextFloat(85f, 105f)),
+                color: new Color(190, 230, 255, 255),
+                duration: 14
+            ));
+
+            ParticleSystem.FlashBuffer.Create(new ParticleInfo(
+                position: Projectile.Center.ToNumerics(),
+                velocity: System.Numerics.Vector2.Zero,
+                rotation: Main.rand.NextFloat(MathHelper.TwoPi),
+                scale: new System.Numerics.Vector2(Main.rand.NextFloat(60f, 75f)),
+                color: new Color(150, 210, 255, 255),
+                duration: 12
+            ));
+        }
+
         public override void AI()
         {
             Projectile.ai[0]++;
@@ -102,45 +132,14 @@ namespace Waybound.Content.Projectiles.Ranged.Guns.PreHM
 
         private void SpawnBigBlueFlash()
         {
-            for (int i = 0; i < 3; i++)
-            {
-                ParticleSystem.FlashBuffer.Create(new ParticleInfo(
-                    position: Projectile.Center.ToNumerics(),
-                    velocity: System.Numerics.Vector2.Zero,
-                    rotation: Main.rand.NextFloat(MathHelper.TwoPi),
-                    scale: new System.Numerics.Vector2(Main.rand.NextFloat(11f, 15.5f)), 
-                    color: new Color(180, 225, 255, 255),
-                    duration: Main.rand.Next(16, 22)
-                ));
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                float angle = Main.rand.NextFloat(MathHelper.TwoPi);
-                Vector2 offset = angle.ToRotationVector2() * Main.rand.NextFloat(6f, 22f);
-
-                ParticleSystem.FlashBuffer.Create(new ParticleInfo(
-                    position: (Projectile.Center + offset).ToNumerics(),
-                    velocity: System.Numerics.Vector2.Zero,
-                    rotation: Main.rand.NextFloat(MathHelper.TwoPi),
-                    scale: new System.Numerics.Vector2(Main.rand.NextFloat(6.5f, 9.5f)),
-                    color: new Color(140, 205, 255, 240),
-                    duration: Main.rand.Next(18, 26)
-                ));
-            }
-
-            // === Мягкое внешнее свечение (очень большое и прозрачное) ===
-            for (int i = 0; i < 4; i++)
-            {
-                ParticleSystem.FlashBuffer.Create(new ParticleInfo(
-                    position: Projectile.Center.ToNumerics(),
-                    velocity: System.Numerics.Vector2.Zero,
-                    rotation: Main.rand.NextFloat(MathHelper.TwoPi),
-                    scale: new System.Numerics.Vector2(Main.rand.NextFloat(14f, 19f)),
-                    color: new Color(160, 220, 255, 140),
-                    duration: Main.rand.Next(12, 17)
-                ));
-            }
+            ParticleSystem.FlashBuffer.Create(new ParticleInfo(
+                position: Projectile.Center.ToNumerics(),
+                velocity: System.Numerics.Vector2.Zero,
+                rotation: Main.rand.NextFloat(MathHelper.TwoPi),
+                scale: new System.Numerics.Vector2(Main.rand.NextFloat(60f, 75f)),
+                color: new Color(160, 220, 255, 130),
+                duration: Main.rand.Next(19, 24)
+            ));
         }
 
         private void SpawnSnowFlakes(int count, float scaleMult, float speedMult = 1f)
@@ -161,15 +160,52 @@ namespace Waybound.Content.Projectiles.Ranged.Guns.PreHM
             }
         }
 
+        private void SpawnIcebornShards()
+        {
+            if (Projectile.owner != Main.myPlayer)
+                return;
+
+            int shardType = ModContent.ProjectileType<IcebornRifleProj>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                float angle = Main.rand.NextFloat(MathHelper.TwoPi);
+                Vector2 dir = angle.ToRotationVector2();
+                Vector2 velocity = dir * Main.rand.NextFloat(4.5f, 9.5f);
+                Vector2 spawnPos = Projectile.Center + dir * Main.rand.NextFloat(6f, 18f);
+
+                int dmg = (int)(Projectile.damage * 0.6f);
+
+                int idx = Projectile.NewProjectile(
+                    Projectile.GetSource_FromAI(),
+                    spawnPos,
+                    velocity,
+                    shardType,
+                    dmg,
+                    0f,
+                    Projectile.owner
+                );
+
+                if (idx >= 0 && idx < Main.maxProjectiles)
+                {
+                    Main.projectile[idx].scale = Main.rand.NextFloat(0.7f, 1.05f);
+                    Main.projectile[idx].netUpdate = true;
+                }
+            }
+        }
+
         public override void OnKill(int timeLeft)
         {
+            SpawnShortFlash();
+            SpawnIcebornShards();
+
             if (Main.netMode != NetmodeID.Server)
             {
                 SpawnBigBlueFlash();
 
-                SpawnSnowFlakes(42, 3.9f, 1.25f);
+                SpawnSnowFlakes(18, 3.9f, 1.25f);
 
-                for (int i = 0; i < 14; i++)  
+                for (int i = 0; i < 2; i++)
                 {
                     Vector2 pos = Projectile.Center + Main.rand.NextVector2Circular(40f, 40f);
                     Vector2 vel = Main.rand.NextVector2Circular(7.5f, 7.5f);
@@ -177,7 +213,7 @@ namespace Waybound.Content.Projectiles.Ranged.Guns.PreHM
                     d.noGravity = true;
                 }
 
-                for (int i = 0; i < 8; i++)   
+                for (int i = 0; i < 1; i++)
                 {
                     Vector2 pos = Projectile.Center + Main.rand.NextVector2Circular(22f, 22f);
                     Vector2 vel = Main.rand.NextVector2Circular(3.5f, 3.5f);

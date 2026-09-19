@@ -219,6 +219,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Aquallite Lamp
 	}
+
+	Cruciflower: {
+		DisplayName: Cruciflower
+		Tooltip: ""
+	}
 }
 
 Buffs: {
