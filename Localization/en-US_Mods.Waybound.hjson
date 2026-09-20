@@ -224,6 +224,26 @@ Items: {
 		DisplayName: Cruciflower
 		Tooltip: ""
 	}
+
+	IcebornBreastplate: {
+		DisplayName: Iceborn Breastplate
+		Tooltip: ""
+	}
+
+	IcebornHelmet: {
+		DisplayName: Iceborn Helmet
+		Tooltip: ""
+	}
+
+	IcebornLeggings: {
+		DisplayName: Iceborn Leggings
+		Tooltip: ""
+	}
+
+	Glaciora: {
+		DisplayName: Glaciora
+		Tooltip: ""
+	}
 }
 
 Buffs: {

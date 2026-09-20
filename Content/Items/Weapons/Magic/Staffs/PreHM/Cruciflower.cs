@@ -33,7 +33,7 @@ namespace Waybound.Content.Items.Weapons.Magic.Staffs.PreHM
             Item.noUseGraphic = true;
             Item.knockBack = 3.5f;
             Item.value = Item.buyPrice(silver: 75);
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item43;
             Item.autoReuse = false;
             Item.channel = true;
