@@ -121,6 +121,7 @@ internal static class IL_UICharacterCreationHook {
         c.GotoNext(MoveType.Before, i => i.MatchCall(typeof(PlayerFileData), nameof(PlayerFileData.CreateAndSave)));
         c.Emit(OpCodes.Ldarg_0);
         c.EmitDelegate((UICharacterCreation self) => {
+            saveData.race ??= Main.rand.Next(CustomClassData.RaceInfo);
             Player player = (Player)PlayerInfo.GetValue(self);
             player.GetModPlayer<RacePlayer>().race = saveData.race;
             player.GetModPlayer<RacePlayer>().StartItem();

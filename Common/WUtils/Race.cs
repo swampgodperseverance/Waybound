@@ -2,7 +2,10 @@
 
 namespace Waybound.Common.WUtils;
 
-public class Race {
+public static class Race {
+    public static int Type(this RaceInfo info) => GetID(info);
+    public static bool CheckRace(this RaceInfo info, Terraria.Player player) => player.GetModPlayer<GlobalPlayer.RacePlayer>().Race.Type() == info.Type();
+    public static bool CheckRace(Terraria.Player player, int id) => player.GetModPlayer<GlobalPlayer.RacePlayer>().Race.Type() == id;
     public static int GetID(RaceInfo race) {
         return race switch {
             Human => 0,

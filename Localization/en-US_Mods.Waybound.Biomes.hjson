@@ -1,2 +1,7 @@
 SnowVillage: {
 }
+
+CryoLake: {
+	DisplayName: Cryo Lake
+	TownNPCDialogueName: the Cryo Lake
+}

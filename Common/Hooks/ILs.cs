@@ -27,12 +27,11 @@ internal static class ILs {
             if (flag) {
                 int stack = item.stack;
                 item = new Item(2) { stack = stack };
-            }
+            };
             if (Main.mouseItem.stack > 0) { ItemLoader.StackItems(Main.mouseItem, item, out _); }
-            else { Main.mouseItem = item; }
+            else { Main.mouseItem = item; };
         });
     }
-
     static void HoverNPC(ILContext il) {
         ILCursor c = new(il);
         c.Emit(OpCodes.Ldarg, 1);
@@ -82,8 +81,6 @@ internal static class ILs {
         ILCursor c = new(il) { Index = 86 };
         c.RemoveRange(8);
     }
-   
-
     internal static void Unload() {
         IL_Main.HoverOverNPCs -= HoverNPC;
         IL_Main.DrawInterface_14_EntityHealthBars -= DrawBar;

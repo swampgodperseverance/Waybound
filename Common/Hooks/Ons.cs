@@ -65,7 +65,7 @@ internal static class Ons {
     }
     static void DrawRaceName(On_UICharacterListItem.orig_DrawSelf orig, UICharacterListItem self, SpriteBatch spriteBatch) {
         orig(self, spriteBatch);
-        Vector2 textPos = self.GetDimensions().Position().X(476).Y(4);
+        Vector2 textPos = self.GetDimensions().Position().X(466).Y(4);
         Player player = self.Data.Player;
         RaceInfo race = player.GetModPlayer<RacePlayer>().Race;
         float pulse = (MathF.Sin(Main.GlobalTimeWrappedHourly * 3f) + 1f) / 2f;

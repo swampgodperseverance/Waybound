@@ -219,6 +219,21 @@ Items: {
 		Tooltip: ""
 		DisplayName: Aquallite Lamp
 	}
+
+	OceanicHelmet: {
+		DisplayName: Oceanic Helmet
+		Tooltip: ""
+	}
+
+	OceanicBreastplate: {
+		DisplayName: Oceanic Breastplate
+		Tooltip: ""
+	}
+
+	OceanLeggings: {
+		DisplayName: Ocean Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {

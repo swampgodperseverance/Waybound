@@ -15,14 +15,14 @@ public class ThunderSigilPlayer : ModPlayer {
     public int WorkTime { get => _workTime; set => _workTime = equipped ? (value > NEEDTIME ? NEEDTIME : value < 0 ? 0 : value) : 0; }
     int _workTime = 0;
     public int npcIndex = -1;
-    public int _currentIndex = -1;
+    public int currentIndex = -1;
 
     public float EquippedAlpha { get; private set; } = 0f;
     public float BarAlpha { get; private set; } = 0f;
     public float OutLineAlpha { get; private set; } = 0f;
     float _plaza = 0f;
 
-    public bool HoverNPC => npcIndex != -1 && npcIndex == _currentIndex;
+    public bool HoverNPC => npcIndex != -1 && npcIndex == currentIndex;
     public bool activeEffect = false;
     public bool visualOnly = false;
     public bool equipped = false;
@@ -45,7 +45,7 @@ public class ThunderSigilPlayer : ModPlayer {
             return; 
         };
         if (WorkTime >= NEEDTIME) { SetActiveEffect(true); };
-        if (_currentIndex != npcIndex) { _currentIndex = npcIndex; };
+        if (currentIndex != npcIndex) { currentIndex = npcIndex; };
         if (!activeEffect) {
             if (HoverNPC && !Player.mouseInterface) {
                 if (!visualOnly) { WorkTime++; }

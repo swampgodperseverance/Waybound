@@ -31,6 +31,7 @@ public static class Textures {
         _extaras[3] = LoadTextures(Patch + "Extras/ThunderSigil_BG_Glow");
         _extaras[4] = LoadTextures(Patch + "Extras/ThunderSigil_Barrier_Sklet");
         _extaras[5] = LoadTextures(Patch + "Extras/ThunderSigil_Barrier_Sklet_Bg");
+        _extaras[6] = LoadTextures(Patch + "Extras/OceanicHelmet_Frame");
 
         _raceElements[0] = LoadTextures(Patch + "UIs/Race/Bg");
         _raceElements[1] = LoadTextures(Patch + "UIs/Race/BgFullIcon");

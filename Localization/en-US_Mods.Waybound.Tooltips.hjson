@@ -6,6 +6,9 @@ Armor: {
 	ThunderSetBonus: TEXT
 	GutsSetBonus: TEXT
 	DreadSetBonus: TEXT
+	OceanicSetBonus: TEXT
+	OceanicRaceSetBonus: TEXT
 }
 
 Acc.BloodyNecklace: Press <{0}> for donation hp and up bonus
+GlobalItem.RaceItemBonus.RaceText: An additional bonus based on race: {0}
