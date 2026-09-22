@@ -232,7 +232,9 @@ Items: {
 
 	OceanLeggings: {
 		DisplayName: Ocean Leggings
-	}	
+		Tooltip: ""
+	}
+
 	Cruciflower: {
 		DisplayName: Cruciflower
 		Tooltip: ""

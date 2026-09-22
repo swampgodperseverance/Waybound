@@ -1,12 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ParticleLibrary.Core.V3.Particles;
 using ParticleLibrary.Utilities;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Waybound.Common.Rarities;
 using Waybound.Content.Items.Weapons.Magic.Staffs;
 using Waybound.Content.Projectiles.Magic.Staffs.PreHM;
 using Waybound.Content.Projectiles.Ranged.Guns.PreHM;
@@ -33,7 +34,7 @@ namespace Waybound.Content.Items.Weapons.Magic.Staffs.PreHM
             Item.noUseGraphic = true;
             Item.knockBack = 3.5f;
             Item.value = Item.buyPrice(silver: 75);
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = RarityType<IceShimer>();
             Item.UseSound = SoundID.Item43;
             Item.autoReuse = false;
             Item.channel = true;

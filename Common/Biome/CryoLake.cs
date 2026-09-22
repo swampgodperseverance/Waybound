@@ -18,6 +18,6 @@ public class CryoLake : ModBiome {
         return false;
     }
     public override void OnEnter(Player player) {
-        Main.NewText("`11");
+        Main.NewText("[c/ff0000:System.ArgumentNullException]");
     }
 };

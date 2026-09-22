@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Waybound.Common.Rarities;
 using Waybound.Content.Projectiles.Ranged.Guns.PreHM;
 
 namespace Waybound.Content.Items.Weapons.Ranged.Guns.PreHM
@@ -18,7 +19,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.PreHM
         {
             Item.width = 64;
             Item.height = 18;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = RarityType<IceShimer>();
             Item.value = Item.sellPrice(silver: 80);
             Item.DamageType = DamageClass.Ranged;
             Item.damage = 28;
