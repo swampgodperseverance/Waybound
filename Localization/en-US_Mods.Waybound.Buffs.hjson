@@ -12,3 +12,8 @@ GoldBearerBuff: {
 
 ThunderSigilBuff: {
 }
+
+IcebatBuff: {
+	DisplayName: Icebat Buff
+	Description: Mods.Waybound.Buffs.IcebatBuff.Description
+}

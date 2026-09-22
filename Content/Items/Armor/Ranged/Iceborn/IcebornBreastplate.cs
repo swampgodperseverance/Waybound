@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 
 
-namespace Waybound.Content.Items.Armor.Iceborn;
+namespace Waybound.Content.Items.Armor.Ranged.Iceborn;
 
 [AutoloadEquip(EquipType.Body)]
 public class IcebornBreastplate : ModItem {
@@ -11,13 +11,13 @@ public class IcebornBreastplate : ModItem {
     public override void SetDefaults() {
         int width = 26; int height = 20;
         Item.Size = new Vector2(width, height);
-        Item.rare = ItemRarityID.Yellow;
-        Item.defense = 23;
-        Item.value = Item.sellPrice(0, 4, 8, 50);
+        Item.rare = ItemRarityID.Blue;
+        Item.defense = 4;
+        Item.value = Item.sellPrice(0, 2, 1, 50);
     }
     public override void UpdateEquip(Player player) {
-        player.GetDamage(DamageClass.Melee) += 0.20f;
-        player.GetAttackSpeed(DamageClass.Melee) += 0.08f;
+        player.GetCritChance(DamageClass.Ranged) += 0.08f;
+        player.endurance += 0.06f;
     }
     public override void AddRecipes()
     {

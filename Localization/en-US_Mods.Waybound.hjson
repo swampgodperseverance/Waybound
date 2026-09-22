@@ -232,7 +232,9 @@ Items: {
 
 	OceanLeggings: {
 		DisplayName: Ocean Leggings
-	}	
+		Tooltip: ""
+	}
+
 	Cruciflower: {
 		DisplayName: Cruciflower
 		Tooltip: ""
@@ -255,6 +257,11 @@ Items: {
 
 	Glaciora: {
 		DisplayName: Glaciora
+		Tooltip: ""
+	}
+
+	IcebatStaff: {
+		DisplayName: Icebat Staff
 		Tooltip: ""
 	}
 }
