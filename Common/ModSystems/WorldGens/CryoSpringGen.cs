@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.WorldBuilding;
 using Waybound.Common.WUtils;
+using Waybound.Content.Tiles.Blocks;
 
 namespace Waybound.Common.ModSystems.WorldGens; 
 public class CryoSpringGen : BaseWorldGens {
@@ -164,30 +165,34 @@ public class CryoSpringGen : BaseWorldGens {
         } else { PlaceSnowShell(centerX, centerY, radiusX, radiusY); }
         return true;
     }
-    static void PlaceSnowShell(int centerX, int centerY, int radiusX, int radiusY) {
+    static void PlaceSnowShell(int centerX, int centerY, int radiusX, int radiusY)
+    {
         int shellOuter = 5;
-        for (int i = -radiusX - shellOuter; i <= radiusX + shellOuter; i++) {
-            for (int j = -radiusY - shellOuter; j <= radiusY + shellOuter + 3; j++) {
+        for (int i = -radiusX - shellOuter; i <= radiusX + shellOuter; i++)
+        {
+            for (int j = -radiusY - shellOuter; j <= radiusY + shellOuter + 3; j++)
+            {
                 int x = centerX + i;
                 int y = centerY + j;
-                if (!WorldGen.InWorld(x, y, 10)) { continue; };
+                if (!WorldGen.InWorld(x, y, 10)) { continue; }
                 float dx = i / (float)(radiusX + 1);
                 float dy = j / (float)(radiusY + 1);
                 float dist = dx * dx + dy * dy;
-                if (j < 0) { dist *= 0.82f + WorldGen.genRand.NextFloat(0f, 0.18f); };
-                if (dist > 1.35f) { continue; };
-                if (dist < 0.92f) { continue; };
+                if (j < 0) { dist *= 0.82f + WorldGen.genRand.NextFloat(0f, 0.18f); }
+                if (dist > 1.35f) { continue; }
+                if (dist < 0.92f) { continue; }
                 Tile t = Framing.GetTileSafely(x, y);
                 if (t.HasTile && Main.tileSolid[t.TileType] && t.TileType != TileID.Dirt && t.TileType != TileID.Stone && t.TileType != TileID.ClayBlock) { continue; }
-                int tileType = WorldGen.genRand.NextBool(7) ? TileID.IceBrick : TileID.SnowBlock;
+                int tileType = WorldGen.genRand.NextBool(2) ? ModContent.TileType<SpringbrickTile>() : TileID.SnowBlock;
                 t.HasTile = true;
                 t.TileType = (ushort)tileType;
                 t.LiquidAmount = 0;
                 t.Slope = 0;
                 t.IsHalfBlock = false;
-            };
-        };
+            }
+        }
     }
+    
     static void ChestLoot(Item[] inv, int indexItem = 0) {
         WUtils.Chest loot = new(inv, indexItem);
         loot.SetItem(Tables.Set.IceLoot);

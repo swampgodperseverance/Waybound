@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ParticleLibrary.Core.V3.Particles;
+using ParticleLibrary.Utilities;
 using System;
 using Terraria;
 using SystemVector2 = System.Numerics.Vector2;
@@ -27,6 +28,15 @@ namespace Waybound.Particles
             float alpha = (float)Math.Sin(life * MathHelper.Pi);
             Color c = info.InitialColor;
             info.Color = new Color(c.R, c.G, c.B, (byte)(c.A * alpha));
+
+   
+            Lighting.AddLight(
+                new Vector2(info.Position.X, info.Position.Y),
+                0.06f * alpha,
+                0.14f * alpha,
+                0.28f * alpha
+            );
+
             info.Time--;
         }
     }

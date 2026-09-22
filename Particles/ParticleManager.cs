@@ -13,32 +13,32 @@
             public static ParticleBuffer<SnowFlakeParticle> SnowFlakeBuffer;
             public static ParticleBuffer<FlashParticle> FlashBuffer;
 
-            public override void Load()
-            {
-                if (Main.dedServ)
-                    return;
+        public override void Load()
+        {
+            if (Main.dedServ)
+                return;
 
-                // Megaspark
-                MegasparkBuffer = new ParticleBuffer<MegasparkParticle>(512);
-                MegasparkBuffer.SetBlendState(BlendState.Additive);
-                ParticleManagerV3.RegisterUpdatable(MegasparkBuffer);
-                ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, MegasparkBuffer);
+            // Megaspark
+            MegasparkBuffer = new ParticleBuffer<MegasparkParticle>(512);
+            MegasparkBuffer.SetBlendState(BlendState.Additive);
+            ParticleManagerV3.RegisterUpdatable(MegasparkBuffer);
+            ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, MegasparkBuffer);
 
-                // Snowflake
-                SnowFlakeBuffer = new ParticleBuffer<SnowFlakeParticle>(256);
-                SnowFlakeBuffer.SetBlendState(BlendState.AlphaBlend); 
-                ParticleManagerV3.RegisterUpdatable(SnowFlakeBuffer);
-                ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, SnowFlakeBuffer);
+            // Snowflake
+            SnowFlakeBuffer = new ParticleBuffer<SnowFlakeParticle>(256);
+            SnowFlakeBuffer.SetBlendState(BlendState.AlphaBlend);
+            ParticleManagerV3.RegisterUpdatable(SnowFlakeBuffer);
+            ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, SnowFlakeBuffer);
 
-                // Flash
-                FlashBuffer = new ParticleBuffer<FlashParticle>(128);
-                FlashBuffer.SetBlendState(BlendState.Additive);
-                ParticleManagerV3.RegisterUpdatable(FlashBuffer);
-                ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, FlashBuffer);
-                Mod.Logger.Info("=== Particle buffers SUCCESSFULLY REGISTERED ===");
-            }
+            // Flash
+            FlashBuffer = new ParticleBuffer<FlashParticle>(128);
+            FlashBuffer.SetBlendState(BlendState.Additive);
+            ParticleManagerV3.RegisterUpdatable(FlashBuffer);
+            ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, FlashBuffer);
 
-            public override void Unload()
+            Mod.Logger.Info("=== Particle buffers SUCCESSFULLY REGISTERED ===");
+        }
+        public override void Unload()
             {
                 MegasparkBuffer = null;
                 SnowFlakeBuffer = null;
