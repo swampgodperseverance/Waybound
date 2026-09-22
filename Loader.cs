@@ -5,6 +5,7 @@ internal static class Loader {
         Resources.Textures.Load(mod);
         Resources.Effects.Load(mod);
         Resources.Audio.Load();
+        Tables.Set.Load();
         Core.CustomClassData.Load();
 
         Common.Hooks.Ons.Load();
@@ -16,6 +17,7 @@ internal static class Loader {
         Resources.Textures.Unload();
         Resources.Effects.Unload();
         Resources.Audio.Unload();
+        Tables.Set.Unload();
 
         Common.Hooks.Ons.Unload();
         Common.Hooks.ILs.Unload();

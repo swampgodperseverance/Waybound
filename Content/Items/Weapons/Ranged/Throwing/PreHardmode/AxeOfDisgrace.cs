@@ -4,6 +4,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Waybound.Common.Rarities;
 using Waybound.Content.Projectiles.Ranged.Thrown;
 
 namespace Waybound.Content.Items.Weapons.Ranged.Throwing.PreHardmode
@@ -28,7 +29,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.Throwing.PreHardmode
             Item.noUseGraphic = true;
             Item.knockBack = 4.5f;
             Item.value = Item.sellPrice(0, 1, 50, 0);
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = RarityType<IceShimer>();
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<AxeOfDisgraceProj>();

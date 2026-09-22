@@ -23,12 +23,12 @@ public class CryoSpringGen : BaseWorldGens {
             Tile tile = Framing.GetTileSafely(x, y);
             if (!tile.HasTile) { continue; };
             if (tile.TileType != TileID.SnowBlock && tile.TileType != TileID.IceBlock && tile.TileType != TileID.Slush) { continue; };
-            if (TryCreateBigSpring(x, y)) { created++; };
+            if (TryCreateBigSpring(x, y, created == 1)) { created++; };
         };
 
         return created > 0;
     }
-    static bool TryCreateBigSpring(int centerX, int centerY) {
+    static bool TryCreateBigSpring(int centerX, int centerY, bool big = false) {
         int radiusX = WorldGen.genRand.Next(22, 32);
         int radiusY = WorldGen.genRand.Next(14, 20);
 
@@ -78,7 +78,90 @@ public class CryoSpringGen : BaseWorldGens {
                 t.LiquidType = LiquidID.Water;
             };
         };
-        PlaceSnowShell(centerX, centerY, radiusX, radiusY);
+        if (big) {
+            PlaceSnowShell(centerX, centerY, radiusX, radiusY);
+
+            int startPos = centerX;
+            int center = 0;
+            bool left = false;
+            bool chest = false;
+
+            centerX += 120;
+            for (int i = -radiusX - 6; i <= radiusX + 6; i++) {
+                for (int j = -radiusY - 8; j <= radiusY + 8; j++) {
+                    int x = centerX + i;
+                    int y = centerY + j;
+                    Tile t = Framing.GetTileSafely(x, y);
+                    if (t.HasTile && Main.tileSolid[t.TileType] && t.TileType != TileID.SnowBlock && t.TileType != TileID.IceBlock && t.TileType != TileID.Slush && t.TileType != TileID.Dirt && t.TileType != TileID.Stone && t.TileType != TileID.ClayBlock) {
+                        left = false; 
+                    };
+                };
+            };
+            centerX -= left ? 0 : 240;
+            int count = System.Math.Abs(startPos - centerX);
+
+            WayboundGenVars.CryoSpringPos.Add(new(centerX - radiusX - 4, centerX + radiusX + 4, centerY - radiusY - 5, centerY + radiusY + 5));
+            PlaceSnowShell(centerX, centerY, radiusX, radiusY);
+
+            for (int i = 0; i < count; i++) {
+                int jCount = WorldGen.genRand.Next(7, 12);
+                for (int j = 0; j < jCount; j++) {
+                    int pos = left ? startPos + i : startPos - i;
+                    WorldGen.KillTile(pos, centerY - 2 - j);
+                    if (i == count / 2 && !chest) { center = pos; };
+                };
+            };
+
+            int tile;
+            int k = 0;
+
+            while (!Main.tile[center + k, centerY + 1].HasTile) { k++; }
+
+            tile = Main.tile[center + k, centerY - 1].TileType;
+            WorldGen.PlaceTile(center, centerY - 1, tile);
+            WorldGen.PlaceTile(center + 1, centerY - 1, tile);
+            WorldGen.PlaceTile(center - 1, centerY - 1, tile);
+
+            int chestIndex = WorldGen.PlaceChest(center - 1, centerY - 2);
+            ChestLoot(Main.chest[chestIndex].item, 0);
+
+            for (int i = -radiusX - 4; i <= radiusX + 4; i++) {
+                for (int j = -radiusY - 5; j <= radiusY + 5; j++) {
+                    int x = centerX + i;
+                    int y = centerY + j;
+                    if (!WorldGen.InWorld(x, y)) { continue; };
+
+                    float dx = i / (float)radiusX;
+                    float dy = j / (float)radiusY;
+                    float dist = dx * dx + dy * dy;
+
+                    if (j < 0) { dist *= 0.75f + WorldGen.genRand.NextFloat(0f, 0.25f); }
+                    if (dist > 1.15f) { continue; };
+
+                    Tile t = Framing.GetTileSafely(x, y);
+                    t.HasTile = false;
+                    t.LiquidAmount = 0;
+                    t.LiquidType = LiquidID.Water;
+                    t.WallType = WallID.None;
+                };
+            };
+            for (int i = -radiusX; i <= radiusX; i++) {
+                for (int j = 1; j <= radiusY + 2; j++) {
+                    int x = centerX + i;
+                    int y = centerY + j;
+                    if (!WorldGen.InWorld(x, y)) { continue; };
+
+                    float dx = i / (float)radiusX;
+                    float dy = j / (float)(radiusY + 1);
+                    if (dx * dx + dy * dy > 0.95f) { continue; };
+
+                    Tile t = Framing.GetTileSafely(x, y);
+                    t.HasTile = false;
+                    t.LiquidAmount = 255;
+                    t.LiquidType = LiquidID.Water;
+                };
+            };
+        } else { PlaceSnowShell(centerX, centerY, radiusX, radiusY); }
         return true;
     }
     static void PlaceSnowShell(int centerX, int centerY, int radiusX, int radiusY) {
@@ -104,6 +187,10 @@ public class CryoSpringGen : BaseWorldGens {
                 t.IsHalfBlock = false;
             };
         };
+    }
+    static void ChestLoot(Item[] inv, int indexItem = 0) {
+        WUtils.Chest loot = new(inv, indexItem);
+        loot.SetItem(Tables.Set.IceLoot);
     }
 };
 public class CryoParticleSystem : ModSystem {
