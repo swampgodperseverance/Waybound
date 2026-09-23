@@ -10,7 +10,7 @@ Human: {
 		'''
 	Pozitiv: Balanced.
 	Negativ: Not able to make offerings to the idols.
-	ShortNegativ: Not indol
+	ShortNegativ: Can't offer anything.
 }
 
 Desfo: {
@@ -30,7 +30,7 @@ Desfo: {
 		that devours the items but gives something in return
 		'''
 	Negativ: Unable to use standart crafting.
-	ShortNegativ: Not indol
+	ShortNegativ: Unable to craft.
 }
 
 Dwarf: {
@@ -54,7 +54,7 @@ Dwarf: {
 		They are too heavy to wear wings. 
 		Slower speed.
 		'''
-	ShortNegativ: Not support wing
+	ShortNegativ: Can't fly
 }
 
 Lihzard: {
@@ -77,7 +77,7 @@ Lihzard: {
 		Slow race that is unable to make dashes.
 		Melee damage is absurdly low
 		'''
-	ShortNegativ: Not support dash
+	ShortNegativ: Can't dash
 }
 
 Viking: {
@@ -102,5 +102,5 @@ Viking: {
 		Can not use potions.
 		Unable to use regeneration accessories.
 		'''
-	ShortNegativ: Not support craft
+	ShortNegativ: Can't regenerate
 }

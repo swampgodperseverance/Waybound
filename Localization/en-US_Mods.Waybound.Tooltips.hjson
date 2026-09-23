@@ -8,6 +8,13 @@ Armor: {
 	DreadSetBonus: TEXT
 	OceanicSetBonus: TEXT
 	OceanicRaceSetBonus: TEXT
+	IcebornSetBonus:
+		'''
+		Ice crystals are flying around your head.
+		If an enemy is attacked, the crystals will follow them until death.
+		Immunity to most ice debuffs.
+		       
+		'''
 }
 
 Acc.BloodyNecklace: Press <{0}> for donation hp and up bonus

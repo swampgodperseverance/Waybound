@@ -96,7 +96,7 @@ Quasimodo: {
 }
 
 AqualliteChestItem: {
-	DisplayName: Aquallite Chest Item
+	DisplayName: Aquallite Chest
 	Tooltip: ""
 }
 
@@ -107,7 +107,7 @@ AquallitePlatform: {
 
 Quirk: {
 	DisplayName: Quirk
-	Tooltip: ""
+	Tooltip: Has a chance to shoot an eye
 }
 
 AxeOfDisgrace: {
@@ -117,5 +117,9 @@ AxeOfDisgrace: {
 
 IcebornRifle: {
 	DisplayName: Iceborn Rifle
-	Tooltip: ""
+	Tooltip:
+		'''
+		Each shot destroys the rifle.
+		Once the rifle is destroyed, throw it at your enemies!	
+		'''
 }

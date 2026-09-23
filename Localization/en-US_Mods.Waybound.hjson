@@ -23,6 +23,7 @@ NPCs: {
 	Cruor.DisplayName: Cruor
 	IcePrincess.DisplayName: Ice Princess
 	Nibbler.DisplayName: Nibbler
+	Chad.DisplayName: Chad
 }
 
 Items: {
@@ -262,6 +263,21 @@ Items: {
 
 	IcebatStaff: {
 		DisplayName: Icebat Staff
+		Tooltip: ""
+	}
+
+	IcebornRapier: {
+		DisplayName: Iceborn Rapier
+		Tooltip: ""
+	}
+
+	ChadItem: {
+		DisplayName: Chad Item
+		Tooltip: ""
+	}
+
+	ChadCageItem: {
+		DisplayName: Chad Cage Item
 		Tooltip: ""
 	}
 }
