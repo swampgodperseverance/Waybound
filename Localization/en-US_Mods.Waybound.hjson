@@ -32,6 +32,10 @@ Projectiles: {
 	ThemisBomb.DisplayName: Themis Bomb
 	ThemisRocket.DisplayName: Themis Rocket
 	ExplosionHostile.DisplayName: Explosion Hostile
+	ColdFlareHoldout.DisplayName: Cold Flare Holdout
+	ColdFlareP.DisplayName: Cold Flare P
+	ColdFlareCharge.DisplayName: Cold Flare Charge
+	ColdFlareHeld.DisplayName: Cold Flare Held
 }
 
 NPCs: {
@@ -520,6 +524,11 @@ Items: {
 
 	DesertHunterTileWallI: {
 		DisplayName: Desert Hunter Tile Wall I
+		Tooltip: ""
+	}
+
+	ColdFlare: {
+		DisplayName: Cold Flare
 		Tooltip: ""
 	}
 }
