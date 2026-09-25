@@ -9,7 +9,7 @@ using Waybound.Content.Items.Placeable.Furniture.Aquallite;
 
 namespace Waybound.Content.Tiles.Furniture.Aquallite;
 
-public class AqualliteChest : Chest
+public class AqualliteChest : Abstract.Chest
 {
     public override void SetChestDefaults()
     {

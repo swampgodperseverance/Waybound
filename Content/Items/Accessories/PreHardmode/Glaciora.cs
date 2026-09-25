@@ -7,17 +7,22 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Waybound.Common.Rarities;
 
 namespace Waybound.Content.Items.Accessories.PreHardmode
 {
     public class Glaciora : ModItem
     {
+     public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 1;
+        }
         public override void SetDefaults()
         {
             Item.width = 28;
             Item.height = 28;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ModContent.RarityType<IceShimer>();
             Item.value = Item.sellPrice(0, 1, 50, 0);
         }
 

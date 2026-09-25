@@ -22,7 +22,9 @@ namespace Waybound.Content.Tiles.Blocks {
                 TileID.Sets.ChecksForMerge[Type] = true;
                 Main.tileSolid[Type] = true;
                 Main.tileBlockLight[Type] = true;
-                AddMapEntry(new Color(120, 200, 255));
+                Main.tileBrick[Type] = true;
+                Main.tileMergeDirt[Type] = true;
+            AddMapEntry(new Color(120, 200, 255));
                 DustType = DustID.Ice;
                 HitSound = SoundID.Tink;
             }

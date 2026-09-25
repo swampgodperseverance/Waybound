@@ -17,6 +17,21 @@ Projectiles: {
 	nmrwskiHeldProj.DisplayName: nmrwski Held Proj
 	QuasimodoProj.DisplayName: Quasimodo Proj
 	IcePrincessArm.DisplayName: Ice Princess Arm
+	Tesseract2Held.DisplayName: Tesseract2 Held
+	TesseractLaser.DisplayName: Tesseract Laser
+	HielitiumBowHoldout.DisplayName: Hielitium Bow Holdout
+	HielitiumBowP.DisplayName: Hielitium Bow P
+	HielitiumClawsP.DisplayName: Hielitium Claws P
+	HielitiumFishingPoleP.DisplayName: Hielitium Fishing Pole P
+	FrozenBulletP.DisplayName: Frozen Bullet P
+	HellstoneBulletP.DisplayName: Hellstone Bullet P
+	ColdShotgunP.DisplayName: Cold Shotgun P
+	ColdShotgunP1.DisplayName: Cold Shotgun P1
+	ColdShotgunHeld.DisplayName: Cold Shotgun Held
+	SickleOfThemis.DisplayName: Sickle Of Themis
+	ThemisBomb.DisplayName: Themis Bomb
+	ThemisRocket.DisplayName: Themis Rocket
+	ExplosionHostile.DisplayName: Explosion Hostile
 }
 
 NPCs: {
@@ -24,6 +39,8 @@ NPCs: {
 	IcePrincess.DisplayName: Ice Princess
 	Nibbler.DisplayName: Nibbler
 	Chad.DisplayName: Chad
+	Themis.DisplayName: Themis
+	ThemisDroneMinion.DisplayName: Themis Drone Minion
 }
 
 Items: {
@@ -280,6 +297,231 @@ Items: {
 		DisplayName: Chad Cage Item
 		Tooltip: ""
 	}
+
+	IceChakram: {
+		DisplayName: Ice Chakram
+		Tooltip: ""
+	}
+
+	TelescopeItem: {
+		DisplayName: Telescope Item
+		Tooltip: ""
+	}
+
+	Tesseract: {
+		DisplayName: Johann's Tesseract
+		Tooltip: ""
+	}
+
+	hielitiumBreastplate: {
+		DisplayName: hielitium Breastplate
+		Tooltip: ""
+	}
+
+	hielitiumHelmet: {
+		DisplayName: hielitium Helmet
+		Tooltip: ""
+	}
+
+	hielitiumLeggings: {
+		DisplayName: hielitium Leggings
+		Tooltip: ""
+	}
+
+	HielitiumBar: {
+		DisplayName: Hielitium Bar
+		Tooltip: ""
+	}
+
+	HielitiumOreItem: {
+		DisplayName: Hielitium Ore Item
+		Tooltip: ""
+	}
+
+	HellmutWallItem: {
+		DisplayName: Hellmut Wall Item
+		Tooltip: ""
+	}
+
+	HielitiumBow: {
+		DisplayName: Hielitium Bow
+		Tooltip: ""
+	}
+
+	HielitiumPickaxe: {
+		DisplayName: Hielitium Pickaxe
+		Tooltip: ""
+	}
+
+	HielitiumClaws: {
+		DisplayName: Hielitium Claws
+		Tooltip: ""
+	}
+
+	HielitiumFishingPole: {
+		DisplayName: Hielitium Fishing Pole
+		Tooltip: ""
+	}
+
+	FrozenBullet: {
+		DisplayName: Frozen Bullet
+		Tooltip: ""
+	}
+
+	HellstoneBullet: {
+		DisplayName: Hellstone Bullet
+		Tooltip: ""
+	}
+
+	WickedStoneWallItem: {
+		DisplayName: Wicked Stone Wall Item
+		Tooltip: ""
+	}
+
+	HielitiumHamaxe: {
+		DisplayName: Hielitium Hamaxe
+		Tooltip: ""
+	}
+
+	ColdShotgun: {
+		DisplayName: Cold Shotgun
+		Tooltip: ""
+	}
+
+	DesertCore: {
+		DisplayName: Desert Core
+		Tooltip: ""
+	}
+
+	DesertWreckage: {
+		DisplayName: Desert Wreckage
+		Tooltip: ""
+	}
+
+	DesertHunterBlockI: {
+		DisplayName: Desert Hunter Block I
+		Tooltip: ""
+	}
+
+	DesertHunterTileI: {
+		DisplayName: Desert Hunter Tile I
+		Tooltip: ""
+	}
+
+	DesertHunterBathtubI: {
+		DisplayName: Desert Hunter Bathtub I
+		Tooltip: ""
+	}
+
+	DesertHunterBedI: {
+		DisplayName: Desert Hunter Bed I
+		Tooltip: ""
+	}
+
+	DesertHunterBookcaseI: {
+		DisplayName: Desert Hunter Bookcase I
+		Tooltip: ""
+	}
+
+	DesertHunterCandelabraI: {
+		DisplayName: Desert Hunter Candelabra I
+		Tooltip: ""
+	}
+
+	DesertHunterCandleI: {
+		DisplayName: Desert Hunter Candle I
+		Tooltip: ""
+	}
+
+	DesertHunterChairI: {
+		DisplayName: Desert Hunter Chair I
+		Tooltip: ""
+	}
+
+	DesertHunterChandelierI: {
+		DisplayName: Desert Hunter Chandelier I
+		Tooltip: ""
+	}
+
+	DesertHunterChestI: {
+		DisplayName: Desert Hunter Chest I
+		Tooltip: ""
+	}
+
+	DesertHunterClockI: {
+		DisplayName: Desert Hunter Clock I
+		Tooltip: ""
+	}
+
+	DesertHunterDoor: {
+		DisplayName: Desert Hunter Door
+		Tooltip: ""
+	}
+
+	DesertHunterDresserI: {
+		DisplayName: Desert Hunter Dresser I
+		Tooltip: ""
+	}
+
+	DesertHunterForgeI: {
+		DisplayName: Desert Hunter Forge I
+		Tooltip: ""
+	}
+
+	DesertHunterLampI: {
+		DisplayName: Desert Hunter Lamp I
+		Tooltip: ""
+	}
+
+	DesertHunterLanternI: {
+		DisplayName: Desert Hunter Lantern I
+		Tooltip: ""
+	}
+
+	DesertHunterPianoI: {
+		DisplayName: Desert Hunter Piano I
+		Tooltip: ""
+	}
+
+	DesertHunterPlatformI: {
+		DisplayName: Desert Hunter Platform I
+		Tooltip: ""
+	}
+
+	DesertHunterSinkI: {
+		DisplayName: Desert Hunter Sink I
+		Tooltip: ""
+	}
+
+	DesertHunterSofaI: {
+		DisplayName: Desert Hunter Sofa I
+		Tooltip: ""
+	}
+
+	DesertHunterTableI: {
+		DisplayName: Desert Hunter Table I
+		Tooltip: ""
+	}
+
+	DesertHunterToiletI: {
+		DisplayName: Desert Hunter Toilet I
+		Tooltip: ""
+	}
+
+	DesertHunterWorkbenchI: {
+		DisplayName: Desert Hunter Workbench I
+		Tooltip: ""
+	}
+
+	DesertHunterBlockWallI: {
+		DisplayName: Desert Hunter Block Wall I
+		Tooltip: ""
+	}
+
+	DesertHunterTileWallI: {
+		DisplayName: Desert Hunter Tile Wall I
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -336,4 +578,24 @@ Tiles: {
 	NoticeBoard.MapEntry: Notice Board
 	ErisSwordTile.MapEntry: Eris Sword Tile
 	AqualliteChest.MapEntry: Mods.Waybound.Tiles.AqualliteChest.MapEntry
+	DesertHunterBathtub.MapEntry: Desert Hunter Bathtub
+	DesertHunterBed.MapEntry: Desert Hunter Bed
+	DesertHunterBookcase.MapEntry: Desert Hunter Bookcase
+	DesertHunterCandelabra.MapEntry: Desert Hunter Candelabra
+	DesertHunterCandle.MapEntry: Desert Hunter Candle
+	DesertHunterChair.MapEntry: Desert Hunter Chair
+	DesertHunterChandelier.MapEntry: Desert Hunter Chandelier
+	DesertHunterChest.MapEntry: Desert Hunter Chest
+	DesertHunterClock.MapEntry: Desert Hunter Clock
+	DesertHunterDoorClosed.MapEntry: Desert Hunter Door Closed
+	DesertHunterDoorOpen.MapEntry: Desert Hunter Door Open
+	DesertHunterDresser.MapEntry: Desert Hunter Dresser
+	DesertHunterLamp.MapEntry: Desert Hunter Lamp
+	DesertHunterLantern.MapEntry: Desert Hunter Lantern
+	DesertHunterPiano.MapEntry: Desert Hunter Piano
+	DesertHunterSink.MapEntry: Desert Hunter Sink
+	DesertHunterSofa.MapEntry: Desert Hunter Sofa
+	DesertHunterTable.MapEntry: Desert Hunter Table
+	DesertHunterToilet.MapEntry: Desert Hunter Toilet
+	DesertHunterWorkbench.MapEntry: Desert Hunter Workbench
 }

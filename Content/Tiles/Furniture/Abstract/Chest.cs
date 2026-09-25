@@ -9,7 +9,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace Waybound.Content.Tiles.Furniture;
+namespace Waybound.Content.Tiles.Furniture.Abstract;
 
 public abstract class Chest : ModTile
 {
