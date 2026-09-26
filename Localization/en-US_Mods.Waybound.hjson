@@ -36,6 +36,21 @@ Projectiles: {
 	ColdFlareP.DisplayName: Cold Flare P
 	ColdFlareCharge.DisplayName: Cold Flare Charge
 	ColdFlareHeld.DisplayName: Cold Flare Held
+	TopazLaserGunP.DisplayName: Topaz Laser Gun P
+	SapphireLaserGunP.DisplayName: Sapphire Laser Gun P
+	RubyLaserGunP.DisplayName: Ruby Laser Gun P
+	EmeraldLaserGunP.DisplayName: Emerald Laser Gun P
+	DiamondLaserGunP.DisplayName: Diamond Laser Gun P
+	AmethystLaserGunP.DisplayName: Amethyst Laser Gun P
+	AmberLaserGunP.DisplayName: Amber Laser Gun P
+	DesertExplosion.DisplayName: Desert Explosion
+	RemoteControllerOfDesertHunterP1.DisplayName: Remote Controller Of Desert Hunter P1
+	RemoteControllerOfDesertHunterP.DisplayName: Remote Controller Of Desert Hunter P
+	BowOfDesertHunterP.DisplayName: Bow Of Desert Hunter P
+	BowOfDesertHunterHoldout.DisplayName: Bow Of Desert Hunter Holdout
+	BowOfDesertHunterBombBlast.DisplayName: Bow Of Desert Hunter Bomb Blast
+	BowOfDesertHunterBomb.DisplayName: Bow Of Desert Hunter Bomb
+	BattleaxeOfDesertHunterP.DisplayName: Battleaxe Of Desert Hunter P
 }
 
 NPCs: {
@@ -529,6 +544,86 @@ Items: {
 
 	ColdFlare: {
 		DisplayName: Cold Flare
+		Tooltip: ""
+	}
+
+	HielitiumLeggings: {
+		Tooltip: ""
+		DisplayName: Hielitium Leggings
+	}
+
+	HielitiumHelmet: {
+		Tooltip: ""
+		DisplayName: Hielitium Helmet
+	}
+
+	HielitiumBreastplate: {
+		Tooltip: ""
+		DisplayName: Hielitium Breastplate
+	}
+
+	TopazLaserGun: {
+		Tooltip: ""
+		DisplayName: Topaz Laser Gun
+	}
+
+	SapphireLaserGun: {
+		Tooltip: ""
+		DisplayName: Sapphire Laser Gun
+	}
+
+	RubyLaserGun: {
+		Tooltip: ""
+		DisplayName: Ruby Laser Gun
+	}
+
+	EmeraldLaserGun: {
+		Tooltip: ""
+		DisplayName: Emerald Laser Gun
+	}
+
+	DiamondLaserGun: {
+		Tooltip: ""
+		DisplayName: Diamond Laser Gun
+	}
+
+	AmethystLaserGun: {
+		Tooltip: ""
+		DisplayName: Amethyst Laser Gun
+	}
+
+	AmberLaserGun: {
+		Tooltip: ""
+		DisplayName: Amber Laser Gun
+	}
+
+	RemoteControllerOfDesertHunter: {
+		Tooltip: ""
+		DisplayName: Remote Controller Of Desert Hunter
+	}
+
+	BowOfDesertHunter: {
+		Tooltip: ""
+		DisplayName: Bow Of Desert Hunter
+	}
+
+	MotorcycleOfDesertHunter: {
+		DisplayName: Motorcycle Of Desert Hunter
+		Tooltip: ""
+	}
+
+	ShieldOfDesertHunter: {
+		DisplayName: Shield Of Desert Hunter
+		Tooltip: ""
+	}
+
+	ExplodingBookOfDesertHunter: {
+		DisplayName: Exploding Book Of Desert Hunter
+		Tooltip: ""
+	}
+
+	BattleaxeOfDesertHunter: {
+		DisplayName: Battleaxe Of Desert Hunter
 		Tooltip: ""
 	}
 }

@@ -12,6 +12,7 @@
             public static ParticleBuffer<MegasparkParticle> MegasparkBuffer;
             public static ParticleBuffer<SnowFlakeParticle> SnowFlakeBuffer;
             public static ParticleBuffer<FlashParticle> FlashBuffer;
+            public static ParticleBuffer<FlameParticle> FlameBuffer;
 
         public override void Load()
         {
@@ -36,6 +37,11 @@
             ParticleManagerV3.RegisterUpdatable(FlashBuffer);
             ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, FlashBuffer);
 
+            FlameBuffer = new ParticleBuffer<FlameParticle>(256);
+            FlameBuffer.SetBlendState(BlendState.Additive); // Делает пламя светящимся
+            ParticleManagerV3.RegisterUpdatable(FlameBuffer);
+            ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, FlameBuffer);
+
             Mod.Logger.Info("=== Particle buffers SUCCESSFULLY REGISTERED ===");
         }
         public override void Unload()
@@ -43,6 +49,7 @@
                 MegasparkBuffer = null;
                 SnowFlakeBuffer = null;
                 FlashBuffer = null;
-            }
+                FlameBuffer = null;
+        }
         }
     }

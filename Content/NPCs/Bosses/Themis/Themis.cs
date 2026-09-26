@@ -277,7 +277,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
             NPC.ai[0]++;
 
             if (NPC.ai[0] == 30)
-                SoundEngine.PlaySound(new("VictimaMod2/Assets/Sounds/DroneCall"), NPC.Center);
+                SoundEngine.PlaySound(new("Waybound/Assets/Sounds/DroneCall"), NPC.Center);
 
             if (NPC.ai[0] == 60)
             {

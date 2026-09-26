@@ -8,6 +8,67 @@ namespace Waybound.Helpers
 {
     public static class WayboundHelper
     {
+        public static bool ClosestNPC(ref NPC target, Vector2 position, float maxDistance = 0, int type = 0,
+            bool ignoreTiles = false, bool withoutRepeat = false, NPC[] hittedNPC = null, int maxHittedNPC = -1,
+            float[] npcAI = null, int whoAmI = -1)
+        {
+            bool foundTarget = false;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+                float distance = (npc.Center - position).Length();
+                if (npc == null || npc.life <= 0 || !npc.active || !npc.CanBeChasedBy() ||
+                    (type != npc.type && type != 0) || (distance >= maxDistance && maxDistance > 0) ||
+                    (!Collision.CanHit(position, 0, 0, npc.Center, 0, 0) && !ignoreTiles) ||
+                    (whoAmI == npc.whoAmI && whoAmI != -1))
+                    continue;
+                bool no = false;
+                if (withoutRepeat)
+                    for (int j = 0; j < maxHittedNPC; j++)
+                        if (hittedNPC[j] == npc)
+                            no = true;
+                if (npcAI != null)
+                    for (int g = 0; g <= 3; g++)
+                        if (npcAI[g] != npc.ai[g] && npcAI[g] != -1)
+                            no = true;
+                if (!no)
+                {
+                    target = npc;
+                    foundTarget = true;
+                    maxDistance = distance;
+                }
+            }
+
+            return foundTarget;
+        }
+
+        public static bool ClosestProj(ref Projectile target, Vector2 position, float maxDistance = 0, int type = 0,
+            bool ignoreTiles = false, int whoAmI = -1, float[] projAI = null)
+        {
+            bool foundTarget = false;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile proj = Main.projectile[i];
+                float distance = (proj.Center - position).Length();
+                if ((type != proj.type && type != 0) || (distance >= maxDistance && maxDistance > 0) ||
+                    (!Collision.CanHit(position, 0, 0, proj.Center, 0, 0) && !ignoreTiles) ||
+                    (whoAmI == proj.whoAmI && whoAmI != -1))
+                    continue;
+                bool no = false;
+                if (projAI != null)
+                    for (int g = 0; g <= 1; g++)
+                        if (projAI[g] != proj.ai[g] && projAI[g] != -1)
+                            no = true;
+                if (!no)
+                {
+                    target = proj;
+                    foundTarget = true;
+                    maxDistance = distance;
+                }
+            }
+
+            return foundTarget;
+        }
         public static bool IsOnPlatformNPC(this Terraria.NPC npc, Vector2 offset)
         {
             int tileBY = (int)((npc.Bottom.Y + offset.Y) / 16);

@@ -7,7 +7,7 @@ using Waybound.Content.Items.Materials.Bars;
 namespace Waybound.Content.Items.Armor.Magic.HielitiumArmor
 {
 	[AutoloadEquip(EquipType.Body)]
-	public class hielitiumBreastplate : ModItem
+	public class HielitiumBreastplate : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

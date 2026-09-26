@@ -7,7 +7,7 @@ using Waybound.Content.Items.Materials.Bars;
 namespace Waybound.Content.Items.Armor.Magic.HielitiumArmor
 {
 	[AutoloadEquip(EquipType.Legs)]
-	public class hielitiumLeggings : ModItem
+	public class HielitiumLeggings : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

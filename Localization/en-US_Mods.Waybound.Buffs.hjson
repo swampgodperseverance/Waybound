@@ -17,3 +17,13 @@ IcebatBuff: {
 	DisplayName: Icebat Buff
 	Description: Mods.Waybound.Buffs.IcebatBuff.Description
 }
+
+MotorcycleOfDesertHunterB: {
+	DisplayName: Motorcycle Of Desert Hunter B
+	Description: Mods.Waybound.Buffs.MotorcycleOfDesertHunterB.Description
+}
+
+ShieldOfDesertHunterB: {
+	DisplayName: Shield Of Desert Hunter B
+	Description: Mods.Waybound.Buffs.ShieldOfDesertHunterB.Description
+}
