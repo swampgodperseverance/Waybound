@@ -27,3 +27,8 @@ ShieldOfDesertHunterB: {
 	DisplayName: Shield Of Desert Hunter B
 	Description: Mods.Waybound.Buffs.ShieldOfDesertHunterB.Description
 }
+
+DesertHunterArmorDroneB: {
+	DisplayName: Desert Hunter Armor Drone B
+	Description: Mods.Waybound.Buffs.DesertHunterArmorDroneB.Description
+}

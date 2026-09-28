@@ -15,6 +15,10 @@ using static System.Net.Mime.MediaTypeNames;
 using Waybound.Content.BossBars;
 using Waybound.Helpers;
 using Waybound.Common.ModSystems;
+using Waybound.Content.Items.Mounts;
+using Waybound.Content.Items.Placeable.Bosses;
+using Waybound.Content.Items.Vanity.BossMasks;
+using Waybound.Content.Items.Materials.Misc;
 
 namespace Waybound.Content.NPCs.Bosses.Themis
 {
@@ -71,7 +75,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 			NPC.height = 70;
 			NPC.damage = 30;
 			NPC.defense = 4;
-			NPC.lifeMax = 3200;
+			NPC.lifeMax = 3000;
 			NPC.HitSound = SoundID.NPCHit1;
 			if (DownedBossSystem.DownedThemis)
 			{
@@ -282,7 +286,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
             if (NPC.ai[0] == 60)
             {
                 frame = 0;
-                NPC.ai[0] = -30;
+                NPC.ai[0] = (Main.expertMode && !Main.masterMode) ? -50 : -30;
                 NPC.ai[1] = 0;
                 NPC.localAI[1] = 0;
                 NPC.netUpdate = true;
@@ -363,7 +367,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
             if (NPC.ai[1] == 4)
             {
                 frame = 0;
-                NPC.ai[0] = -45;
+                NPC.ai[0] = (Main.expertMode && !Main.masterMode) ? -65 : -45;
                 NPC.ai[1] = 0;
                 NPC.localAI[1] = 0;
                 NPC.netUpdate = true;
@@ -380,17 +384,23 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 
             NPC.ai[0]++;
 
+            float rocketSpeedMin = 5f;
+            float rocketSpeedMax = 7f;
+            if (Main.expertMode && !Main.masterMode)
+            {
+                rocketSpeedMin = 4f;
+                rocketSpeedMax = 5.5f;
+            }
+
             if (NPC.ai[0] == 10 && NPC.ai[1] > 0 || NPC.ai[0] == 30)
             {
-                Vector2 vel = (player.Center - NPC.Center).SafeNormalize(Vector2.UnitX).RotatedByRandom(MathHelper.ToRadians(25f)) * Main.rand.NextFloat(5f, 7f);
+                Vector2 vel = (player.Center - NPC.Center).SafeNormalize(Vector2.UnitX).RotatedByRandom(MathHelper.ToRadians(25f)) * Main.rand.NextFloat(rocketSpeedMin, rocketSpeedMax);
                 Vector2 pos = NPC.Center + new Vector2(0, -10) + vel.SafeNormalize(Vector2.UnitX) * 12f;
                 int proj1 = Projectile.NewProjectile(NPC.GetSource_GiftOrReward(), pos, vel, ModContent.ProjectileType<ThemisRocket>(), 15, 3, Main.myPlayer);
                 Main.projectile[proj1].timeLeft = 240;
-
                 player.PlayerScreen().fastScreenShake = 3.5f * (1000 - Vector2.Distance(player.Center, NPC.Center)) / 1000;
                 Lighting.AddLight(pos, 1.5f, 0.75f, 0.5f);
                 SoundEngine.PlaySound(SoundID.Item11, NPC.Center);
-
                 NPC.netUpdate = true;
                 NPC.ai[1]++;
                 NPC.ai[0] = 0;
@@ -399,7 +409,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
             if (NPC.ai[1] == 10)
             {
                 frame = 0;
-                NPC.ai[0] = -60;
+                NPC.ai[0] = (Main.expertMode && !Main.masterMode) ? -85 : -60;
                 NPC.ai[1] = 0;
                 NPC.localAI[1] = 0;
                 NPC.netUpdate = true;
@@ -644,7 +654,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             var effects1 = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            Texture2D texture = !DownedBossSystem.DownedThemis ? TextureAssets.Npc[NPC.type].Value : ModContent.Request<Texture2D>("VictimaMod2/Content/NPCs/Bosses/Themis/themisMech").Value;
+            Texture2D texture = !DownedBossSystem.DownedThemis ? TextureAssets.Npc[NPC.type].Value : ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisMech").Value;
             Vector2 drawOrigin = new(texture.Width * 0.5f, texture.Height * 0.5f / Main.npcFrameCount[NPC.type]);
             for (int k = 0; k < NPC.oldPos.Length; k++)
             {
@@ -655,7 +665,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
             Vector2 pos = (NPC.position - Main.screenPosition) + new Vector2(NPC.width * 0.5f, NPC.height * 0.5f) + new Vector2(0, 2);
             Main.EntitySpriteDraw(texture, pos, NPC.frame, drawColor * (1 - (float)NPC.alpha / 255), NPC.rotation, drawOrigin, NPC.scale, effects1, 0);
 
-            Texture2D weaponTexture = !DownedBossSystem.DownedThemis ? ModContent.Request<Texture2D>("VictimaMod2/Content/NPCs/Bosses/Themis/themisHands").Value : ModContent.Request<Texture2D>("VictimaMod2/Content/NPCs/Bosses/Themis/themisMechHands").Value;
+            Texture2D weaponTexture = !DownedBossSystem.DownedThemis ? ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisHands").Value : ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisMechHands").Value;
 
             if (NPC.localAI[1] == 4 || NPC.localAI[1] == 5)
 			{
@@ -695,11 +705,11 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Placeable.Trophies.themisTrophyItem>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ThemisTrophyItem>(), 10));
 
             LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 
-           // int desertWreckage = ModContent.ItemType<Items.Other.desertWreckage>();
+           int desertWreckage = ModContent.ItemType<DesertWreckage>();
             var desertWreckageParameters = new DropOneByOne.Parameters()
             {
                 ChanceNumerator = 1,
@@ -709,9 +719,9 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 MinimumItemDropsCount = 1,
                 MaximumItemDropsCount = 1,
             };
-           // notExpertRule.OnSuccess(new DropOneByOne(desertWreckage, desertWreckageParameters));
+           notExpertRule.OnSuccess(new DropOneByOne(desertWreckage, desertWreckageParameters));
 
-          //  int desertCore = ModContent.ItemType<Items.Other.desertCore>();
+           int desertCore = ModContent.ItemType<DesertCore>();
             var desertCoreParameters = new DropOneByOne.Parameters()
             {
                 ChanceNumerator = 1,
@@ -721,17 +731,17 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 MinimumItemDropsCount = 1,
                 MaximumItemDropsCount = 1,
             };
-           // notExpertRule.OnSuccess(new DropOneByOne(desertCore, desertCoreParameters));
+           notExpertRule.OnSuccess(new DropOneByOne(desertCore, desertCoreParameters));
 
-           // notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.BossMasks.themisMask>(), 7));
+           notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ThemisMask>(), 7));
 
             npcLoot.Add(notExpertRule);
 
            // npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Bags.themisBag>()));
 
-           // npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Placeable.Relics.ThemisRelicI>()));
+           npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<ThemisRelicI>()));
 
-           // npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<Items.Mount.motorcycleOfDesertHunter>(), 4));
+           npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MotorcycleOfDesertHunter>(), 4));
         }
 
         public override void ModifyTypeName(ref string typeName)

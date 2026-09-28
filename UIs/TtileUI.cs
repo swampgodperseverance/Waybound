@@ -73,9 +73,9 @@ namespace Waybound.UIs
             if (!Showing)
                 return;
 
-            Texture2D lineTexture = ModContent.Request<Texture2D>("VictimaMod2/Assets/Textures/TitleLine").Value;
-            Texture2D leftEndTexture = ModContent.Request<Texture2D>("VictimaMod2/Assets/Textures/TitleLineLeft").Value;
-            Texture2D rightEndTexture = ModContent.Request<Texture2D>("VictimaMod2/Assets/Textures/TitleLineRight").Value;
+            Texture2D lineTexture = ModContent.Request<Texture2D>("Waybound/Assets/Textures/TitleLine").Value;
+            Texture2D leftEndTexture = ModContent.Request<Texture2D>("Waybound/Assets/Textures/TitleLineLeft").Value;
+            Texture2D rightEndTexture = ModContent.Request<Texture2D>("Waybound/Assets/Textures/TitleLineRight").Value;
             DynamicSpriteFont font = TextFont switch
             {
                 1 => FontAssets.ItemStack.Value,

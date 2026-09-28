@@ -51,6 +51,53 @@ Projectiles: {
 	BowOfDesertHunterBombBlast.DisplayName: Bow Of Desert Hunter Bomb Blast
 	BowOfDesertHunterBomb.DisplayName: Bow Of Desert Hunter Bomb
 	BattleaxeOfDesertHunterP.DisplayName: Battleaxe Of Desert Hunter P
+	FlamingDuneRocketP.DisplayName: Flaming Dune Rocket P
+	AmberYoYoP.DisplayName: Amber Yo Yo P
+	AmberYoYoP1.DisplayName: Amber Yo Yo P1
+	AmberYoYoP2.DisplayName: Amber Yo Yo P2
+	AmethystYoYoP.DisplayName: Amethyst Yo Yo P
+	AmethystYoYoP1.DisplayName: Amethyst Yo Yo P1
+	AmethystYoYoP2.DisplayName: Amethyst Yo Yo P2
+	DiamondYoYoP.DisplayName: Diamond Yo Yo P
+	DiamondYoYoP1.DisplayName: Diamond Yo Yo P1
+	DiamondYoYoP2.DisplayName: Diamond Yo Yo P2
+	EmeraldYoYoP.DisplayName: Emerald Yo Yo P
+	EmeraldYoYoP1.DisplayName: Emerald Yo Yo P1
+	EmeraldYoYoP2.DisplayName: Emerald Yo Yo P2
+	RubyYoYoP.DisplayName: Ruby Yo Yo P
+	RubyYoYoP1.DisplayName: Ruby Yo Yo P1
+	RubyYoYoP2.DisplayName: Ruby Yo Yo P2
+	SaphireYoYoP.DisplayName: Saphire Yo Yo P
+	SaphireYoYoP1.DisplayName: Saphire Yo Yo P1
+	SaphireYoYoP2.DisplayName: Saphire Yo Yo P2
+	TopazYoYoP.DisplayName: Topaz Yo Yo P
+	TopazYoYoP1.DisplayName: Topaz Yo Yo P1
+	TopazYoYoP2.DisplayName: Topaz Yo Yo P2
+	DesertHunterArmorDrone.DisplayName: Desert Hunter Armor Drone
+	PanProjectile.DisplayName: Pan Projectile
+	EcosystenShoot.DisplayName: Ecosysten Shoot
+	PanPickupProjectile.DisplayName: Pan Pickup Projectile
+	PanThrownProjectile.DisplayName: Pan Thrown Projectile
+	EcosystemProjectile.DisplayName: Ecosystem Projectile
+	EcosystemShoot.DisplayName: Ecosystem Shoot
+	EcosystemThrownProjectile.DisplayName: Ecosystem Thrown Projectile
+	IncandescencedPanP.DisplayName: Incandescenced Pan P
+	IncandescencedPanProjectile.DisplayName: Incandescenced Pan Projectile
+	IncandescencedPanThrownProjectile.DisplayName: Incandescenced Pan Thrown Projectile
+	GideyonProj.DisplayName: Gideyon Proj
+	GideyonProjectile.DisplayName: Gideyon Projectile
+	GideyonThrownProjectile.DisplayName: Gideyon Thrown Projectile
+	CrimtanePanProjectile.DisplayName: Crimtane Pan Projectile
+	CrimtanePanThrownProjectile.DisplayName: Crimtane Pan Thrown Projectile
+	DemonitePanProjectile.DisplayName: Demonite Pan Projectile
+	DemonitePanThrownProjectile.DisplayName: Demonite Pan Thrown Projectile
+	LivingVeinProj.DisplayName: Living Vein Proj
+	LivingVeinProjectile.DisplayName: Living Vein Projectile
+	LivingVeinThrownProjectile.DisplayName: Living Vein Thrown Projectile
+	TarSpikeFlash.DisplayName: Tar Spike Flash
+	VileShriekBeam.DisplayName: Vile Shriek Beam
+	VileShriekProjectile.DisplayName: Vile Shriek Projectile
+	VileShriekThrownProjectile.DisplayName: Vile Shriek Thrown Projectile
 }
 
 NPCs: {
@@ -60,6 +107,7 @@ NPCs: {
 	Chad.DisplayName: Chad
 	Themis.DisplayName: Themis
 	ThemisDroneMinion.DisplayName: Themis Drone Minion
+	ThemisDrone.DisplayName: Themis Drone
 }
 
 Items: {
@@ -626,6 +674,236 @@ Items: {
 		DisplayName: Battleaxe Of Desert Hunter
 		Tooltip: ""
 	}
+
+	Antiradar: {
+		DisplayName: Antiradar
+		Tooltip: ""
+	}
+
+	EmbalmedSnake: {
+		DisplayName: Embalmed Snake
+		Tooltip: ""
+	}
+
+	FlamingDuneRocket: {
+		DisplayName: Flaming Dune Rocket
+		Tooltip: ""
+	}
+
+	BreastplateOfDesertHunter: {
+		DisplayName: Breastplate Of Desert Hunter
+		Tooltip: ""
+	}
+
+	HelmetOfDesertHunter: {
+		DisplayName: Helmet Of Desert Hunter
+		Tooltip: ""
+	}
+
+	LeggingsOfDesertHunter: {
+		DisplayName: Leggings Of Desert Hunter
+		Tooltip: ""
+	}
+
+	BreastplateOfDesertHunterActivated: {
+		DisplayName: Breastplate Of Desert Hunter Activated
+		Tooltip: ""
+	}
+
+	HelmetOfDesertHunterActivated: {
+		DisplayName: Helmet Of Desert Hunter Activated
+		Tooltip: ""
+	}
+
+	LeggingsOfDesertHunterActivated: {
+		DisplayName: Leggings Of Desert Hunter Activated
+		Tooltip: ""
+	}
+
+	PufferFishBannerI: {
+		DisplayName: Puffer Fish Banner I
+		Tooltip: ""
+	}
+
+	ThemisDroneBannerI: {
+		DisplayName: Themis Drone Banner I
+		Tooltip: ""
+	}
+
+	AmberYoYo: {
+		DisplayName: Amber Yo Yo
+		Tooltip: ""
+	}
+
+	AmethystYoYo: {
+		DisplayName: Amethyst Yo Yo
+		Tooltip: ""
+	}
+
+	DiamondYoYo: {
+		DisplayName: Diamond Yo Yo
+		Tooltip: ""
+	}
+
+	EmeraldYoYo: {
+		DisplayName: Emerald Yo Yo
+		Tooltip: ""
+	}
+
+	RubyYoYo: {
+		DisplayName: Ruby Yo Yo
+		Tooltip: ""
+	}
+
+	SaphireYoYo: {
+		DisplayName: Saphire Yo Yo
+		Tooltip: ""
+	}
+
+	TopazYoYo: {
+		DisplayName: Topaz Yo Yo
+		Tooltip: ""
+	}
+
+	ThemisBag: {
+		DisplayName: Themis Bag
+		Tooltip: ""
+	}
+
+	ThemisRelicI: {
+		DisplayName: Themis Relic I
+		Tooltip: ""
+	}
+
+	ThemisTrophyItem: {
+		DisplayName: Themis Trophy Item
+		Tooltip: ""
+	}
+
+	DeepStoneGolemMask: {
+		DisplayName: Deep Stone Golem Mask
+		Tooltip: ""
+	}
+
+	KronosMask: {
+		DisplayName: Kronos Mask
+		Tooltip: ""
+	}
+
+	ThemisMask: {
+		DisplayName: Themis Mask
+		Tooltip: ""
+	}
+
+	Pan: {
+		DisplayName: Pan
+		Tooltip:
+			'''
+			Cook'em up!
+			Twirls pan around the world
+			{$Controls.RightClick} to throw at the enemies
+			'''
+	}
+
+	Ecosystem: {
+		DisplayName: Ecosystem
+		Tooltip:
+			'''
+			Cook'em up!
+			Twirls pan around the world
+			{$Controls.RightClick} to throw at the enemies
+			'''
+	}
+
+	IncandescencedPan: {
+		DisplayName: Incandescenced Pan
+		Tooltip:
+			'''
+			Cook'em up!
+			Twirls pan around the world
+			{$Controls.RightClick} to throw at the enemies
+			'''
+	}
+
+	Gideyon: {
+		DisplayName: Gideyon
+		Tooltip:
+			'''
+			Cook'em up!
+			Twirls pan around the world
+			{$Controls.RightClick} to throw at the enemies
+			'''
+	}
+
+	CrimtanePan: {
+		DisplayName: Crimtane Pan
+		Tooltip:
+			'''
+			Cook'em up!
+			Twirls pan around the world
+			{$Controls.RightClick} to throw at the enemies
+			'''
+	}
+
+	DemonitePan: {
+		DisplayName: Demonite Pan
+		Tooltip:
+			'''
+			Cook'em up!
+			Twirls pan around the world
+			{$Controls.RightClick} to throw at the enemies
+			'''
+	}
+
+	LivingVein: {
+		DisplayName: Living Vein
+		Tooltip:
+			'''
+			Cook'em up!
+			Twirls pan around the world
+			{$Controls.RightClick} to throw at the enemies
+			'''
+	}
+
+	VileShriek: {
+		DisplayName: Vile Shriek
+		Tooltip:
+			'''
+			Cook'em up!
+			Twirls pan around the world
+			{$Controls.RightClick} to throw at the enemies
+			'''
+	}
+
+	BloodyNecklace: {
+		DisplayName: Bloody Necklace
+		Tooltip: ""
+	}
+
+	AqualliteChestItem: {
+		DisplayName: Aquallite Chest Item
+		Tooltip: ""
+	}
+
+	AquallitePlatform: {
+		DisplayName: Aquallite Platform
+		Tooltip: ""
+	}
+
+	Quirk: {
+		DisplayName: Quirk
+		Tooltip: ""
+	}
+
+	IcebornRifle: {
+		DisplayName: Iceborn Rifle
+		Tooltip: ""
+	}
+
+	AxeOfDisgrace: {
+		DisplayName: Axe Of Disgrace
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -702,4 +980,6 @@ Tiles: {
 	DesertHunterTable.MapEntry: Desert Hunter Table
 	DesertHunterToilet.MapEntry: Desert Hunter Toilet
 	DesertHunterWorkbench.MapEntry: Desert Hunter Workbench
+	PufferFishBanner.MapEntry: Puffer Fish Banner
+	ThemisDroneBanner.MapEntry: Themis Drone Banner
 }
