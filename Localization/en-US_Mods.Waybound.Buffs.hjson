@@ -42,3 +42,8 @@ DesertHunterArmorDroneB: {
 	DisplayName: Desert Hunter Armor Drone B
 	Description: Mods.Waybound.Buffs.DesertHunterArmorDroneB.Description
 }
+
+Caught: {
+	DisplayName: Caught
+	Description: Mods.Waybound.Buffs.Caught.Description
+}

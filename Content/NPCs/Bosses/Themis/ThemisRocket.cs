@@ -69,14 +69,14 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 Vector2 pos = Projectile.Center - Projectile.velocity.SafeNormalize(Vector2.UnitX) * Main.rand.NextFloat(4f, 8f);
                 Vector2 vel = -Projectile.velocity * 0.15f + Main.rand.NextVector2Circular(0.8f, 0.8f);
 
-                ParticleSystem.FlameBuffer.Create(new ParticleInfo(
-                    pos.ToNumerics(),
-                    vel.ToNumerics(),
-                    Main.rand.NextFloat(MathHelper.TwoPi),
-                    new System.Numerics.Vector2(Main.rand.NextFloat(18f, 30f)),
-                    new Color(255, 140, 40, 220),
-                    Main.rand.Next(24, 40)
-                ));
+                    ParticleSystem.FlameBuffer.Create(new ParticleInfo(
+                        pos.ToNumerics(),
+                        vel.ToNumerics(),
+                        Main.rand.NextFloat(MathHelper.TwoPi),
+                        new System.Numerics.Vector2(Main.rand.NextFloat(18f, 30f)),
+                        new Color(255, 140, 40, 220),
+                        Main.rand.Next(24, 40)
+                    ));
 
                 if (Main.rand.NextBool(2))
                 {

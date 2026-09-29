@@ -92,7 +92,7 @@ internal static class ILs {
     }
     static void InitColorLootTooltips(ILContext il) {
         ILCursor c = new(il);
-        c.GotoNext(i => i.MatchCallvirt<List<string>>(nameof(List<>.Add)));
+        c.GotoNext(i => i.MatchCallvirt<List<string>>(nameof(List<string>.Add)));
         c.Emit(OpCodes.Ldloc, 2);
         c.EmitDelegate((IItemDropRuleCondition condition) => {
             if (condition is IColorDropInfo color) { tooltips.Add(condition.GetConditionDescription(), color); };

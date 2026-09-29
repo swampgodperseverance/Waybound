@@ -719,3 +719,98 @@ TopazYoYo: {
 	DisplayName: Topaz Yo Yo
 	Tooltip: ""
 }
+
+WoodRapier: {
+	DisplayName: Wood Rapier
+	Tooltip: ""
+}
+
+TungstenRapier: {
+	Tooltip: ""
+	DisplayName: Tungsten Rapier
+}
+
+TinRapier: {
+	Tooltip: ""
+	DisplayName: Tin Rapier
+}
+
+SilverRapier: {
+	Tooltip: ""
+	DisplayName: Silver Rapier
+}
+
+PlatinumRapier: {
+	Tooltip: ""
+	DisplayName: Platinum Rapier
+}
+
+LeadRapier: {
+	Tooltip: ""
+	DisplayName: Lead Rapier
+}
+
+IronRapier: {
+	Tooltip: ""
+	DisplayName: Iron Rapier
+}
+
+GoldRapier: {
+	Tooltip: ""
+	DisplayName: Gold Rapier
+}
+
+CopperRapier: {
+	Tooltip: ""
+	DisplayName: Copper Rapier
+}
+
+MoltenRapier: {
+	Tooltip: ""
+	DisplayName: Molten Rapier
+}
+
+SeaBottom: {
+	DisplayName: Sea Bottom
+	Tooltip: ""
+}
+
+CrystalMushroomItem: {
+	DisplayName: Crystal Mushroom Item
+	Tooltip: ""
+}
+
+DeepBeamItem: {
+	DisplayName: Deep Beam Item
+	Tooltip: ""
+}
+
+DeepBricksItem: {
+	DisplayName: Deep Bricks Item
+	Tooltip: ""
+}
+
+DeepDirtItem: {
+	DisplayName: Deep Dirt Item
+	Tooltip: ""
+}
+
+DeepStoneItem: {
+	DisplayName: Deep Stone Item
+	Tooltip: ""
+}
+
+DeepTreeItem: {
+	DisplayName: Deep Tree Item
+	Tooltip: ""
+}
+
+DeepBricksWallItem: {
+	DisplayName: Deep Bricks Wall Item
+	Tooltip: ""
+}
+
+DeepWoodWallItem: {
+	DisplayName: Deep Wood Wall Item
+	Tooltip: ""
+}
