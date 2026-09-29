@@ -12,11 +12,12 @@ namespace Waybound.Common.ModSystems.WorldGens {
         public static List<Vector2> DesertPillar1Tiles { get; set; } = [];
         public static List<Vector2> DesertPillar1Walles { get; set; } = [];
         public static List<GenVector> CryoSpringPos { get; set; } = [];
+        public static int ThemisLaboratoryX { get; set; } = 0;
+        public static int ThemisLaboratoryY { get; set; } = 0;
         public static int SnowVillagePositionX { get; set; }
         public static int SnowVillagePositionY { get; set; }
         public static int DesertPillar1PositionX { get; set; }
         public static int DesertPillar1PositionY { get; set; }
-
         public static bool SnowVillageGen { get; set; }
         public static bool DesertPillar1Gen { get; set; }
         public override void ClearWorld() {
@@ -33,6 +34,8 @@ namespace Waybound.Common.ModSystems.WorldGens {
             SnowVillagePositionY = 0;
             DesertPillar1PositionX = 0;
             DesertPillar1PositionY = 0;
+            ThemisLaboratoryX = 0;
+            ThemisLaboratoryY = 0;
 
             SnowVillageGen = false;
             SnowVillageGen = false;
@@ -50,6 +53,8 @@ namespace Waybound.Common.ModSystems.WorldGens {
             tag["SnowVillagePositionY"] = SnowVillagePositionY;
             tag["DesertPillar1PositionX"] = DesertPillar1PositionX;
             tag["DesertPillar1PositionY"] = DesertPillar1PositionY;
+            tag["ThemisLaboratoryX"] = ThemisLaboratoryX;
+            tag["ThemisLaboratoryY"] = ThemisLaboratoryY;
 
             tag["SnowVillageGen"] = SnowVillageGen;
             tag["DesertPillar1Gen"] = DesertPillar1Gen;
@@ -68,9 +73,10 @@ namespace Waybound.Common.ModSystems.WorldGens {
 
             SnowVillagePositionX = tag.GetInt("SnowVillagePositionX");
             SnowVillagePositionY = tag.GetInt("SnowVillagePositionY");
-
             DesertPillar1PositionX = tag.GetInt("DesertPillar1PositionX");
             DesertPillar1PositionY = tag.GetInt("DesertPillar1PositionY");
+            ThemisLaboratoryX = tag.GetInt("ThemisLaboratoryX");
+            ThemisLaboratoryY = tag.GetInt("ThemisLaboratoryY");
 
             SnowVillageGen = tag.GetBool("SnowVillageGen");
             DesertPillar1Gen = tag.GetBool("DesertPillar1Gen");
@@ -84,9 +90,10 @@ namespace Waybound.Common.ModSystems.WorldGens {
 
             writer.Write(SnowVillagePositionX);
             writer.Write(SnowVillagePositionY);
-
             writer.Write(DesertPillar1PositionX);
             writer.Write(DesertPillar1PositionY);
+            writer.Write(ThemisLaboratoryX);
+            writer.Write(ThemisLaboratoryY);
 
             writer.Write(SnowVillageGen);
             writer.Write(DesertPillar1Gen);
@@ -100,9 +107,10 @@ namespace Waybound.Common.ModSystems.WorldGens {
 
             SnowVillagePositionX = reader.ReadInt32();
             SnowVillagePositionY = reader.ReadInt32();
-
             DesertPillar1PositionX = reader.ReadInt32();
             DesertPillar1PositionY = reader.ReadInt32();
+            ThemisLaboratoryX = reader.ReadInt32();
+            ThemisLaboratoryY = reader.ReadInt32();
 
             SnowVillageGen = reader.ReadBoolean();
             DesertPillar1Gen = reader.ReadBoolean();

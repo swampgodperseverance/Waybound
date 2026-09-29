@@ -1,4 +1,5 @@
 ﻿using ReLogic.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.UI.Chat;
@@ -68,4 +69,16 @@ public static class UI {
     }
     public static Vector2 X(this Vector2 pos, float value) => new(pos.X + value, pos.Y);
     public static Vector2 Y(this Vector2 pos, float value) => new(pos.X, pos.Y + value);
+    public static void WindowChatColor(ConsoleColor color, string text) {
+        Console.ForegroundColor = color;
+        if (!string.IsNullOrEmpty(text)) { Waybound.Instance.Logger.Info(text); };
+        Console.ResetColor();
+    }
+    public static void ErrorMsg(string text) {
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Waybound.Instance.Logger.Error(text);
+        Console.ForegroundColor = ConsoleColor.Green;
+        Waybound.Instance.Logger.Info(Core.DebugLoc.GetLoc("SetSernik"));
+        Console.ResetColor();
+    }
 };

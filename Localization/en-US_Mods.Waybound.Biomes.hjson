@@ -1,4 +1,6 @@
 SnowVillage: {
+	DisplayName: Snow Village
+	TownNPCDialogueName: the Snow Village
 }
 
 CryoLake: {

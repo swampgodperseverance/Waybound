@@ -1,0 +1,21 @@
+{
+	"Load": {
+		"Start": "=== Start Loaded(Waybound content) ===",
+		"Asset": "=== Texture ===",
+		"Shader": "=== Shader ===",
+		"Song": "=== Audio ===",
+		"Tables": "=== Tables ===",
+		"Data": "=== Custom Data ===",
+		"Partical": "=== Particle buffers SUCCESSFULLY REGISTERED ===",
+		"Hook": "=== Vanilla code changes ===",
+		"End": "=== End Loaded(Waybound content) ==="
+	},
+	"Error": {
+		"InLock": "The key is not found in the loc dictionary: {0}",
+		"SetSernik": "Give scrin SerNik or Waybound/ErrorMsg",
+		"TableIndex": "Error for {0} in SetLoot, {1}",
+		"Index-": "index is negative",
+		"Index40+": "Index out in Chest array",
+		"NullTableName": "Table name is null"
+	}
+}

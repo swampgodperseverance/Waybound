@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace Waybound.Common.Systems
@@ -36,30 +35,12 @@ namespace Waybound.Common.Systems
 
         public override void SaveWorldData(TagCompound tag)
         {
-            if (DownedDeepStoneGolem)
-            {
-                tag["DownedDeepStoneGolem"] = true;
-            }
-            if (DownedThemis)
-            {
-                tag["DownedThemis"] = true;
-            }
-            if (DownedDeepLunatic)
-            {
-                tag["DownedDeepLunatic"] = true;
-            }
-            if (DownedForgottenSoul)
-            {
-                tag["DownedForgottenSoul"] = true;
-            }
-            if (DownedLeviathan)
-            {
-                tag["DownedLeviathan"] = true;
-            }
-            if (DownedGlowingOracle)
-            {
-                tag["DownedGlowingOracle"] = true;
-            }
+            tag["DownedDeepStoneGolem"] = DownedDeepStoneGolem;
+            tag["DownedThemis"] = DownedThemis;
+            tag["DownedDeepLunatic"] = DownedDeepLunatic;
+            tag["DownedForgottenSoul"] = DownedForgottenSoul;
+            tag["DownedLeviathan"] = DownedLeviathan;
+            tag["DownedGlowingOracle"] = DownedGlowingOracle;
         }
 
         public override void LoadWorldData(TagCompound tag)

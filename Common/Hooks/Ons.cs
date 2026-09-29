@@ -2,12 +2,17 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
+using Terraria.Graphics.Effects;
 using Terraria.Localization;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Waybound.Common.GlobalPlayer;
+using Waybound.Common.ItemDropRules;
+using Waybound.Common.Water;
 using Waybound.Common.WUtils;
 using Waybound.Content.Race;
 
@@ -16,15 +21,28 @@ namespace Waybound.Common.Hooks;
 internal static class Ons {
     internal static void Load() {
         On_MainHook.Load();
+        On_OverlayManager.Draw += On_OverlayManager_Draw;
 
         On_PlayerDrawLayers.DrawPlayer_28_ArmOverItem += FixNeck;
 
         On_UIPanel.DrawPanel += On_UIPanel_DrawPanel;
 
         On_UICharacterListItem.DrawSelf += DrawRaceName;
-        On_UICharacterCreation.Click_NamingAndCreating += NeedRace; // For continue player need race
         On_UICharacterCreation.Click_GoBack += On_UICharacterCreation_Click_GoBack;
     }
+
+    static void On_OverlayManager_Draw(On_OverlayManager.orig_Draw orig, OverlayManager self, SpriteBatch spriteBatch, RenderLayers layer, bool beginSpriteBatch) {
+        orig(self, spriteBatch, layer, beginSpriteBatch);
+        if (layer == RenderLayers.ForegroundWater) {
+            for (int i = 0; i < Core.CustomClassData.Liquids.Count; i++) {
+                if (Main.CalculateWaterStyle(true) == Core.CustomClassData.Liquids[i].Slot) {
+                    Core.CustomClassData.Liquids[i].Draw(spriteBatch, Main.sceneWaterPos - Main.screenPosition, beginSpriteBatch);
+                    break;
+                }
+            }
+        }
+    }
+
     static void FixNeck(On_PlayerDrawLayers.orig_DrawPlayer_28_ArmOverItem orig, ref PlayerDrawSet drawinfo) {
         orig(ref drawinfo);
         if (drawinfo.drawPlayer.GetModPlayer<BloodyNecklacePlayer>().equipped) {
@@ -78,73 +96,6 @@ internal static class Ons {
             return ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, name, pos, color[0], color[1] * alpha, 0f, Vector2.Zero, Vector2.One);
         }
     }
-    static void NeedRace(On_UICharacterCreation.orig_Click_NamingAndCreating orig, UICharacterCreation self, UIMouseEvent evt, UIElement listeningElement) {
-        orig(self, evt, listeningElement);
-        //PlayerCreationData saveData = IL_UICharacterCreationHook.saveData;
-        //if (saveData.race != null) {
-        //    orig(self, evt, listeningElement);
-        //    saveData.element?.Remove();
-        //    saveData.element = null;
-        //    saveData.raceConfirmUI?.Remove();
-        //    saveData.raceConfirmUI = null;
-        //    saveData.openRaceUI = false;
-        //    if (saveData.parent != null) {
-        //        saveData.parent.Append(saveData.topContainer);
-        //        saveData.parent.Append(saveData.middleContainer);
-        //    };
-        //    return;
-        //} else {
-        //    if (saveData.openRaceUI) {
-        //        SoundEngine.PlaySound(SoundID.MenuClose);
-        //        saveData.element?.Remove();
-        //        saveData.element = null;
-        //        if (saveData.parent != null) {
-        //            saveData.parent.Append(saveData.topContainer);
-        //            saveData.parent.Append(saveData.middleContainer);
-        //        };
-        //        saveData.openRaceUI = false;
-        //        return;
-        //    };
-
-        //    Type type = typeof(UICharacterCreation);
-        //    BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
-
-        //    UIElement middleContainer = (UIElement)type.GetField("_middleContainer", flags).GetValue(self);
-        //    UIElement topContainer = (UIElement)type.GetField("_topContainer", flags).GetValue(self);
-        //    UIColoredImageButton clothingStyles = (UIColoredImageButton)type.GetField("_clothingStylesCategoryButton", flags).GetValue(self);
-        //    UIColoredImageButton hairStyles = (UIColoredImageButton)type.GetField("_hairStylesCategoryButton", flags).GetValue(self);
-        //    UIColoredImageButton charInfo = (UIColoredImageButton)type.GetField("_charInfoCategoryButton", flags).GetValue(self);
-
-        //    if (saveData.raceConfirmUI == null) {
-        //        SoundEngine.PlaySound(SoundID.MenuOpen);
-        //        UIs.Race race = new(saveData, Loc.GetUI("PlayerRaceMenu.NeedRace")) {
-        //            posScaleX = -347,
-        //            posScaleY = -301
-        //        };
-        //        saveData.raceConfirmUI = race;
-        //        saveData.raceConfirmUI.OnInitialize();
-        //        listeningElement.Append(saveData.raceConfirmUI);
-        //        if (saveData.middleContainer == null) {
-        //            saveData.middleContainer = middleContainer;
-        //            saveData.topContainer = topContainer;
-        //            saveData.parent = middleContainer.Parent;
-        //        };
-        //        clothingStyles.SetSelected(false);
-        //        hairStyles.SetSelected(false);
-        //        charInfo.SetSelected(false);
-        //        middleContainer.Remove();
-        //        topContainer.Remove();
-        //    } else {
-        //        SoundEngine.PlaySound(SoundID.MenuClose);
-        //        saveData.raceConfirmUI?.Remove();
-        //        saveData.raceConfirmUI = null;
-        //        if (saveData.parent != null) {
-        //            saveData.parent.Append(saveData.topContainer);
-        //            saveData.parent.Append(saveData.middleContainer);
-        //        };
-        //    };
-        //};
-    } 
     internal static void Unload() {
         On_MainHook.Unload();
 
@@ -153,7 +104,6 @@ internal static class Ons {
         On_UIPanel.DrawPanel -= On_UIPanel_DrawPanel;
 
         On_UICharacterListItem.DrawSelf -= DrawRaceName;
-        On_UICharacterCreation.Click_NamingAndCreating -= NeedRace; // For continue player need race
         On_UICharacterCreation.Click_GoBack -= On_UICharacterCreation_Click_GoBack;
     }
 };

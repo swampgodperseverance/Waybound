@@ -8,6 +8,9 @@
 		  <LangVersion>14.0</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
+	  <AdditionalFiles Include="Localization\en-US_Mods.Waybound.DebugInfo.json" />
+	</ItemGroup>
+	<ItemGroup>
 	  <Folder Include="Assets\Sounds\Music\" />
 	</ItemGroup>
 	<ItemGroup>

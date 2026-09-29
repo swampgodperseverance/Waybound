@@ -17,6 +17,7 @@ internal static class On_MainHook {
         On_Main.DrawMenu += On_Main_DrawMenu;
         On_Main.CalculateWaterStyle += On_Main_CalculateWaterStyle;
     }
+
     static void EditTextPos2(On_Main.orig_MouseText_string_string_int_byte_int_int_int_int_int_bool orig, Main self, string cursorText, string buffTooltip, int rare, byte diff, int hackedMouseX, int hackedMouseY, int hackedScreenWidth, int hackedScreenHeight, int pushWidthX, bool noOverride) {
         string newPosText = "[" + Waybound.ModName + "]: new text pos";
         bool flag = false;
@@ -71,7 +72,15 @@ internal static class On_MainHook {
             IL_UICharacterCreationHook.saveData = null;
         }
     }
-    static int On_Main_CalculateWaterStyle(On_Main.orig_CalculateWaterStyle orig, bool ignoreFountains) => Main.LocalPlayer.InModBiome<CryoLake>() ? GetInstance<CryoFluid>().Slot : orig(ignoreFountains);
+    static int On_Main_CalculateWaterStyle(On_Main.orig_CalculateWaterStyle orig, bool ignoreFountains) {
+        if (Main.LocalPlayer.GetModPlayer<IceShimerPlayer>().Alpha != 0) {
+            return GetInstance<CryoFluid>().Slot;
+        }
+        else {
+            return orig(ignoreFountains);
+        }
+    }
+    //=> Main.LocalPlayer.InModBiome<CryoLake>() ? GetInstance<CryoFluid>().Slot : orig(ignoreFountains);
     internal static void Unload() {
         On_Main.DrawHealthBar -= FixNPCHPBar;
         On_Main.MouseTextHackZoom_string_int_byte_string -= EditTextPos;

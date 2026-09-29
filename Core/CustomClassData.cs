@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Waybound.Common.HeartStyles;
+using Waybound.Common.Water;
 using Waybound.Content.Race;
 
 namespace Waybound.Core;
@@ -7,6 +8,7 @@ namespace Waybound.Core;
 public class CustomClassData {
     public static List<HeartStyle> Heart { get; private set; } = [];
     public static RaceInfo[] RaceInfo { get; private set; } = new RaceInfo[5];
+    public static List<WayboundWater> Liquids { get; private set; } = [];
 
     internal static void Load() {
         RaceInfo[0] = new Human();

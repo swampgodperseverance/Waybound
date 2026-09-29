@@ -1,3 +1,38 @@
 ChadCage.MapEntry: Chad Cage
 TelescopeTile.MapEntry: Telescope Tile
 HielitiumOre.MapEntry: Hielitium Ore
+NoticeBoard.MapEntry: Notice Board
+
+AqualliteChest: {
+	MapEntry: Mods.Waybound.Tiles.AqualliteChest.MapEntry
+	ChestName: Aquallite Chest
+}
+
+ErisSwordTile.MapEntry: Eris Sword Tile
+DesertHunterBathtub.MapEntry: Desert Hunter Bathtub
+DesertHunterBed.MapEntry: Desert Hunter Bed
+DesertHunterBookcase.MapEntry: Desert Hunter Bookcase
+DesertHunterCandelabra.MapEntry: Desert Hunter Candelabra
+DesertHunterCandle.MapEntry: Desert Hunter Candle
+DesertHunterChair.MapEntry: Desert Hunter Chair
+DesertHunterChandelier.MapEntry: Desert Hunter Chandelier
+
+DesertHunterChest: {
+	MapEntry: Desert Hunter Chest
+	ChestName: Desert Hunter Chest
+}
+
+DesertHunterClock.MapEntry: Desert Hunter Clock
+DesertHunterDoorClosed.MapEntry: Desert Hunter Door Closed
+DesertHunterDoorOpen.MapEntry: Desert Hunter Door Open
+DesertHunterDresser.MapEntry: Desert Hunter Dresser
+DesertHunterLamp.MapEntry: Desert Hunter Lamp
+DesertHunterLantern.MapEntry: Desert Hunter Lantern
+DesertHunterPiano.MapEntry: Desert Hunter Piano
+DesertHunterSink.MapEntry: Desert Hunter Sink
+DesertHunterSofa.MapEntry: Desert Hunter Sofa
+DesertHunterTable.MapEntry: Desert Hunter Table
+DesertHunterToilet.MapEntry: Desert Hunter Toilet
+DesertHunterWorkbench.MapEntry: Desert Hunter Workbench
+PufferFishBanner.MapEntry: Puffer Fish Banner
+ThemisDroneBanner.MapEntry: Themis Drone Banner
