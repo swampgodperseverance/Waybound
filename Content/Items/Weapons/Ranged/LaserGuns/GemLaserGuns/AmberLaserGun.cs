@@ -71,25 +71,26 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns.GemLaserGuns
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 10;
-			Projectile.height = 10;
-			Projectile.friendly = true;
-			Projectile.penetrate = -1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 5;
-			Projectile.hostile = false;
-			Projectile.DamageType = DamageClass.Ranged;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.aiStyle = -1;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 5;
+            Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = -1;
             Projectile.scale = 0.3f;
             Projectile.timeLeft = 2;
+
             moveDistance = 37f;
             moveSpeed = 2.8f;
             maxDistance = 335;
             laserDust = DustType<AmberLaserGunD>();
-            colorLineBG = new(235, 103, 0, 100);
-            colorLinesAround = new(253, 199, 7, 100);
+            colorLineBG = new Color(235, 103, 0, 100);
+            colorLinesAround = new Color(253, 199, 7, 100);
         }
         public override bool PreDraw(ref Color lightColor)
         {
