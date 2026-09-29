@@ -5,3 +5,15 @@ WorldGen: {
 	SnowVillage: Gen vilage in snow biome
 	ThemisLaboratory: Gen lab in underground desert
 }
+
+Command: {
+	SetRace: {
+		Usage: SetRace ID
+		Description: Set you race
+	}
+
+	GiveRace: {
+		Usage: GiveRace
+		Description: Give you race
+	}
+}

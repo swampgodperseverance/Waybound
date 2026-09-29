@@ -1,6 +1,7 @@
 sampler2D texture2d : register(s0);
 
 float uTime;
+float alpha;
 
 float4 iceShimer(float2 texCoord : TEXCOORD0) : COLOR0
 {
@@ -12,11 +13,10 @@ float4 iceShimer(float2 texCoord : TEXCOORD0) : COLOR0
         return color;
     
     const float TAU = 6.28318530718f;
-    const int MAX_ITER = 5; // Снова 5 итераций, эффект будет очень красивым и детальным
+    const int MAX_ITER = 5; 
     
     float time = uTime * 0.5 + 23.0;
     
-    // Эффект красиво распределяется по координатам
     float2 p = fmod(texCoord * TAU, TAU) - 250.0;
     float2 i = p;
     float c = 1.0;
@@ -25,8 +25,7 @@ float4 iceShimer(float2 texCoord : TEXCOORD0) : COLOR0
     for (int n = 0; n < MAX_ITER; n++)
     {
         float t = time * (1.0 - (3.5 / float(n + 1)));
-        
-        // Разделяем вычисления, чтобы компилятор не ругался
+   
         float nextX = cos(t - i.x) + sin(t + i.y);
         float nextY = sin(t - i.y) + cos(t + i.x);
         i = p + float2(nextX, nextY);
@@ -40,14 +39,13 @@ float4 iceShimer(float2 texCoord : TEXCOORD0) : COLOR0
     float3 colour = float3(pow(abs(c), 8.0), pow(abs(c), 8.0), pow(abs(c), 8.0));
     colour = clamp(colour + float3(0.0, 0.35, 0.5), 0.0, 1.0);
     
-    return float4(colour * color.rgb, color.a);
+    return float4((colour * color.rgb) * alpha, color.a * alpha);
 }
 
 technique Technique1
 {
-    pass P0
+    pass LaserPass
     {
-        // Используем ps_3_0, так как Terraria и tModLoader работают в HiDef-режиме
         PixelShader = compile ps_3_0 iceShimer();
     }
 }
