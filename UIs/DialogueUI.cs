@@ -114,7 +114,7 @@ namespace Waybound.UIs
             Color drawColor = new(255, 255, 255);
             Color shadowColor = new(25, 25, 25);
 
-            Texture2D darkTexture = ModContent.Request<Texture2D>("VictimaMod2/Assets/Textures/BlackSquare").Value;
+            Texture2D darkTexture = ModContent.Request<Texture2D>("Waybound/Assets/Textures/BlackSquare").Value;
 
             int titleDrawX = centerX - (textLength / 2);
             int titleDrawY = centerY - (int)(textHeight * 0.6f);

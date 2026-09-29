@@ -13,7 +13,7 @@ namespace Waybound.Common.ModSystems {
         public static int SwampChestindex { get; set; } = -1;
 
         public static bool FirstEnterInSnowVillage { get; internal set; }
-       // public static bool FirstEnterInHellVillage { get; internal set; }
+        // public static bool FirstEnterInHellVillage { get; internal set; }
         //public static bool SpawnDwarf { get; internal set; }
 
         //internal static bool sinlordDead = false;
@@ -23,21 +23,33 @@ namespace Waybound.Common.ModSystems {
         internal static bool cruorDead = false;
         public static bool CruorDead { get { return cruorDead; } private set { cruorDead = value; } }
 
+        internal static bool themisDead = false;
+        public static bool ThemisDead { get { return themisDead; } private set { themisDead = value; } }
+
+        internal static bool heartDead = false;
+        public static bool HeartDead { get { return heartDead; } private set { heartDead = value; } }
+
+        internal static bool korochunDead = false;
+        public static bool KorochunDead { get { return korochunDead; } private set { korochunDead = value; } }
+
         //public static bool OpenChest { get; internal set; } = false;
 
-       // public static bool SpawnCristal { get; set; }
+        // public static bool SpawnCristal { get; set; }
 
         public override void ClearWorld() {
             SwampChestindex = -1;
 
             FirstEnterInSnowVillage = false;
-          //  FirstEnterInHellVillage = false;
+            //  FirstEnterInHellVillage = false;
             //SpawnDwarf = false;
-           // sinlordDead = false;
+            // sinlordDead = false;
 
             cruorDead = false;
-         //   SpawnCristal = false;
-         //   OpenChest = false;
+            themisDead = false;
+            heartDead = false;
+            korochunDead = false;
+            //   SpawnCristal = false;
+            //   OpenChest = false;
         }
         public override void OnWorldLoad() {
             SwampChestindex = -1;
@@ -48,17 +60,20 @@ namespace Waybound.Common.ModSystems {
           //  sinlordDead = false;
 
             cruorDead = false;
-           // SpawnCristal = false;
-         //   OpenChest = false;
+            heartDead = false;
+            // SpawnCristal = false;
+            //   OpenChest = false;
         }
         public override void SaveWorldData(TagCompound tag) {
             tag["FirstEnterInSnowVillage"] = FirstEnterInSnowVillage;
             //tag["FirstEnterInHellVillage"] = FirstEnterInHellVillage;
             //tag["SpawnDwarf"] = SpawnDwarf;
             //tag["SinlordDead"] = sinlordDead;
-
-            tag["CruorDeadDead"] = cruorDead;
-         //   tag["OpenChest"] = OpenChest;
+            tag["HeartDead"] = heartDead;
+            tag["CruorDead"] = cruorDead;
+            tag["ThemisDead"] = themisDead;
+            tag["KorochunDead"] = korochunDead;
+            //   tag["OpenChest"] = OpenChest;
         }
         public override void LoadWorldData(TagCompound tag) {
             FirstEnterInSnowVillage = tag.GetBool("FirstEnterInSnowVillage");
@@ -66,11 +81,18 @@ namespace Waybound.Common.ModSystems {
             //SpawnDwarf = tag.GetBool("SpawnDwarf");
             //sinlordDead = tag.GetBool("SinlordDead");
 
-            cruorDead = tag.GetBool("CruorDeadDead");
-           // OpenChest = tag.GetBool("OpenChest");
+            cruorDead = tag.GetBool("CruorDead");
+            themisDead = tag.GetBool("ThemisDead");
+            heartDead = tag.GetBool("HeartDead");
+            korochunDead = tag.GetBool("KorochunDead");
+            // OpenChest = tag.GetBool("OpenChest");
         }
         sealed public override void NetSend(BinaryWriter writer) {
             writer.Write(FirstEnterInSnowVillage);
+            writer.Write(cruorDead);
+            writer.Write(themisDead);
+            writer.Write(heartDead);
+            writer.Write(korochunDead);
             //writer.Write(FirstEnterInHellVillage);
             //writer.Write(SpawnDwarf);
             //writer.Write(SpawnCristal);
@@ -78,6 +100,10 @@ namespace Waybound.Common.ModSystems {
         }
         sealed public override void NetReceive(BinaryReader reader) {
             FirstEnterInSnowVillage = reader.ReadBoolean();
+            cruorDead = reader.ReadBoolean();
+            themisDead = reader.ReadBoolean();
+            heartDead = reader.ReadBoolean();
+            korochunDead = reader.ReadBoolean();
             //FirstEnterInHellVillage = reader.ReadBoolean();
             //SpawnDwarf = reader.ReadBoolean();
             //SpawnCristal = reader.ReadBoolean();

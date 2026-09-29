@@ -70,11 +70,22 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 player = Main.player[NPC.target];
             }
 
+            int hoverTime = 90;
+            int pulseStart = 55;
+            int cycleEnd = 125;
+
+            if (Main.expertMode && !Main.masterMode)
+            {
+                hoverTime = 110;
+                pulseStart = 70;
+                cycleEnd = 150;
+            }
+
             NPC.rotation = NPC.velocity.X * 0.08f;
             NPC.spriteDirection = NPC.direction = player.Center.X < NPC.Center.X ? 1 : -1;
             NPC.ai[0]++;
 
-            if (NPC.ai[0] < 90)
+            if (NPC.ai[0] < hoverTime)
             {
                 Vector2 hoverTarget = player.Center + new Vector2(NPC.ai[3] * 280f, -60f + (float)Math.Sin(NPC.ai[0] * 0.08f) * 40f);
                 Vector2 toTarget = hoverTarget - NPC.Center;
@@ -82,9 +93,9 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 float speed = dist > 400f ? 16f : 7f;
                 NPC.velocity = (NPC.velocity * 19f + toTarget.SafeNormalize(Vector2.Zero) * speed) / 20f;
 
-                if (NPC.ai[0] >= 55)
+                if (NPC.ai[0] >= pulseStart)
                 {
-                    float t = (NPC.ai[0] - 55f) / 35f;
+                    float t = (NPC.ai[0] - pulseStart) / (hoverTime - pulseStart);
                     outlinePulse = (float)Math.Sin(NPC.ai[0] * 0.35f) * 0.5f + 0.5f;
                     outlinePulse *= MathHelper.Clamp(t, 0f, 1f);
                 }
@@ -93,19 +104,19 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     outlinePulse = MathHelper.Lerp(outlinePulse, 0f, 0.12f);
                 }
             }
-            else if (NPC.ai[0] == 90)
+            else if (NPC.ai[0] == hoverTime)
             {
                 Vector2 dashDir = (player.Center - NPC.Center).SafeNormalize(Vector2.Zero);
                 NPC.velocity = dashDir * 24f;
                 outlinePulse = 0f;
                 NPC.netUpdate = true;
             }
-            else if (NPC.ai[0] > 90 && NPC.ai[0] < 125)
+            else if (NPC.ai[0] > hoverTime && NPC.ai[0] < cycleEnd)
             {
                 NPC.velocity *= 0.97f;
                 outlinePulse = MathHelper.Lerp(outlinePulse, 0f, 0.15f);
             }
-            else if (NPC.ai[0] >= 125)
+            else if (NPC.ai[0] >= cycleEnd)
             {
                 NPC.ai[0] = 0;
                 NPC.ai[3] = Main.rand.NextBool() ? 1f : -1f;
