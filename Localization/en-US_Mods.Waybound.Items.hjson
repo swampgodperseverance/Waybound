@@ -1,4 +1,3 @@
-
 CruorTrophy: {
 	DisplayName: Cruor Trophy
 	Tooltip: ""
@@ -558,5 +557,165 @@ IcebatStaff: {
 
 RemoteControllerOfDesertHunter: {
 	DisplayName: Remote Controller Of Desert Hunter
+	Tooltip: ""
+}
+
+Antiradar: {
+	DisplayName: Antiradar
+	Tooltip: ""
+}
+
+EmbalmedSnake: {
+	DisplayName: Embalmed Snake
+	Tooltip: ""
+}
+
+FlamingDuneRocket: {
+	DisplayName: Flaming Dune Rocket
+	Tooltip: ""
+}
+
+BreastplateOfDesertHunter: {
+	DisplayName: Breastplate Of Desert Hunter
+	Tooltip: ""
+}
+
+HelmetOfDesertHunter: {
+	DisplayName: Helmet Of Desert Hunter
+	Tooltip: ""
+}
+
+LeggingsOfDesertHunter: {
+	DisplayName: Leggings Of Desert Hunter
+	Tooltip: ""
+}
+
+BreastplateOfDesertHunterActivated: {
+	DisplayName: Breastplate Of Desert Hunter Activated
+	Tooltip: ""
+}
+
+HelmetOfDesertHunterActivated: {
+	DisplayName: Helmet Of Desert Hunter Activated
+	Tooltip: ""
+}
+
+LeggingsOfDesertHunterActivated: {
+	DisplayName: Leggings Of Desert Hunter Activated
+	Tooltip: ""
+}
+
+ThemisBag: {
+	DisplayName: Themis Bag
+	Tooltip: ""
+}
+
+PufferFishBannerI: {
+	DisplayName: Puffer Fish Banner I
+	Tooltip: ""
+}
+
+ThemisDroneBannerI: {
+	DisplayName: Themis Drone Banner I
+	Tooltip: ""
+}
+
+ThemisRelicI: {
+	DisplayName: Themis Relic I
+	Tooltip: ""
+}
+
+ThemisTrophyItem: {
+	DisplayName: Themis Trophy Item
+	Tooltip: ""
+}
+
+DeepStoneGolemMask: {
+	DisplayName: Deep Stone Golem Mask
+	Tooltip: ""
+}
+
+KronosMask: {
+	DisplayName: Kronos Mask
+	Tooltip: ""
+}
+
+ThemisMask: {
+	DisplayName: Themis Mask
+	Tooltip: ""
+}
+
+CrimtanePan: {
+	DisplayName: Crimtane Pan
+	Tooltip: ""
+}
+
+DemonitePan: {
+	DisplayName: Demonite Pan
+	Tooltip: ""
+}
+
+Ecosystem: {
+	DisplayName: Ecosystem
+	Tooltip: ""
+}
+
+Gideyon: {
+	DisplayName: Gideyon
+	Tooltip: ""
+}
+
+IncandescencedPan: {
+	DisplayName: Incandescenced Pan
+	Tooltip: ""
+}
+
+LivingVein: {
+	DisplayName: Living Vein
+	Tooltip: ""
+}
+
+Pan: {
+	DisplayName: Pan
+	Tooltip: ""
+}
+
+VileShriek: {
+	DisplayName: Vile Shriek
+	Tooltip: ""
+}
+
+AmberYoYo: {
+	DisplayName: Amber Yo Yo
+	Tooltip: ""
+}
+
+AmethystYoYo: {
+	DisplayName: Amethyst Yo Yo
+	Tooltip: ""
+}
+
+DiamondYoYo: {
+	DisplayName: Diamond Yo Yo
+	Tooltip: ""
+}
+
+EmeraldYoYo: {
+	DisplayName: Emerald Yo Yo
+	Tooltip: ""
+}
+
+RubyYoYo: {
+	DisplayName: Ruby Yo Yo
+	Tooltip: ""
+}
+
+SaphireYoYo: {
+	DisplayName: Saphire Yo Yo
+	Tooltip: ""
+}
+
+TopazYoYo: {
+	DisplayName: Topaz Yo Yo
 	Tooltip: ""
 }

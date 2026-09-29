@@ -1,8 +1,10 @@
-﻿using Terraria;
+﻿using System.Linq;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 using Waybound.Common.WUtils;
+using Waybound.Content.Items.Armor.Generic.DesertHunter;
 using Waybound.Content.Tiles.Blocks;
 using Waybound.Content.Tiles.Furniture.DesertHunterFurniture;
 using Waybound.Content.Tiles.Ores;
@@ -12,9 +14,7 @@ using Waybound.Helpers;
 namespace Waybound.Common.ModSystems.WorldGens.Desert;
 
 public class ThemisLaboratory : BaseWorldGens {
-    readonly GenMannequin[] ted = new GenMannequin[2];
-
-
+    readonly GenMannequin[] _ted = new GenMannequin[2];
     // 0 - empty, 1 - clear, 2 - DesertHunterBlock, 3 - DesertHunterTile, 4 - 420, 5 - HielitiumOre
     readonly byte[,] _tiles = new byte[,] {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, // 0
@@ -137,7 +137,6 @@ public class ThemisLaboratory : BaseWorldGens {
 
     public override bool GensBool { get => _gen; set => _gen = value; }
     public override string NameGen => $"[{Waybound.ModName}]: Desert Lab";
-
     public override bool Do_MakeGen(GenerationProgress progress) {
         progress.Message = Loc.GetChat("WorldGen.ThemisLaboratory");
         int x1 = GenVars.desertHiveLeft, x2 = GenVars.desertHiveRight, y1 = GenVars.desertHiveHigh, y2 = GenVars.desertHiveLow, x0 = (x1 + x2) / 2, y0 = (y1 + y2) / 2;
@@ -197,11 +196,11 @@ public class ThemisLaboratory : BaseWorldGens {
             };
         };
 
+        int[] arr = [ItemType<HelmetOfDesertHunter>(), ItemType<BreastplateOfDesertHunter>(), ItemType<LeggingsOfDesertHunter>()];
         int x = WayboundGenVars.ThemisLaboratoryX - 33, y = WayboundGenVars.ThemisLaboratoryY + 17;
-
         // Mannequin
-        (ted[0] = new([new(ItemID.AdamantiteHelmet)], new(x + 10, y - 21), 1)).Gen();
-        (ted[1] = new([new(ItemID.AncientHallowedHelmet)], new(x + 53, y - 21))).Gen();
+        (_ted[0] = new([.. arr.Select(i => new Item(i))], new(x + 10, y - 21), 1)).Gen();
+        (_ted[1] = new([.. arr.Select(i => new Item(i))], new(x + 53, y - 21))).Gen();
         // DesertHunterLamp
         WorldGen.PlaceObject(x + 2, y - 18, (ushort)TileType<DesertHunterLamp>());
         WorldGen.PlaceObject(x + 11, y - 4, (ushort)TileType<DesertHunterLamp>());
@@ -214,6 +213,7 @@ public class ThemisLaboratory : BaseWorldGens {
         WorldGen.Place3x2(x + 23, y - 2, (ushort)TileType<DesertHunterTable>());
         WorldGen.Place3x2(x + 41, y - 2, (ushort)TileType<DesertHunterTable>());
         WorldGen.Place3x2(x + 44, y - 2, (ushort)TileType<DesertHunterTable>());
+        WorldGen.Place3x2(x + 55, y - 4, (ushort)TileType<DesertHunterTable>());
         // DesertHunterForge
         WorldGen.PlaceObject(x + 13, y - 3, (ushort)TileType<DesertHunterForge>());
         WorldGen.PlaceObject(x + 51, y - 3, (ushort)TileType<DesertHunterForge>());
@@ -238,26 +238,27 @@ public class ThemisLaboratory : BaseWorldGens {
         return true;
     }
     public override void PostUpdateWorld() {
-        if (ted[0] == null) {
+        if (_ted[0] == null) {
+            int[] arr = [ItemType<HelmetOfDesertHunter>(), ItemType<BreastplateOfDesertHunter>(), ItemType<LeggingsOfDesertHunter>()];
             int x = WayboundGenVars.ThemisLaboratoryX - 33, y = WayboundGenVars.ThemisLaboratoryY + 17;
-            ted[0] = new([new(ItemID.AdamantiteHelmet)], new(x + 10, y - 21), 1);
-            ted[1] = new([new(ItemID.AncientHallowedHelmet)], new(x + 53, y - 21));
+            _ted[0] = new([.. arr.Select(i => new Item(i))], new(x + 10, y - 21), 1);
+            _ted[1] = new([.. arr.Select(i => new Item(i))], new(x + 53, y - 21));
         };
-        ted[0].Set();
-        ted[1].Set();
+        _ted[0].Set();
+        _ted[1].Set();
     }
     public override void SaveWorldData(TagCompound tag) {
         tag[$"{Waybound.ModName}:Save bool"] = _save;
         if (!_save) {
-            ted[0].SaveWorldData(tag, "0");
-            ted[1].SaveWorldData(tag, "1");
+            _ted[0].SaveWorldData(tag, "0");
+            _ted[1].SaveWorldData(tag, "1");
         };
     }
     public override void LoadWorldData(TagCompound tag) {
         _save = tag.GetBool($"{Waybound.ModName}:Save bool");
-        if (!_save && ted[0] != null) {
-            ted[0].LoadWorldData(tag, "0");
-            ted[1].LoadWorldData(tag, "1");
+        if (!_save && _ted[0] != null) {
+            _ted[0].LoadWorldData(tag, "0");
+            _ted[1].LoadWorldData(tag, "1");
             _save = true;
         };
     }

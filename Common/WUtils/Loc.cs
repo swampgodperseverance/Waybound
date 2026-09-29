@@ -10,5 +10,6 @@ public static class Loc {
     public static string GetNPCChat(string key) => Language.GetTextValue(LocPatch + "NPCsChat." + key);
     public static string GetChat(string key) => Language.GetTextValue(LocPatch + "ChatMsg." + key);
     public static string GetUI(string key) => Language.GetTextValue(LocPatch + "UIs." + key);
+    public static string GetCond(string key) => Language.GetTextValue(LocPatch + "DropRules." + key);
     public static string GetButtonName(ModKeybind key) => key.GetAssignedKeys().Count > 0 ? key.GetAssignedKeys()[0] : Get("Keybinds.NotKey");
 };

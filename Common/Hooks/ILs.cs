@@ -1,30 +1,43 @@
 ﻿using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Waybound.Common.GlobalPlayer;
+using Waybound.Common.GloblaItems;
+using Waybound.Common.ItemDropRules;
+using Waybound.Common.WUtils;
 
 namespace Waybound.Common.Hooks;
 
 // I LOVE ILCode
 internal static class ILs {
+    readonly static Dictionary<string, IColorDropInfo> tooltips = [];
+
     internal static void Load() {
         IL_Main.HoverOverNPCs += HoverNPC; // Added Point if mouse in NPC
         IL_Main.DrawInterface_14_EntityHealthBars += DrawBar; // Active draw if hp == maxHp
-        IL_Main.CraftItem += IL_Main_CraftItem;
+        IL_Main.CraftItem += DisableCraft;
 
         IL_CombatTextHook.Load();
+
+        IL_UIBestiaryInfoItemLine.SetBestiaryNotesOnItemCache += InitColorLootTooltips;
+        IL_UIBestiaryInfoItemLine.DrawMouseOver += SetColorLootTooltips;
+
         IL_ResourceOverlayHook.Load();
         IL_UICharacterCreationHook.Load();
     }
-    static void IL_Main_CraftItem(ILContext il) {
+
+    static void DisableCraft(ILContext il) {
         ILCursor c = new(il);
         c.Index += 25;
         c.RemoveRange(15);
         c.Emit(OpCodes.Ldloc, 0);
         c.EmitDelegate((Item item) => {
-            bool flag = true;
-            if (flag) {
+            if (Race.CheckRace(Main.LocalPlayer, Race.ID.Desfo)) {
                 int stack = item.stack;
                 item = new Item(2) { stack = stack };
             };
@@ -77,11 +90,33 @@ internal static class ILs {
         ILCursor c = new(il) { Index = 86 };
         c.RemoveRange(8);
     }
+    static void InitColorLootTooltips(ILContext il) {
+        ILCursor c = new(il);
+        c.GotoNext(i => i.MatchCallvirt<List<string>>(nameof(List<>.Add)));
+        c.Emit(OpCodes.Ldloc, 2);
+        c.EmitDelegate((IItemDropRuleCondition condition) => {
+            if (condition is IColorDropInfo color) { tooltips.Add(condition.GetConditionDescription(), color); };
+        });
+    }
+    static void SetColorLootTooltips(ILContext il) {
+        ILCursor c = new(il);
+        c.Index += 3;
+        c.EmitDelegate(() => {
+            if (tooltips.Count <= 0) { return; }
+            Main.HoverItem.GetGlobalItem<OthenItems>().lootTooltips = new(tooltips.Select(i => (i.Key, i.Value.DropColor)).ToDictionary());
+        });
+    }
+
     internal static void Unload() {
         IL_Main.HoverOverNPCs -= HoverNPC;
         IL_Main.DrawInterface_14_EntityHealthBars -= DrawBar;
+        IL_Main.CraftItem -= DisableCraft;
 
         IL_CombatTextHook.Unloadd();
+
+        IL_UIBestiaryInfoItemLine.SetBestiaryNotesOnItemCache -= InitColorLootTooltips;
+        IL_UIBestiaryInfoItemLine.DrawMouseOver -= SetColorLootTooltips;
+
         IL_ResourceOverlayHook.Unload();
         IL_UICharacterCreationHook.Unload();
     }
