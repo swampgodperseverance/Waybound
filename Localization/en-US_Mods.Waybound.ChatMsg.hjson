@@ -2,5 +2,6 @@ Echelonis: Echelonis Curse...
 
 WorldGen: {
 	CryoSpring: Forming the Cryo Springs
-	Test1: ""
+	SnowVillage: Gen vilage in snow biome
+	ThemisLaboratory: Gen lab in underground desert
 }

@@ -51,11 +51,7 @@ internal static class ILs {
                         else { modPlayer.WorkTime -= 2; };
                         if (modPlayer.WorkTime == 0) { modPlayer.UpdateAlpha(true); };
                     };
-                    if (modPlayer.activeEffect) {
-                        //modPlayer.UpdateOutLineAlpha(true);
-                        modPlayer.npcIndex = -1;
-                        //if (modPlayer.BarAlpha == 0) { modPlayer.npcIndex = -1; };
-                    };
+                    if (modPlayer.activeEffect) { modPlayer.npcIndex = -1; };
                 } else { 
                     modPlayer.UpdateAlpha(false);
                     modPlayer.visualOnly = false;

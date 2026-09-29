@@ -1,13 +1,11 @@
-﻿
-using Waybound.Helpers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.WorldBuilding;
-using Waybound.Content.Tiles;
+using Waybound.Common.WUtils;
 using Waybound.Content.Tiles.Functional;
+using Waybound.Helpers;
 
 namespace Waybound.Common.ModSystems.WorldGens
 {
@@ -107,7 +105,7 @@ namespace Waybound.Common.ModSystems.WorldGens
         public override string NameGen => "[Waybound] Snow Vilage";
         public override bool Do_MakeGen(GenerationProgress progress) {
             if (progress != null) {
-                progress.Message = Language.GetTextValue("Mods.Waybound.WorldGenString.Vilage");
+                progress.Message = Loc.GetChat("WorldGen.SnowVillage");
                 progress.Set(0.33f);
             }
 

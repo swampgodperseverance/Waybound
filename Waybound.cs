@@ -1,29 +1,17 @@
-using System.IO;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-
 namespace Waybound;
 
-public class Waybound : Mod
-{
-    public static Waybound Instance { get; private set; }
+public class Waybound : Mod {
+    Waybound() => _instance = this;
+
+    public static Waybound Instance => _instance;
+    static Waybound _instance = null;
 
     public static string ModName => Instance?.DisplayName ?? "Waybound";
 
-    public Vector2 CameraOffset;
+    public Vector2 CameraOffset = Vector2.Zero;
 
-    public override void Load()
-    {
-        Instance = this;
-        Loader.Load(this);
-    }
+    public override void Load() => Loader.Load(this);
+    public override void Unload() => Loader.Unload(ref _instance);
 
-    public override void Unload()
-    {
-        Loader.Unload();
-        Instance = null;
-    }
-
-    public override void HandlePacket(BinaryReader reader, int whoAmI)
-        => Common.NetCodeUtil.MultiplayerSystem.HandlePacket(reader, whoAmI);
-}
+    public override void HandlePacket(System.IO.BinaryReader reader, int whoAmI) => Common.NetCodeUtil.MultiplayerSystem.HandlePacket(reader, whoAmI);
+};

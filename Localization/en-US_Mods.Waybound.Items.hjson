@@ -1,85 +1,139 @@
 CruorTrophy: {
+	DisplayName: Cruor Trophy
+	Tooltip: ""
 }
 
 CruorRelicItem: {
+	DisplayName: Cruor Relic Item
+	Tooltip: ""
 }
 
 CogwormTrophy: {
+	DisplayName: Cogworm Trophy
+	Tooltip: ""
 }
 
 Jeweler: {
+	DisplayName: Jeweler
+	Tooltip: ""
 }
 
 MortalStones: {
+	DisplayName: Mortal Stones
+	Tooltip: ""
 }
 
 TheOriginOfSymmetry: {
+	DisplayName: The Origin Of Symmetry
+	Tooltip: ""
 }
 
 CogwormRelicItem: {
+	DisplayName: Cogworm Relic Item
+	Tooltip: ""
 }
 
 CoreburnedBreastplate: {
+	DisplayName: Coreburned Breastplate
+	Tooltip: ""
 }
 
 CoreburnedHelmet: {
+	DisplayName: Coreburned Helmet
+	Tooltip: ""
 }
 
 CoreburnedLeggings: {
+	DisplayName: Coreburned Leggings
+	Tooltip: ""
 }
 
 ThunderBody: {
+	DisplayName: Thunder Body
+	Tooltip: ""
 }
 
 ThunderHead: {
+	DisplayName: Thunder Head
+	Tooltip: ""
 }
 
 ThunderLegs: {
+	DisplayName: Thunder Legs
+	Tooltip: ""
 }
 
 Gutshelmet: {
+	DisplayName: Gutshelmet
+	Tooltip: ""
 }
 
 Gutslegs: {
+	DisplayName: Gutslegs
+	Tooltip: ""
 }
 
 Gutsplate: {
+	DisplayName: Gutsplate
+	Tooltip: ""
 }
 
 DreadArmor: {
+	DisplayName: Dread Armor
+	Tooltip: ""
 }
 
 DreadHelmet: {
+	DisplayName: Dread Helmet
+	Tooltip: ""
 }
 
 DreadLeggings: {
+	DisplayName: Dread Leggings
+	Tooltip: ""
 }
 
 Bonecling: {
+	DisplayName: Bonecling
+	Tooltip: ""
 }
 
 Echelonis: {
+	DisplayName: Echelonis
+	Tooltip: ""
 }
 
 GoldBearer: {
+	DisplayName: Gold Bearer
+	Tooltip: ""
 }
 
 Starcaller: {
+	DisplayName: Starcaller
+	Tooltip: ""
 }
 
 ThunderSigil: {
+	DisplayName: Thunder Sigil
+	Tooltip: ""
 }
 
 Titanoboa: {
+	DisplayName: Titanoboa
+	Tooltip: ""
 }
 
 DesfosBag: {
+	DisplayName: Desfos Bag
+	Tooltip: ""
 }
 
 nmrwski: {
 }
 
 WickedStoneBlock: {
+	DisplayName: Wicked Stone Block
+	Tooltip: ""
 }
 
 Nmrwski: {
@@ -93,6 +147,8 @@ BloodyNecklace: {
 }
 
 Quasimodo: {
+	DisplayName: Quasimodo
+	Tooltip: ""
 }
 
 AqualliteChestItem: {
@@ -122,4 +178,384 @@ IcebornRifle: {
 		Each shot destroys the rifle.
 		Once the rifle is destroyed, throw it at your enemies!	
 		'''
+}
+
+Glaciora: {
+	DisplayName: Glaciora
+	Tooltip: ""
+}
+
+IcebornBreastplate: {
+	DisplayName: Iceborn Breastplate
+	Tooltip: ""
+}
+
+IcebornHelmet: {
+	DisplayName: Iceborn Helmet
+	Tooltip: ""
+}
+
+IcebornLeggings: {
+	DisplayName: Iceborn Leggings
+	Tooltip: ""
+}
+
+OceanicBreastplate: {
+	DisplayName: Oceanic Breastplate
+	Tooltip: ""
+}
+
+OceanicHelmet: {
+	DisplayName: Oceanic Helmet
+	Tooltip: ""
+}
+
+OceanLeggings: {
+	DisplayName: Ocean Leggings
+	Tooltip: ""
+}
+
+Espresso: {
+	DisplayName: Espresso
+	Tooltip: ""
+}
+
+FrozenApple: {
+	DisplayName: Frozen Apple
+	Tooltip: ""
+}
+
+AqualliteBlock: {
+	DisplayName: Aquallite Block
+	Tooltip: ""
+}
+
+AqualliteLamp: {
+	DisplayName: Aquallite Lamp
+	Tooltip: ""
+}
+
+AqualliteWall: {
+	DisplayName: Aquallite Wall
+	Tooltip: ""
+}
+
+Cruciflower: {
+	DisplayName: Cruciflower
+	Tooltip: ""
+}
+
+ShieldOfDesertHunter: {
+	DisplayName: Shield Of Desert Hunter
+	Tooltip: ""
+}
+
+FrozenBullet: {
+	DisplayName: Frozen Bullet
+	Tooltip: ""
+}
+
+HellstoneBullet: {
+	DisplayName: Hellstone Bullet
+	Tooltip: ""
+}
+
+HielitiumBreastplate: {
+	DisplayName: Hielitium Breastplate
+	Tooltip: ""
+}
+
+HielitiumHelmet: {
+	DisplayName: Hielitium Helmet
+	Tooltip: ""
+}
+
+HielitiumLeggings: {
+	DisplayName: Hielitium Leggings
+	Tooltip: ""
+}
+
+HielitiumBar: {
+	DisplayName: Hielitium Bar
+	Tooltip: ""
+}
+
+DesertCore: {
+	DisplayName: Desert Core
+	Tooltip: ""
+}
+
+DesertWreckage: {
+	DisplayName: Desert Wreckage
+	Tooltip: ""
+}
+
+ChadItem: {
+	DisplayName: Chad Item
+	Tooltip: ""
+}
+
+MotorcycleOfDesertHunter: {
+	DisplayName: Motorcycle Of Desert Hunter
+	Tooltip: ""
+}
+
+DesertHunterBlockI: {
+	DisplayName: Desert Hunter Block I
+	Tooltip: ""
+}
+
+DesertHunterTileI: {
+	DisplayName: Desert Hunter Tile I
+	Tooltip: ""
+}
+
+ChadCageItem: {
+	DisplayName: Chad Cage Item
+	Tooltip: ""
+}
+
+DesertHunterBathtubI: {
+	DisplayName: Desert Hunter Bathtub I
+	Tooltip: ""
+}
+
+DesertHunterBedI: {
+	DisplayName: Desert Hunter Bed I
+	Tooltip: ""
+}
+
+DesertHunterBookcaseI: {
+	DisplayName: Desert Hunter Bookcase I
+	Tooltip: ""
+}
+
+DesertHunterCandelabraI: {
+	DisplayName: Desert Hunter Candelabra I
+	Tooltip: ""
+}
+
+DesertHunterCandleI: {
+	DisplayName: Desert Hunter Candle I
+	Tooltip: ""
+}
+
+DesertHunterChairI: {
+	DisplayName: Desert Hunter Chair I
+	Tooltip: ""
+}
+
+DesertHunterChandelierI: {
+	DisplayName: Desert Hunter Chandelier I
+	Tooltip: ""
+}
+
+DesertHunterChestI: {
+	DisplayName: Desert Hunter Chest I
+	Tooltip: ""
+}
+
+DesertHunterClockI: {
+	DisplayName: Desert Hunter Clock I
+	Tooltip: ""
+}
+
+DesertHunterDoor: {
+	DisplayName: Desert Hunter Door
+	Tooltip: ""
+}
+
+DesertHunterDresserI: {
+	DisplayName: Desert Hunter Dresser I
+	Tooltip: ""
+}
+
+DesertHunterForgeI: {
+	DisplayName: Desert Hunter Forge I
+	Tooltip: ""
+}
+
+DesertHunterLampI: {
+	DisplayName: Desert Hunter Lamp I
+	Tooltip: ""
+}
+
+DesertHunterLanternI: {
+	DisplayName: Desert Hunter Lantern I
+	Tooltip: ""
+}
+
+DesertHunterPianoI: {
+	DisplayName: Desert Hunter Piano I
+	Tooltip: ""
+}
+
+DesertHunterPlatformI: {
+	DisplayName: Desert Hunter Platform I
+	Tooltip: ""
+}
+
+DesertHunterSinkI: {
+	DisplayName: Desert Hunter Sink I
+	Tooltip: ""
+}
+
+DesertHunterSofaI: {
+	DisplayName: Desert Hunter Sofa I
+	Tooltip: ""
+}
+
+DesertHunterTableI: {
+	DisplayName: Desert Hunter Table I
+	Tooltip: ""
+}
+
+DesertHunterToiletI: {
+	DisplayName: Desert Hunter Toilet I
+	Tooltip: ""
+}
+
+DesertHunterWorkbenchI: {
+	DisplayName: Desert Hunter Workbench I
+	Tooltip: ""
+}
+
+TelescopeItem: {
+	DisplayName: Telescope Item
+	Tooltip: ""
+}
+
+HielitiumOreItem: {
+	DisplayName: Hielitium Ore Item
+	Tooltip: ""
+}
+
+DesertHunterBlockWallI: {
+	DisplayName: Desert Hunter Block Wall I
+	Tooltip: ""
+}
+
+DesertHunterTileWallI: {
+	DisplayName: Desert Hunter Tile Wall I
+	Tooltip: ""
+}
+
+HellmutWallItem: {
+	DisplayName: Hellmut Wall Item
+	Tooltip: ""
+}
+
+WickedStoneWallItem: {
+	DisplayName: Wicked Stone Wall Item
+	Tooltip: ""
+}
+
+HielitiumFishingPole: {
+	DisplayName: Hielitium Fishing Pole
+	Tooltip: ""
+}
+
+HielitiumHamaxe: {
+	DisplayName: Hielitium Hamaxe
+	Tooltip: ""
+}
+
+HielitiumPickaxe: {
+	DisplayName: Hielitium Pickaxe
+	Tooltip: ""
+}
+
+ColdFlare: {
+	DisplayName: Cold Flare
+	Tooltip: ""
+}
+
+ExplodingBookOfDesertHunter: {
+	DisplayName: Exploding Book Of Desert Hunter
+	Tooltip: ""
+}
+
+IceChakram: {
+	DisplayName: Ice Chakram
+	Tooltip: ""
+}
+
+HielitiumClaws: {
+	DisplayName: Hielitium Claws
+	Tooltip: ""
+}
+
+IcebornRapier: {
+	DisplayName: Iceborn Rapier
+	Tooltip: ""
+}
+
+BattleaxeOfDesertHunter: {
+	DisplayName: Battleaxe Of Desert Hunter
+	Tooltip: ""
+}
+
+BowOfDesertHunter: {
+	DisplayName: Bow Of Desert Hunter
+	Tooltip: ""
+}
+
+HielitiumBow: {
+	DisplayName: Hielitium Bow
+	Tooltip: ""
+}
+
+Tesseract: {
+	DisplayName: Tesseract
+	Tooltip: ""
+}
+
+ColdShotgun: {
+	DisplayName: Cold Shotgun
+	Tooltip: ""
+}
+
+AmberLaserGun: {
+	DisplayName: Amber Laser Gun
+	Tooltip: ""
+}
+
+AmethystLaserGun: {
+	DisplayName: Amethyst Laser Gun
+	Tooltip: ""
+}
+
+DiamondLaserGun: {
+	DisplayName: Diamond Laser Gun
+	Tooltip: ""
+}
+
+EmeraldLaserGun: {
+	DisplayName: Emerald Laser Gun
+	Tooltip: ""
+}
+
+RubyLaserGun: {
+	DisplayName: Ruby Laser Gun
+	Tooltip: ""
+}
+
+SapphireLaserGun: {
+	DisplayName: Sapphire Laser Gun
+	Tooltip: ""
+}
+
+TopazLaserGun: {
+	DisplayName: Topaz Laser Gun
+	Tooltip: ""
+}
+
+IcebatStaff: {
+	DisplayName: Icebat Staff
+	Tooltip: ""
+}
+
+RemoteControllerOfDesertHunter: {
+	DisplayName: Remote Controller Of Desert Hunter
+	Tooltip: ""
 }

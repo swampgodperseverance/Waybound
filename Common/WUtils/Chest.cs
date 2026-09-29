@@ -1,7 +1,8 @@
 ﻿using Terraria;
 using Waybound.Tables;
 
-namespace Waybound.Common.WUtils; 
+namespace Waybound.Common.WUtils;
+
 public class Chest(Item[] inv, int index) {
     public void SetItem(int item, int stack = 1) {
         inv[index].SetDefaults(item);
@@ -23,8 +24,9 @@ public class Chest(Item[] inv, int index) {
         foreach (int index in loot.GetRandomLoot().Keys) {
             loot.GetRandomLoot().TryGetValue(index, out Loot[] loot1);
             Loot loot2 = WorldGen.genRand.Next(loot1);
-            inv[index].SetDefaults(loot2.ItemID);
-            inv[index].stack = loot2.Stack;
+            int index2 = loot2.ValidIndex ? loot2.SlotInChes : index;
+            inv[index2].SetDefaults(loot2.ItemID);
+            inv[index2].stack = loot2.Stack;
         }
     }
 }

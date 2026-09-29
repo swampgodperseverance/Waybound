@@ -4,10 +4,12 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
+using Terraria.Graphics.Effects;
 using Terraria.Localization;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Waybound.Common.GlobalPlayer;
+using Waybound.Common.Water;
 using Waybound.Common.WUtils;
 using Waybound.Content.Race;
 
@@ -16,6 +18,7 @@ namespace Waybound.Common.Hooks;
 internal static class Ons {
     internal static void Load() {
         On_MainHook.Load();
+        On_OverlayManager.Draw += On_OverlayManager_Draw;
 
         On_PlayerDrawLayers.DrawPlayer_28_ArmOverItem += FixNeck;
 
@@ -24,7 +27,35 @@ internal static class Ons {
         On_UICharacterListItem.DrawSelf += DrawRaceName;
         On_UICharacterCreation.Click_NamingAndCreating += NeedRace; // For continue player need race
         On_UICharacterCreation.Click_GoBack += On_UICharacterCreation_Click_GoBack;
+        //On_ItemSlot.Draw_SpriteBatch_refItem_int_Vector2_Color += (q, w, ref e, r, t, y) => { };
+        //On_ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color += (q, w, e, r, t, y, u) => { q(w, e, r, t, y, u); };
+        On_ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color += (orig, sb, inv, context, slot, y, color) => { 
+            orig(sb, inv, context, slot, y, color);
+            //Main.NewText(context);
+            //if (Main.LocalPlayer.tileEntityAnchor.GetTileEntity() != null) {
+            //    if (Main.LocalPlayer.tileEntityAnchor.GetTileEntity().OverrideItemSlotHover(inv, context, slot)) { // 24
+            //        orig(sb, inv, context, slot, y, color);
+            //        Main.NewText(Main.LocalPlayer.tileEntityAnchor.GetTileEntity().type);
+                    
+            //    }
+            //}
+        };
+
+        //On_ItemSlot.DrawItemIcon += (q,w,e,r,t,y,u,i) => { return 1; };
     }
+
+    static void On_OverlayManager_Draw(On_OverlayManager.orig_Draw orig, OverlayManager self, SpriteBatch spriteBatch, RenderLayers layer, bool beginSpriteBatch) {
+        orig(self, spriteBatch, layer, beginSpriteBatch);
+        if (layer == RenderLayers.ForegroundWater) {
+            for (int i = 0; i < Core.CustomClassData.Liquids.Count; i++) {
+                if (Main.CalculateWaterStyle(true) == Core.CustomClassData.Liquids[i].Slot) {
+                    Core.CustomClassData.Liquids[i].Draw(spriteBatch, Main.sceneWaterPos - Main.screenPosition, beginSpriteBatch);
+                    break;
+                }
+            }
+        }
+    }
+
     static void FixNeck(On_PlayerDrawLayers.orig_DrawPlayer_28_ArmOverItem orig, ref PlayerDrawSet drawinfo) {
         orig(ref drawinfo);
         if (drawinfo.drawPlayer.GetModPlayer<BloodyNecklacePlayer>().equipped) {

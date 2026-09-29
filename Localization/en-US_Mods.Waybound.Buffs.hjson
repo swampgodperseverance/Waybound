@@ -1,16 +1,26 @@
 Starlord: {
+	DisplayName: Starlord
+	Description: Mods.Waybound.Buffs.Starlord.Description
 }
 
 ProdigyBuff: {
+	DisplayName: Prodigy Buff
+	Description: Mods.Waybound.Buffs.ProdigyBuff.Description
 }
 
 OssuaryBuff: {
+	DisplayName: Ossuary Buff
+	Description: Mods.Waybound.Buffs.OssuaryBuff.Description
 }
 
 GoldBearerBuff: {
+	DisplayName: Gold Bearer Buff
+	Description: Mods.Waybound.Buffs.GoldBearerBuff.Description
 }
 
 ThunderSigilBuff: {
+	DisplayName: Thunder Sigil Buff
+	Description: Mods.Waybound.Buffs.ThunderSigilBuff.Description
 }
 
 IcebatBuff: {
