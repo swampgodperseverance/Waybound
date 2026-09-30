@@ -819,3 +819,8 @@ BaseballBat: {
 	DisplayName: Baseball Bat
 	Tooltip: ""
 }
+
+Deepslate: {
+	DisplayName: Deepslate
+	Tooltip: ""
+}
