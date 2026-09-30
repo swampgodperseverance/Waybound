@@ -47,3 +47,8 @@ Caught: {
 	DisplayName: Caught
 	Description: Mods.Waybound.Buffs.Caught.Description
 }
+
+Murky: {
+	DisplayName: Murky
+	Description: Mods.Waybound.Buffs.Murky.Description
+}

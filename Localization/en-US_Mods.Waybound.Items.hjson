@@ -814,3 +814,8 @@ DeepWoodWallItem: {
 	DisplayName: Deep Wood Wall Item
 	Tooltip: ""
 }
+
+BaseballBat: {
+	DisplayName: Baseball Bat
+	Tooltip: ""
+}
