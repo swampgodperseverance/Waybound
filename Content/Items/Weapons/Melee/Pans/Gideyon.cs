@@ -182,7 +182,6 @@ namespace Waybound.Content.Items.Weapons.Melee.Pans
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.Frostburn, 180, false);
         }
 
         public override void OnKill(int timeLeft)
