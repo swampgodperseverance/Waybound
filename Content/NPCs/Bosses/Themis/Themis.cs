@@ -470,14 +470,14 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 					switch (text)
 					{
 						case 0:
-							SystemUI.Instance.dialogueUI.DisplayDialogue("And here you are. I've been following you for a long time.\n It's time for your death!", 120, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
+                            SystemUI.dialogueUI.DisplayDialogue("And here you are. I've been following you for a long time.\n It's time for your death!", 360, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
 							break;
 						case 1:
-							SystemUI.Instance.dialogueUI.DisplayDialogue("Okay, I underestimated you...", 120, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
+                            SystemUI.dialogueUI.DisplayDialogue("Okay, I underestimated you...", 360, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
 							phase = 2;
 							break;
                         case 2:
-                            SystemUI.Instance.dialogueUI.DisplayDialogue("You can't stop me from killing the king!", 120, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
+                            SystemUI.dialogueUI.DisplayDialogue("You can't stop me!", 360, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
                             break;
                     }
                     player.PlayerScreen().notHurt = true;
@@ -497,7 +497,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     CutsceneReset(player);
 					if (text == 1)
 					{
-						SystemUI.Instance.titleUI.DisplayTitle("Themis", 90, 90, 0.8f, 0, txtColor, txtColor, "the hunter of king");
+                        SystemUI.titleUI.DisplayTitle("Themis", 360, 90, 0.8f, 0, txtColor, txtColor, "The Badlands Seeker");
                         NPC.ai[0] = -60;
                     }
                 }
@@ -858,7 +858,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 {
                     Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(Main.rand.NextFloat(-1.5f, 1.5f), Main.rand.NextFloat(-1.5f, 1.5f)), Main.rand.Next(61, 64));
                 }
-                SystemUI.Instance.titleUI.DisplayTitle("Mech Themis", 90, 90, 0.8f, 0, txtColor, txtColor, "Themis' robot");
+                SystemUI.titleUI.DisplayTitle("Mech Themis", 240, 90, 0.8f, 0, txtColor, txtColor, "Themis' robot");
                 NPC.dontTakeDamage = false;
                 player.PlayerScreen().notHurt = false;
                 player.PlayerScreen().cutscene = false;
@@ -882,53 +882,93 @@ namespace Waybound.Content.NPCs.Bosses.Themis
             }
         }
 
-		public void DeathCutscene(Player player)
-		{
-			if (NPC.ai[0] == 1)
-			{
+        public void DeathCutscene(Player player)
+        {
+            if (NPC.ai[0] == 0)
+            {
+                NPC.ai[0] = 1;
                 player.PlayerScreen().notHurt = true;
                 player.PlayerScreen().cutscene = true;
-				player.PlayerScreen().lockScreen = true;
-				player.PlayerScreen().ScreenFocusPosition = NPC.position;
-				NPC.noTileCollide = false;
-				NPC.dontTakeDamage = true;
-			}
-			NPC.ai[0]++;
+                player.PlayerScreen().lockScreen = true;
+                player.PlayerScreen().ScreenFocusPosition = NPC.position;
+                NPC.noTileCollide = true;
+                NPC.noGravity = true;
+                NPC.dontTakeDamage = true;
+                NPC.velocity = Vector2.Zero;
+                NPC.netUpdate = true;
+            }
 
-			if (NPC.ai[0] < 65)
-			{
-				if (NPC.ai[0] >= 25)
-					NPC.alpha += 10;
-				if (NPC.ai[0] == 25)
-				{
-					NPC.velocity = new Vector2(6 * NPC.spriteDirection, -16);
-					NPC.noTileCollide = true;
-				}
-				if (NPC.ai[0] == 45)
-					NPC.velocity = new Vector2(8 * NPC.spriteDirection, -12);
-				if (NPC.ai[0] == 55)
-					NPC.velocity = new Vector2(10 * NPC.spriteDirection, -8);
-			}
-			if (NPC.ai[0] == 70f)
-			{
-				NPC.velocity = Vector2.Zero;
-				NPC.noGravity = true;
-				SystemUI.Instance.dialogueUI.DisplayDialogue("This time you won... But next time you will not live!", 120, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
-			}
+            NPC.ai[0]++;
 
-			if (NPC.ai[0] >= 180f)
-			{
-				NPC.alpha = 255;
-				NPC.Center = player.Center;
-				NPC.life = 0;
+            if (NPC.ai[0] < 40)
+            {
+                NPC.velocity = new Vector2(0, -0.4f);
+                NPC.alpha = (int)MathHelper.Lerp(NPC.alpha, 0, 0.1f);
+            }
+            else if (NPC.ai[0] == 40)
+            {
+                SystemUI.dialogueUI.DisplayDialogue("Let’s see what you’ve got, goodbye loser!", 360, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
+            }
+            else if (NPC.ai[0] > 40 && NPC.ai[0] < 120)
+            {
+                float t = (NPC.ai[0] - 40) / 80f;
+                NPC.velocity = new Vector2(
+                    MathHelper.Lerp(NPC.velocity.X, 2f * NPC.spriteDirection, 0.05f),
+                    MathHelper.Lerp(-2f, -18f, t)
+                );
+
+                NPC.alpha = (int)MathHelper.Lerp(0, 255, t);
+
+                if (Main.netMode != NetmodeID.Server && NPC.ai[0] % 2 == 0)
+                {
+                    int dust = Dust.NewDust(
+                        NPC.position, NPC.width, NPC.height,
+                        DustID.Torch,
+                        Main.rand.NextFloat(-3f, 3f), Main.rand.NextFloat(-3f, 3f),
+                        50, default, Main.rand.NextFloat(1f, 2.5f));
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 2f;
+                }
+            }
+            else if (NPC.ai[0] == 120)
+            {
+                NPC.alpha = 255;
+                NPC.velocity = Vector2.Zero;
+
+                int bombCount = Main.rand.Next(5, 11);
+                for (int i = 0; i < bombCount; i++)
+                {
+                    Vector2 spawnPos = new Vector2(
+                        player.Center.X + Main.rand.NextFloat(-400f, 400f),
+                        player.Center.Y - 700f - Main.rand.NextFloat(0f, 200f)
+                    );
+
+                    Vector2 dir = (player.Center - spawnPos).SafeNormalize(Vector2.UnitY);
+                    Vector2 vel = dir * Main.rand.NextFloat(5f, 8f);
+
+                    Projectile.NewProjectile(
+                        NPC.GetSource_GiftOrReward(),
+                        spawnPos, vel,
+                        ModContent.ProjectileType<ThemisSkyRocket>(),
+                        20, 3, Main.myPlayer);
+                }
+
+                SoundEngine.PlaySound(SoundID.Item149 with { Volume = 0.8f, Pitch = 0.2f }, player.Center);
+            }
+            else if (NPC.ai[0] >= 180)
+            {
+                NPC.alpha = 255;
+                NPC.Center = player.Center;
+                NPC.life = 0;
+
                 player.PlayerScreen().notHurt = false;
                 player.PlayerScreen().cutscene = false;
-				player.PlayerScreen().lockScreen = false;
-				NPC.HitEffect(0, 0);
-				NPC.checkDead();
-			}
-		}
+                player.PlayerScreen().lockScreen = false;
 
+                NPC.HitEffect(0, 0);
+                NPC.checkDead();
+            }
+        }
         public void CutsceneReset(Player player)
 		{
 			cutsceneCounter = 0;
@@ -1103,7 +1143,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 
             npcLoot.Add(notExpertRule);
 
-           // npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Bags.themisBag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Bags.ThemisBag>()));
 
            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<ThemisRelicI>()));
 

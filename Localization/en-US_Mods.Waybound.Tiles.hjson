@@ -39,3 +39,32 @@ ThemisDroneBanner.MapEntry: Themis Drone Banner
 DeepSapling.MapEntry: Deep Sapling
 DeepbloomVine.MapEntry: Deepbloom Vine
 CrystalMushroom.MapEntry: Crystal Mushroom
+
+DeepChest: {
+	ChestName: Mods.Waybound.Tiles.DeepChest.ChestName
+	MapEntry: Deep Chest
+}
+
+CrystalDepthsBanner.MapEntry: Crystal Depths Banner
+DeepSecurityPillar.MapEntry: Deep Security Pillar
+DeepBrickChimney.MapEntry: Deep Brick Chimney
+DeepBrickFireplace.MapEntry: Deep Brick Fireplace
+DeepCrate.MapEntry: Deep Crate
+DeepPot.MapEntry: Deep Pot
+DeepWoodBathtub.MapEntry: Deep Wood Bathtub
+DeepWoodBed.MapEntry: Deep Wood Bed
+DeepWoodBookcase.MapEntry: Deep Wood Bookcase
+DeepWoodCandelabra.MapEntry: Deep Wood Candelabra
+DeepWoodCandle.MapEntry: Deep Wood Candle
+DeepWoodChandelier.MapEntry: Deep Wood Chandelier
+DeepWoodClock.MapEntry: Deep Wood Clock
+DeepWoodDoorClosed.MapEntry: Deep Wood Door Closed
+DeepWoodDoorOpen.MapEntry: Deep Wood Door Open
+DeepWoodDresser.MapEntry: Deep Wood Dresser
+DeepWoodLamp.MapEntry: Deep Wood Lamp
+DeepWoodLantern.MapEntry: Deep Wood Lantern
+DeepWoodPiano.MapEntry: Deep Wood Piano
+DeepWoodSink.MapEntry: Deep Wood Sink
+DeepWoodSofa.MapEntry: Deep Wood Sofa
+DeepWoodTable.MapEntry: Deep Wood Table
+DeepWoodWorkbench.MapEntry: Deep Wood Workbench

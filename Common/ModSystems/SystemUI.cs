@@ -10,23 +10,21 @@ namespace Waybound.Common.ModSystems
     public class SystemUI : ModSystem
     {
         public static SystemUI Instance { get; private set; }
-        public SystemUI()
-        {
-            Instance = this;
-        }
-
 
         internal static UserInterface dialogueInterface;
-        internal DialogueUI dialogueUI;
+        public static DialogueUI dialogueUI;
 
         internal static UserInterface titleInterface;
-        internal TitleUI titleUI;
+        public static TitleUI titleUI;
+
+        private GameTime _lastUpdateUiGameTime;
 
         public override void Load()
         {
+            Instance = this;
+
             if (!Main.dedServ)
             {
-
                 dialogueInterface = new UserInterface();
                 dialogueUI = new DialogueUI();
                 dialogueInterface.SetState(dialogueUI);
@@ -39,64 +37,51 @@ namespace Waybound.Common.ModSystems
 
         public override void Unload()
         {
-            if (!Main.dedServ)
-            {
-                dialogueUI = null;
-                titleUI = null;
-            }
+            Instance = null;
+            dialogueUI = null;
+            titleUI = null;
+            dialogueInterface = null;
+            titleInterface = null;
         }
-
-        private GameTime _lastUpdateUiGameTime;
 
         public override void UpdateUI(GameTime gameTime)
         {
+            _lastUpdateUiGameTime = gameTime;
 
             if (dialogueInterface?.CurrentState != null)
-            {
                 dialogueInterface.Update(gameTime);
-            }
+
             if (titleInterface?.CurrentState != null)
-            {
                 titleInterface.Update(gameTime);
-            }
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            layers.Insert(layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text")), new LegacyGameInterfaceLayer("GUI Menus",
+            int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+            if (mouseTextIndex == -1)
+                return;
+
+            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+                "Waybound: dialogueInterface",
                 delegate
                 {
+                    if (_lastUpdateUiGameTime != null && dialogueInterface?.CurrentState != null)
+                        dialogueInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
+
                     return true;
-                }, InterfaceScaleType.UI));
+                },
+                InterfaceScaleType.UI));
 
-            int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            if (mouseTextIndex != -1)
-            {
+            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+                "Waybound: titleInterface",
+                delegate
+                {
+                    if (_lastUpdateUiGameTime != null && titleInterface?.CurrentState != null)
+                        titleInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
 
-                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-                    "VictimaMod2: dialogueInterface",
-                    delegate
-                    {
-                        if (_lastUpdateUiGameTime != null && dialogueInterface?.CurrentState != null)
-                        {
-                            dialogueInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-                        }
-                        return true;
-                    },
-                   InterfaceScaleType.UI));
-
-                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-                    "VictimaMod2: titleInterface",
-                    delegate
-                    {
-                        if (_lastUpdateUiGameTime != null && titleInterface?.CurrentState != null)
-                        {
-                            titleInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-                        }
-                        return true;
-                    },
-                   InterfaceScaleType.UI));
-            }
+                    return true;
+                },
+                InterfaceScaleType.UI));
         }
     }
 }

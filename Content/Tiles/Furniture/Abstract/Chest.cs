@@ -57,7 +57,7 @@ public abstract class Chest : ModTile
         TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
         TileObjectData.addTile(Type);
     }
-    public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
+    //public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
     public override LocalizedText DefaultContainerName(int frameX, int frameY) => this.GetLocalization("ChestName");
     public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
     public static string MapChestName(string name, int i, int j) {

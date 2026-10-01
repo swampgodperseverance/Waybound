@@ -7,3 +7,8 @@ CryoLake: {
 	DisplayName: Cryo Lake
 	TownNPCDialogueName: the Cryo Lake
 }
+
+CrystalDepthsBiome: {
+	DisplayName: Crystal Depths Biome
+	TownNPCDialogueName: the Crystal Depths Biome
+}

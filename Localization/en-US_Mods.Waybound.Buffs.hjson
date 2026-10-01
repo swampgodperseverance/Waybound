@@ -52,3 +52,13 @@ Murky: {
 	DisplayName: Murky
 	Description: Mods.Waybound.Buffs.Murky.Description
 }
+
+SlimeSlayerKatanaB: {
+	DisplayName: Slime Slayer Katana B
+	Description: Mods.Waybound.Buffs.SlimeSlayerKatanaB.Description
+}
+
+DeepFire: {
+	DisplayName: Deep Fire
+	Description: Mods.Waybound.Buffs.DeepFire.Description
+}

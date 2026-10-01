@@ -824,3 +824,208 @@ Deepslate: {
 	DisplayName: Deepslate
 	Tooltip: ""
 }
+
+SlimeSlayerKatana: {
+	DisplayName: Slime Slayer Katana
+	Tooltip: ""
+}
+
+DeepCrateI: {
+	DisplayName: Deep Crate I
+	Tooltip: ""
+}
+
+CrystalHeartNecklace: {
+	DisplayName: Crystal Heart Necklace
+	Tooltip: ""
+}
+
+DeepStoneShield: {
+	DisplayName: Deep Stone Shield
+	Tooltip: ""
+}
+
+CrystalArrow: {
+	DisplayName: Crystal Arrow
+	Tooltip: ""
+}
+
+CrystalbringerCore: {
+	DisplayName: Crystalbringer Core
+	Tooltip: ""
+}
+
+DesertSignalingDevice: {
+	DisplayName: Desert Signaling Device
+	Tooltip: ""
+}
+
+DeepGolemCore: {
+	DisplayName: Deep Golem Core
+	Tooltip: ""
+}
+
+CrystalDepthsBannerI: {
+	DisplayName: Crystal Depths Banner I
+	Tooltip: ""
+}
+
+DeepStoneGolemRelicI: {
+	DisplayName: Deep Stone Golem Relic I
+	Tooltip: ""
+}
+
+DeepStoneGolemTrophyI: {
+	DisplayName: Deep Stone Golem Trophy I
+	Tooltip: ""
+}
+
+DeepBrickChimneyI: {
+	DisplayName: Deep Brick Chimney I
+	Tooltip: ""
+}
+
+DeepBrickFireplaceI: {
+	DisplayName: Deep Brick Fireplace I
+	Tooltip: ""
+}
+
+DeepCrystalItem: {
+	DisplayName: Deep Crystal Item
+	Tooltip: ""
+}
+
+DeepCrystalShardItem: {
+	DisplayName: Deep Crystal Shard Item
+	Tooltip: ""
+}
+
+DeepStoneAltarI: {
+	DisplayName: Deep Stone Altar I
+	Tooltip: ""
+}
+
+DeepChestItem: {
+	DisplayName: Deep Chest Item
+	Tooltip: ""
+}
+
+DeepWoodBathtubI: {
+	DisplayName: Deep Wood Bathtub I
+	Tooltip: ""
+}
+
+DeepWoodBedI: {
+	DisplayName: Deep Wood Bed I
+	Tooltip: ""
+}
+
+DeepWoodBookcaseI: {
+	DisplayName: Deep Wood Bookcase I
+	Tooltip: ""
+}
+
+DeepWoodCandelabraI: {
+	DisplayName: Deep Wood Candelabra I
+	Tooltip: ""
+}
+
+DeepWoodCandleI: {
+	DisplayName: Deep Wood Candle I
+	Tooltip: ""
+}
+
+DeepWoodChairI: {
+	DisplayName: Deep Wood Chair I
+	Tooltip: ""
+}
+
+DeepWoodChandelierI: {
+	DisplayName: Deep Wood Chandelier I
+	Tooltip: ""
+}
+
+DeepWoodClockI: {
+	DisplayName: Deep Wood Clock I
+	Tooltip: ""
+}
+
+DeepWoodDoor: {
+	DisplayName: Deep Wood Door
+	Tooltip: ""
+}
+
+DeepWoodDresserI: {
+	DisplayName: Deep Wood Dresser I
+	Tooltip: ""
+}
+
+DeepWoodLampI: {
+	DisplayName: Deep Wood Lamp I
+	Tooltip: ""
+}
+
+DeepWoodLanternI: {
+	DisplayName: Deep Wood Lantern I
+	Tooltip: ""
+}
+
+DeepWoodPianoI: {
+	DisplayName: Deep Wood Piano I
+	Tooltip: ""
+}
+
+DeepWoodPlatformI: {
+	DisplayName: Deep Wood Platform I
+	Tooltip: ""
+}
+
+DeepWoodSinkI: {
+	DisplayName: Deep Wood Sink I
+	Tooltip: ""
+}
+
+DeepWoodSofaI: {
+	DisplayName: Deep Wood Sofa I
+	Tooltip: ""
+}
+
+DeepWoodTableI: {
+	DisplayName: Deep Wood Table I
+	Tooltip: ""
+}
+
+DeepWoodToiletI: {
+	DisplayName: Deep Wood Toilet I
+	Tooltip: ""
+}
+
+DeepWoodWorkbenchI: {
+	DisplayName: Deep Wood Workbench I
+	Tooltip: ""
+}
+
+DeepStoneAxe: {
+	DisplayName: Deep Stone Axe
+	Tooltip: ""
+}
+
+DeepStonePickaxe: {
+	DisplayName: Deep Stone Pickaxe
+	Tooltip: ""
+}
+
+DeepFlail: {
+	DisplayName: Deep Flail
+	Tooltip: ""
+}
+
+DeepStoneHammer: {
+	Tooltip: ""
+	DisplayName: Deep Stone Hammer
+}
+
+DeepBoots: {
+	Tooltip: ""
+	DisplayName: Deep Boots
+}
