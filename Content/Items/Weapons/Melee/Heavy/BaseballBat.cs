@@ -8,7 +8,7 @@ using Waybound.Content.Projectiles.Base;
 using Waybound.Helpers;
 using Waybound.Particles;
 
-namespace Waybound.Content.Items.Weapons.Melee;
+namespace Waybound.Content.Items.Weapons.Melee.Heavy;
 
 public class BaseballBat : ModItem
 {
@@ -42,7 +42,7 @@ public class BaseballBat : ModItem
 
 public class BaseballBatProjectile : BaseHeavySword
 {
-    public override string Texture => "Waybound/Content/Items/Weapons/Melee/BaseballBat";
+    public override string Texture => "Waybound/Content/Items/Weapons/Melee/Heavy/BaseballBat";
 
     protected override int MaxCombo => 5;
 
@@ -71,7 +71,6 @@ public class BaseballBatProjectile : BaseHeavySword
     private ref float StartRotation => ref Projectile.ai[2];
 
     private const int WIND_UP_TIME = 30;
-    private const float WIND_UP_ROTATION_END = (float)(220 * 0.017453292519943295769236907684886);
 
     private const int THROW_BALL_TIME = 15;
     
@@ -96,10 +95,7 @@ public class BaseballBatProjectile : BaseHeavySword
     private void WindUp()
     {
         float progress = SpecialTimer / WIND_UP_TIME;
-        Projectile.rotation = MathHelper.Lerp(
-            StartRotation, WIND_UP_ROTATION_END,
-            EaseFunctions.EaseInOutCubic(progress)
-        );
+        UpdateAngle(StartRotation, MaxAngle, EaseFunctions.EaseOutCubic(progress));
 
         float secondHandProgress = SpecialTimer * 2f / WIND_UP_TIME;
         progress = secondHandProgress < 1f
@@ -120,10 +116,7 @@ public class BaseballBatProjectile : BaseHeavySword
             SpawnBall();
         
         float progress = time / THROW_BALL_TIME;
-        Projectile.rotation = MathHelper.Lerp(
-            WIND_UP_ROTATION_END, 0,
-            EaseFunctions.EaseOutCubic(progress)
-        );
+        UpdateAngle(MaxAngle, MinAngle, EaseFunctions.EaseOutCubic(progress));
         
         DrawTrail();
     }
