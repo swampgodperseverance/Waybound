@@ -13,3 +13,4 @@
 /obj
 .editorconfig
 /bin/Debug/net8.0/Waybound.dll
+/.idea
