@@ -53,8 +53,8 @@ public abstract class BaseHeavySword : ModProjectile
     }
     public enum SwingDirection
     {
-        Up = -1,
-        Down = 1,
+        Up = 1,
+        Down = -1,
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ public abstract class BaseHeavySword : ModProjectile
     /// <summary>
     /// Final angle of projectile rotation. (0 = straight down, 180 = straight up)
     /// </summary>
-    protected virtual float SwingMaxAngle => 190f;
+    protected virtual float SwingMaxAngle => 260f;
     
     /// <summary>
     /// Length of the projectile hitbox.
@@ -127,7 +127,7 @@ public abstract class BaseHeavySword : ModProjectile
     /// <summary>
     /// Duration of a single sword swing without attack speed modifiers (in ticks).
     /// </summary>
-    protected virtual int BaseSwingTime => 25;
+    protected virtual int BaseSwingTime => 30;
     
     /// <summary>
     /// Duration of a single sword swing with attack speed modifiers (in ticks).
@@ -176,9 +176,15 @@ public abstract class BaseHeavySword : ModProjectile
     }
     protected virtual void SetDefaults_Extra() {}
 
+    protected virtual float MinAngle => MathHelper.ToRadians(-75f);
+    protected virtual float MaxAngle => MathHelper.ToRadians(SwingMaxAngle);
+    
     public override void OnSpawn(IEntitySource source)
     {
-        Direction = SwingDirection.Up;
+        Direction = SwingDirection.Down;
+        Projectile.rotation = MaxAngle;
+        for(int i = 0; i < TrailLength; i++)
+            Projectile.oldRot[i] = Projectile.rotation;
         TimeLeft = SwingTime + ComboContinueTime;
         
         OnSpawn_Extra(source);
@@ -227,13 +233,19 @@ public abstract class BaseHeavySword : ModProjectile
     protected Vector2 GetSwordEdgePosition()
     {
         float finalRotation = MathHelper.PiOver2 - Projectile.rotation * Projectile.spriteDirection;
-        return Projectile.Center + new Vector2(SwordLength + SwordHiltOffset + HAND_OFFSET_X, 0f).RotatedBy(finalRotation);
+        return Projectile.Center + new Vector2((SwordLength + SwordHiltOffset) * Projectile.scale + HAND_OFFSET_X, 0f).RotatedBy(finalRotation);
     }
 
     protected Player Owner => Main.player[Projectile.owner];
     
     public override void AI()
     {
+        if (Owner == null || Owner.DeadOrGhost)
+        {
+            Projectile.Kill();
+            return;
+        }
+        
         Projectile.timeLeft = TimeLeft;
         
         Owner.itemAnimation = 2;
@@ -266,13 +278,13 @@ public abstract class BaseHeavySword : ModProjectile
                 return;
             }
         }
+
+        if (Direction == SwingDirection.Down)
+            UpdateAngle(MaxAngle, MinAngle);
+        else
+            UpdateAngle(MinAngle, MaxAngle);
         
-        UpdateAngle(
-            Direction == SwingDirection.Down ? 0 : SwingMaxAngle,
-            Direction == SwingDirection.Down ? SwingMaxAngle : 0
-        );
-        
-        if(TimeLeft > ComboContinueTime)
+        if(TimeLeft > ComboContinueTime + 5 && TimeLeft < SwingTime + ComboContinueTime - 5)
             DrawTrail();
         
         Owner.SetCompositeArmFront(
@@ -296,15 +308,25 @@ public abstract class BaseHeavySword : ModProjectile
     
     protected void UpdateAngle(float angleFrom, float angleTo)
     {
-        if (TimeLeft <= ComboContinueTime)
+        if (TimeLeft < ComboContinueTime)
             return;
         
-        float percentage = (TimeLeft - ComboContinueTime) / (float)SwingTime;
-        Projectile.rotation = MathHelper.ToRadians(
-            MathHelper.Lerp(angleFrom, angleTo, EaseFunctions.EaseInOutQuad(percentage))
-        );
+        float percentage = 1f - (TimeLeft - ComboContinueTime) / (float)SwingTime;
+        Projectile.rotation = MathHelper.Lerp(angleFrom, angleTo, EaseFunctions.EaseOutCubic(percentage));
+    }
+    protected void UpdateAngle(float angleFrom, float angleTo, float progress)
+    {
+        Projectile.rotation = MathHelper.Lerp(angleFrom, angleTo, progress);
     }
 
+    public override void OnKill(int timeLeft)
+    {
+        Owner.itemAnimation = 0;
+        Owner.itemTime = 0;
+        OnKill_Extra(timeLeft);
+    }
+    protected virtual void OnKill_Extra(int timeLeft) {}
+    
     /// <summary>
     /// Decides if player can use special ability on RMB. Returns <b>false</b> by default. <br/>
     /// Here you should add your combo requirement for using special attack (e.g. combo == 5)
@@ -341,6 +363,9 @@ public abstract class BaseHeavySword : ModProjectile
     
     public override bool PreDraw(ref Color lightColor)
     {
+        if (Main.myPlayer == Projectile.owner && MaxCombo > 0 && Combo > 0)
+            DrawComboMeter();
+        
         if (CurrentState == AttackState.Special)
         {
             Draw_OnSpecial(ref lightColor);
@@ -348,8 +373,6 @@ public abstract class BaseHeavySword : ModProjectile
         }
         
         DefaultDraw(ref lightColor);
-        if (Main.myPlayer == Projectile.owner && MaxCombo > 0 && Combo > 0)
-            DrawComboMeter();
         return false;
     }
 
