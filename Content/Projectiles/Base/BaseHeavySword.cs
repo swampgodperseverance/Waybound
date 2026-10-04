@@ -142,7 +142,7 @@ public abstract class BaseHeavySword : ModProjectile
     /// <summary>
     /// Length of the projectile trail in <see cref="DrawTrail()"/>.
     /// </summary>
-    protected virtual int TrailLength => 4;
+    protected virtual int TrailLength => 6;
     
     #endregion
     
@@ -275,7 +275,6 @@ public abstract class BaseHeavySword : ModProjectile
             {
                 CastSpecialAttack();
                 Projectile.netUpdate = true;
-                return;
             }
         }
 
@@ -284,8 +283,8 @@ public abstract class BaseHeavySword : ModProjectile
         else
             UpdateAngle(MinAngle, MaxAngle);
         
-        if(TimeLeft > ComboContinueTime + 5 && TimeLeft < SwingTime + ComboContinueTime - 5)
-            DrawTrail();
+        if(TimeLeft > ComboContinueTime + 10)
+            SpawnParticles();
         
         Owner.SetCompositeArmFront(
             true,
@@ -390,16 +389,15 @@ public abstract class BaseHeavySword : ModProjectile
         );
     }
 
-    protected virtual void DrawTrail()
+    protected virtual void SpawnParticles()
     {
-        Vector2 offset = Main.rand.NextVector2Unit() * 1f;
         ParticleSystem.TrailBuffer.Create(new ParticleInfo(
-            position: (GetSwordEdgePosition() + offset).ToNumerics(),
+            position: GetSwordEdgePosition().ToNumerics(),
             velocity: System.Numerics.Vector2.Zero,
             rotation: Projectile.rotation * -Projectile.spriteDirection,
             scale: new System.Numerics.Vector2(24f, 12f),
             color: new Color(255, 255, 255, 80),
-            duration: 30
+            duration: 45
         ));
     }
 
@@ -416,7 +414,7 @@ public abstract class BaseHeavySword : ModProjectile
         for (int i = 0; i < TrailLength; i++)
         {
             float alpha = MathHelper.Clamp(0.75f - (float)i / TrailLength, 0, 1); 
-            DrawSword(texture, Projectile.oldRot[i], lightColor.WithAlpha(0.4f) * alpha);
+            DrawSword(texture, Projectile.oldRot[i], lightColor * alpha * 0.6f);
         }
     }
 

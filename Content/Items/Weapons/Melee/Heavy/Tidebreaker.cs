@@ -62,7 +62,7 @@ public class TidebreakerProjectile : BaseHeavySword
         Projectile.scale = 1.25f;
     }
     
-    protected override void DrawTrail()
+    protected override void SpawnParticles()
     {
         Vector2 swordEdgePosition = GetSwordEdgePosition();
         

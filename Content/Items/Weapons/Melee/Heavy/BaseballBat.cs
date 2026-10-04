@@ -118,7 +118,7 @@ public class BaseballBatProjectile : BaseHeavySword
         float progress = time / THROW_BALL_TIME;
         UpdateAngle(MaxAngle, MinAngle, EaseFunctions.EaseOutCubic(progress));
         
-        DrawTrail();
+        SpawnParticles();
     }
 
     private void End()
