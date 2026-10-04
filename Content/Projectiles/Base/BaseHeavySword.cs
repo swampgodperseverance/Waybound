@@ -8,20 +8,25 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Waybound.Helpers;
 using Waybound.Particles;
+using Waybound.Content.Items.Weapons.Melee.Heavy;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Waybound.Content.Projectiles.Base;
 
+/// <summary>
+/// The base class for all heavy weapons' sword projectile. <br/>
+/// If you want to add your own heavy weapon, check <see cref="BaseballBat"/> as a reference for that.
+/// </summary>
 public abstract class BaseHeavySword : ModProjectile
 {
     #region Properties & Fields
     
     /// <summary>
     /// Representation of <see cref="Projectile.ai"/>[0] in <see cref="int"/> for writing and reading internal data. <br/>
-    /// • 1-8 bits - current combo; <br/>
-    /// • 9-20 bits - time left (syncs automatically with <see cref="Projectile.timeLeft"/>; <br/>
-    /// • 21 bit - direction (0 is up, 1 is down); <br/>
-    /// • 22 bit - state (0 is default state, 1 is special state). <br/>
+    /// • 1-8 bits - <see cref="Combo"/>; <br/>
+    /// • 9-20 bits - <see cref="TimeLeft"/>; <br/>
+    /// • 21 bit - <see cref="Direction"/>; <br/>
+    /// • 22 bit - <see cref="CurrentState"/>. <br/>
     /// 23-32 bits remain unused, so if your projectile needs to store some extra data
     /// (and Projectile.ai[1-2] is not enough for some reason), you can store it here.
     /// </summary>
@@ -60,6 +65,7 @@ public abstract class BaseHeavySword : ModProjectile
     /// <summary>
     /// Remaining projectile lifetime that's synced with server and other clients. <br/>
     /// You <b>should</b> use it instead of <see cref="Projectile.timeLeft"/> (mostly because changing it will do nothing).
+    /// <b>Note: TimeLeft should NOT be more than 4095.</b>
     /// </summary>
     protected int TimeLeft
     {
@@ -140,7 +146,7 @@ public abstract class BaseHeavySword : ModProjectile
     protected virtual int ComboContinueTime => 15;
 
     /// <summary>
-    /// Length of the projectile trail in <see cref="DrawTrail()"/>.
+    /// Length of the projectile trail in <see cref="DrawTrail"/>.
     /// </summary>
     protected virtual int TrailLength => 6;
     
