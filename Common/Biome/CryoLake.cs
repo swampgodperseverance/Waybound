@@ -17,6 +17,8 @@ public class CryoLake : ModBiome {
         }
         return false;
     }
+    public override string MapBackground => "Waybound/Assets/Textures/Biome/Bg/IceShimer";
+    public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
     public override void OnEnter(Player player) {
         Main.NewText("[c/ff0000:System.ArgumentNullException]");
     }

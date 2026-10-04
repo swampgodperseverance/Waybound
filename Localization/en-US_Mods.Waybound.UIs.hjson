@@ -26,3 +26,4 @@ BloodyNecklacePlayer: {
 }
 
 ModifyHPTexture.Donated: "[c/8B0000: Donated]"
+StaminResource.Name: Stamina

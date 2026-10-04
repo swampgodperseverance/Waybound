@@ -9,6 +9,7 @@ public static class Textures {
 
     public static Asset<Texture2D>[] Extaras => _extaras;
     public static Asset<Texture2D>[] RaceElements => _raceElements;
+    public static Asset<Texture2D>[] ThrowerUI => _throwerUI;
     public static Dictionary<string, Asset<Texture2D>[]> HeartAsset => _heartAsset;
     public static Asset<Texture2D>[] Tiles => _tiles;
 
@@ -17,6 +18,7 @@ public static class Textures {
 
     readonly static Asset<Texture2D>[] _extaras = new Asset<Texture2D>[8];
     readonly static Asset<Texture2D>[] _raceElements = new Asset<Texture2D>[20];
+    readonly static Asset<Texture2D>[] _throwerUI = new Asset<Texture2D>[16];
     readonly static Dictionary<string, Asset<Texture2D>[]> _heartAsset = [];
     readonly static Asset<Texture2D>[] _tiles = new Asset<Texture2D>[2];
 
@@ -54,6 +56,27 @@ public static class Textures {
         _raceElements[17] = LoadTextures(Patch + "UIs/Race/Button");
         _raceElements[18] = LoadTextures(Patch + "UIs/Race/Button_Hover");
         _raceElements[19] = LoadTextures(Patch + "UIs/Race/Button_Arow_Hover");
+
+        _throwerUI[0] = LoadTextures(Patch + "UIs/Stamina/StleElent_Stamina");
+        _throwerUI[1] = LoadTextures(Patch + "UIs/Stamina/Stle1Elent_Left");
+        _throwerUI[2] = LoadTextures(Patch + "UIs/Stamina/Stle1Elent_Center");
+        _throwerUI[3] = LoadTextures(Patch + "UIs/Stamina/Stle1Elent_Right");
+        _throwerUI[4] = LoadTextures(Patch + "UIs/Stamina/Stle1Elent_Stamina");
+        _throwerUI[5] = LoadTextures(Patch + "UIs/Stamina/Stle2Elent_Left");
+        _throwerUI[6] = LoadTextures(Patch + "UIs/Stamina/Stle2Elent_Center");
+        _throwerUI[7] = LoadTextures(Patch + "UIs/Stamina/Stle2Elent_Right");
+        _throwerUI[8] = LoadTextures(Patch + "UIs/Stamina/Stle2Elent_Stamina");
+
+        _throwerUI[9] = LoadTextures(Patch + "UIs/Stamina/StleElent_Stamina_Glow");
+        _throwerUI[10] = LoadTextures(Patch + "UIs/Stamina/Stle1Elent_Left_Glow");
+        _throwerUI[11] = LoadTextures(Patch + "UIs/Stamina/Stle1Elent_Center_Glow");
+        _throwerUI[12] = LoadTextures(Patch + "UIs/Stamina/Stle1Elent_Right_Glow");
+
+        _throwerUI[13] = LoadTextures(Patch + "UIs/Stamina/Stle2Elent_Left_Glow");
+        _throwerUI[14] = LoadTextures(Patch + "UIs/Stamina/Stle2Elent_Center_Glow");
+        _throwerUI[15] = LoadTextures(Patch + "UIs/Stamina/Stle2Elent_Right_Glow");
+
+
 
         _tiles[0] = LoadTextures(Patch + "NoticeBoardTile");
         Test = LoadTextures(Patch + "Acc/top");

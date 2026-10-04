@@ -35,17 +35,16 @@ namespace Waybound.Content.Tiles.Furniture.DesertHunterFurniture
 		{
 			Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 48, 32, ModContent.ItemType<Items.Placeable.Furniture.DesertHunterFurniture.DesertHunterForgeI>());
 		}
-		/*public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset) 
-        {
-        Tile tile = Framing.GetTileSafely(i, j);
-            int uniqueAnimationFrame = Main.tileFrame[Type] + i;
-                if (i % 2 == 0)
-                    uniqueAnimationFrame += 2;
-                if (i % 3 == 0)
-                    uniqueAnimationFrame += 2;
-                uniqueAnimationFrame %= 4;
+		//public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset) {
+		//	Tile tile = Framing.GetTileSafely(i, j);
+		//	int uniqueAnimationFrame = Main.tileFrame[Type] + i;
+		//	if (i % 2 == 0)
+		//		uniqueAnimationFrame += 2;
+		//	if (i % 3 == 0)
+		//		uniqueAnimationFrame += 2;
+		//	uniqueAnimationFrame %= 4;
 
-            frameYOffset = uniqueAnimationFrame * AnimationFrameHeight;
-        }*/
+		//	frameYOffset = uniqueAnimationFrame * AnimationFrameHeight;
+		//}
 	}
 }

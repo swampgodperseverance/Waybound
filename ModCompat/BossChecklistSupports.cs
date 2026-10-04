@@ -6,7 +6,7 @@ using Waybound.Common.ModSystems;
 using Waybound.Content.NPCs.Bosses.Themis;
 using Waybound.Content.NPCs.Dungeon;
 
-namespace Waybound.Common.ModCompat {
+namespace Waybound.ModCompat {
     public class BossChecklistSupports : ModSupportsSystem {
         static readonly string[] type = ["LogBoss", "LogMiniBoss", "LogEvent"];
 

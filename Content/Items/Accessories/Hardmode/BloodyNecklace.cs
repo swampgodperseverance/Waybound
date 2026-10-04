@@ -13,6 +13,9 @@ public class BloodyNecklace : ModItem {
         Item.accessory = true;
         Item.value = Item.buyPrice(gold: 10);
     }
-    public override void UpdateAccessory(Player player, bool hideVisual) => player.GetModPlayer<Common.GlobalPlayer.BloodyNecklacePlayer>().equipped = true;
+    public override void UpdateAccessory(Player player, bool hideVisual) {
+        player.GetModPlayer<Common.GlobalPlayer.BloodyNecklacePlayer>().equipped = true;
+        player.GetModPlayer<Common.GlobalPlayer.StaminaPlayer>().stainaMult = 60;
+    }
     public override void ModifyTooltips(List<TooltipLine> tooltips) => tooltips.Add(new(Mod, $"{Waybound.ModName}: Acc Ability", string.Format(Loc.GetTips("Acc.BloodyNecklace"), Loc.GetButtonName(Common.ModSystems.VanillaKeybinds.AccBonusActivation))) { OverrideColor = Color.DarkRed });
 };

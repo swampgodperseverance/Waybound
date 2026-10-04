@@ -9,7 +9,7 @@ using Waybound.Common.NetCodeUtil;
 using Waybound.Particles;
 using SysVector2 = System.Numerics.Vector2;
 
-namespace Waybound.Common.Water;
+namespace Waybound.Common.Biome.Water;
 
 public class CryoFluid : WayboundWater {
     public override string Texture => GetTexturePath();
