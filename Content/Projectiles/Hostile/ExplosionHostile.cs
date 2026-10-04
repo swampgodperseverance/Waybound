@@ -15,8 +15,8 @@ namespace Waybound.Content.Projectiles.Hostile
     {
         public override void SetDefaults()
         {
-            Projectile.width = 90;
-            Projectile.height = 90;
+            Projectile.width = 60;
+            Projectile.height = 60;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.ignoreWater = true;
@@ -35,10 +35,10 @@ namespace Waybound.Content.Projectiles.Hostile
             Player player = Main.player[Projectile.owner];
             player.PlayerScreen().fastScreenShake = 7 * (1000 - Vector2.Distance(player.Center, Projectile.Center)) / 1000;
 
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 18; i++)
             {
-                float angle = MathHelper.TwoPi * i / 60f + Main.rand.NextFloat(-0.12f, 0.12f);
-                Vector2 vel = angle.ToRotationVector2() * Main.rand.NextFloat(3f, 9.5f);
+                float angle = MathHelper.TwoPi * i / 18f + Main.rand.NextFloat(-0.12f, 0.12f);
+                Vector2 vel = angle.ToRotationVector2() * Main.rand.NextFloat(2f, 5.5f);
                 Vector2 pos = Projectile.Center;
 
                 ParticleManager.NewParticle<FlameParticleOld>(
@@ -49,23 +49,23 @@ namespace Waybound.Content.Projectiles.Hostile
                     1f
                 );
 
-                if (Main.rand.NextBool(2))
+                if (Main.rand.NextBool(3))
                 {
                     ParticleSystem.MegasparkBuffer.Create(new ParticleInfo(
                         pos.ToNumerics(),
                         vel.ToNumerics(),
                         Main.rand.NextFloat(MathHelper.TwoPi),
-                        new System.Numerics.Vector2(Main.rand.NextFloat(14f, 24f)),
+                        new System.Numerics.Vector2(Main.rand.NextFloat(10f, 16f)),
                         new Color(255, 160, 50, 200),
-                        Main.rand.Next(16, 28)
+                        Main.rand.Next(14, 22)
                     ));
                 }
             }
 
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 5; i++)
             {
                 float angle = Main.rand.NextFloat(MathHelper.TwoPi);
-                Vector2 vel = angle.ToRotationVector2() * Main.rand.NextFloat(2f, 6.5f);
+                Vector2 vel = angle.ToRotationVector2() * Main.rand.NextFloat(1.5f, 4f);
                 Vector2 pos = Projectile.Center;
 
                 ParticleManager.NewParticle<FlameParticleOld>(
@@ -76,23 +76,23 @@ namespace Waybound.Content.Projectiles.Hostile
                     1f
                 );
 
-                if (Main.rand.NextBool(2))
+                if (Main.rand.NextBool(3))
                 {
                     ParticleSystem.MegasparkBuffer.Create(new ParticleInfo(
                         pos.ToNumerics(),
                         vel.ToNumerics(),
                         Main.rand.NextFloat(MathHelper.TwoPi),
-                        new System.Numerics.Vector2(Main.rand.NextFloat(14f, 24f)),
+                        new System.Numerics.Vector2(Main.rand.NextFloat(10f, 16f)),
                         new Color(255, 160, 50, 200),
-                        Main.rand.Next(16, 28)
+                        Main.rand.Next(14, 22)
                     ));
                 }
             }
 
-            for (int i = 0; i < Main.rand.Next(5, 8); i++)
+            for (int i = 0; i < Main.rand.Next(2, 4); i++)
             {
                 float angle = Main.rand.NextFloat(MathHelper.TwoPi);
-                Vector2 vel = angle.ToRotationVector2() * Main.rand.NextFloat(1.2f, 3.5f);
+                Vector2 vel = angle.ToRotationVector2() * Main.rand.NextFloat(1f, 2.5f);
                 Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, vel, Main.rand.Next(61, 64));
             }
 

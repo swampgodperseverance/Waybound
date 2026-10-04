@@ -32,7 +32,7 @@ namespace Waybound.Content.Tiles.Furniture.DesertHunterFurniture
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
+            Terraria.Tile tile = Framing.GetTileSafely(i, j);
             if (tile.TileFrameX < 18)
             {
                 r = 0.87f;

@@ -50,9 +50,5 @@ namespace Waybound.Content.Tiles.Furniture
             }
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(new Terraria.DataStructures.EntitySource_TileBreak(i, j), i * 16, j * 16, 96, 48, ModContent.ItemType<ChadCageItem>());
-        }
     }
 }

@@ -10,6 +10,7 @@ public static class ParticleSystem {
     public static ParticleBuffer<SnowFlakeParticle> SnowFlakeBuffer;
     public static ParticleBuffer<FlashParticle> FlashBuffer;
     public static ParticleBuffer<FlameParticle> FlameBuffer;
+    public static ParticleBuffer<TrailParticle> TrailBuffer;
 
     public static void Load() {
         if (Main.dedServ) { return; }
@@ -36,11 +37,18 @@ public static class ParticleSystem {
         FlameBuffer.SetBlendState(BlendState.Additive); // Делает пламя светящимся
         ParticleManagerV3.RegisterUpdatable(FlameBuffer);
         ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, FlameBuffer);
+            
+        // Trail
+        TrailBuffer = new ParticleBuffer<TrailParticle>(512);
+        TrailBuffer.SetBlendState(BlendState.Additive);
+        ParticleManagerV3.RegisterUpdatable(TrailBuffer);
+        ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, TrailBuffer);
     }
     public static void Unload() {
         MegasparkBuffer = null;
         SnowFlakeBuffer = null;
         FlashBuffer = null;
         FlameBuffer = null;
+        TrailBuffer = null;
     }
 }

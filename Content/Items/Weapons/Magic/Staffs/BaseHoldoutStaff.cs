@@ -35,10 +35,10 @@ namespace Waybound.Content.Items.Weapons.Magic.Staffs
         private float dirPi = MathHelper.Pi;
         private float holdoutDistance;
         private bool playedChargeSound;
-        private static Texture2D cachedGlow;
-        private static Texture2D cachedGlow2;
-        private static string cachedGlowPath;
-        private static string cachedGlow2Path;
+protected static Texture2D cachedGlow;
+protected static Texture2D cachedGlow2;
+protected static string cachedGlowPath;
+protected static string cachedGlow2Path;
         public override string Texture => GlowTexture;
         public override void SetStaticDefaults()
         {
@@ -221,7 +221,7 @@ namespace Waybound.Content.Items.Weapons.Magic.Staffs
         protected virtual void SpawnChargeParticles() { }
         protected virtual void SpawnAmbientParticles() { }
         protected virtual void SpawnBurstParticles() { }
-        private static Texture2D GetCachedTexture(ref Texture2D cache, ref string cachedPath, string path)
+        protected static Texture2D GetCachedTexture(ref Texture2D cache, ref string cachedPath, string path)
         {
             if (cache == null || cache.IsDisposed || cachedPath != path)
             {

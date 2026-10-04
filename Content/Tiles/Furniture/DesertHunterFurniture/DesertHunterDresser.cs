@@ -47,7 +47,6 @@ namespace Waybound.Content.Tiles.Furniture.DesertHunterFurniture
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) => Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Content.Items.Placeable.Furniture.DesertHunterFurniture.DesertHunterDresserI>());
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 		public override void ModifySmartInteractCoords(ref int width, ref int height, ref int frameWidth, ref int frameHeight, ref int extraY)
@@ -130,7 +129,7 @@ namespace Waybound.Content.Tiles.Furniture.DesertHunterFurniture
 		public override void MouseOverFar(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
-			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
+            Terraria.Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 			int left = Player.tileTargetX;
 			int top = Player.tileTargetY;
 			left -= tile.TileFrameX % 54 / 18;
@@ -172,7 +171,7 @@ namespace Waybound.Content.Tiles.Furniture.DesertHunterFurniture
 		public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
-			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
+            Terraria.Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 			int left = Player.tileTargetX;
 			int top = Player.tileTargetY;
 			left -= tile.TileFrameX % 54 / 18;

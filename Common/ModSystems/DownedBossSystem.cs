@@ -45,12 +45,12 @@ namespace Waybound.Common.Systems
 
         public override void LoadWorldData(TagCompound tag)
         {
-            DownedDeepStoneGolem = tag.ContainsKey("DownedDeepStoneGolem");
-            DownedThemis = tag.ContainsKey("DownedThemis");
-            DownedDeepLunatic = tag.ContainsKey("DownedDeepLunatic");
-            DownedForgottenSoul = tag.ContainsKey("DownedForgottenSoul");
-            DownedLeviathan = tag.ContainsKey("DownedLeviathan");
-            DownedGlowingOracle = tag.ContainsKey("DownedGlowingOracle");
+            DownedDeepStoneGolem = tag.GetBool("DownedDeepStoneGolem");
+            DownedThemis = tag.GetBool("DownedThemis");
+            DownedDeepLunatic = tag.GetBool("DownedDeepLunatic");
+            DownedForgottenSoul = tag.GetBool("DownedForgottenSoul");
+            DownedLeviathan = tag.GetBool("DownedLeviathan");
+            DownedGlowingOracle = tag.GetBool("DownedGlowingOracle");
         }
 
         public override void NetSend(BinaryWriter writer)
