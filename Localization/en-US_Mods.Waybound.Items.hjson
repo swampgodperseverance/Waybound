@@ -1029,3 +1029,163 @@ DeepBoots: {
 	Tooltip: ""
 	DisplayName: Deep Boots
 }
+
+Arsenal: {
+	DisplayName: Arsenal
+	Tooltip: ""
+}
+
+Muspelheim: {
+	Tooltip: ""
+	DisplayName: Muspelheim
+}
+
+MuspelheimChain: {
+	DisplayName: Muspelheim Chain
+	Tooltip: ""
+}
+
+Prince: {
+	DisplayName: Prince
+	Tooltip: ""
+}
+
+ScorchedWoodBathtubI: {
+	DisplayName: Scorched Wood Bathtub I
+	Tooltip: ""
+}
+
+ScorchedWoodBedI: {
+	DisplayName: Scorched Wood Bed I
+	Tooltip: ""
+}
+
+ScorchedWoodBookcaseI: {
+	DisplayName: Scorched Wood Bookcase I
+	Tooltip: ""
+}
+
+ScorchedWoodCandelabraI: {
+	DisplayName: Scorched Wood Candelabra I
+	Tooltip: ""
+}
+
+ScorchedWoodCandleI: {
+	DisplayName: Scorched Wood Candle I
+	Tooltip: ""
+}
+
+ScorchedWoodChairI: {
+	DisplayName: Scorched Wood Chair I
+	Tooltip: ""
+}
+
+ScorchedWoodChandelierI: {
+	DisplayName: Scorched Wood Chandelier I
+	Tooltip: ""
+}
+
+ScorchedWoodChestI: {
+	DisplayName: Scorched Wood Chest I
+	Tooltip: ""
+}
+
+ScorchedWoodClockI: {
+	DisplayName: Scorched Wood Clock I
+	Tooltip: ""
+}
+
+ScorchedWoodDoor: {
+	DisplayName: Scorched Wood Door
+	Tooltip: ""
+}
+
+ScorchedWoodDresserI: {
+	DisplayName: Scorched Wood Dresser I
+	Tooltip: ""
+}
+
+ScorchedWoodLampI: {
+	DisplayName: Scorched Wood Lamp I
+	Tooltip: ""
+}
+
+ScorchedWoodLanternI: {
+	DisplayName: Scorched Wood Lantern I
+	Tooltip: ""
+}
+
+ScorchedWoodPianoI: {
+	DisplayName: Scorched Wood Piano I
+	Tooltip: ""
+}
+
+ScorchedWoodSinkI: {
+	DisplayName: Scorched Wood Sink I
+	Tooltip: ""
+}
+
+ScorchedWoodSofaI: {
+	DisplayName: Scorched Wood Sofa I
+	Tooltip: ""
+}
+
+ScorchedWoodTableI: {
+	DisplayName: Scorched Wood Table I
+	Tooltip: ""
+}
+
+ScorchedWoodToiletI: {
+	DisplayName: Scorched Wood Toilet I
+	Tooltip: ""
+}
+
+ScorchedWoodWorkbenchI: {
+	DisplayName: Scorched Wood Workbench I
+	Tooltip: ""
+}
+
+AncientBow: {
+	DisplayName: Ancient Bow
+	Tooltip: ""
+}
+
+Eagle: {
+	DisplayName: Eagle
+	Tooltip: ""
+}
+
+MegaBullet: {
+	DisplayName: Mega Bullet
+	Tooltip: ""
+}
+
+BeltoftheDeathbringer: {
+	DisplayName: Beltofthe Deathbringer
+	Tooltip: ""
+}
+
+IcePenny: {
+	DisplayName: Ice Penny
+	Tooltip: ""
+}
+
+IceRain: {
+	DisplayName: Ice Rain
+	Tooltip: ""
+}
+
+KingsGoldSword: {
+	DisplayName: Kings Gold Sword
+	Tooltip: ""
+}
+
+KingsPlatinumSword: {
+	DisplayName: Kings Platinum Sword
+	Tooltip: ""
+}
+
+FrogTales: {
+	DisplayName: Frog Tales
+	Tooltip: ""
+}
