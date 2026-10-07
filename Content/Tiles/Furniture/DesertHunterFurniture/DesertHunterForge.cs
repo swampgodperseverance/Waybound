@@ -1,25 +1,16 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Waybound.Content.Dusts;
 
 namespace Waybound.Content.Tiles.Furniture.DesertHunterFurniture
 {
 	public class DesertHunterForge : ModTile
 	{
-        private const int AnimationFrameHeight = 54;
-		private readonly int AnimationFrameHeight = 54;
-        private readonly int AnimationFrameWidth = 52;
-
-
-	
         public override void SetStaticDefaults()
         {
+            AnimationFrameHeight = 54;
+        
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.addTile(Type);
@@ -29,8 +20,19 @@ namespace Waybound.Content.Tiles.Furniture.DesertHunterFurniture
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             HitSound = SoundID.Tink;
-            DustType = ModContent.DustType<Dusts.DesertHunterDust>();
+            DustType = DustType<DesertHunterDust>();
             AddMapEntry(new Color(96, 74, 74));
+        }
+
+        public override void AnimateTile(ref int frame, ref int frameCounter)
+        {
+            frameCounter++;
+            if (frameCounter > 8)
+            {
+                frameCounter = 0;
+                frame++;
+                frame %= 4;
+            }
         }
 
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
