@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
+using Terraria.Enums;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using Waybound.Content.Dusts.DeepDusts;
@@ -14,16 +15,20 @@ namespace Waybound.Content.Tiles.Plants.Trees
 		public override TreePaintingSettings TreeShaderSettings => new TreePaintingSettings
 		{
 			UseSpecialGroups = true,
-			SpecialGroupMinimalHueValue = 11f / 72f,
-			SpecialGroupMaximumHueValue = 0.25f,
-			SpecialGroupMinimumSaturationValue = 0.88f,
-			SpecialGroupMaximumSaturationValue = 1f
+			// SpecialGroupMinimalHueValue = 11f / 72f,
+			// SpecialGroupMaximumHueValue = 0.25f,
+			// SpecialGroupMinimumSaturationValue = 0.88f,
+			// SpecialGroupMaximumSaturationValue = 1f
+			
 		};
+
 
 		public override void SetStaticDefaults()
 		{
 			GrowsOnTileId = new int[1] { ModContent.TileType<DeepGrass>() };
 		}
+		
+		
 
 		public override Asset<Texture2D> GetTexture()
 		{
