@@ -20,7 +20,7 @@ namespace Waybound.Content.Tiles.Furniture
 			Main.tileMerge[Type][ModContent.TileType<DeepCrystal>()] = true;
 			AddMapEntry(new Color(245, 82, 97));
 			// ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = ModContent.ItemType<deepCrystalItem>();
-			HitSound = SoundID.Tink;
+			HitSound = SoundID.Item27;
 
 			MineResist = 2f;
 			MinPick = 10000;
