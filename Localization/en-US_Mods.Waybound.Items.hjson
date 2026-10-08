@@ -1034,3 +1034,13 @@ Tidebreaker: {
 	DisplayName: Tidebreaker
 	Tooltip: ""
 }
+
+HewnDeepWoodItem: {
+	DisplayName: Hewn Deep Wood Item
+	Tooltip: ""
+}
+
+HewnDeepWoodPlatformI: {
+	DisplayName: Hewn Deep Wood Platform I
+	Tooltip: ""
+}

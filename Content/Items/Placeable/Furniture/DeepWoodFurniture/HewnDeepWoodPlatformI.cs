@@ -8,7 +8,7 @@ using Waybound.Content.Tiles.Furniture.DeepWoodFurniture;
 
 namespace Waybound.Content.Items.Placeable.Furniture.DeepWoodFurniture
 {
-	public class DeepWoodPlatformI : ModItem
+	public class HewnDeepWoodPlatformI : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -24,7 +24,7 @@ namespace Waybound.Content.Items.Placeable.Furniture.DeepWoodFurniture
 			Item.autoReuse = true;
 			Item.maxStack = 999;
 			Item.consumable = true;
-			Item.createTile = TileType<DeepWoodPlatform>();
+			Item.createTile = TileType<HewnDeepWoodPlatform>();
 			Item.width = 12;
 			Item.height = 12;
 			Item.value = Item.sellPrice(0, 0, 2, 50);
@@ -33,10 +33,7 @@ namespace Waybound.Content.Items.Placeable.Furniture.DeepWoodFurniture
 		public override void AddRecipes()
 		{
 			CreateRecipe(2)
-				.AddIngredient(ItemType<DeepTreeItem>(), 1)
-				.Register();
-			CreateRecipe(1)
-				.AddIngredient(ItemType<DeepWoodPlatformI>(), 2)
+				.AddIngredient(ItemType<HewnDeepWoodItem>(), 1)
 				.Register();
 		}
 	}

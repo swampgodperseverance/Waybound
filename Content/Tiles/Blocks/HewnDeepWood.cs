@@ -6,18 +6,17 @@ using Waybound.Content.Dusts.DeepDusts;
 
 namespace Waybound.Content.Tiles.Blocks;
 
-public class DeepWood : ModTile
+public class HewnDeepWood : ModTile
 {
 	public override void SetStaticDefaults()
 	{
+		TileID.Sets.ChecksForMerge[Type] = false;
 		TileID.Sets.NeedsGrassFraming[Type] = true;
 		TileID.Sets.NeedsGrassFramingDirt[Type] = TileID.DirtiestBlock; // 0.000000000000000000001% merge
 		Main.tileMergeDirt[Type] = false;
 		Main.tileSolid[Type] = true;
 		Main.tileBlockLight[Type] = false;
-
 		AddMapEntry(new Color(96, 74, 74));
-		// ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = ModContent.ItemType<deepTreeItem>();
 		HitSound = SoundID.Dig;
 
 		MineResist = 2f;
