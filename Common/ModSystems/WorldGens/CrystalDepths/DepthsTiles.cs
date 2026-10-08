@@ -48,9 +48,9 @@ internal class DepthsTiles
     public static ushort Lamp => (ushort)TileType<DeepWoodLamp>();
     public static ushort Crate => (ushort)TileType<DeepCrate>();
     public static ushort Platform => (ushort)TileType<DeepWoodPlatform>();
-    
+
     // Other
-    public ushort KronosSpawn = (ushort)TileType<KronosSummonTile>();
-    public ushort Pillar = (ushort)TileType<DeepSecurityPillar>();
-    public ushort Pot = (ushort)TileType<DeepPot>();
+    public static ushort KronosSpawn => (ushort)TileType<KronosSummonTile>();
+    public static ushort Pillar => (ushort)TileType<DeepSecurityPillar>();
+    public static ushort Pot => (ushort)TileType<DeepPot>();
 }

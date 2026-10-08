@@ -249,7 +249,6 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 
 		private void PlaceGrid(int startX, int startY)
 		{
-			
 			for (int x = 0; x < width; x++)
 			{
 				for (int y = 0; y < height; y++)
@@ -292,34 +291,44 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 					}
 				}
 			}
+			
+			PlaceStructures(startX, startY);
+		}
 
+		private void PlaceStructures(int startX, int startY)
+		{
+			var bigTreeVariant = Main.rand.Next(0, 2);
+			var bigTree = new CrystalDepthBigTree(bigTreeVariant);
+			BigTreePos = GetRandomStructurePosition(startX, startY, bigTree.Width, bigTree.Height);
+			bigTree.Place(BigTreePos.x, BigTreePos.y);
+			
+			
+			var bossSpawn = new CrystalDepthBossStructure();
+			var bossSpawnPosition = GetRandomStructurePosition(startX, startY, bigTree.Width, bigTree.Height);
+			bossSpawn.Place(bossSpawnPosition.x, bossSpawnPosition.y);
+			
 			for (int treasureCount = 0; treasureCount < maxTreasure; treasureCount++)
 			{
-				treasureRandom = Main.rand.Next(0, 2);
-				var treasureSpawn = GetRandomStructurePosition(startX, startY, 16, 12);
-				TreasureGen(treasureSpawn.x, treasureSpawn.y);
+				var treasureVariant = Main.rand.Next(0, 2);
+				var treasure = new CrystalDepthTreasure(treasureVariant);
+				var treasureSpawn = GetRandomStructurePosition(startX, startY, treasure.Width, treasure.Height);
+				treasure.Place(treasureSpawn.x, treasureSpawn.y);
 			}
 
 			for (int houseCount = 0; houseCount < maxHouse; houseCount++)
 			{
-				houseRandom = Main.rand.Next(0, 4);
-				var houseSpawn = GetRandomStructurePosition(startX, startY, 31, 18);
-				// HouseGen(houseSpawn.x, houseSpawn.y);
+				var houseVariant = Main.rand.Next(0, 4);
+				var house = new CrystalDepthHouse(houseVariant);
+				var houseSpawn = GetRandomStructurePosition(startX, startY, house.Width, house.Height);
+				house.Place(houseSpawn.x, houseSpawn.y);
 			}
-
-			BigTreePos = GetRandomStructurePosition(startX, startY, 28, 32);
-			BigTreeGen(BigTreePos.x, BigTreePos.y);
-
-			var bossSpawn = GetRandomStructurePosition(startX, startY, 35, 29);
-			BossSpawnGen(bossSpawn.x, bossSpawn.y);
 		}
 
-		
+
 		private (int x, int y) GetRandomStructurePosition(int startX, int startY, int w, int h)
 		{
-			const int maxAttempts = 4;
-
-
+			const int maxAttempts = 5;
+			
 			StructureRect newStructure = default;
 			for (int i = 0; i < maxAttempts; i++)
 			{
@@ -333,50 +342,7 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 
 			return (newStructure.X, newStructure.Y + h - 1);
 		}
-		// private (int x, int y) GetRandomStructurePosition(int startX, int startY, int w, int h)
-		// {
-		// 	const int maxAttempts = 4;
-		// 	
-		// 	var newStructure = RandomNewStructureRect(startX, startY, w, h);
-		// 	for (int i = 0; i < maxAttempts; i++)
-		// 	{
-		// 		var isAnyIntersections = false;
-		// 		foreach (var existing in Structures)
-		// 		{
-		// 			if (existing.IntersectsWith(newStructure))
-		// 			{
-		// 				isAnyIntersections = true;
-		// 				newStructure = ResolveIntersection(existing, newStructure);
-		// 				break;
-		// 			}
-		// 		}
-		//
-		// 		if (!isAnyIntersections)
-		// 		{
-		// 			break;
-		// 		}
-		// 		
-		// 		isAnyIntersections = false;
-		// 		foreach (var existing in Structures)
-		// 		{
-		// 			if (existing.IntersectsWith(newStructure))
-		// 			{
-		// 				isAnyIntersections = true;
-		// 				newStructure = RandomNewStructureRect(startX, startY, w, h);
-		// 				break;
-		// 			}
-		// 		}
-		// 		
-		// 		if (!isAnyIntersections)
-		// 		{
-		// 			break;
-		// 		}
-		// 		
-		// 	}
-		// 	Structures.Add(newStructure);
-		//
-		// 	return (newStructure.X, newStructure.Y);
-		// }
+		
 		private StructureRect RandomNewStructureRect(int startX, int startY, int w, int h)
 		{
 			(int x, int y) = (
@@ -386,15 +352,6 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 
 			return new StructureRect(x, y, w, h);
 		}
-
-		// private StructureRect ResolveIntersection(StructureRect existing, StructureRect newStructure)
-		// {
-		// 	var offset = existing.GetPushOutOffset(newStructure);
-		// 	(int x, int y) newPosition = (newStructure.X + offset.X, newStructure.Y + offset.Y);
-		// 	return new StructureRect(newPosition.x, newPosition.y, newStructure.Width, newStructure.Height);
-		// }
-		
-		
 		
 		private void GrassGen(int startX, int startY)
 		{
@@ -417,218 +374,6 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 			}
 		}
 
-		static readonly byte[,] TreasureTiles0 =
-		{
-			{3,3,3,3,3,3,3,1,1,1,1,1,1,1,3,3},
-			{3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1},
-			{3,1,1,2,2,2,1,4,4,1,2,2,2,2,1,3},
-			{0,2,2,2,2,2,2,0,0,2,2,2,2,2,0,0},
-			{0,0,2,2,2,2,0,0,0,0,0,2,2,0,0,0},
-			{0,0,2,2,2,0,0,0,0,0,0,0,2,0,0,0},
-			{0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
-			{3,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3},
-			{3,3,3,0,0,0,3,3,3,3,3,3,3,3,3,3},
-		};
-		static readonly byte[,] TreasureTiles1 =
-		{
-			{3,3,1,1,1,3,3,3,1,1,1,1,1,3,3,3},
-			{3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,1,1,2,2,1,1,1,1,2,2,1,1,1,1,1},
-			{3,2,2,2,2,2,1,4,4,2,2,2,2,2,1,3},
-			{0,2,2,2,2,2,2,0,0,2,2,2,2,2,0,0},
-			{0,0,2,2,2,2,2,0,0,0,0,2,2,0,0,0},
-			{0,0,0,2,2,2,0,0,0,0,0,0,2,0,0,0},
-			{0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
-			{3,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3},
-			{3,3,3,0,0,0,3,3,3,3,3,3,3,3,3,3},
-		};
-		private void TreasureSwitch(byte treasure, int pointX, int pointY, int x, int y, int X, int Y)
-		{
-			Tile tile = Framing.GetTileSafely(X, Y);
-			switch (treasure)
-			{
-				case 0:
-					WorldGen.KillTile(X, Y);
-					WorldGen.KillTile(X, Y);
-					break;
-				case 1:
-					tile.TileType = (ushort)dirtTile;
-					tile.HasTile = true;
-					WorldGen.SlopeTile(X, Y, 0);
-					break;
-				case 2:
-					tile.TileType = (ushort)crystalTile;
-					tile.HasTile = true;
-					WorldGen.SlopeTile(X, Y, 0);
-					break;
-				case 3:
-					break;
-				case 4:
-					tile.TileType = (ushort)brickTile;
-					tile.HasTile = true;
-					WorldGen.SlopeTile(X, Y, 0);
-					break;
-				default:
-					break;
-			}
-		}
-		private void TreasureGen(int pointX, int pointY)
-		{
-			for (int x = 0; x < 16; x++)
-			{
-				for (int y = 0; y < 12; y++)
-				{
-					if (x == 16 && y == 12)
-					{
-						break;
-					}
-					Tile tile = Framing.GetTileSafely(pointX + x, pointY - y);
-					var X = pointX + x;
-					var Y = pointY - y;
-
-					switch (treasureRandom)
-					{
-						case 0:
-							TreasureSwitch(TreasureTiles0[y, x], pointX, pointY, x, y, X, Y);
-							break;
-						case 1:
-							TreasureSwitch(TreasureTiles1[y, x], pointX, pointY, x, y, X, Y);
-							break;
-					}
-					WorldGen.PlaceChest(pointX + 7, pointY - 4, (ushort)chest, false, 0);
-				}
-			}
-		}
-
-		#region trees
-		static readonly byte[,] TreeTiles0 =
-		{
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0},
-			{0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0},
-			{0,0,0,0,0,1,0,0,1,1,0,0,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0},
-			{0,1,0,0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0},
-			{0,1,1,1,0,0,0,0,0,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,1,0,0,0},
-			{0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0},
-			{1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{1,0,1,1,1,0,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
-			{0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,0},
-			{0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,1,0},
-			{0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,1,0,0,1,1,0},
-			{0,0,0,0,0,0,2,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,2,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,2,0,2,2,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,2,0,0,0},
-			{0,0,0,2,0,2,2,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,2,0,0,0},
-			{0,0,0,2,0,2,2,0,0,0,2,1,1,1,1,1,0,2,0,0,0,0,0,0,2,0,2,0},
-			{0,2,0,2,2,2,2,0,0,2,2,1,1,1,1,0,0,2,2,0,0,0,2,0,2,0,2,0},
-			{0,2,0,2,2,2,2,2,0,2,1,1,1,1,1,1,2,2,2,0,2,0,2,0,2,2,2,0},
-			{0,2,2,2,2,2,2,2,2,1,1,2,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,0},
-			{2,2,2,2,2,2,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,0},
-			{0,2,2,2,2,1,2,1,1,2,2,1,1,1,1,1,1,1,2,2,2,2,2,1,2,2,2,0},
-			{2,2,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,2,2,1,1,2,2,2,2,2,2,2},
-			{2,2,2,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2},
-			{2,2,2,2,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,0},
-			{0,2,2,1,2,2,1,1,1,1,1,1,1,1,2,1,1,1,2,1,1,1,1,1,2,2,0,0},
-			{0,0,2,2,2,2,2,2,1,1,1,1,1,2,2,2,1,1,1,2,2,2,2,2,1,2,2,0},
-			{0,0,0,2,2,2,2,2,2,2,1,1,2,1,2,2,2,2,1,2,2,2,2,2,2,2,0,0},
-			{0,0,2,2,2,2,2,2,1,1,1,2,2,2,2,2,2,2,2,1,2,2,2,2,2,0,0,2},
-			{0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
-			{0,0,0,2,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0},
-			{0,0,0,0,0,0,0,0,2,0,2,2,2,2,2,2,0,0,0,2,2,2,0,0,0,0,0,0},
-		};
-		static readonly byte[,] TreeTiles1 =
-		{
-			{0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0},
-			{0,0,0,0,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0},
-			{0,1,1,0,0,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,0},
-			{0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
-			{0,0,0,0,0,1,1,1,1,1,1,1,3,3,1,1,1,1,0,0,1,1,1,0,0,1,0,0},
-			{0,0,1,0,1,1,0,0,0,1,1,1,3,3,1,1,1,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0},
-			{0,0,0,0,0,1,0,1,1,1,0,1,1,1,1,0,0,0,1,1,1,0,0,0,1,0,0,0},
-			{0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,2,0,0,0,1,1,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,2,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,2,0,0,0,0,0,0,1,1,1,1,0,2,0,0,0,0,2,0,0,0,0,0,0},
-			{0,0,0,0,2,0,0,0,0,0,0,2,1,1,1,2,2,0,0,0,0,2,0,0,0,0,0,0},
-			{0,0,0,0,2,0,0,0,0,0,0,2,1,1,1,2,2,0,0,0,0,2,0,0,0,0,0,0},
-			{0,0,0,0,2,2,0,0,0,0,0,2,1,1,1,2,2,2,0,0,0,2,0,0,0,0,0,0},
-			{0,0,0,0,2,2,0,0,0,0,0,2,1,1,1,2,2,2,0,0,0,2,2,0,0,0,0,0},
-			{0,0,0,0,2,2,0,2,0,0,2,2,1,1,1,1,2,2,0,0,2,2,2,0,0,0,0,0},
-			{0,0,0,2,2,2,0,2,0,2,2,1,1,1,1,1,2,2,2,0,2,2,2,0,0,0,0,2},
-			{0,2,0,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,2,2,2,2,0,2,0,0,2},
-			{0,2,0,2,2,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,2,2,0,2,2,0,2},
-			{0,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,2,2,2,0,2},
-			{0,2,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2},
-			{2,2,1,1,1,1,1,1,2,2,1,1,1,1,1,2,2,1,1,1,2,2,1,1,1,2,2,2},
-			{2,2,2,2,2,2,2,2,2,1,1,1,2,1,1,1,2,2,1,1,2,1,1,2,2,2,2,2},
-			{2,2,2,1,1,1,1,1,1,1,1,2,2,2,1,1,2,2,2,1,1,1,1,1,2,2,1,2},
-			{2,2,2,1,2,2,1,1,1,2,1,2,2,2,1,1,2,2,2,2,1,2,2,1,1,1,1,2},
-			{2,2,2,2,2,1,1,2,2,2,1,2,2,1,1,1,2,2,2,2,1,2,2,2,2,2,2,2},
-			{0,2,2,2,2,1,2,2,2,2,2,2,2,1,2,1,1,1,2,2,2,2,2,2,2,2,2,2},
-			{0,0,0,2,2,2,2,2,2,2,2,2,1,1,2,2,2,1,2,2,2,2,2,2,2,2,2,0},
-			{0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,2,2,2,0,0,0},
-			{0,0,0,2,2,0,0,0,0,2,2,2,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0,0},
-		};
-		private void TreeSwitch(byte tree, int pointX, int pointY, int x, int y, int X, int Y)
-		{
-			Tile tile = Framing.GetTileSafely(X, Y);
-			switch (tree)
-			{
-				case 0:
-					break;
-				case 1:
-					tile.TileType = (ushort)treeTile;
-					tile.HasTile = true;
-					WorldGen.SlopeTile(X, Y, 0);
-					break;
-				case 2:
-					tile.TileType = (ushort)leafTile;
-					tile.HasTile = true;
-					WorldGen.SlopeTile(X, Y, 0);
-					break;
-				case 3:
-					WorldGen.KillTile(X, Y);
-					WorldGen.KillTile(X, Y);
-					break;
-				default:
-					break;
-			}
-		}
-		private void BigTreeGen(int pointX, int pointY)
-		{
-			treeRandom = Main.rand.Next(0, 2);
-			
-			for (int x = 0; x < 28; x++)
-			{
-				for (int y = 0; y < 32; y++)
-				{
-					Tile tile = Framing.GetTileSafely(pointX + x, pointY - y);
-					var X = pointX + x;
-					var Y = pointY - y;
-					if (treeRandom == 0)
-					{
-						TreeSwitch(TreeTiles0[y, x], pointX, pointY, x, y, X, Y);
-						treeChestX = 12;
-						treeChestY = 7;
-					}
-					else
-					{
-						TreeSwitch(TreeTiles1[y, x], pointX, pointY, x, y, X, Y);
-						treeChestX = 12;
-						treeChestY = 5;
-					}
-					WorldGen.PlaceChest(pointX + treeChestX, pointY - treeChestY, (ushort)TileType<DeepChest>(), false, 1);
-				}
-			}
-		}
-		
 		private void TreeGrowGen(int startX, int startY)
 		{
 			TreeGrowthRadius = Math.Max(width / 3, 150);
@@ -682,73 +427,6 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 
 			return chance;
 		}
-		#endregion
-		
-		#region Boss
-		static readonly byte[,] BossSpawnTiles =
-		{
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,1,1,1,0,1,0,0,1,0,0,0,1,1,1,0,0,0,0,0},
-			{0,0,0,0,0,0,0,1,0,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,0,0,0,0},
-			{0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0},
-			{0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0},
-			{0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0},
-			{0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0},
-			{0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0},
-			{0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0},
-			{0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
-			{0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
-			{0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0},
-			{0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0},
-			{0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0},
-			{0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0},
-			{0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		};
-		private void BossSpawnGen(int pointX, int pointY)
-		{
-			for (int x = 0; x < 35; x++)
-			{
-				for (int y = 0; y < 29; y++)
-				{
-					Tile tile = Framing.GetTileSafely(pointX + x, pointY - y);
-					var X = pointX + x;
-					var Y = pointY - y;
-					switch (BossSpawnTiles[y, x])
-					{
-						case 0:
-							break;
-						case 1:
-							tile.TileType = (ushort)crystalTile;
-							tile.HasTile = true;
-							break;
-						case 2:
-							WorldGen.KillTile(X, Y);
-							WorldGen.KillTile(X, Y);
-							break;
-						case 3:
-							tile.TileType = (ushort)crystalTile2;
-                            WorldGen.SlopeTile(pointX + x, pointY - y, 0);
-                            tile.HasTile = true;
-							break;
-					}
-					WorldGen.PlaceObject(pointX + 17, pointY - 14, (ushort)kronosSpawn, true, 0, -1, -1);
-				}
-			}
-		}
-		#endregion
 
 		
 		
@@ -816,7 +494,7 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 				tile.TileType is TileID.Marble or TileID.SnowBlock or TileID.MushroomBlock or TileID.Granite;
 			bool canConvertWall = tile.WallType != WallID.None && tile.WallType != (ushort)grassWall &&
 			                      tile.WallType != (ushort)stoneWall && tile.WallType != (ushort)dirtWall &&
-			                      tile.WallType != (ushort)woodWall;
+			                      tile.WallType != (ushort)woodWall && tile.WallType != (ushort)brickWall;
 
 			if (!canConvertTile && !canConvertWall)
 			{
@@ -862,29 +540,29 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 				WorldGen.SlopeTile(x, y, 0);
 			}
 
-			if (tile.HasTile && IseTileAround(x, y, false, false, false, false))
+			if (tile.HasTile && IsTileAround(x, y, false, false, false, false))
 			{
 				WorldGen.KillTile(x, y);
 			}
 
 			if (tile.TileType == dirtTile || tile.TileType == crystalTile || tile.TileType == stoneTile)
 			{
-				if (IseTileAround(x, y, false, false, true, true) && Main.rand.NextBool(2))
+				if (IsTileAround(x, y, false, false, true, true) && Main.rand.NextBool(2))
 				{
 					WorldGen.SlopeTile(x, y, 1);
 				}
 
-				if (IseTileAround(x, y, false, true, true, false) && Main.rand.NextBool(3))
+				if (IsTileAround(x, y, false, true, true, false) && Main.rand.NextBool(3))
 				{
 					WorldGen.SlopeTile(x, y, 2);
 				}
 
-				if (IseTileAround(x, y, true, false, false, true) && Main.rand.NextBool(3))
+				if (IsTileAround(x, y, true, false, false, true) && Main.rand.NextBool(3))
 				{
 					WorldGen.SlopeTile(x, y, 3);
 				}
 
-				if (IseTileAround(x, y, true, true, false, false) && Main.rand.NextBool(2))
+				if (IsTileAround(x, y, true, true, false, false) && Main.rand.NextBool(2))
 				{
 					WorldGen.SlopeTile(x, y, 4);
 				}
@@ -896,7 +574,7 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 			}
 		}
 
-		private bool IseTileAround(int x, int y, bool above, bool right, bool below, bool left)
+		private bool IsTileAround(int x, int y, bool above, bool right, bool below, bool left)
 		{
 			Tile tileAbove = Framing.GetTileSafely(x, y - 1);
 			Tile tileRight = Framing.GetTileSafely(x + 1, y);

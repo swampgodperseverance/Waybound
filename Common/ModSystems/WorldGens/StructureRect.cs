@@ -10,6 +10,12 @@ public readonly struct StructureRect(int x, int y, int width, int height)
     public int Height { get; } = height;
 
 
+
+    public StructureRect WithPadding(int padding)
+    {
+        return new StructureRect(X - padding, Y - padding, Width + padding * 2, Height + padding * 2);
+    }
+
     public bool Contains(int pointX, int pointY)
     {
         return pointX >= X && pointX < X + Width &&
