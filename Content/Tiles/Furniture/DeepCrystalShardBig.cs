@@ -24,8 +24,9 @@ namespace Waybound.Content.Tiles.Furniture
 			Main.tileNoAttach[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 
-			HitSound = SoundID.Tink;
-
+			HitSound = SoundID.Item27;
+			MineResist = 0.2f;
+			
 			DustType = ModContent.DustType<DeepStoneDust>();
 
 			AddMapEntry(new Color(245, 82, 97));
