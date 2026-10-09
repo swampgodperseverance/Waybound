@@ -49,42 +49,42 @@ public static class DrawHelper
         Texture2D texture = null,
         BasicEffect effect = null)
     {
-        private int Tick;
+        private int _tick;
         
         private GraphicsDevice GraphicsDevice => Main.instance.GraphicsDevice;
         
-        private DynamicVertexBuffer DynamicBuffer;
-        private VertexPositionColorTexture[] VertexCache;
+        private DynamicVertexBuffer _dynamicBuffer;
+        private VertexPositionColorTexture[] _vertexCache;
 
         public void Initialize()
         {
-            DynamicBuffer = new DynamicVertexBuffer(GraphicsDevice, typeof(VertexPositionColorTexture), 1024, BufferUsage.WriteOnly);
-            VertexCache = new VertexPositionColorTexture[1024];
+            _dynamicBuffer = new DynamicVertexBuffer(GraphicsDevice, typeof(VertexPositionColorTexture), 1024, BufferUsage.WriteOnly);
+            _vertexCache = new VertexPositionColorTexture[1024];
         }
         
         private struct RibbonPoint(
             Vector2 position,
             int lifeTime)
         {
-            public Vector2 Position = position;
-            public int Timestamp = lifeTime;
+            public readonly Vector2 Position = position;
+            public readonly int Timestamp = lifeTime;
         }
 
-        private List<RibbonPoint> Points = new();
+        private readonly List<RibbonPoint> _points = new();
 
         public void Add(Vector2 newPoint) =>
-            Points.Add(new RibbonPoint(newPoint, Tick + lifeTime));
+            _points.Add(new RibbonPoint(newPoint, _tick + lifeTime));
 
         public void Clear()
         {
-            Points.Clear();
+            _points.Clear();
         }
         
         public void Update(int ticksPassed = 1)
         {
-            Tick += ticksPassed;
-            while(Points.Count > 0 && Points[0].Timestamp < Tick)
-                Points.RemoveAt(0);
+            _tick += ticksPassed;
+            while(_points.Count > 0 && _points[0].Timestamp < _tick)
+                _points.RemoveAt(0);
         }
 
         private class RibbonPass(
@@ -113,17 +113,17 @@ public static class DrawHelper
             }
         }
         
-        private List<RibbonPass> Passes = []; 
+        private readonly List<RibbonPass> _passes = []; 
         public void SetPasses(params Func<float, (float, Color, float, Color, Vector2?)>[] passes)
         {
-            Passes.Clear();
+            _passes.Clear();
             foreach (var p in passes)
-                Passes.Add(new RibbonPass(p));
+                _passes.Add(new RibbonPass(p));
         }
         
         public void Draw(Color? lightColor = null, bool mirrored = false, bool sideways = true, Vector2? offset = null)
         {
-            if (Main.dedServ || Points.Count < 3)
+            if (Main.dedServ || _points.Count < 3)
                 return;
 
             BasicEffect currentEffect = effect ?? Effects.BasicEffect;
@@ -136,9 +136,9 @@ public static class DrawHelper
                 pass.Apply();
             VertexBufferBinding[] buffer = GraphicsDevice.GetVertexBuffers();
             
-            if(Passes.Count == 0)
-                Passes.Add(RibbonPass.Default());
-            foreach (RibbonPass pass in Passes)
+            if(_passes.Count == 0)
+                _passes.Add(RibbonPass.Default());
+            foreach (RibbonPass pass in _passes)
                 DrawPass(pass, lightColor ?? Color.White, mirrored, sideways, offset ?? Vector2.Zero);
             
             GraphicsDevice.SetVertexBuffers(buffer);
@@ -149,20 +149,20 @@ public static class DrawHelper
         private void DrawPass(RibbonPass pass, Color lightColor, bool mirrored, bool sideways, Vector2 offset)
         {
             int vertexCount = 0;
-            for (int i = 0; i < Points.Count; i++)
+            for (int i = 0; i < _points.Count; i++)
             {
-                RibbonPoint point = Points[i];
+                RibbonPoint point = _points[i];
 
                 Vector2 forward = Vector2.Zero;
-                if (i < Points.Count - 1)
-                    forward += Points[i].Position - Points[i + 1].Position;
+                if (i < _points.Count - 1)
+                    forward += _points[i].Position - _points[i + 1].Position;
                 if (i > 0)
-                    forward += Points[i - 1].Position - Points[i].Position;
+                    forward += _points[i - 1].Position - _points[i].Position;
                 if(forward == Vector2.Zero)
                     forward = Vector2.UnitX;
                 forward.Normalize();
 
-                float progress = 1f - (point.Timestamp - Tick) / (float)lifeTime;
+                float progress = 1f - (point.Timestamp - _tick) / (float)lifeTime;
                 pass.Calculate(progress);
                 
                 Vector2 normal = sideways ? new Vector2(-forward.Y, forward.X) : forward;
@@ -175,12 +175,12 @@ public static class DrawHelper
                 Vector2 leftPoint = point.Position + offset + normal * leftIndent - Main.screenPosition;
                 Vector2 rightPoint = point.Position + offset + normal * rightIndent - Main.screenPosition;
 
-                VertexCache[vertexCount++] = new VertexPositionColorTexture(new Vector3(leftPoint, 0f), leftColor.MultiplyRGBA(lightColor), pass.TexturePos ?? Vector2.Zero);
-                VertexCache[vertexCount++] = new VertexPositionColorTexture(new Vector3(rightPoint, 0f), rightColor.MultiplyRGBA(lightColor), pass.TexturePos ?? Vector2.Zero);
+                _vertexCache[vertexCount++] = new VertexPositionColorTexture(new Vector3(leftPoint, 0f), leftColor.MultiplyRGBA(lightColor), pass.TexturePos ?? Vector2.Zero);
+                _vertexCache[vertexCount++] = new VertexPositionColorTexture(new Vector3(rightPoint, 0f), rightColor.MultiplyRGBA(lightColor), pass.TexturePos ?? Vector2.Zero);
             }
             
-            DynamicBuffer.SetData(VertexCache, 0, vertexCount, SetDataOptions.Discard);
-            GraphicsDevice.SetVertexBuffer(DynamicBuffer);
+            _dynamicBuffer.SetData(_vertexCache, 0, vertexCount, SetDataOptions.Discard);
+            GraphicsDevice.SetVertexBuffer(_dynamicBuffer);
             GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleStrip, 0, vertexCount - 2);
         }
     }
