@@ -1,0 +1,16 @@
+Lore: {
+	DeepstoneGolemNote: {
+		Title: The Deepstone Hum
+		Speaker: Miner's Journal
+
+		Lines: {
+			0: Day 41. The stone down here hums at night.
+			1: Not a sound, exactly. More like slow breathing.
+			2: Day 44. We found carvings of a faceless giant.
+			3: A heart was cut into its chest. A real one, deep in the crystals.
+			4: Day 47. HE DIED
+			5: Day 48. LATER
+			6: LORE
+		}
+	}
+}

@@ -13,7 +13,7 @@ public class IcebornLeggings : ModItem {
         Item.value = Item.sellPrice(0, 1, 8, 50);
     }
     public override void UpdateEquip(Player player) {
-        player.GetCritChance(DamageClass.Ranged) += 0.08f;
+        player.GetCritChance(DamageClass.Ranged) += 0.03f;
         player.moveSpeed += 0.07f;
     }
     public override void AddRecipes()

@@ -6,11 +6,14 @@ namespace Waybound.Common.ModSystems
         public static ModKeybind ArmorSetBonusActivation { get; private set; }
         public static ModKeybind AccBonusActivation { get; private set; } = null;
 
+        public static ModKeybind ChangeWeaponStyle { get; private set; } = null;
+
         public override void Load()
         {
             DesfosBagActivation = KeybindLoader.RegisterKeybind(Mod, "DesfosBagActivate", "B");
             ArmorSetBonusActivation = KeybindLoader.RegisterKeybind(Mod, "ArmorSetBonusActivate", "K");
             AccBonusActivation = KeybindLoader.RegisterKeybind(Mod, "ActiveAcc", Microsoft.Xna.Framework.Input.Keys.Q);
+            ChangeWeaponStyle = KeybindLoader.RegisterKeybind(Mod, "ChangeWeaponStyle", "V");
         }
 
         public override void Unload()
@@ -18,6 +21,7 @@ namespace Waybound.Common.ModSystems
             DesfosBagActivation = null;
             ArmorSetBonusActivation = null;
             AccBonusActivation = null;
+            ChangeWeaponStyle = null;
         }
     }
 }

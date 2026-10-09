@@ -32,6 +32,9 @@ namespace Waybound.Common.ModSystems {
         internal static bool korochunDead = false;
         public static bool KorochunDead { get { return korochunDead; } private set { korochunDead = value; } }
 
+        internal static bool deepstoneGolemDead = false;
+        public static bool DeepstoneGolemDead { get { return deepstoneGolemDead; } private set { deepstoneGolemDead = value; } }
+
         //public static bool OpenChest { get; internal set; } = false;
 
         // public static bool SpawnCristal { get; set; }
@@ -48,6 +51,7 @@ namespace Waybound.Common.ModSystems {
             themisDead = false;
             heartDead = false;
             korochunDead = false;
+            deepstoneGolemDead = false;
             //   SpawnCristal = false;
             //   OpenChest = false;
         }
@@ -55,10 +59,9 @@ namespace Waybound.Common.ModSystems {
             SwampChestindex = -1;
 
             FirstEnterInSnowVillage = false;
-           // FirstEnterInHellVillage = false;
-           // SpawnDwarf = false;
-          //  sinlordDead = false;
-
+            // FirstEnterInHellVillage = false;
+            // SpawnDwarf = false;
+            //  sinlordDead = false;
             cruorDead = false;
             heartDead = false;
             // SpawnCristal = false;
@@ -73,6 +76,7 @@ namespace Waybound.Common.ModSystems {
             tag["CruorDead"] = cruorDead;
             tag["ThemisDead"] = themisDead;
             tag["KorochunDead"] = korochunDead;
+            tag["DeepstoneGolemDead"] = deepstoneGolemDead;
             //   tag["OpenChest"] = OpenChest;
         }
         public override void LoadWorldData(TagCompound tag) {
@@ -85,6 +89,7 @@ namespace Waybound.Common.ModSystems {
             themisDead = tag.GetBool("ThemisDead");
             heartDead = tag.GetBool("HeartDead");
             korochunDead = tag.GetBool("KorochunDead");
+            deepstoneGolemDead = tag.GetBool("DeepstoneGolemDead");
             // OpenChest = tag.GetBool("OpenChest");
         }
         sealed public override void NetSend(BinaryWriter writer) {
@@ -93,6 +98,7 @@ namespace Waybound.Common.ModSystems {
             writer.Write(themisDead);
             writer.Write(heartDead);
             writer.Write(korochunDead);
+            writer.Write(DeepstoneGolemDead);
             //writer.Write(FirstEnterInHellVillage);
             //writer.Write(SpawnDwarf);
             //writer.Write(SpawnCristal);
@@ -104,6 +110,7 @@ namespace Waybound.Common.ModSystems {
             themisDead = reader.ReadBoolean();
             heartDead = reader.ReadBoolean();
             korochunDead = reader.ReadBoolean();
+            deepstoneGolemDead = reader.ReadBoolean();
             //FirstEnterInHellVillage = reader.ReadBoolean();
             //SpawnDwarf = reader.ReadBoolean();
             //SpawnCristal = reader.ReadBoolean();

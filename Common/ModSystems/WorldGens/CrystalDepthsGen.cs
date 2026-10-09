@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.IO;
@@ -77,6 +77,7 @@ namespace Waybound.Common.ModSystems.WorldGens
 		public int kronosSpawn = ModContent.TileType<KronosSummonTile>();
 		public int pillar = ModContent.TileType<DeepSecurityPillar>();
 		public int pot = ModContent.TileType<DeepPot>();
+
 
 		public int threshold = 4;
 		public int treeRandom;

@@ -2,10 +2,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Waybound.Common.GlobalPlayer;
 using Waybound.Content.Projectiles.Ranged.Guns.HM;
 
 namespace Waybound.Content.Items.Weapons.Ranged.Guns.HM
@@ -71,10 +73,8 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.HM
             {
                 if (player.ownedProjectileCounts[alt] < 1)
                 {
-                    // не убиваем старый сразу — даём ему дожить 1 тик
                     Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, alt, 0, 0, player.whoAmI);
                 }
-                // старый held сам умрёт в своём AI когда увидит, что alt активен
             }
             else
             {
@@ -91,11 +91,25 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.HM
             {
                 Vector2 dir = velocity.SafeNormalize(Vector2.UnitX);
                 Vector2 muzzle = player.MountedCenter + dir * 52f;
-                int laser = Projectile.NewProjectile(source, muzzle, dir * 13f, ModContent.ProjectileType<TesseractLaser>(), (int)(damage * 2.8f), knockback * 1.6f, player.whoAmI);
+
+                int laser = Projectile.NewProjectile(source, muzzle, dir * 13f, ModContent.ProjectileType<TesseractLaser>(), (int)(damage * 3.2f), knockback * 1.8f, player.whoAmI);
                 if (laser >= 0)
-                    Main.projectile[laser].scale = 1.5f;
+                    Main.projectile[laser].scale = 1.7f;
+
+                for (int s = -1; s <= 1; s += 2)
+                {
+                    Vector2 v = dir.RotatedBy(s * 0.13f) * 13f;
+                    Projectile.NewProjectile(source, muzzle, v, ModContent.ProjectileType<TesseractLaser>(), (int)(damage * 1.2f), knockback * 0.8f, player.whoAmI, 0f, 1f);
+                }
 
                 player.GetModPlayer<TesseractPlayer>().GlowTimer = 55;
+                player.GetModPlayer<ScreenShakePlayer>().TriggerShake(14, 1.8f);
+
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    TesseractFxPublic.MuzzleBurst(muzzle, dir);
+                    SoundEngine.PlaySound(SoundID.Item122 with { Volume = 0.55f, Pitch = 0.1f }, player.Center);
+                }
 
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
@@ -118,6 +132,26 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.HM
         }
 
         public override Vector2? HoldoutOffset() => new Vector2(-14, 0);
+    }
+
+    internal static class TesseractFxPublic
+    {
+        public static void MuzzleBurst(Vector2 pos, Vector2 dir)
+        {
+            for (int i = 0; i < 22; i++)
+            {
+                Vector2 v = dir.RotatedByRandom(0.35f) * Main.rand.NextFloat(4f, 15f);
+                Dust d = Dust.NewDustPerfect(pos, Main.rand.NextBool(3) ? DustID.PurpleTorch : DustID.IceTorch, v, 30, Color.White, Main.rand.NextFloat(1.2f, 2f));
+                d.noGravity = true;
+            }
+            for (int i = 0; i < 16; i++)
+            {
+                Vector2 ring = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * i / 16f);
+                Vector2 v = ring * 3.5f + dir * 2f;
+                Dust d = Dust.NewDustPerfect(pos, DustID.WhiteTorch, v, 40, Color.White, 1.4f);
+                d.noGravity = true;
+            }
+        }
     }
 
     public class TesseractPlayer : ModPlayer
@@ -190,26 +224,34 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.HM
                 }
             }
 
-            float shakeStrength = charge * 0.025f;
+            float shakeStrength = charge * 0.03f;
             float shakeRot = (float)Math.Sin(Main.GameUpdateCount * 0.24f) * shakeStrength;
             Projectile.rotation = baseRotation + shakeRot * player.direction;
 
             Vector2 shakeOffset = new Vector2(
-                (float)Math.Sin(Main.GameUpdateCount * 0.29f) * charge * 0.45f,
-                (float)Math.Cos(Main.GameUpdateCount * 0.37f) * charge * 0.35f);
+                (float)Math.Sin(Main.GameUpdateCount * 0.29f) * charge * 0.6f,
+                (float)Math.Cos(Main.GameUpdateCount * 0.37f) * charge * 0.45f);
             Projectile.Center += shakeOffset * player.direction;
 
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, baseRotation - MathHelper.PiOver2 * player.direction + shakeRot * 0.4f);
             player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, baseRotation - MathHelper.PiOver2 * player.direction * 0.85f + shakeRot * 0.22f);
 
+            if (charge > 0.3f)
+            {
+                var mp = player.GetModPlayer<TesseractPlayer>();
+                if (mp.GlowTimer < 6)
+                    mp.GlowTimer = 6;
+                Lighting.AddLight(Projectile.Center, 0.2f * charge, 0.35f * charge, 0.6f * charge);
+            }
+
             if (Projectile.localAI[0] > 0)
             {
                 Projectile.localAI[0]--;
                 float t = Projectile.localAI[0] / 12f;
-                float kick = t * t * 0.11f;
+                float kick = t * t * 0.14f;
                 Projectile.rotation -= player.direction * kick;
                 Vector2 up = direction.RotatedBy(-player.direction * MathHelper.PiOver2);
-                Projectile.Center += up * (kick * 2.8f);
+                Projectile.Center += up * (kick * 3.5f);
             }
         }
 
@@ -225,14 +267,14 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.HM
             if (modPlayer.GlowTimer > 0)
             {
                 Texture2D glowTex = ModContent.Request<Texture2D>("Waybound/Content/Items/Weapons/Ranged/Guns/HM/Tesseract_Glow").Value;
-                float t = modPlayer.GlowTimer / 50f;
+                float t = Math.Min(modPlayer.GlowTimer / 50f, 1f);
                 float fade = (float)Math.Sin(t * MathHelper.Pi);
-                Color glowColor = Color.White * fade * 0.9f;
+                Color glowColor = Color.White * fade * 0.95f;
 
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector2 offset = new Vector2(1.2f, 0).RotatedBy(MathHelper.TwoPi * i / 3f + Main.GlobalTimeWrappedHourly * 1.6f);
-                    Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition + offset, null, glowColor * 0.4f, Projectile.rotation, glowTex.Size() / 2f, Projectile.scale * 1.04f, effects, 0);
+                    Vector2 offset = new Vector2(1.4f, 0).RotatedBy(MathHelper.TwoPi * i / 3f + Main.GlobalTimeWrappedHourly * 1.6f);
+                    Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition + offset, null, glowColor * 0.45f, Projectile.rotation, glowTex.Size() / 2f, Projectile.scale * 1.05f, effects, 0);
                 }
                 Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition, null, glowColor, Projectile.rotation, glowTex.Size() / 2f, Projectile.scale, effects, 0);
             }
@@ -298,10 +340,10 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.HM
             {
                 Projectile.localAI[0]--;
                 float t = Projectile.localAI[0] / 18f;
-                float kick = t * t * 0.16f;
+                float kick = t * t * 0.2f;
                 Projectile.rotation -= player.direction * kick;
                 Vector2 up = direction.RotatedBy(-player.direction * MathHelper.PiOver2);
-                Projectile.Center += up * (kick * 4f);
+                Projectile.Center += up * (kick * 5f);
             }
         }
 
@@ -317,14 +359,14 @@ namespace Waybound.Content.Items.Weapons.Ranged.Guns.HM
             if (modPlayer.GlowTimer > 0)
             {
                 Texture2D glowTex = ModContent.Request<Texture2D>("Waybound/Content/Items/Weapons/Ranged/Guns/HM/Tesseract_Glow").Value;
-                float t = modPlayer.GlowTimer / 55f;
+                float t = Math.Min(modPlayer.GlowTimer / 55f, 1f);
                 float fade = (float)Math.Sin(t * MathHelper.Pi);
                 Color glowColor = Color.White * fade * 1.0f;
 
                 for (int i = 0; i < 4; i++)
                 {
-                    Vector2 offset = new Vector2(1.4f, 0).RotatedBy(MathHelper.TwoPi * i / 4f + Main.GlobalTimeWrappedHourly * 2f);
-                    Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition + offset, null, glowColor * 0.5f, Projectile.rotation, glowTex.Size() / 2f, Projectile.scale * 1.06f, effects, 0);
+                    Vector2 offset = new Vector2(1.6f, 0).RotatedBy(MathHelper.TwoPi * i / 4f + Main.GlobalTimeWrappedHourly * 2f);
+                    Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition + offset, null, glowColor * 0.55f, Projectile.rotation, glowTex.Size() / 2f, Projectile.scale * 1.07f, effects, 0);
                 }
                 Main.EntitySpriteDraw(glowTex, Projectile.Center - Main.screenPosition, null, glowColor, Projectile.rotation, glowTex.Size() / 2f, Projectile.scale, effects, 0);
             }

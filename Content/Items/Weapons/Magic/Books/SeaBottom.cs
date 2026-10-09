@@ -253,7 +253,7 @@ namespace Waybound.Content.Items.Weapons.Magic.Books
                 if (Main.rand.NextBool(3))
                 {
                     Vector2 vel = -Projectile.velocity * 0.07f + Main.rand.NextVector2Circular(0.4f, 0.4f);
-                    ParticleSystem.MegasparkBuffer.Create(new ParticleInfo(
+                    ParticleSystem.BubbleBuffer.Create(new ParticleInfo(
                         Projectile.Center.ToNumerics(),
                         vel.ToNumerics(),
                         Main.rand.NextFloat(MathHelper.TwoPi),
@@ -277,7 +277,7 @@ namespace Waybound.Content.Items.Weapons.Magic.Books
             for (int i = 0; i < 10; i++)
             {
                 Vector2 vel = Main.rand.NextVector2Circular(3f, 3f);
-                ParticleSystem.MegasparkBuffer.Create(new ParticleInfo(
+                ParticleSystem.BubbleBuffer.Create(new ParticleInfo(
                     Projectile.Center.ToNumerics(),
                     vel.ToNumerics(),
                     Main.rand.NextFloat(MathHelper.TwoPi),

@@ -10,5 +10,10 @@ CryoLake: {
 
 CrystalDepthsBiome: {
 	DisplayName: Crystal Depths Biome
-	TownNPCDialogueName: the Crystal Depths Biome
+	TownNPCDialogueName: The Crystal Grove
+}
+
+DeepOceanBiome: {
+	DisplayName: Deep Ocean Biome
+	TownNPCDialogueName: the Deep Ocean Biome
 }

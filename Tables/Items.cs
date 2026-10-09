@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
+using Waybound.Content.Items.BossSummon;
 using Waybound.Content.Items.Weapons.Melee.Chakrams;
 
 namespace Waybound.Tables;
@@ -11,5 +12,6 @@ public static class Items {
         [ItemID.HermesBoots] = ItemID.IceSkates,
         [ItemID.WoodenBoomerang] = ItemID.IceBoomerang,
         [ItemID.ThornChakram] = ModContent.ItemType<IceChakram>(),
+        [ItemID.GoldCoin] = ModContent.ItemType<IcePenny>(),
     };
 };

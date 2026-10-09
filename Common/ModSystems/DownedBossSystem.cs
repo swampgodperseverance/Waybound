@@ -12,6 +12,7 @@ namespace Waybound.Common.Systems
         public static bool DownedForgottenSoul = false;
         public static bool DownedLeviathan = false;
         public static bool DownedGlowingOracle = false;
+        public static bool DownedKorochun = false;
 
         public override void OnWorldLoad()
         {
@@ -21,6 +22,7 @@ namespace Waybound.Common.Systems
             DownedForgottenSoul = false;
             DownedLeviathan = false;
             DownedGlowingOracle = false;
+            DownedKorochun = false;
         }
 
         public override void OnWorldUnload()
@@ -31,6 +33,7 @@ namespace Waybound.Common.Systems
             DownedForgottenSoul = false;
             DownedLeviathan = false;
             DownedGlowingOracle = false;
+            DownedKorochun = false;
         }
 
         public override void SaveWorldData(TagCompound tag)
@@ -41,6 +44,7 @@ namespace Waybound.Common.Systems
             tag["DownedForgottenSoul"] = DownedForgottenSoul;
             tag["DownedLeviathan"] = DownedLeviathan;
             tag["DownedGlowingOracle"] = DownedGlowingOracle;
+            tag["DownedKorochun"] = DownedKorochun;
         }
 
         public override void LoadWorldData(TagCompound tag)
@@ -51,6 +55,7 @@ namespace Waybound.Common.Systems
             DownedForgottenSoul = tag.GetBool("DownedForgottenSoul");
             DownedLeviathan = tag.GetBool("DownedLeviathan");
             DownedGlowingOracle = tag.GetBool("DownedGlowingOracle");
+            DownedKorochun = tag.GetBool("DownedKorochun");
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -62,6 +67,7 @@ namespace Waybound.Common.Systems
             flags[3] = DownedForgottenSoul;
             flags[4] = DownedLeviathan;
             flags[5] = DownedGlowingOracle;
+            flags[6] = DownedKorochun;
             writer.Write(flags);
         }
 
@@ -74,6 +80,7 @@ namespace Waybound.Common.Systems
             DownedForgottenSoul = flags[3];
             DownedLeviathan = flags[4];
             DownedGlowingOracle = flags[5];
+            DownedKorochun = flags[6];
         }
     }
 }

@@ -100,8 +100,13 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     if (other.type == Projectile.type && Projectile.whoAmI < other.whoAmI && Projectile.Hitbox.Intersects(other.Hitbox))
                     {
                         SpawnBigGreyFlash();
-                        SoundEngine.PlaySound(SoundID.Item37 with { Volume = 0.7f, Pitch = Main.rand.NextFloat(-0.15f, 0.1f) }, Projectile.Center);
-                        SoundEngine.PlaySound(SoundID.NPCHit4 with { Volume = 0.55f, Pitch = Main.rand.NextFloat(-0.2f, 0.15f) }, Projectile.Center);
+                        SoundEngine.PlaySound(new SoundStyle("Waybound/Assets/Sounds/Bosses/MetalStomp")
+                        {
+                            Volume = 0.7f,
+                            Pitch = Main.rand.NextFloat(-0.15f, 0.1f),
+                            PitchVariance = 0.1f,
+                            MaxInstances = 3
+                        }, Projectile.Center);
 
                         Vector2 bounceDir = (Projectile.Center - other.Center).SafeNormalize(Vector2.UnitX);
                         Projectile.velocity = bounceDir * 12f;
@@ -120,7 +125,6 @@ namespace Waybound.Content.NPCs.Bosses.Themis
         {
             for (int i = 0; i < 3; i++)
             {
-                // Размеры уменьшены почти в два раза
                 float s = 30f + i * 12f;
                 ParticleSystem.FlashBuffer.Create(new ParticleInfo(
                     position: Projectile.Center.ToNumerics(),

@@ -61,4 +61,4 @@ sealed class MultiplayerSystem : ModSystem {
         NetPacket packet = packets[packetId];
         packet.Read(reader, sender);
     }
-};
+}

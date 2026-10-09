@@ -1,1 +1,5 @@
-
+Conditions: {
+	ReadDeepstone: Read the note "The Deepstone Hum"
+	ReadDesert3: Read 3 desert notes
+	DesfoCannotCraft: Desfos cannot craft
+}

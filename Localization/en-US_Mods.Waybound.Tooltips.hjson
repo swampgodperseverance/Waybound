@@ -12,10 +12,29 @@ Armor: {
 		'''
 		Ice crystals are flying around your head.
 		If an enemy is attacked, the crystals will follow them until death.
-		Immunity to most ice debuffs.
-		       
+		Immunity to most ice debuffs.     
+		'''
+	DespairSetBonus:
+		'''
+		Crystal shards orbit you and when player got a hit, shard reduces its damage, heals you and releases an effect
+		Melee hits restore the shards. 
 		'''
 }
 
 Acc.BloodyNecklace: Press <{0}> for donation hp and up bonus
 GlobalItem.RaceItemBonus.RaceText: An additional bonus based on race: {0}
+
+CrystalNote: {
+	Read: Already read by the Crystal Guardian
+	Unread: Show this to the Crystal Guardian, what secrets does it hide?
+}
+
+DesfosBag: {
+	Progress: Desfo's Bag: {0}/{1} to convert
+	Rare: Rare: {0}
+	PityReady: Next reward is guaranteed rare!
+	PityLeft: Guaranteed rare in {0} conversion{1}
+	RaceBonus: Desfo race can use it directly from inventory
+	Slots: Slots: {0}/{1}  (+1 per {2} gold in inventory)
+	NextSlot: Next slot at {0} gold (you have {1})
+}

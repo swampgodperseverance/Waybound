@@ -1,58 +1,41 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Waybound.Content.Items.Weapons.Melee.Rapiers
 {
-    public class WoodRapier : ModItem
+    public class WoodRapier : BaseRapierItem
     {
-        public override void SetStaticDefaults() { }
+        protected override int HoldoutType => ModContent.ProjectileType<WoodRapierHoldout>();
 
-        public override void SetDefaults()
+        protected override void SetRapierDefaults()
         {
             Item.width = 42;
             Item.height = 42;
             Item.rare = ItemRarityID.White;
             Item.value = Item.sellPrice(copper: 20);
-            Item.DamageType = DamageClass.Melee;
             Item.damage = 4;
             Item.knockBack = 4f;
             Item.crit = 6;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
-            Item.useStyle = ItemUseStyleID.Shoot;
-            Item.noMelee = true;
-            Item.noUseGraphic = true;
-            Item.channel = true;
-            Item.autoReuse = false;
-            Item.shoot = ModContent.ProjectileType<WoodRapierHoldout>();
-            Item.shootSpeed = 1f;
-            Item.UseSound = SoundID.Item1;
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            return player.ownedProjectileCounts[ModContent.ProjectileType<WoodRapierHoldout>()] < 1;
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-            return false;
         }
     }
 
     public class WoodRapierHoldout : BaseRapierHoldout
     {
         public override string RapierTexture => "Waybound/Content/Items/Weapons/Melee/Rapiers/WoodRapier";
-        public override int MaxCharge => 15;
-        public override float MinLungeDistance => 80f;
-        public override float MaxLungeDistance => 160f;
-        public override float LungeOutSpeed => 0.28f;
-        public override float LungeReturnSpeed => 0.24f;
-        public override bool UseGreenPulse => false;
+        public override bool UseSpecial => false;
+        public override float BaseHoldoutDistance => 24f;
+        public override float BladeLength => 46f;
+
+        protected override float GetThrustDistance(int i) => i switch { 0 => 70f, 1 => 80f, _ => 95f };
+        protected override int WindupFrames(int i) => 3;
+        protected override int ThrustFrames(int i) => 2;
+        protected override int HoldFrames(int i) => 1;
+        protected override int RecoverFrames(int i) => 5;
+        protected override int EndFrames => 6;
+
+        protected override float GetDamageMultiplier() => thrustIndex == 2 ? 1.1f : 0.8f;
 
         protected override bool IsCorrectItem(Player player) => player.HeldItem.type == ModContent.ItemType<WoodRapier>();
 

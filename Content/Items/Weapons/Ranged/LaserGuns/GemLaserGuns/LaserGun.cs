@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
-using System;
 
 namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns.GemLaserGuns
 {
@@ -20,6 +21,21 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns.GemLaserGuns
                 Item.color = Color.Lerp(Color.White, new Color(255, 150, 150), scale);
             }
             base.UpdateInventory(player);
+        }
+        public override void SetDefaults()
+        {
+            Item.useTime = 3;
+            Item.useAnimation = 3;
+        }
+        public override bool CanUseItem(Player player)
+        {
+            return player.ownedProjectileCounts[ModContent.ProjectileType<RangedLaser>()] < 1;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+            return false;
         }
     }
 

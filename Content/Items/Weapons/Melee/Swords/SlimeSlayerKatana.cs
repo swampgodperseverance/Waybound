@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary.Core.V3.Particles;
 using ParticleLibrary.Utilities;
+using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -75,7 +76,18 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
         public override float SwordLength => 70f;
         public override float BaseScale => 0.8f;
 
-        private bool spawnedEffect;
+        public override int TrailDrawLength => Projectile.oldPos.Length / 3;
+        public override Color TrailColor => new Color(120, 200, 255);
+        public override Color TrailCoreColor => new Color(180, 230, 255);
+
+        public override Color ParticleColor => new Color(90, 200, 255);
+        public override Color ParticleCoreColor => new Color(160, 235, 255);
+        public override float ParticleWidth => 1f;
+        public override float ParticleSizeMultiplier => 1f;
+        public override float ParticleSpeedMultiplier => 1f;
+        public override int ParticleLife => 22;
+        public override int ParticleCount => 2;
+
         private bool spawnedProj;
 
         public override void SetDefaults()
@@ -87,7 +99,6 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
 
         public override void OnSpawn(IEntitySource source)
         {
-            spawnedEffect = false;
             spawnedProj = false;
         }
 
@@ -95,16 +106,7 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
         {
             base.AI();
 
-            float progress = 1f - (float)Player.itemAnimation / Player.itemAnimationMax;
-
             Lighting.AddLight(Projectile.Center, 0.15f, 0.6f, 0.95f);
-
-            if (Main.myPlayer == Projectile.owner && !spawnedEffect && progress >= 0.35f)
-            {
-                spawnedEffect = true;
-                float bladeRot = Projectile.rotation - MathHelper.PiOver4;
-                Vector2 tip = Projectile.Center + bladeRot.ToRotationVector2() * (SwordLength * 0.65f * Projectile.scale);
-            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -129,31 +131,6 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
                 );
             }
         }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Vector2 origin = new(Projectile.spriteDirection == -1 ? texture.Width : 0f, texture.Height);
-            SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            float extraRotation = Projectile.spriteDirection == -1 ? MathHelper.PiOver2 : 0f;
-
-            Color trailColor = new Color(120, 200, 255) with { A = 0 } * Projectile.Opacity;
-            for (int i = 0; i < Projectile.oldPos.Length; i++)
-            {
-                trailColor *= 0.78f;
-                Main.spriteBatch.Draw(texture, Projectile.oldPos[i] + Projectile.Size / 2f - Main.screenPosition, null, trailColor, Projectile.oldRot[i] + extraRotation, origin, Projectile.scale, spriteEffects, 0f);
-            }
-
-            Color glow = new Color(100, 180, 255) * Projectile.Opacity * 0.45f;
-            for (int i = 0; i < 6; i++)
-            {
-                Vector2 offset = new Vector2(1.5f, 0f).RotatedBy(MathHelper.TwoPi * i / 6f);
-                Main.spriteBatch.Draw(texture, Projectile.Center + offset - Main.screenPosition, null, glow, Projectile.rotation + extraRotation, origin, Projectile.scale, spriteEffects, 0f);
-            }
-
-            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, new Color(180, 230, 255) * Projectile.Opacity, Projectile.rotation + extraRotation, origin, Projectile.scale, spriteEffects, 0f);
-            return false;
-        }
     }
 
     public class SlimeSlayerKatanaB : ModBuff
@@ -175,9 +152,7 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
     {
         private Vector2 oldPos = Vector2.Zero;
         private Vector2 startPos = Vector2.Zero;
-        private NPC targetNPC;
         private bool returning;
-        private readonly VertexStrip vertexStrip = new VertexStrip();
 
         public override void SetStaticDefaults()
         {
@@ -192,8 +167,8 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.penetrate = 2;
-            Projectile.timeLeft = 180;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 240;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.usesLocalNPCImmunity = true;
@@ -207,7 +182,6 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
             oldPos = Projectile.Center;
             startPos = Projectile.Center;
             returning = false;
-            targetNPC = null;
         }
 
         public override void AI()
@@ -222,47 +196,26 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
 
             Projectile.ai[0]++;
 
-            if (!returning)
+            float returnTime = 15f;
+
+            if (Projectile.ai[0] < returnTime)
             {
-                Projectile.velocity *= 0.94f;
-
-                if (Projectile.ai[0] >= 16f)
-                {
-                    returning = true;
-
-                    if (targetNPC == null || !targetNPC.active)
-                    {
-                        float closest = 500f;
-                        for (int i = 0; i < Main.maxNPCs; i++)
-                        {
-                            NPC npc = Main.npc[i];
-                            if (npc.active && !npc.friendly && npc.CanBeChasedBy(Projectile))
-                            {
-                                float dist = Vector2.Distance(Projectile.Center, npc.Center);
-                                if (dist < closest)
-                                {
-                                    closest = dist;
-                                    targetNPC = npc;
-                                }
-                            }
-                        }
-                    }
-                }
+                Projectile.velocity *= 0.985f;
+                Projectile.velocity += Projectile.velocity.SafeNormalize(Vector2.Zero) * 0.05f;
             }
             else
             {
-                Vector2 targetPos = targetNPC != null && targetNPC.active ? targetNPC.Center : startPos;
-                Vector2 toTarget = targetPos - Projectile.Center;
-                float dist = toTarget.Length();
+                Vector2 toStart = startPos - Projectile.Center;
+                float dist = toStart.Length();
 
-                if (dist < 24f)
+                if (dist < 28f)
                 {
                     Projectile.Kill();
                     return;
                 }
 
-                toTarget.Normalize();
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, toTarget * 16f, 0.12f);
+                toStart.Normalize();
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, toStart * 18f, 0.08f);
             }
 
             if (Main.rand.NextBool(2))
@@ -284,37 +237,95 @@ namespace Waybound.Content.Items.Weapons.Melee.Swords
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (Main.rand.NextBool(3))
                 target.AddBuff(ModContent.BuffType<SlimeSlayerKatanaB>(), 300);
-
-            if (!returning)
-            {
-                targetNPC = target;
-                returning = true;
-            }
         }
+
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Vector2 vel = Main.rand.NextVector2Circular(3.5f, 3.5f);
+                float size = Main.rand.NextFloat(16f, 28f);
+                ParticleSystem.MegasparkBuffer.Create(new ParticleInfo(
+                    Projectile.Center.ToNumerics(),
+                    vel.ToNumerics(),
+                    Main.rand.NextFloat(MathHelper.TwoPi),
+                    new System.Numerics.Vector2(size, size * Main.rand.NextFloat(0.5f, 1.15f)),
+                    new Color(90, 200, 255, 210) * Main.rand.NextFloat(0.9f, 1.2f),
+                    Main.rand.Next(18, 32)
+                ));
+            }
+
+            SoundEngine.PlaySound(SoundID.Item27 with { Volume = 0.6f, Pitch = 0.1f }, Projectile.Center);
+        }
+
+        public override Color? GetAlpha(Color lightColor) => new Color(160, 230, 255, 180);
 
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Vector2 origin = new(texture.Width / 2f, texture.Height / 2f);
-            Color trailColor = new Color(120, 200, 255) with { A = 0 } * Projectile.Opacity;
+            Vector2 origin = texture.Size() / 2f;
+            Vector2 drawPos = Projectile.Center - Main.screenPosition;
 
-            for (int i = 0; i < Projectile.oldPos.Length; i++)
+            int drawLength = Projectile.oldPos.Length / 2;
+            float fadeDenom = MathF.Max(1f, drawLength - 1);
+
+            for (int k = drawLength - 1; k >= 0; k--)
             {
-                trailColor *= 0.78f;
-                Main.spriteBatch.Draw(texture, Projectile.oldPos[i] + Projectile.Size / 2f - Main.screenPosition, null, trailColor, Projectile.oldRot[i], origin, Projectile.scale, SpriteEffects.None, 0f);
+                if (Projectile.oldPos[k] == Vector2.Zero)
+                    continue;
+
+                float t = 1f - k / fadeDenom;
+                float alpha = t * t * Projectile.Opacity;
+
+                Color trailColor = new Color(120, 200, 255) with { A = 0 };
+                trailColor *= alpha;
+
+                float scale = Projectile.scale * MathHelper.Lerp(0.6f, 1f, t);
+
+                Main.EntitySpriteDraw(
+                    texture,
+                    Projectile.oldPos[k] + Projectile.Size / 2f - Main.screenPosition,
+                    null,
+                    trailColor,
+                    Projectile.oldRot[k],
+                    origin,
+                    scale,
+                    SpriteEffects.None,
+                    0
+                );
             }
 
-            Color glow = new Color(100, 180, 255) * Projectile.Opacity * 0.45f;
-            for (int i = 0; i < 6; i++)
+            if (oldPos != Vector2.Zero && oldPos != Projectile.Center)
             {
-                Vector2 offset = new Vector2(1.5f, 0f).RotatedBy(MathHelper.TwoPi * i / 6f);
-                Main.spriteBatch.Draw(texture, Projectile.Center + offset - Main.screenPosition, null, glow, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
+                Texture2D trailTex = ModContent.Request<Texture2D>("Terraria/Images/Extra_98", AssetRequestMode.ImmediateLoad).Value;
+                Color trailColor = new Color(80, 190, 255, 0) * 0.65f;
+                float trailLength = Vector2.Distance(Projectile.Center, oldPos);
+                float trailScaleY = trailLength / trailTex.Height * 4.2f;
+
+                Main.EntitySpriteDraw(trailTex, Projectile.Center - Main.screenPosition,
+                    new Rectangle(0, trailTex.Height / 2, trailTex.Width, trailTex.Height / 2),
+                    trailColor, (Projectile.Center - oldPos).ToRotation() + MathHelper.PiOver2,
+                    new Vector2(trailTex.Width * 0.5f, 0f),
+                    new Vector2(Projectile.scale * 0.85f, trailScaleY), SpriteEffects.None, 0f);
+
+                Main.EntitySpriteDraw(trailTex, Projectile.Center - Main.screenPosition,
+                    new Rectangle(0, trailTex.Height / 2, trailTex.Width, trailTex.Height / 2),
+                    trailColor * 0.4f, (Projectile.Center - oldPos).ToRotation() + MathHelper.PiOver2,
+                    new Vector2(trailTex.Width * 0.5f, 0f),
+                    new Vector2(Projectile.scale * 0.4f, trailScaleY * 1.35f), SpriteEffects.None, 0f);
             }
 
-            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, new Color(180, 230, 255) * Projectile.Opacity, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
+            Color outline = new Color(90, 200, 255) * 0.55f;
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 offset = new Vector2(1.6f, 0f).RotatedBy(MathHelper.TwoPi * i / 4f);
+                Main.EntitySpriteDraw(texture, drawPos + offset, null, outline, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0);
+            }
+
+            Main.EntitySpriteDraw(texture, drawPos, null, new Color(180, 235, 255, 200), Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0);
+
             return false;
         }
     }
