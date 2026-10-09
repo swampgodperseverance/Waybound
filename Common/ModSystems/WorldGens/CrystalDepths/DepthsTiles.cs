@@ -53,4 +53,6 @@ internal class DepthsTiles
     public static ushort KronosSpawn => (ushort)TileType<KronosSummonTile>();
     public static ushort Pillar => (ushort)TileType<DeepSecurityPillar>();
     public static ushort Pot => (ushort)TileType<DeepPot>();
+    public static ushort Sapling => (ushort)TileType<DeepSapling>();
+
 }
