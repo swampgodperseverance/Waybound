@@ -196,9 +196,6 @@ namespace Waybound.Content.NPCs.Bosses.DeepStoneGolem
             previousVelocityX = reader.ReadSingle();
         }
 
-        // =====================================================================
-        //  Визуальные хелперы
-        // =====================================================================
 
         private static void BeginAdditive(SpriteBatch sb)
         {
@@ -214,7 +211,6 @@ namespace Waybound.Content.NPCs.Bosses.DeepStoneGolem
                 DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
         }
 
-        /// <summary>Ровное кольцо кристальных частиц (ударная волна).</summary>
         private void SpawnRing(Vector2 center, int count, float speed, float size)
         {
             if (Main.netMode == NetmodeID.Server || ParticleSystem.CrystalBuffer == null)
