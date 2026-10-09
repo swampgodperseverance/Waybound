@@ -1,5 +1,7 @@
-﻿namespace Waybound.Common.ModCompat {
+﻿namespace Waybound.ModCompat {
     public abstract class ModSupportsSystem : ModSystem {
+        public Mod Target => TargetMod();
+
         public abstract Mod TargetMod();
         public virtual void PostSetupContent(Mod mod) { }
         public virtual void Load(Mod mod) { }

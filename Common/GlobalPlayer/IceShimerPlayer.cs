@@ -4,10 +4,10 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Waybound.Common.Biome;
+using Waybound.Common.Biome.Water;
 using Waybound.Common.NetCodeUtil;
-using Waybound.Common.Water;
-using Waybound.Common.WUtils;
 using Waybound.Particles;
+
 namespace Waybound.Common.GlobalPlayer;
 
 public class IceShimerPlayer : ModPlayer {

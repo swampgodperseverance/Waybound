@@ -9,7 +9,7 @@ public class TrailParticle : Behavior<ParticleInfo>
 
     public override void Initialize(ref ParticleInfo info)
     {
-        info.Color = new Color(255, 255, 255, 255);
+        
     }
 
     public override void Update(ref ParticleInfo info)

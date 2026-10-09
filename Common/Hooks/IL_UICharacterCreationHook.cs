@@ -78,8 +78,6 @@ internal static class IL_UICharacterCreationHook {
 
                 if (saveData.openRaceUI) {
                     SoundEngine.PlaySound(SoundID.MenuOpen);
-                    saveData.raceConfirmUI?.Remove();
-                    saveData.raceConfirmUI = null;
                     saveData.element = new UIs.Race(saveData, Loc.GetUI("PlayerRaceMenu.MainPage"));
                     saveData.element.OnInitialize();
                     outerContainer.Append(saveData.element);

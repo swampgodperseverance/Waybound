@@ -13,19 +13,40 @@ namespace Waybound.Common.Hooks;
 
 internal class IL_ResourceOverlayHook {
     static readonly Dictionary<string, Asset<Texture2D>> _vanillaAssetCache = [];
-    static readonly HashSet<Vector2> posHeart = [];
+    static readonly HashSet<Vector2> _posHeart = [];
 
     static string _text = null;
 
     internal static void Load() {
         IL_ClassicPlayerResourcesDisplaySet.DrawLife += DrawLifeInOldStyle; // Draw new heard style in style 1.3;
+        IL_ClassicPlayerResourcesDisplaySet.DrawMana += DrawManaInOldStyle; // New color for mana text;
         IL_ClassicPlayerResourcesDisplaySet.TryToHover += AddCustomTextForBar; // Custom heart text if active style
         IL_ResourceDrawSettings.Draw += DrawLifeInNewStyle; // Draw new heard style in style 1.4..
         IL_HorizontalBarsPlayerResourcesDisplaySet.TryToHover += FixHover; // Fix hover bar text
+        IL_HorizontalBarsPlayerResourcesDisplaySet.DrawLifeBarText += IL_HorizontalBarsPlayerResourcesDisplaySet_DrawLifeBarText;
+        IL_HorizontalBarsPlayerResourcesDisplaySet.DrawManaText += FixManaText; // New pos and color
+        IL_FancyClassicPlayerResourcesDisplaySet.DrawManaBar += AddManaText; // visibility and new color
+        IL_FancyClassicPlayerResourcesDisplaySet.DrawLifeBarText += IL_FancyClassicPlayerResourcesDisplaySet_DrawLifeBarText;
+        IL_CommonResourceBarMethods.DrawLifeMouseOver += IL_CommonResourceBarMethods_DrawLifeMouseOver;
+        IL_CommonResourceBarMethods.DrawManaMouseOver += IL_CommonResourceBarMethods_DrawManaMouseOver;
     }
 
     static void DrawLifeInOldStyle(ILContext il) {
         ILCursor c = new(il);
+        c.GotoNext(MoveType.After, i => i.MatchLdfld(typeof(Player).GetField("ghost")));
+        c.GotoNext(MoveType.After, i => i.MatchLdfld(typeof(Player).GetField("ghost")));
+        c.Index += 1;
+        c.RemoveRange(81);
+        c.Emit(OpCodes.Ldloc, 0); // localPlayer
+        c.Emit(OpCodes.Ldloc, 7); // num4
+        c.Emit(OpCodes.Ldloc, 9); // vector
+        c.EmitDelegate((Player localPlayer, int num4, Vector2 pos) => {
+            int num = Main.screenWidth - 800;
+            Color color = Color.Brown; //Color.Tomato //Color.Sienna; //Color.OrangeRed //Color.Maroon; //Color.Firebrick // Color.Brown; // Color.Crimson
+            Color color2 = Color.Crimson;
+            UI.DrawResourceText(Main.spriteBatch, Lang.inter[0].Value, new Vector2((float)(500 + 13 * num4) - pos.X * 0.5f + (float)num, 6f), color2, color, Vector2.Zero);
+            UI.DrawResourceText(Main.spriteBatch, localPlayer.statLife + "/" + localPlayer.statLifeMax2, new Vector2((float)(500 + 13 * num4) + pos.X * 0.5f + (float)num, 6f), color2, color, new Vector2(FontAssets.MouseText.Value.MeasureString(localPlayer.statLife + "/" + localPlayer.statLifeMax2).X, 0f));
+        });
         c.GotoNext(MoveType.After, i => i.MatchLdloca(21));
         if (!ModLoader.HasMod("ExxoAvalonOrigins")) {
             c.Index -= 1;
@@ -52,32 +73,42 @@ internal class IL_ResourceOverlayHook {
             int scalaeY2 = heartStylesPlayer.CurrentHeart != elementIndex + 1 ? -3 : 0;
             bool hover = false;
 
-            if (style != null && !style.Reaplece) { baseStyle = player.GetModPlayer<HeartStylesPlayer>().GetStyleForHeart(elementIndex, set.NameKey, style); };
+            if (style != null && !style.Reaplece) { baseStyle = heartStylesPlayer.GetStyleForHeart(elementIndex, set.NameKey, style); };
             if (style != null) {
                 Asset<Texture2D>[] value = new Asset<Texture2D>[3];
                 if (style.HasAsset) { Resources.Textures.HeartAsset.TryGetValue(style.Name, out value); };
                 if (value[0] == null) { value[0] = GetVanillHeart(player, elementIndex)[0]; }
                 if (style.Reaplece && !style.Flip) {
                     heartTexture = value[0];
-                    posHeart.Add(position);
+                    _posHeart.Add(position);
                     hover = UI.Hover(position, new Rectangle(0, 0, heartTexture.Value.Width + 20, heartTexture.Value.Height + 20));
                 } else if (!style.Flip) {
                     style.Draw(sb, ref heartTexture, position.Y(scalaeY), ref color, num6);
-                    posHeart.Add(position);
+                    _posHeart.Add(position);
                     hover = UI.Hover(position, new Rectangle(0, 0, heartTexture.Value.Width + 20, heartTexture.Value.Height + 20));
                 };
                 if (style.Flip) {
                     if (style.Reaplece) { UI.DrawTexture(sb, value[0].Value, position.Y(scalaeY2)); }
                     else {
-                        baseStyle = player.GetModPlayer<HeartStylesPlayer>().GetStyleForHeart(elementIndex, set.NameKey, style);
+                        baseStyle = heartStylesPlayer.GetStyleForHeart(elementIndex, set.NameKey, style);
                         Asset<Texture2D> baseTexture = GetHeartTexture(player, baseStyle, elementIndex, set.NameKey);
                         if (baseTexture != null) { style.Draw(sb, ref baseTexture, position.Y(scalaeY2), ref color, num6); };
                     };
-                    posHeart.Add(position);
+                    _posHeart.Add(position);
                     hover = UI.Hover(position, new Rectangle(0, 0, heartTexture.Value.Width + 20, heartTexture.Value.Height + 20));
                 };
                 if (hover) { _text = style.Text; };
             } else { ResourceOverlayLoader.DrawResource(new(snapshot, set, elementIndex, heartTexture) { position = position, color = color, origin = heartTexture.Size() / 2f, scale = scale }); };
+        });
+    }
+    static void DrawManaInOldStyle(ILContext il) {
+        ILCursor c = new(il);
+        c.GotoNext(i => i.MatchLdloc(1));
+        c.RemoveRange(25);
+        c.Index++;
+        c.Emit(OpCodes.Ldloc, 6);
+        c.EmitDelegate((int num) => {
+            UI.DrawResourceText(Main.spriteBatch, Lang.inter[2].Value, new Vector2(800 - num + Main.screenWidth - 800, 6f), Color.CornflowerBlue, Color.RoyalBlue, Vector2.Zero);
         });
     }
     static void AddCustomTextForBar(ILContext il) {
@@ -86,14 +117,14 @@ internal class IL_ResourceOverlayHook {
         c.Index -= 1;
         c.RemoveRange(1);
         c.EmitDelegate(() => {
-            List<Vector2> pos = [.. posHeart];
+            List<Vector2> pos = [.. _posHeart];
             bool hover = false;
             for (int i = 0; i < pos.Count; i++) {
                 if (UI.Hover(pos[i], new Rectangle(0, 0, TextureAssets.Heart.Value.Width + 20, TextureAssets.Heart.Value.Height + 20))) { hover = true; break; };
             };
             if (hover && _text != null) {
                 Main.instance.MouseTextHackZoom(_text);
-                posHeart.Clear();
+                _posHeart.Clear();
                 hover = false;
             } else { CommonResourceBarMethods.DrawLifeMouseOver(); };
         });
@@ -206,6 +237,91 @@ internal class IL_ResourceOverlayHook {
             if (ResourceOverlayLoader.DisplayHoverText(new PlayerStatsSnapshot(Main.LocalPlayer), set, true)) { CommonResourceBarMethods.DrawLifeMouseOver(); };
         });
     }
+    static void IL_HorizontalBarsPlayerResourcesDisplaySet_DrawLifeBarText(ILContext il) {
+        ILCursor c = new(il);
+        c.GotoNext(i => i.MatchLdarg(0));
+        c.RemoveRange(65);
+        c.Emit(OpCodes.Ldloc, 0);
+        c.Emit(OpCodes.Ldloc, 4);
+        c.EmitDelegate((Vector2 vector, Vector2 vector2) => {
+            Color color = Color.Brown;
+            Color color2 = Color.Crimson;
+            UI.DrawResourceText(Main.spriteBatch, Lang.inter[0].Value, vector + new Vector2((0f - vector2.X) * 0.5f, 0f), color2, color, Vector2.Zero);
+            UI.DrawResourceText(Main.spriteBatch, Main.LocalPlayer.statLife + "/" + Main.LocalPlayer.statLifeMax2, vector + new Vector2(vector2.X * 0.5f, 0f), color2, color, new Vector2(FontAssets.MouseText.Value.MeasureString(Main.LocalPlayer.statLife + "/" + Main.LocalPlayer.statLifeMax2).X, 0f));
+        });
+    }
+    static void FixManaText(ILContext il) {
+        ILCursor c = new(il);
+        c.GotoNext(i => i.MatchLdarg(0));
+        c.RemoveRange(48);
+        c.Emit(OpCodes.Ldarg, 0); // SB;
+        c.Emit(OpCodes.Ldloc, 0); // color
+        c.Emit(OpCodes.Ldloc, 3); // text;
+        c.Emit(OpCodes.Ldloc, 4); // text2;
+        c.Emit(OpCodes.Ldloc, 5); // vector;
+        c.Emit(OpCodes.Ldloc, 7); // vector2;
+        c.EmitDelegate((SpriteBatch sB, Color color, string text, string text2, Vector2 pos, Vector2 pos2) => {
+            int GetMpScale() {
+                int scale = 0;
+                int mp = Main.LocalPlayer.statManaMax;
+                int count = (mp / 20);
+                if (mp > 200) { for (int i = 1; i < mp / 40; i++) { if (mp % 20 * (2 + i) == 0) { scale += (mp < 800) ? 3 : 4; }; }; };
+                return ((mp / 20) * 10) + scale;
+            }
+            pos = new(pos.X + ((Main.LocalPlayer.statManaMax <= 80) ? 36 : 16) - GetMpScale(), pos.Y - 20);
+            //DarkMagenta DarkOrchid SteelBlue SlateBlue RoyalBlue DarkSlateBlue
+            //Color.Brown Color.Chocolate DarkViolet DeepPink Fuchsia HotPink IndianRed Indigo LightPink Magenta Maroon MediumOrchid MediumPurple Violet
+            // CornflowerBlue + RoyalBlue
+            UI.DrawResourceText(sB, text, pos + new Vector2((0f - pos2.X) * 0.5f, 0f), Color.CornflowerBlue, Color.RoyalBlue, Vector2.Zero);
+            UI.DrawResourceText(sB, text2, pos + new Vector2(pos2.X * 0.5f, 0f), Color.CornflowerBlue, Color.RoyalBlue, new Vector2(FontAssets.MouseText.Value.MeasureString(text2).X, 0f));
+        });
+    }
+    static void AddManaText(ILContext il) {
+        ILCursor c = new(il);
+        c.Emit(OpCodes.Ldarg, 0);
+        c.Emit(OpCodes.Ldarg, 1);
+        c.EmitDelegate((FancyClassicPlayerResourcesDisplaySet self, SpriteBatch sB) => {
+            if (!(bool)typeof(FancyClassicPlayerResourcesDisplaySet).GetField("_drawText", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(self)) { return; };
+            Vector2 vector = FontAssets.MouseText.Value.MeasureString(Lang.inter[2].Value);
+            int num = vector.X >= 45f ? (int)vector.X + 5 : 50;
+            UI.DrawResourceText(sB, Lang.inter[2].Value, new(Main.screenWidth - num, 6f), Color.CornflowerBlue, Color.RoyalBlue, Vector2.Zero);
+        });
+    }
+    static void IL_FancyClassicPlayerResourcesDisplaySet_DrawLifeBarText(ILContext il) {
+        ILCursor c = new(il);
+        c.GotoNext(i => i.MatchLdarg(0));
+        c.RemoveRange(65);
+        c.Emit(OpCodes.Ldloc, 0);
+        c.Emit(OpCodes.Ldloc, 4);
+        c.EmitDelegate((Vector2 vector, Vector2 vector2) => {
+            Color color = Color.Brown;
+            Color color2 = Color.Crimson;
+            UI.DrawResourceText(Main.spriteBatch, Lang.inter[0].Value, vector + new Vector2((0f - vector2.X) * 0.5f, 0f), color2, color, Vector2.Zero);
+            UI.DrawResourceText(Main.spriteBatch, Main.LocalPlayer.statLife + "/" + Main.LocalPlayer.statLifeMax2, vector + new Vector2(vector2.X * 0.5f, 0f), color2, color, new Vector2(FontAssets.MouseText.Value.MeasureString(Main.LocalPlayer.statLife + "/" + Main.LocalPlayer.statLifeMax2).X, 0f));
+        });
+    }
+    static void IL_CommonResourceBarMethods_DrawLifeMouseOver(ILContext il) {
+        ILCursor c = new(il);
+        ILForDrawCommonResourceBarMethods(ref c);
+        c.EmitDelegate((string text) => {
+            UI.DrawMouseText(Main.spriteBatch, text, Color.Brown, Color.Crimson, 72, true, Main.UIScale);
+        });
+    }
+    static void IL_CommonResourceBarMethods_DrawManaMouseOver(ILContext il) {
+        ILCursor c = new(il);
+        ILForDrawCommonResourceBarMethods(ref c);
+        c.EmitDelegate((string text) => {
+            UI.DrawMouseText(Main.spriteBatch, text, Color.CornflowerBlue, Color.RoyalBlue, 72, true, Main.UIScale);
+        });
+    }
+
+    static void ILForDrawCommonResourceBarMethods(ref ILCursor c) {
+        c.GotoNext(i => i.MatchLdloc(1));
+        c.Index--;
+        c.RemoveRange(4);
+        c.Emit(OpCodes.Ldloc, 1);
+    }
+
     static bool CompareAssets(Asset<Texture2D> currentAsset, string compareAssetPath) {
         if (!_vanillaAssetCache.TryGetValue(compareAssetPath, out var asset)) asset = _vanillaAssetCache[compareAssetPath] = Main.Assets.Request<Texture2D>(compareAssetPath);
         return currentAsset == asset;
@@ -228,7 +344,7 @@ internal class IL_ResourceOverlayHook {
             Asset<Texture2D>[] vanilla = GetVanillHeart(player, elementIndex);
             return GetCurrentHeart(vanilla, displaySet);
         };
-        if (!Resources.Textures.HeartAsset.TryGetValue(style.Name,out Asset<Texture2D>[] assets)) { return null; };
+        if (!Resources.Textures.HeartAsset.TryGetValue(style.Name, out Asset<Texture2D>[] assets)) { return null; };
         if (displaySet == "HorizontalBarsWithFullText" || displaySet == "HorizontalBarsWithText" || displaySet == "HorizontalBars") { return assets[2]; };
         if (displaySet == "New" || displaySet == "NewWithText") { return assets[1]; };
         return assets[0];

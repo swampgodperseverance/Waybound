@@ -50,15 +50,17 @@ public static class UI {
         if (color1 != null) { ChatManager.DrawColorCodedStringWithShadow(sB, font, text, pos, (Color)color, (Color)color1, 0f, (Vector2)orgin, (Vector2)scale); }
         else { ChatManager.DrawColorCodedStringWithShadow(sB, font, text, pos, (Color)color, 0f, (Vector2)orgin, (Vector2)scale); }
     }
-    public static void DrawMouseText(SpriteBatch sB, string text, Color? color = null, Color? color1 = null) {
+    public static void DrawMouseText(SpriteBatch sB, string text, Color? color = null, Color? color1 = null, float scale = 460, bool resource = false, float uiScale = 1f) {
         color ??= new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor);
         color1 ??= Color.Black;
         Vector2 vector = new Vector2(Main.mouseX, Main.mouseY) + new Vector2(16f);
+        //vector *= Main.UIScale;
 
         if (vector.Y > (float)(Main.screenHeight - 30)) { vector.Y = Main.screenHeight - 30; };
-        if (vector.X > (float)Main.screenWidth - FontAssets.MouseText.Value.MeasureString(text).X) { vector.X = Main.screenWidth - 460; };
+        if (vector.X > (float)Main.screenWidth - FontAssets.MouseText.Value.MeasureString(text).X) { vector.X = Main.screenWidth - scale; };
 
-        Terraria.Utils.DrawBorderStringFourWay(sB, FontAssets.MouseText.Value, text, vector.X, vector.Y, color.Value, color1.Value, Vector2.Zero);
+        if (resource) { DrawResourceText(sB, text, vector * uiScale, color.Value, color1.Value, Vector2.Zero); }
+        else { Utils.DrawBorderStringFourWay(sB, FontAssets.MouseText.Value, text, vector.X * uiScale, vector.Y * uiScale, color.Value, color1.Value, Vector2.Zero); }
     }
     public static void DrawTexture<T>(SpriteBatch sB, Texture2D texture, T VectorOrRect, Rectangle? sourceRectangle = null, Color? color = null, float rotation = 0f, Vector2? origin = null, float scale = 1f, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0) { 
         color ??= Color.White;
@@ -66,6 +68,10 @@ public static class UI {
         if (VectorOrRect is Vector2 pos) { sB.Draw(texture, pos, sourceRectangle, color.Value, rotation, origin.Value, scale, effects, layerDepth); }
         else if (VectorOrRect is Rectangle rec) { sB.Draw(texture, rec, sourceRectangle, color.Value, rotation, origin.Value, effects, layerDepth); }
         else { throw new System.Exception("Params <T> is not Vector or Rectangle"); };
+    }
+    public static bool DrawAndHover(SpriteBatch sB, Texture2D texture, Vector2 vector, Rectangle? sourceRectangle = null, Color? color = null, float rotation = 0f, Vector2? origin = null, float scale = 1f, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0) {
+        DrawTexture(sB, texture, vector, sourceRectangle, color, rotation, origin, scale, effects, layerDepth);
+        return Hover(vector, texture);
     }
     public static Vector2 X(this Vector2 pos, float value) => new(pos.X + value, pos.Y);
     public static Vector2 Y(this Vector2 pos, float value) => new(pos.X, pos.Y + value);
@@ -81,4 +87,5 @@ public static class UI {
         Waybound.Instance.Logger.Info(Core.DebugLoc.GetLoc("SetSernik"));
         Console.ResetColor();
     }
+    public static void DrawResourceText(SpriteBatch sB, string text, Vector2 pos, Color color, Color color1, Vector2 orgin) => Utils.DrawBorderStringFourWay(sB, FontAssets.MouseText.Value, text, pos.X, pos.Y, Color.Lerp(color, color1, (MathF.Sin(Main.GlobalTimeWrappedHourly * 4f) + 1f) / 2f), Color.Black, orgin);
 };

@@ -1299,3 +1299,7 @@ KorochunRelicItem: {
 	Tooltip: ""
 	DisplayName: Korochun Relic Item
 }
+Tidebreaker: {
+	DisplayName: Tidebreaker
+	Tooltip: ""
+}
