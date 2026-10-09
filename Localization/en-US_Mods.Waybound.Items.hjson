@@ -4,12 +4,12 @@ CruorTrophy: {
 }
 
 CruorRelicItem: {
-	DisplayName: Cruor Relic Item
+	DisplayName: Cruor Relic
 	Tooltip: ""
 }
 
 CogwormTrophy: {
-	DisplayName: Cogworm Trophy
+	DisplayName: Sinlord Trophy
 	Tooltip: ""
 }
 
@@ -29,7 +29,7 @@ TheOriginOfSymmetry: {
 }
 
 CogwormRelicItem: {
-	DisplayName: Cogworm Relic Item
+	DisplayName: Sinlord Relic
 	Tooltip: ""
 }
 
@@ -187,17 +187,25 @@ Glaciora: {
 
 IcebornBreastplate: {
 	DisplayName: Iceborn Breastplate
-	Tooltip: ""
+	Tooltip:
+		'''
+		8% increased ranged critical strike chance
+		6% increased damage endurance
+		'''
 }
 
 IcebornHelmet: {
 	DisplayName: Iceborn Helmet
-	Tooltip: ""
+	Tooltip: 7% increased ranged damage
 }
 
 IcebornLeggings: {
 	DisplayName: Iceborn Leggings
-	Tooltip: ""
+	Tooltip:
+		'''
+		3% increased ranged critical strike chance
+		7% increased movement speed	
+		'''
 }
 
 OceanicBreastplate: {
@@ -246,7 +254,7 @@ Cruciflower: {
 }
 
 ShieldOfDesertHunter: {
-	DisplayName: Shield Of Desert Hunter
+	DisplayName: Shield Of Badlands Seeker
 	Tooltip: ""
 }
 
@@ -291,13 +299,13 @@ DesertWreckage: {
 }
 
 ChadItem: {
-	DisplayName: Chad Item
+	DisplayName: Chad
 	Tooltip: ""
 }
 
 MotorcycleOfDesertHunter: {
-	DisplayName: Motorcycle Of Desert Hunter
-	Tooltip: ""
+	DisplayName: Badlands Seeker Motorcycle
+	Tooltip: “I am the Ghost Rider. The Spirit of Vengeance.
 }
 
 DesertHunterBlockI: {
@@ -306,137 +314,137 @@ DesertHunterBlockI: {
 }
 
 DesertHunterTileI: {
-	DisplayName: Desert Hunter Tile I
+	DisplayName: Desert Hunter Tile
 	Tooltip: ""
 }
 
 ChadCageItem: {
-	DisplayName: Chad Cage Item
+	DisplayName: Chad Cage
 	Tooltip: ""
 }
 
 DesertHunterBathtubI: {
-	DisplayName: Desert Hunter Bathtub I
+	DisplayName: Badlands Bathtub
 	Tooltip: ""
 }
 
 DesertHunterBedI: {
-	DisplayName: Desert Hunter Bed I
+	DisplayName: Badlands Bed
 	Tooltip: ""
 }
 
 DesertHunterBookcaseI: {
-	DisplayName: Desert Hunter Bookcase I
+	DisplayName: Badlands Bookcase
 	Tooltip: ""
 }
 
 DesertHunterCandelabraI: {
-	DisplayName: Desert Hunter Candelabra I
+	DisplayName: Badlands Candelabra
 	Tooltip: ""
 }
 
 DesertHunterCandleI: {
-	DisplayName: Desert Hunter Candle I
+	DisplayName: Badlands Candle
 	Tooltip: ""
 }
 
 DesertHunterChairI: {
-	DisplayName: Desert Hunter Chair I
+	DisplayName: Badlands Chair
 	Tooltip: ""
 }
 
 DesertHunterChandelierI: {
-	DisplayName: Desert Hunter Chandelier I
+	DisplayName: Badlands Chandelier
 	Tooltip: ""
 }
 
 DesertHunterChestI: {
-	DisplayName: Desert Hunter Chest I
+	DisplayName: Badlands Chest
 	Tooltip: ""
 }
 
 DesertHunterClockI: {
-	DisplayName: Desert Hunter Clock I
+	DisplayName: Badlands Clock
 	Tooltip: ""
 }
 
 DesertHunterDoor: {
-	DisplayName: Desert Hunter Door
+	DisplayName: Badlands Door
 	Tooltip: ""
 }
 
 DesertHunterDresserI: {
-	DisplayName: Desert Hunter Dresser I
+	DisplayName: Badlands Dresser
 	Tooltip: ""
 }
 
 DesertHunterForgeI: {
-	DisplayName: Desert Hunter Forge I
+	DisplayName: Badlands Forge
 	Tooltip: ""
 }
 
 DesertHunterLampI: {
-	DisplayName: Desert Hunter Lamp I
+	DisplayName: Badlands Lamp
 	Tooltip: ""
 }
 
 DesertHunterLanternI: {
-	DisplayName: Desert Hunter Lantern I
+	DisplayName: Badlands Lantern
 	Tooltip: ""
 }
 
 DesertHunterPianoI: {
-	DisplayName: Desert Hunter Piano I
+	DisplayName: Badlands Piano
 	Tooltip: ""
 }
 
 DesertHunterPlatformI: {
-	DisplayName: Desert Hunter Platform I
+	DisplayName: Badlands Platform
 	Tooltip: ""
 }
 
 DesertHunterSinkI: {
-	DisplayName: Desert Hunter Sink I
+	DisplayName: Badlands Sink
 	Tooltip: ""
 }
 
 DesertHunterSofaI: {
-	DisplayName: Desert Hunter Sofa I
+	DisplayName: Badlands Sofa
 	Tooltip: ""
 }
 
 DesertHunterTableI: {
-	DisplayName: Desert Hunter Table I
+	DisplayName: Badlands Table
 	Tooltip: ""
 }
 
 DesertHunterToiletI: {
-	DisplayName: Desert Hunter Toilet I
+	DisplayName: Badlands Toilet
 	Tooltip: ""
 }
 
 DesertHunterWorkbenchI: {
-	DisplayName: Desert Hunter Workbench I
+	DisplayName: Badlands Workbench
 	Tooltip: ""
 }
 
 TelescopeItem: {
-	DisplayName: Telescope Item
+	DisplayName: Telescope
 	Tooltip: ""
 }
 
 HielitiumOreItem: {
-	DisplayName: Hielitium Ore Item
+	DisplayName: Hielitium Ore
 	Tooltip: ""
 }
 
 DesertHunterBlockWallI: {
-	DisplayName: Desert Hunter Block Wall I
+	DisplayName: Desert Hunter Block Wall
 	Tooltip: ""
 }
 
 DesertHunterTileWallI: {
-	DisplayName: Desert Hunter Tile Wall I
+	DisplayName: Desert Hunter Tile Wall
 	Tooltip: ""
 }
 
@@ -837,7 +845,7 @@ DeepCrateI: {
 
 CrystalHeartNecklace: {
 	DisplayName: Crystal Heart Necklace
-	Tooltip: ""
+	Tooltip: 50% chance to release crystal shards when got hit
 }
 
 DeepStoneShield: {
@@ -1030,6 +1038,267 @@ DeepBoots: {
 	DisplayName: Deep Boots
 }
 
+Arsenal: {
+	DisplayName: Arsenal
+	Tooltip: ""
+}
+
+Muspelheim: {
+	Tooltip:
+		'''
+		"Fire is a gift, yet burning hurts so much.."
+		 Swing the spear and charge the burning bar
+		 Right-click to unleash the "Acheron Collapse" when fully charged
+		 Press [Change Weapon Style] to switch between spear and chain mode
+		 Right-click to hook your enemies while in the chain mode             
+		'''
+	DisplayName: Muspelheim
+}
+
+MuspelheimChain: {
+	DisplayName: Muspelheim Chain
+	Tooltip: ""
+}
+
+Prince: {
+	DisplayName: Prince
+	Tooltip: ""
+}
+
+ScorchedWoodBathtubI: {
+	DisplayName: Scorched Wood Bathtub
+	Tooltip: ""
+}
+
+ScorchedWoodBedI: {
+	DisplayName: Scorched Wood Bed
+	Tooltip: ""
+}
+
+ScorchedWoodBookcaseI: {
+	DisplayName: Scorched Wood Bookcase
+	Tooltip: ""
+}
+
+ScorchedWoodCandelabraI: {
+	DisplayName: Scorched Wood Candelabra
+	Tooltip: ""
+}
+
+ScorchedWoodCandleI: {
+	DisplayName: Scorched Wood Candle
+	Tooltip: ""
+}
+
+ScorchedWoodChairI: {
+	DisplayName: Scorched Wood Chair
+	Tooltip: ""
+}
+
+ScorchedWoodChandelierI: {
+	DisplayName: Scorched Wood Chandelier
+	Tooltip: ""
+}
+
+ScorchedWoodChestI: {
+	DisplayName: Scorched Wood Chest
+	Tooltip: ""
+}
+
+ScorchedWoodClockI: {
+	DisplayName: Scorched Wood Clock
+	Tooltip: ""
+}
+
+ScorchedWoodDoor: {
+	DisplayName: Scorched Wood Door
+	Tooltip: ""
+}
+
+ScorchedWoodDresserI: {
+	DisplayName: Scorched Wood Dresser
+	Tooltip: ""
+}
+
+ScorchedWoodLampI: {
+	DisplayName: Scorched Wood Lamp
+	Tooltip: ""
+}
+
+ScorchedWoodLanternI: {
+	DisplayName: Scorched Wood Lantern
+	Tooltip: ""
+}
+
+ScorchedWoodPianoI: {
+	DisplayName: Scorched Wood Piano
+	Tooltip: ""
+}
+
+ScorchedWoodSinkI: {
+	DisplayName: Scorched Wood Sink
+	Tooltip: ""
+}
+
+ScorchedWoodSofaI: {
+	DisplayName: Scorched Wood Sofa
+	Tooltip: ""
+}
+
+ScorchedWoodTableI: {
+	DisplayName: Scorched Wood Table
+	Tooltip: ""
+}
+
+ScorchedWoodToiletI: {
+	DisplayName: Scorched Wood Toilet
+	Tooltip: ""
+}
+
+ScorchedWoodWorkbenchI: {
+	DisplayName: Scorched Wood Workbench
+	Tooltip: ""
+}
+
+AncientBow: {
+	DisplayName: Ancient Bow
+	Tooltip: ""
+}
+
+Eagle: {
+	DisplayName: Eagle
+	Tooltip: ""
+}
+
+MegaBullet: {
+	DisplayName: Bullymega
+	Tooltip: Each 5 shoot is empowered
+}
+
+BeltoftheDeathbringer: {
+	DisplayName: Belt of the Deathbringer
+	Tooltip: ""
+}
+
+IcePenny: {
+	DisplayName: Ice Penny
+	Tooltip: ""
+}
+
+IceRain: {
+	DisplayName: Ice Rain
+	Tooltip: ""
+}
+
+KingsGoldSword: {
+	DisplayName: Kings Gold Sword
+	Tooltip: ""
+}
+
+KingsPlatinumSword: {
+	DisplayName: Kings Platinum Sword
+	Tooltip: ""
+}
+
+FrogTales: {
+	DisplayName: Frog Tales
+	Tooltip: Ew... Stinks
+}
+
+CrystalBatBannerI: {
+	DisplayName: Crystal Bat Banner
+	Tooltip: ""
+}
+
+LastFroggyBannerI: {
+	DisplayName: Last Froggy Banner
+	Tooltip: ""
+}
+
+DespairBreastplate: {
+	DisplayName: Despair Breastplate
+	Tooltip: ""
+}
+
+DespairHelmet: {
+	DisplayName: Despair Helmet
+	Tooltip: ""
+}
+
+DespairLeggings: {
+	DisplayName: Despair Leggings
+	Tooltip: ""
+}
+
+KorochunTrophyItem: {
+	DisplayName: Korochun Trophy Item
+	Tooltip: ""
+}
+
+DeepVortex: {
+	DisplayName: Deep Vortex
+	Tooltip: ""
+}
+
+DeepFlux: {
+	DisplayName: Deep Flux
+	Tooltip: ""
+}
+
+SlimeAxe1: {
+	DisplayName: Slime Axe1
+	Tooltip: ""
+}
+
+SlimeAxe2: {
+	DisplayName: Slime Axe2
+	Tooltip: ""
+}
+
+SlimePickaxe1: {
+	DisplayName: Slime Pickaxe1
+	Tooltip: ""
+}
+
+SlimePickaxe2: {
+	DisplayName: Slime Pickaxe2
+	Tooltip: ""
+}
+
+SlimeSword1: {
+	DisplayName: Slime Sword1
+	Tooltip: ""
+}
+
+SlimeSword2: {
+	DisplayName: Slime Sword2
+	Tooltip: ""
+}
+
+CrystalHermitBannerI: {
+	DisplayName: Crystal Hermit Banner I
+	Tooltip: ""
+}
+
+DeepstoneGolemNote: {
+	DisplayName: Deepstone Golem Note
+	Tooltip: ""
+}
+
+CrumblePenny: {
+	Tooltip: ""
+	DisplayName: Crumble Penny
+}
+
+KorochunTreasureBag: {
+	Tooltip: ""
+	DisplayName: Korochun Treasure Bag
+}
+
+KorochunRelicItem: {
+	Tooltip: ""
+	DisplayName: Korochun Relic Item
+}
 Tidebreaker: {
 	DisplayName: Tidebreaker
 	Tooltip: ""

@@ -24,9 +24,8 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns.GemLaserGuns
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 28;
 			Item.height = 30;
-			Item.useTime = 2;
-			Item.useAnimation = 2;
-			Item.useStyle = 5;
+            base.SetDefaults();
+            Item.useStyle = 5;
 			Item.noMelee = true;
 			Item.knockBack = 0f;
 			Item.value = Item.sellPrice(0, 0, 4, 0);

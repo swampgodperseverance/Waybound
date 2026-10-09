@@ -63,7 +63,7 @@ namespace Waybound.Content.NPCs
 		}
 		public override void AI()
 		{
-			NPC.netUpdate = true;
+			//NPC.netUpdate = true;
 			NPC.TargetClosest(true);
 			Player player = Main.player[NPC.target];
 			ExtraAI(player, NPC);

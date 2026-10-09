@@ -1,9 +1,9 @@
 ﻿using System;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary.Core.V3.Particles;
 using ParticleLibrary.Utilities;
+using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -21,136 +21,273 @@ using Waybound.Content.Items.Placeable.Bosses;
 using Waybound.Content.Items.Vanity.BossMasks;
 using Waybound.Helpers;
 using Waybound.Particles;
-using static System.Net.Mime.MediaTypeNames;
 using static Waybound.Content.NPCs.Bosses.Themis.ThemisRocket;
 
 namespace Waybound.Content.NPCs.Bosses.Themis
 {
-	[AutoloadBossHead]
-
-	public class Themis : ModNPC
-	{
-		public int frame;
-		public int phase = 1;
-		public int text;
-		public int cutsceneCounter = 1;
-		public Color txtColor = new Color(255, 245, 219);
+    [AutoloadBossHead]
+    public class Themis : ModNPC
+    {
+        public int frame;
+        public int phase = 1;
+        public int text;
+        public int cutsceneCounter = 1;
+        public Color txtColor = new Color(255, 245, 219);
         public int teleportIndex;
         public float outlineOpacity;
         public Vector2 teleportTarget;
+
+        //contur outline color idk 
+        private Color outlineColor = new Color(160, 160, 160);
+        private int lastAttack;
+
+        private static readonly Color TeleportColor = new Color(120, 200, 255);
+        private static readonly Color StompColor = new Color(255, 140, 40);
+        private static readonly Color DefaultOutline = new Color(160, 160, 160);
+
+        private static Asset<Texture2D> mechTexture;
+        private static Asset<Texture2D> handsTexture;
+        private static Asset<Texture2D> mechHandsTexture;
+
+        public override void Load()
+        {
+            if (Main.dedServ) return;
+            mechTexture = ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisMech");
+            handsTexture = ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisHands");
+            mechHandsTexture = ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisMechHands");
+        }
+
+        public override void Unload()
+        {
+            mechTexture = null;
+            handsTexture = null;
+            mechHandsTexture = null;
+        }
+
         public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Themis");
-			Main.npcFrameCount[NPC.type] = 17;
-			NPCID.Sets.TrailCacheLength[NPC.type] = 5;
-			NPCID.Sets.TrailingMode[NPC.type] = 0;
+        {
+            Main.npcFrameCount[NPC.type] = 17;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 5;
+            NPCID.Sets.TrailingMode[NPC.type] = 0;
 
-			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-			{
-				CustomTexturePath = "Waybound/Content/NPCs/Bosses/Themis/Themis_Bestiary",
-				Position = new Vector2(0f, 15f),
-				PortraitPositionXOverride = 0f,
-				PortraitPositionYOverride = 0f
-			};
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = "Waybound/Content/NPCs/Bosses/Themis/Themis_Bestiary",
+                Position = new Vector2(0f, 15f),
+                PortraitPositionXOverride = 0f,
+                PortraitPositionYOverride = 0f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
-			// NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			// {
-			// 	SpecificallyImmuneTo = new int[]
-			// 	{
-			// 		BuffID.Poisoned,
-			// 	}
-			// };
-			// NPCID.Sets.DebuffImmunitySets/* tModPorter Removed: See the porting notes in https://github.com/tModLoader/tModLoader/pull/3453 */.Add(Type, debuffData);
-			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
+        }
 
-		}
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
+                new FlavorTextBestiaryInfoElement("Mods.Waybound.Bestiary.Themis")
+            });
+        }
 
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-		{
-			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-			{
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
-				new FlavorTextBestiaryInfoElement("Mods.Waybound.Bestiary.Themis")
-			});
-		}
-
-		public override void SetDefaults()
-		{
-			NPC.width = 36;
-			NPC.height = 70;
-			NPC.damage = 30;
-			NPC.defense = 4;
-			NPC.lifeMax = 3000;
-			NPC.HitSound = SoundID.NPCHit1;
-			if (DownedBossSystem.DownedThemis)
-			{
-				NPC.HitSound = SoundID.NPCHit4;
-				NPC.DeathSound = SoundID.Item14;
+        public override void SetDefaults()
+        {
+            NPC.width = 36;
+            NPC.height = 70;
+            NPC.damage = 30;
+            NPC.defense = 4;
+            NPC.lifeMax = 2800;
+            NPC.HitSound = SoundID.NPCHit1;
+            if (DownedBossSystem.DownedThemis)
+            {
+                NPC.HitSound = SoundID.NPCHit4;
+                NPC.DeathSound = SoundID.Item14;
             }
-			NPC.alpha = 0;
-			NPC.knockBackResist = 0f;
-			NPC.noGravity = false;
-			NPC.noTileCollide = false;
-			NPC.value = Item.buyPrice(gold: 6);
-			NPC.boss = true;
-			NPC.friendly = false;
-			NPC.aiStyle = -1;
+            NPC.alpha = 0;
+            NPC.knockBackResist = 0f;
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
+            NPC.value = Item.buyPrice(gold: 6);
+            NPC.boss = true;
+            NPC.friendly = false;
+            NPC.aiStyle = -1;
             NPC.netAlways = true;
             NPC.BossBar = ModContent.GetInstance<ThemisBossBar>();
             if (!Main.dedServ)
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/DesertHermit");
         }
 
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
-		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);
-		}
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);
+        }
 
-		public override void OnSpawn(IEntitySource source)
-		{
+        public override void OnSpawn(IEntitySource source)
+        {
             NPC.TargetClosest(true);
             base.OnSpawn(source);
-		}
+        }
 
-		public override void AI()
-		{
-			Player player = Main.player[NPC.target];
+        private static void BeginAdditive(SpriteBatch sb)
+        {
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState,
+                DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+
+        private static void EndAdditive(SpriteBatch sb)
+        {
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState,
+                DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+
+        private static void RingBurst(Vector2 center, int count, float speed, Color color,
+            float sizeMin, float sizeMax, int lifeMin, int lifeMax, float startRadius = 0f)
+        {
+            if (Main.dedServ) return;
+
+            float offset = Main.rand.NextFloat(MathHelper.TwoPi);
+            for (int i = 0; i < count; i++)
+            {
+                float angle = offset + MathHelper.TwoPi * i / count;
+                Vector2 dir = angle.ToRotationVector2();
+
+                ParticleSystem.FlashBuffer.Create(new ParticleInfo(
+                    (center + dir * startRadius).ToNumerics(),
+                    (dir * speed * Main.rand.NextFloat(0.85f, 1.15f)).ToNumerics(),
+                    angle,
+                    new System.Numerics.Vector2(Main.rand.NextFloat(sizeMin, sizeMax)),
+                    color,
+                    Main.rand.Next(lifeMin, lifeMax)
+                ));
+            }
+        }
+
+        private static void MuzzleFlash(Vector2 pos, Vector2 dir)
+        {
+            Lighting.AddLight(pos, 1.5f, 0.75f, 0.5f);
+            if (Main.dedServ) return;
+
+            dir = dir.SafeNormalize(Vector2.UnitX);
+
+            ParticleSystem.FlashBuffer.Create(new ParticleInfo(
+                pos.ToNumerics(),
+                System.Numerics.Vector2.Zero,
+                Main.rand.NextFloat(MathHelper.TwoPi),
+                new System.Numerics.Vector2(Main.rand.NextFloat(34f, 46f)),
+                new Color(255, 200, 120, 230),
+                8
+            ));
+
+            for (int i = 0; i < 6; i++)
+            {
+                Vector2 v = dir.RotatedByRandom(0.5f) * Main.rand.NextFloat(2f, 6f);
+                ParticleSystem.FlashBuffer.Create(new ParticleInfo(
+                    pos.ToNumerics(),
+                    v.ToNumerics(),
+                    Main.rand.NextFloat(MathHelper.TwoPi),
+                    new System.Numerics.Vector2(Main.rand.NextFloat(8f, 14f)),
+                    new Color(255, 170, 80, 200),
+                    Main.rand.Next(10, 18)
+                ));
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                Dust d = Dust.NewDustPerfect(pos, DustID.Torch, dir.RotatedByRandom(0.6f) * Main.rand.NextFloat(2f, 5f), 100, default, Main.rand.NextFloat(1.1f, 1.7f));
+                d.noGravity = true;
+            }
+        }
+
+        private static void TeleportBurst(Vector2 pos)
+        {
+            if (Main.dedServ) return;
+
+            for (int i = 0; i < 6; i++)
+            {
+                float s = 30f + i * 14f;
+                ParticleSystem.FlashBuffer.Create(new ParticleInfo(
+                    position: pos.ToNumerics(),
+                    velocity: System.Numerics.Vector2.Zero,
+                    rotation: Main.rand.NextFloat(MathHelper.TwoPi),
+                    scale: new System.Numerics.Vector2(s + Main.rand.NextFloat(-4f, 4f)),
+                    color: TeleportColor,
+                    duration: 12 + i * 2
+                ));
+            }
+
+            RingBurst(pos, 14, 5f, new Color(150, 220, 255, 200), 10f, 16f, 14, 22, 10f);
+        }
+
+        private void PhaseAura()
+        {
+            if (Main.dedServ || phase != 2 || NPC.alpha > 200) return;
+            if (!Main.rand.NextBool(5)) return;
+
+            Vector2 pos = NPC.Center + Main.rand.NextVector2Circular(NPC.width * 0.6f, NPC.height * 0.5f);
+            Vector2 vel = new Vector2(Main.rand.NextFloat(-0.4f, 0.4f), -Main.rand.NextFloat(0.6f, 1.8f));
+            Dust d = Dust.NewDustPerfect(pos, DustID.Torch, vel, 100, default, Main.rand.NextFloat(0.9f, 1.4f));
+            d.noGravity = true;
+            Lighting.AddLight(NPC.Center, 0.35f, 0.12f, 0.02f);
+        }
+
+        public override void AI()
+        {
+            Player player = Main.player[NPC.target];
             NPC.spriteDirection = player.Center.X < NPC.Center.X ? 1 : -1;
 
             if (cutsceneCounter == 0)
-			{
-				if (text == 0)
-					cutsceneCounter++;
+            {
+                if (text == 0)
+                    cutsceneCounter++;
 
-				if (player.dead)
-				{
-					NPC.velocity = new Vector2(4 * NPC.spriteDirection, -16);
-					NPC.alpha += 3;
+                if (player.dead)
+                {
+                    NPC.velocity = new Vector2(4 * NPC.spriteDirection, -16);
+                    NPC.alpha += 3;
                     NPC.noTileCollide = true;
                     NPC.noGravity = true;
                     NPC.dontTakeDamage = true;
                     NPC.damage = 0;
-					NPC.EncourageDespawn(10);
-					NPC.netUpdate = true;
-					return;
-				}
-				else if (NPC.damage == 0 && !DownedBossSystem.DownedThemis)
-					DeathCutscene(player);
-				else
-					Fight(player);
+                    NPC.EncourageDespawn(10);
+                    NPC.netUpdate = true;
+                    return;
+                }
+                else if (NPC.damage == 0 && !DownedBossSystem.DownedThemis)
+                    DeathCutscene(player);
+                else
+                    Fight(player);
             }
-			else
-			{
-				if (!DownedBossSystem.DownedThemis)
-				{
-					NPC.velocity = new Vector2(0, 12);
-					Cutscene(player);
-				}
-				else
+            else
+            {
+                if (!DownedBossSystem.DownedThemis)
+                {
+                    NPC.velocity = new Vector2(0, 12);
+                    Cutscene(player);
+                }
+                else
                     MechCutscene(player);
             }
-		}
+        }
+
+        private int RollAttack()
+        {
+            if (!Main.expertMode)
+                return Main.rand.Next(1, 5);
+            if (phase == 1)
+                return Main.rand.Next(1, 6);
+
+            int roll = Main.rand.Next(1, 31);
+            if (roll <= 8) return 4;
+            if (roll <= 16) return 5;
+            if (roll <= 21) return 2;
+            if (roll <= 25) return 3;
+            if (roll <= 28) return 7;
+            if (roll == 29) return 1;
+            return 6;
+        }
 
         public void Fight(Player player)
         {
@@ -159,6 +296,8 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 
             if (cutsceneCounter == 0)
                 NPC.dontTakeDamage = false;
+
+            PhaseAura();
 
             if (NPC.ai[0] == 0 && NPC.localAI[1] == 0)
             {
@@ -172,36 +311,12 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 }
                 else
                 {
-                    NPC.localAI[0] = NPC.localAI[1];
-                    while (NPC.localAI[1] == NPC.localAI[0])
-                    {
-                        if (!Main.expertMode)
-                        {
-                            NPC.localAI[1] = Main.rand.Next(1, 5);
-                        }
-                        else if (phase == 1)
-                        {
-                            NPC.localAI[1] = Main.rand.Next(1, 6);
-                        }
-                        else
-                        {
-                            int roll = Main.rand.Next(1, 31);
-                            if (roll <= 8)
-                                NPC.localAI[1] = 4;
-                            else if (roll <= 16)
-                                NPC.localAI[1] = 5;
-                            else if (roll <= 21)
-                                NPC.localAI[1] = 2;
-                            else if (roll <= 25)
-                                NPC.localAI[1] = 3;
-                            else if (roll <= 28)
-                                NPC.localAI[1] = 7;
-                            else if (roll == 29)
-                                NPC.localAI[1] = 1;
-                            else
-                                NPC.localAI[1] = 6;
-                        }
-                    }
+                    int next;
+                    do { next = RollAttack(); } while (next == lastAttack);
+
+                    lastAttack = next;
+                    NPC.localAI[1] = next;
+                    NPC.localAI[0] = 0; 
                     NPC.TargetClosest(true);
                     NPC.netUpdate = true;
                 }
@@ -229,12 +344,13 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     break;
                 case 7:
                     StompAttack(player);
-                    break;
+                    break;         
             }
+            // I do really like this attack switch code Vi that had made im pretty sure im gonna use it in my future boss AIs
         }
 
         public void Jump(Player player)
-		{
+        {
             if (NPC.ai[0] == 0)
             {
                 float x = NPC.Center.X - NPC.spriteDirection * 20 < player.MountedCenter.X ? 1 : -1;
@@ -248,6 +364,9 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 NPC.noTileCollide = true;
                 NPC.noGravity = true;
                 NPC.ai[0]++;
+
+                if (!Main.dedServ)
+                    RingBurst(NPC.Bottom, 8, 3f, new Color(230, 200, 140, 160), 12f, 20f, 14, 22);
             }
             else
             {
@@ -257,20 +376,20 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 
             if (NPC.IsOnPlatformNPC(new Vector2(1f, 1f)) && NPC.Center.Y + NPC.height / 2 < player.MountedCenter.Y + player.height / 2)
                 NPC.noTileCollide = true;
-			else if (NPC.velocity.Y > 4)
-			{
-				if(NPC.ai[0] == 1)
-				{
-					if (phase == 2)
-					{
-						for (int i = 0; i < 4; i++)
-						{
-							Vector2 direction = new Vector2(0, -5).SafeNormalize(Vector2.UnitX);
-							direction = direction.RotatedByRandom(MathHelper.ToRadians(60f));
-							int proj = Projectile.NewProjectile(NPC.GetSource_GiftOrReward(), new Vector2(NPC.Center.X, NPC.Center.Y), direction * Main.rand.NextFloat(6.5f, 7.5f), ModContent.ProjectileType<ThemisBomb>(), 0, 3, Main.myPlayer);
-							Main.projectile[proj].timeLeft = Main.rand.Next(80, 100);
-						}
-					}
+            else if (NPC.velocity.Y > 4)
+            {
+                if (NPC.ai[0] == 1)
+                {
+                    if (phase == 2)
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Vector2 direction = new Vector2(0, -5).SafeNormalize(Vector2.UnitX);
+                            direction = direction.RotatedByRandom(MathHelper.ToRadians(60f));
+                            int proj = Projectile.NewProjectile(NPC.GetSource_GiftOrReward(), new Vector2(NPC.Center.X, NPC.Center.Y), direction * Main.rand.NextFloat(6.5f, 7.5f), ModContent.ProjectileType<ThemisBomb>(), 0, 3, Main.myPlayer);
+                            Main.projectile[proj].timeLeft = Main.rand.Next(80, 100);
+                        }
+                    }
                     NPC.ai[0]++;
                     NPC.noGravity = false;
                     NPC.netUpdate = true;
@@ -278,8 +397,8 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 NPC.noTileCollide = false;
             }
 
-			if((NPC.HasTileOnSide(4, new Vector2(1f, 2f), false) || NPC.IsOnPlatformNPC(new Vector2(1f, 1f))) && !NPC.noTileCollide)
-			{
+            if ((NPC.HasTileOnSide(4, new Vector2(1f, 2f), false) || NPC.IsOnPlatformNPC(new Vector2(1f, 1f))) && !NPC.noTileCollide)
+            {
                 for (int i = 0; i < 15; i++)
                 {
                     int dust = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y + NPC.height - 2), NPC.width, 4, DustID.Smoke, Main.rand.Next(-8, 8), 0, 120, default(Color), Main.rand.NextFloat(1f, 1.75f));
@@ -287,9 +406,12 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     Main.dust[dust].velocity *= 1f;
                 }
                 if (!DownedBossSystem.DownedThemis)
+                {
                     SoundEngine.PlaySound(SoundID.Dig, NPC.Center);
-				else
-				{
+                    RingBurst(NPC.Bottom, 10, 4f, new Color(230, 200, 140, 170), 14f, 22f, 14, 22);
+                }
+                else
+                {
                     player.PlayerScreen().fastScreenShake = 7 * (1000 - Vector2.Distance(player.Center, NPC.Center)) / 1000;
                     for (int i = 0; i < 15; i++)
                     {
@@ -298,27 +420,31 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                         Main.dust[dust].velocity *= 1f;
                     }
                     SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+                    RingBurst(NPC.Bottom, 14, 6f, new Color(255, 150, 60, 210), 16f, 26f, 14, 24);
                 }
                 NPC.netUpdate = true;
                 frame = 0;
-				NPC.ai[0] = phase == 1 ? -30 : 0;
+                NPC.ai[0] = phase == 1 ? -30 : 0;
                 NPC.localAI[1] = 0;
-				NPC.velocity = new Vector2(0, 12);
+                NPC.velocity = new Vector2(0, 12);
             }
-
         }
 
-		public void SummonDrones(Player player)
-		{
-			if (NPC.ai[0] == 0)
-			{
+        public void SummonDrones(Player player)
+        {
+            if (NPC.ai[0] == 0)
+            {
                 for (int i = 0; i < 2; i++)
                 {
-                    int npc = NPC.NewNPC(NPC.GetSource_FromAI(), (int)player.Center.X - 1000 + 1000 * i, (int)NPC.Center.Y - 1000, ModContent.NPCType<ThemisDroneMinion>(), NPC.whoAmI);
-                    NPC.netUpdate = true;
+                    int x = (int)player.Center.X - 1000 + 1000 * i;
+                    int y = (int)NPC.Center.Y - 1000;
+                    NPC.NewNPC(NPC.GetSource_FromAI(), x, y, ModContent.NPCType<ThemisDroneMinion>(), NPC.whoAmI);
+
+                    TeleportBurst(new Vector2(x, y));
                 }
+                NPC.netUpdate = true;
                 frame = 13;
-			}
+            }
 
             NPC.ai[0]++;
 
@@ -344,8 +470,8 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 
             NPC.ai[0]++;
 
-			if (frame == 11 && NPC.frameCounter == 0)
-			{
+            if (frame == 11 && NPC.frameCounter == 0)
+            {
                 SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
                 if (phase == 1)
                 {
@@ -381,7 +507,8 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 
             NPC.ai[0]++;
 
-            if (phase == 1 && NPC.ai[0] == 60 || NPC.ai[0] == 50)
+            // I Literally felt like the bullet attack was the worst thing themis have had. Such a mess
+            if ((phase == 1 && NPC.ai[0] == 60) || NPC.ai[0] == 50)
             {
                 Vector2 vel = new Vector2(player.Center.X - NPC.Center.X, player.Center.Y - NPC.Center.Y - 50).SafeNormalize(Vector2.UnitX).RotatedByRandom(MathHelper.ToRadians(15f)) * Main.rand.NextFloat(8f, 11f);
                 Vector2 pos = NPC.Center + new Vector2(0, -5) + vel.SafeNormalize(Vector2.UnitX) * 20;
@@ -390,7 +517,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 Main.projectile[proj2].timeLeft = Main.rand.Next(60, 90);
 
                 player.PlayerScreen().fastScreenShake = 7 * (1000 - Vector2.Distance(player.Center, NPC.Center)) / 1000;
-                Lighting.AddLight(pos, 1.5f, 0.75f, 0.5f);
+                MuzzleFlash(pos, vel);
                 SoundEngine.PlaySound(SoundID.Item36, NPC.Center);
                 SoundEngine.PlaySound(SoundID.Item149, NPC.Center);
 
@@ -434,7 +561,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 int proj1 = Projectile.NewProjectile(NPC.GetSource_GiftOrReward(), pos, vel, ModContent.ProjectileType<ThemisRocket>(), 15, 3, Main.myPlayer);
                 Main.projectile[proj1].timeLeft = 240;
                 player.PlayerScreen().fastScreenShake = 3.5f * (1000 - Vector2.Distance(player.Center, NPC.Center)) / 1000;
-                Lighting.AddLight(pos, 1.5f, 0.75f, 0.5f);
+                MuzzleFlash(pos, vel);
                 SoundEngine.PlaySound(SoundID.Item11, NPC.Center);
                 NPC.netUpdate = true;
                 NPC.ai[1]++;
@@ -454,7 +581,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
         }
 
         public void Cutscene(Player player)
-		{
+        {
             if (text == 0 && Vector2.Distance(NPC.Center, player.Center) > 300 && cutsceneCounter < 2)
             {
                 if (!Main.dedServ)
@@ -465,17 +592,19 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 if (!Main.dedServ && text == 0)
                     Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheseusAndTheMinotaur");
 
-				if (cutsceneCounter == 1)
-				{
-					switch (text)
-					{
-						case 0:
+                if (cutsceneCounter == 1)
+                {
+                    switch (text)
+                    {
+                        case 0:
                             SystemUI.dialogueUI.DisplayDialogue("And here you are. I've been following you for a long time.\n It's time for your death!", 360, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
-							break;
-						case 1:
+                            break;
+                        case 1:
                             SystemUI.dialogueUI.DisplayDialogue("Okay, I underestimated you...", 360, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
-							phase = 2;
-							break;
+                            phase = 2;
+                      
+                            RingBurst(NPC.Center, 20, 7f, new Color(255, 140, 40, 220), 18f, 30f, 18, 28);
+                            break;
                         case 2:
                             SystemUI.dialogueUI.DisplayDialogue("You can't stop me!", 360, 20, 0.4f, "Themis:", 0, txtColor, null, null, NPC.Center, sound: false);
                             break;
@@ -490,25 +619,27 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     text++;
                     NPC.netUpdate = true;
                 }
-                
+
                 cutsceneCounter++;
                 if (cutsceneCounter > 150)
                 {
                     CutsceneReset(player);
-					if (text == 1)
-					{
+                    if (text == 1)
+                    {
                         SystemUI.titleUI.DisplayTitle("Themis", 360, 90, 0.8f, 0, txtColor, txtColor, "The Badlands Seeker");
                         NPC.ai[0] = -60;
                     }
                 }
             }
         }
+
         public void TeleportBarrage(Player player)
         {
+            outlineColor = TeleportColor;
             int maxTeleports = Main.masterMode ? 3 : 1;
 
             NPC.localAI[0]++;
-            if (NPC.localAI[0] > 500) 
+            if (NPC.localAI[0] > 500)
             {
                 ForceEndTeleportBarrage(player);
                 return;
@@ -565,18 +696,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     Vector2 around = player.Center + Main.rand.NextVector2Circular(380f, 230f);
                     around.Y -= 220f;
 
-                    for (int i = 0; i < 6; i++)
-                    {
-                        float s = 30f + i * 14f;
-                        ParticleSystem.FlashBuffer.Create(new ParticleInfo(
-                            position: NPC.Center.ToNumerics(),
-                            velocity: System.Numerics.Vector2.Zero,
-                            rotation: Main.rand.NextFloat(MathHelper.TwoPi),
-                            scale: new System.Numerics.Vector2(s + Main.rand.NextFloat(-4f, 4f)),
-                            color: new Color(120, 200, 255),
-                            duration: 12 + i * 2
-                        ));
-                    }
+                    TeleportBurst(NPC.Center); 
 
                     NPC.Center = around;
                     NPC.velocity = Vector2.Zero;
@@ -588,20 +708,9 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     int proj = Projectile.NewProjectile(NPC.GetSource_GiftOrReward(), NPC.Center, rocketVel, ModContent.ProjectileType<ThemisRocket>(), 15, 3, Main.myPlayer);
                     Main.projectile[proj].timeLeft = 240;
                     SoundEngine.PlaySound(SoundID.Item11, NPC.Center);
-                    Lighting.AddLight(NPC.Center, 1.5f, 0.75f, 0.5f);
+                    MuzzleFlash(NPC.Center, rocketVel);
 
-                    for (int i = 0; i < 6; i++)
-                    {
-                        float s = 30f + i * 14f;
-                        ParticleSystem.FlashBuffer.Create(new ParticleInfo(
-                            position: NPC.Center.ToNumerics(),
-                            velocity: System.Numerics.Vector2.Zero,
-                            rotation: Main.rand.NextFloat(MathHelper.TwoPi),
-                            scale: new System.Numerics.Vector2(s + Main.rand.NextFloat(-4f, 4f)),
-                            color: new Color(120, 200, 255),
-                            duration: 12 + i * 2
-                        ));
-                    }
+                    TeleportBurst(NPC.Center); 
 
                     teleportIndex++;
                     NPC.ai[0] = 0;
@@ -679,8 +788,11 @@ namespace Waybound.Content.NPCs.Bosses.Themis
             frame = 0;
             NPC.netUpdate = true;
         }
+
         public void StompAttack(Player player)
         {
+            outlineColor = StompColor;
+
             if (NPC.ai[0] == 0 && NPC.ai[1] == 0)
             {
                 frame = 4;
@@ -712,6 +824,15 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 NPC.velocity.Y = MathF.Sin(NPC.ai[0] * 0.15f) * 0.5f;
 
                 outlineOpacity = MathHelper.Lerp(outlineOpacity, 0.6f, 0.06f);
+
+                if (!Main.dedServ && NPC.ai[0] % 3 == 0)
+                {
+                    float a = Main.rand.NextFloat(MathHelper.TwoPi);
+                    Vector2 from = NPC.Center + a.ToRotationVector2() * Main.rand.NextFloat(60f, 110f);
+                    Dust d = Dust.NewDustPerfect(from, DustID.Torch, (NPC.Center - from) * 0.06f, 100, default, 1.3f);
+                    d.noGravity = true;
+                }
+                Lighting.AddLight(NPC.Center, 0.8f * outlineOpacity, 0.35f * outlineOpacity, 0.05f);
 
                 if (NPC.ai[0] >= 45)
                 {
@@ -762,6 +883,16 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                             new Color(255, 130, 30, 230),
                             Main.rand.Next(24, 42)
                         ));
+                    }
+
+                    RingBurst(NPC.Bottom, 28, 10f, new Color(255, 180, 80, 220), 26f, 40f, 16, 26);
+                    RingBurst(NPC.Bottom, 16, 5f, new Color(255, 240, 200, 200), 14f, 22f, 12, 20);
+                    for (int i = 0; i < 20; i++)
+                    {
+                        float side = i % 2 == 0 ? 1f : -1f;
+                        Vector2 v = new Vector2(side * Main.rand.NextFloat(3f, 11f), -Main.rand.NextFloat(0.5f, 2.5f));
+                        Dust d = Dust.NewDustPerfect(NPC.Bottom + new Vector2(0, -4), DustID.Smoke, v, 80, default, Main.rand.NextFloat(1.4f, 2.4f));
+                        d.noGravity = true;
                     }
 
                     for (int i = 0; i < 25; i++)
@@ -817,6 +948,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 }
             }
         }
+
         public void MechCutscene(Player player)
         {
             if (cutsceneCounter == 1)
@@ -834,7 +966,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/theseusAndTheMinotaur");
             }
 
-			cutsceneCounter++;
+            cutsceneCounter++;
             player.PlayerScreen().ScreenFocusPosition = NPC.position;
 
             if (cutsceneCounter > 30 && (NPC.HasTileOnSide(4, new Vector2(1f, 10), false) || NPC.IsOnPlatformNPC(new Vector2(1f, 10))))
@@ -854,7 +986,10 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     Main.dust[dust].noGravity = true;
                 }
 
-                for (int i = 0; i < Main.rand.Next(3, 10); i++)
+                RingBurst(NPC.Bottom, 32, 11f, new Color(255, 170, 70, 220), 28f, 44f, 18, 28);
+
+                int goreCount = Main.rand.Next(3, 10); 
+                for (int i = 0; i < goreCount; i++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(Main.rand.NextFloat(-1.5f, 1.5f), Main.rand.NextFloat(-1.5f, 1.5f)), Main.rand.Next(61, 64));
                 }
@@ -935,6 +1070,8 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 NPC.alpha = 255;
                 NPC.velocity = Vector2.Zero;
 
+                RingBurst(NPC.Center, 24, 8f, new Color(255, 200, 120, 230), 24f, 38f, 16, 26);
+
                 int bombCount = Main.rand.Next(5, 11);
                 for (int i = 0; i < bombCount; i++)
                 {
@@ -969,14 +1106,15 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 NPC.checkDead();
             }
         }
+
         public void CutsceneReset(Player player)
-		{
-			cutsceneCounter = 0;
+        {
+            cutsceneCounter = 0;
             player.PlayerScreen().notHurt = false;
             player.PlayerScreen().cutscene = false;
-			player.PlayerScreen().lockScreen = false;
-			NPC.dontTakeDamage = false;
-		}
+            player.PlayerScreen().lockScreen = false;
+            NPC.dontTakeDamage = false;
+        }
 
         public override bool CheckDead()
         {
@@ -991,9 +1129,9 @@ namespace Waybound.Content.NPCs.Bosses.Themis
             return true;
         }
 
-		public override void FindFrame(int frameHeight)
-		{
-			NPC.frame.Y = frame * frameHeight;
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frame.Y = frame * frameHeight;
 
             if (frame >= 0 && frame <= 3)
             {
@@ -1007,7 +1145,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 }
             }
             else if (frame >= 5 && frame <= 8)
-			{
+            {
                 NPC.frameCounter++;
                 if (NPC.frameCounter > 5)
                 {
@@ -1044,45 +1182,78 @@ namespace Waybound.Content.NPCs.Bosses.Themis
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             var effects1 = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            Texture2D texture = !DownedBossSystem.DownedThemis ? TextureAssets.Npc[NPC.type].Value : ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisMech").Value;
+            Texture2D texture = !DownedBossSystem.DownedThemis ? TextureAssets.Npc[NPC.type].Value : mechTexture.Value;
             Vector2 drawOrigin = new(texture.Width * 0.5f, texture.Height * 0.5f / Main.npcFrameCount[NPC.type]);
-
+            Vector2 center = new Vector2(NPC.width * 0.5f, NPC.height * 0.5f) + new Vector2(0, 2);
+            float visible = 1f - NPC.alpha / 255f;
             if (outlineOpacity > 0.01f)
             {
-                Vector2 outlinePos = (NPC.position - Main.screenPosition) + new Vector2(NPC.width * 0.5f, NPC.height * 0.5f) + new Vector2(0, 2);
-                Color outlineColor = new Color(160, 160, 160) * outlineOpacity * 0.35f;
+                Vector2 outlinePos = (NPC.position - Main.screenPosition) + center;
+                Color col = (outlineColor with { A = 0 }) * (outlineOpacity * 0.55f);
+                float thickness = 2f + 0.6f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 8f);
 
-                float thickness = 1.6f;
-
+                BeginAdditive(spriteBatch);
                 for (int i = 0; i < 8; i++)
                 {
                     float angle = MathHelper.TwoPi * i / 8f;
                     Vector2 offset = angle.ToRotationVector2() * thickness;
-                    Main.EntitySpriteDraw(texture, outlinePos + offset, NPC.frame, outlineColor, NPC.rotation, drawOrigin, NPC.scale, effects1, 0);
+                    Main.EntitySpriteDraw(texture, outlinePos + offset, NPC.frame, col, NPC.rotation, drawOrigin, NPC.scale, effects1, 0);
                 }
+                EndAdditive(spriteBatch);
             }
 
             for (int k = 0; k < NPC.oldPos.Length; k++)
             {
-                Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + new Vector2(NPC.width * 0.5f, NPC.height * 0.5f) + new Vector2(0, 2);
-                Color color = NPC.GetAlpha(drawColor) * 0.4f * (1 - (float)NPC.alpha / 255) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
+                Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + center;
+                Color color = NPC.GetAlpha(drawColor) * 0.4f * visible * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale - 0.02f * k, effects1, 0);
             }
-            Vector2 pos = (NPC.position - Main.screenPosition) + new Vector2(NPC.width * 0.5f, NPC.height * 0.5f) + new Vector2(0, 2);
-            Main.EntitySpriteDraw(texture, pos, NPC.frame, drawColor * (1 - (float)NPC.alpha / 255), NPC.rotation, drawOrigin, NPC.scale, effects1, 0);
 
-            Texture2D weaponTexture = !DownedBossSystem.DownedThemis ? ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisHands").Value : ModContent.Request<Texture2D>("Waybound/Content/NPCs/Bosses/Themis/ThemisMechHands").Value;
+            Vector2 pos = (NPC.position - Main.screenPosition) + center;
+            Main.EntitySpriteDraw(texture, pos, NPC.frame, drawColor * visible, NPC.rotation, drawOrigin, NPC.scale, effects1, 0);
 
             if (NPC.localAI[1] == 4 || NPC.localAI[1] == 5)
             {
+                Texture2D weaponTexture = !DownedBossSystem.DownedThemis ? handsTexture.Value : mechHandsTexture.Value;
                 var effects2 = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
                 Rectangle rect = NPC.localAI[1] == 4 ? new Rectangle(0, 0, 62, 24) : new Rectangle(0, 26, 62, 26);
-                drawOrigin = new(rect.Width * (NPC.localAI[1] == 4 ? 0.25f : 0.33f), rect.Height * 0.5f);
+                Vector2 weaponOrigin = new(rect.Width * (NPC.localAI[1] == 4 ? 0.25f : 0.33f), rect.Height * 0.5f);
                 float rot = (Main.player[NPC.target].MountedCenter - NPC.Center).ToRotation();
-                Main.EntitySpriteDraw(weaponTexture, pos + new Vector2(0, NPC.localAI[1] == 2 ? -6 : -10), rect, drawColor * (1 - (float)NPC.alpha / 255), rot, drawOrigin, NPC.scale, effects2, 0);
+                Main.EntitySpriteDraw(weaponTexture, pos + new Vector2(0, -10), rect, drawColor * visible, rot, weaponOrigin, NPC.scale, effects2, 0);
             }
 
             return false;
+        }
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (NPC.localAI[1] != 7 || NPC.ai[1] != 1 || cutsceneCounter != 0) return;
+
+            float t = MathHelper.Clamp(NPC.ai[0] / 45f, 0f, 1f);
+            float flicker = 0.75f + 0.25f * (float)Math.Sin(NPC.ai[0] * 0.5f);
+
+            Vector2 start = NPC.Bottom;
+            float len = 0f;
+            while (len < 1400f && !Collision.SolidCollision(start + new Vector2(-2f, len), 4, 4))
+                len += 16f;
+
+            Texture2D px = TextureAssets.MagicPixel.Value;
+            Rectangle src = new Rectangle(0, 0, 1, 1);
+            Vector2 top = start - Main.screenPosition;
+            float outerWidth = MathHelper.Lerp(34f, 10f, t);
+
+            Color outer = new Color(255, 120, 40, 0) * (0.25f * t * flicker);
+            Color core = new Color(255, 230, 180, 0) * (0.55f * t * flicker);
+
+            BeginAdditive(spriteBatch);
+            spriteBatch.Draw(px, top, src, outer, 0f, new Vector2(0.5f, 0f), new Vector2(outerWidth, len), SpriteEffects.None, 0f);
+            spriteBatch.Draw(px, top, src, core, 0f, new Vector2(0.5f, 0f), new Vector2(3f, len), SpriteEffects.None, 0f);
+
+            // маркер на земле
+            Vector2 hit = top + new Vector2(0f, len);
+            spriteBatch.Draw(px, hit, src, outer, 0f, new Vector2(0.5f, 0.5f), new Vector2(outerWidth * 2.5f, 5f), SpriteEffects.None, 0f);
+            spriteBatch.Draw(px, hit, src, core, 0f, new Vector2(0.5f, 0.5f), new Vector2(outerWidth * 1.2f, 2f), SpriteEffects.None, 0f);
+            EndAdditive(spriteBatch);
         }
 
         public override void OnKill()
@@ -1100,13 +1271,17 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                     int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f), 50, default(Color), Main.rand.NextFloat(1f, 3f));
                     Main.dust[dust].noGravity = true;
                 }
-                for (int i = 0; i < Main.rand.Next(3, 10); i++)
+
+                RingBurst(NPC.Center, 36, 12f, new Color(255, 170, 70, 230), 30f, 48f, 20, 32);
+
+                int goreCount = Main.rand.Next(3, 10);
+                for (int i = 0; i < goreCount; i++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(Main.rand.NextFloat(-1.5f, 1.5f), Main.rand.NextFloat(-1.5f, 1.5f)), Main.rand.Next(61, 64));
                 }
             }
-			else
-				NPC.SetEventFlagCleared(ref DownedBossSystem.DownedThemis, -1);
+            else
+                NPC.SetEventFlagCleared(ref DownedBossSystem.DownedThemis, -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -1115,7 +1290,7 @@ namespace Waybound.Content.NPCs.Bosses.Themis
 
             LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 
-           int desertWreckage = ModContent.ItemType<DesertWreckage>();
+            int desertWreckage = ModContent.ItemType<DesertWreckage>();
             var desertWreckageParameters = new DropOneByOne.Parameters()
             {
                 ChanceNumerator = 1,
@@ -1125,9 +1300,9 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 MinimumItemDropsCount = 1,
                 MaximumItemDropsCount = 1,
             };
-           notExpertRule.OnSuccess(new DropOneByOne(desertWreckage, desertWreckageParameters));
+            notExpertRule.OnSuccess(new DropOneByOne(desertWreckage, desertWreckageParameters));
 
-           int desertCore = ModContent.ItemType<DesertCore>();
+            int desertCore = ModContent.ItemType<DesertCore>();
             var desertCoreParameters = new DropOneByOne.Parameters()
             {
                 ChanceNumerator = 1,
@@ -1137,17 +1312,17 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 MinimumItemDropsCount = 1,
                 MaximumItemDropsCount = 1,
             };
-           notExpertRule.OnSuccess(new DropOneByOne(desertCore, desertCoreParameters));
+            notExpertRule.OnSuccess(new DropOneByOne(desertCore, desertCoreParameters));
 
-           notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ThemisMask>(), 7));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ThemisMask>(), 7));
 
             npcLoot.Add(notExpertRule);
 
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Bags.ThemisBag>()));
 
-           npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<ThemisRelicI>()));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<ThemisRelicI>()));
 
-           npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MotorcycleOfDesertHunter>(), 4));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MotorcycleOfDesertHunter>(), 4));
         }
 
         public override void ModifyTypeName(ref string typeName)
@@ -1165,7 +1340,6 @@ namespace Waybound.Content.NPCs.Bosses.Themis
                 && !DownedBossSystem.DownedThemis
                 && !NPC.AnyNPCs(ModContent.NPCType<Themis>())
                 && NPC.downedBoss1)
-               // && spawnInfo.Player.GetModPlayer<playerAccessories>().antiradar == 0)
             {
                 return 0.1f;
             }
@@ -1174,7 +1348,6 @@ namespace Waybound.Content.NPCs.Bosses.Themis
         }
     }
 }
-
 /*
 		public override void AI()
 		{

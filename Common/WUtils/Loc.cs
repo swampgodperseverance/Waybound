@@ -12,4 +12,5 @@ public static class Loc {
     public static string GetUI(string key) => Language.GetTextValue(LocPatch + "UIs." + key);
     public static string GetCond(string key) => Language.GetTextValue(LocPatch + "DropRules." + key);
     public static string GetButtonName(ModKeybind key) => key.GetAssignedKeys().Count > 0 ? key.GetAssignedKeys()[0] : Get("Keybinds.NotKey");
+    public static string GetLore(string name) => Language.GetTextValue(LocPatch + "Lore." + name);
 };

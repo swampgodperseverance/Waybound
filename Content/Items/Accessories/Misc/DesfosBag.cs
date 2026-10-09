@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -13,7 +14,8 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 using Waybound.Common.ModSystems;
-using Waybound.Content.Items.Accessories.Hardmode;
+using Waybound.Common.WUtils;
+using Waybound.Content.Race;
 
 namespace Waybound.Content.Items.Accessories.Misc
 {
@@ -38,17 +40,56 @@ namespace Waybound.Content.Items.Accessories.Misc
             player.GetModPlayer<DesfosBagPlayer>().equippedBag = true;
         }
 
-        
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (Main.gameMenu || Main.LocalPlayer == null)
+                return;
+
+            var bag = Main.LocalPlayer.GetModPlayer<DesfosBagPlayer>();
+
+            if (DesfosRace.IsDesfo(Main.LocalPlayer))
+            {
+                tooltips.Add(new TooltipLine(Mod, "DesfosBagRace",
+                    Loc.GetTips("DesfosBag.RaceBonus"))
+                {
+                    OverrideColor = Color.Gold
+                });
+            }
+
+            int slots = bag.SlotsFromGold();
+            long gold = bag.GetTotalGoldValue();
+
+            tooltips.Add(new TooltipLine(Mod, "DesfosBagSlots",
+                string.Format(Loc.GetTips("DesfosBag.Slots"),
+                    slots,
+                    DesfosBagPlayer.MaxSlots,
+                    DesfosBagPlayer.GoldPerSlot))
+            {
+                OverrideColor = new Color(255, 225, 150)
+            });
+
+            if (slots < DesfosBagPlayer.MaxSlots)
+            {
+                long next = (slots - DesfosBagPlayer.BaseSlots + 1L) * DesfosBagPlayer.GoldPerSlot;
+
+                tooltips.Add(new TooltipLine(Mod, "DesfosBagNext",
+                    string.Format(Loc.GetTips("DesfosBag.NextSlot"),
+                        next,
+                        gold))
+                {
+                    OverrideColor = new Color(190, 190, 190)
+                });
+            }
+        }
+
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             var bagPlayer = Main.LocalPlayer.GetModPlayer<DesfosBagPlayer>();
             if (bagPlayer == null) return true;
 
             int extra = Math.Max(0, bagPlayer.extraSlots - 5);
-            float intensity = MathHelper.Clamp(extra / 10f, 0.15f, 0.85f); 
-
+            float intensity = MathHelper.Clamp(extra / 10f, 0.15f, 0.85f);
             float pulse = 0.7f + 0.3f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 3.2f);
-
             Color outlineColor = new Color(255, 210, 90) * (intensity * pulse * 0.65f);
 
             Texture2D tex = TextureAssets.Item[Item.type].Value;
@@ -57,8 +98,7 @@ namespace Waybound.Content.Items.Accessories.Misc
                 Vector2 offset = Vector2.UnitY.RotatedBy(MathHelper.PiOver2 * i) * 1.6f;
                 spriteBatch.Draw(tex, position + offset, frame, outlineColor, 0f, origin, scale, SpriteEffects.None, 0f);
             }
-
-            return true; 
+            return true;
         }
 
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
@@ -69,7 +109,6 @@ namespace Waybound.Content.Items.Accessories.Misc
             int extra = Math.Max(0, bagPlayer.extraSlots - 5);
             float intensity = MathHelper.Clamp(extra / 10f, 0.12f, 0.7f);
             float pulse = 0.65f + 0.35f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2.8f);
-
             Color outlineColor = new Color(255, 215, 100) * (intensity * pulse * 0.55f);
 
             Texture2D tex = TextureAssets.Item[Item.type].Value;
@@ -82,7 +121,6 @@ namespace Waybound.Content.Items.Accessories.Misc
                 Vector2 offset = Vector2.UnitY.RotatedBy(MathHelper.PiOver2 * i + Main.GlobalTimeWrappedHourly * 0.4f) * 1.8f;
                 spriteBatch.Draw(tex, drawPos + offset, frame, outlineColor, rotation, origin, scale, SpriteEffects.None, 0f);
             }
-
             return true;
         }
     }
@@ -99,274 +137,11 @@ namespace Waybound.Content.Items.Accessories.Misc
 
         public int convertingSlot = -1;
         public float convertTimer = 0f;
-        public const float ConvertDuration = 60f;
-
-        public class ConvertEntry
-        {
-            public int RequiredAmount;
-            public Func<Item> GenerateReward;
-
-            public ConvertEntry(int amount, Func<Item> reward)
-            {
-                RequiredAmount = amount;
-                GenerateReward = reward;
-            }
-        }
-
-        public static readonly Dictionary<int, ConvertEntry> ConvertibleItems = new()
-        {
-            {
-                ItemID.StoneBlock,
-                new ConvertEntry(150, () =>
-                {
-                    Item reward = new Item();
-                    float roll = Main.rand.NextFloat();
-
-                    if (roll < 0.02f)
-                        reward.SetDefaults(ItemID.EnchantedSword);
-                    else if (roll < 0.05f)
-                        reward.SetDefaults(ItemID.EnchantedBoomerang);
-                    else if (roll < 0.08f)
-                        reward.SetDefaults(ItemID.Shackle);
-                    else if (roll < 0.12f)
-                        reward.SetDefaults(ItemID.MiningHelmet);
-                    else if (roll < 0.50f)
-                    {
-                        int[] ores = { ItemID.CopperOre, ItemID.TinOre, ItemID.IronOre, ItemID.LeadOre, ItemID.SilverOre, ItemID.TungstenOre, ItemID.GoldOre, ItemID.PlatinumOre };
-                        reward.SetDefaults(ores[Main.rand.Next(ores.Length)]);
-                        reward.stack = Main.rand.Next(25, 56);
-                    }
-                    else
-                    {
-                        int[] gems = { ItemID.Ruby, ItemID.Sapphire, ItemID.Amethyst };
-                        reward.SetDefaults(gems[Main.rand.Next(gems.Length)]);
-                        reward.stack = Main.rand.Next(3, 7);
-                    }
-                    return reward;
-                })
-            },
-
-            {
-                ItemID.SandBlock,
-                new ConvertEntry(150, () =>
-                {
-                    Item reward = new Item();
-                    float roll = Main.rand.NextFloat();
-
-                    if (roll < 0.15f)
-                    {
-                        reward.SetDefaults(ItemID.AntlionMandible);
-                        reward.stack = Main.rand.Next(2, 5);
-                    }
-                    else if (roll < 0.35f)
-                    {
-                        reward.SetDefaults(ItemID.DesertFossil);
-                        reward.stack = Main.rand.Next(8, 18);
-                    }
-                    else if (roll < 0.55f)
-                    {
-                        reward.SetDefaults(ItemID.HardenedSand);
-                        reward.stack = Main.rand.Next(20, 40);
-                    }
-                    else if (roll < 0.75f)
-                    {
-                        reward.SetDefaults(ItemID.Sandstone);
-                        reward.stack = Main.rand.Next(15, 30);
-                    }
-                    else
-                    {
-                        reward.SetDefaults(ItemID.Amber);
-                        reward.stack = Main.rand.Next(2, 5);
-                    }
-                    return reward;
-                })
-            },
-
-            {
-                ItemID.Ectoplasm,
-                new ConvertEntry(10, () =>
-                {
-                    Item reward = new Item();
-                    float roll = Main.rand.NextFloat();
-
-                    if (roll < 1f)
-                    {
-                        reward.SetDefaults(ModContent.ItemType<TheOriginOfSymmetry>());
-                        reward.stack = Main.rand.Next(1, 1);
-                    }
-                    return reward;
-                })
-            },
-
-            {
-                ItemID.ClayBlock,
-                new ConvertEntry(120, () =>
-                {
-                    Item reward = new Item();
-                    float roll = Main.rand.NextFloat();
-
-                    if (roll < 0.30f)
-                    {
-                        reward.SetDefaults(ItemID.RedBrick);
-                        reward.stack = Main.rand.Next(15, 30);
-                    }
-                    else if (roll < 0.55f)
-                    {
-                        reward.SetDefaults(ItemID.Bowl);
-                        reward.stack = Main.rand.Next(2, 5);
-                    }
-                    else if (roll < 0.75f)
-                    {
-                        reward.SetDefaults(ItemID.ClayPot);
-                    }
-                    else
-                    {
-                        reward.SetDefaults(ItemID.PinkVase);
-                    }
-                    return reward;
-                })
-            },
-
-            {
-                ItemID.MudBlock,
-                new ConvertEntry(180, () =>
-                {
-                    Item reward = new Item();
-                    float roll = Main.rand.NextFloat();
-
-                    if (roll < 0.25f)
-                    {
-                        reward.SetDefaults(ItemID.JungleGrassSeeds);
-                        reward.stack = Main.rand.Next(3, 8);
-                    }
-                    else if (roll < 0.45f)
-                    {
-                        reward.SetDefaults(ItemID.RichMahogany);
-                        reward.stack = Main.rand.Next(20, 40);
-                    }
-                    else if (roll < 0.65f)
-                    {
-                        reward.SetDefaults(ItemID.Vine);
-                        reward.stack = Main.rand.Next(3, 7);
-                    }
-                    else if (roll < 0.85f)
-                    {
-                        reward.SetDefaults(ItemID.JungleSpores);
-                        reward.stack = Main.rand.Next(2, 5);
-                    }
-                    else
-                    {
-                        reward.SetDefaults(ItemID.Stinger);
-                        reward.stack = Main.rand.Next(1, 4);
-                    }
-                    return reward;
-                })
-            },
-
-            {
-                ItemID.SnowBlock,
-                new ConvertEntry(160, () =>
-                {
-                    Item reward = new Item();
-                    float roll = Main.rand.NextFloat();
-
-                    if (roll < 0.25f)
-                    {
-                        reward.SetDefaults(ItemID.IceBlock);
-                        reward.stack = Main.rand.Next(20, 40);
-                    }
-                    else if (roll < 0.45f)
-                    {
-                        reward.SetDefaults(ItemID.BorealWood);
-                        reward.stack = Main.rand.Next(25, 50);
-                    }
-                    else if (roll < 0.65f)
-                    {
-                        reward.SetDefaults(ItemID.Snowball);
-                        reward.stack = Main.rand.Next(30, 60);
-                    }
-                    else if (roll < 0.85f)
-                    {
-                        reward.SetDefaults(ItemID.IceTorch);
-                        reward.stack = Main.rand.Next(10, 25);
-                    }
-                    else
-                    {
-                        reward.SetDefaults(ItemID.FrostCore);
-                    }
-                    return reward;
-                })
-            },
-
-            {
-                ItemID.IceBlock,
-                new ConvertEntry(140, () =>
-                {
-                    Item reward = new Item();
-                    float roll = Main.rand.NextFloat();
-
-                    if (roll < 0.20f)
-                    {
-                        reward.SetDefaults(ItemID.IceTorch);
-                        reward.stack = Main.rand.Next(15, 30);
-                    }
-                    else if (roll < 0.40f)
-                    {
-                        reward.SetDefaults(ItemID.IceBrick);
-                        reward.stack = Main.rand.Next(15, 30);
-                    }
-                    else if (roll < 0.60f)
-                    {
-                        reward.SetDefaults(ItemID.FrostDaggerfish);
-                        reward.stack = Main.rand.Next(5, 12);
-                    }
-                    else if (roll < 0.80f)
-                    {
-                        reward.SetDefaults(ItemID.IceBoomerang);
-                    }
-                    else
-                    {
-                        reward.SetDefaults(ItemID.IceBlade);
-                    }
-                    return reward;
-                })
-            },
-
-            {
-                ItemID.AshBlock,
-                new ConvertEntry(130, () =>
-                {
-                    Item reward = new Item();
-                    float roll = Main.rand.NextFloat();
-
-                    if (roll < 0.20f)
-                    {
-                        reward.SetDefaults(ItemID.Hellstone);
-                        reward.stack = Main.rand.Next(8, 16);
-                    }
-                    else if (roll < 0.40f)
-                    {
-                        reward.SetDefaults(ItemID.Obsidian);
-                        reward.stack = Main.rand.Next(10, 20);
-                    }
-                    else if (roll < 0.60f)
-                    {
-                        reward.SetDefaults(ItemID.FireblossomSeeds);
-                        reward.stack = Main.rand.Next(2, 5);
-                    }
-                    else if (roll < 0.80f)
-                    {
-                        reward.SetDefaults(ItemID.AshWood);
-                        reward.stack = Main.rand.Next(20, 40);
-                    }
-                    else
-                    {
-                        reward.SetDefaults(ItemID.LavaCharm);
-                    }
-                    return reward;
-                })
-            },
-        };
+        public float convertDuration = 60f;                       // depends on a queue btw
+        public Color convertColor = new Color(255, 225, 150);   
+        public Dictionary<string, int> pityRare = new();
+        public Dictionary<string, int> pityJackpot = new();
+        public HashSet<string> obtained = new();
 
         public override void Initialize()
         {
@@ -375,6 +150,9 @@ namespace Waybound.Content.Items.Accessories.Misc
                 bagItems[i] = new Item();
                 bagItems[i].TurnToAir(true);
             }
+            pityRare = new();
+            pityJackpot = new();
+            obtained = new();
         }
 
         public override void ResetEffects()
@@ -388,7 +166,26 @@ namespace Waybound.Content.Items.Accessories.Misc
                 }
                 extraSlots = 0;
             }
-            equippedBag = false;
+            equippedBag = false; 
+        }
+
+        public const bool DesfoNeedsBagItem = true;
+
+        public override void PostUpdateEquips()
+        {
+            if (!DesfosRace.IsDesfo(Player)) { return; }
+            if (!DesfoNeedsBagItem || HasBagInInventory()) { equippedBag = true; }
+        }
+
+        bool HasBagInInventory()
+        {
+            int bagType = ModContent.ItemType<DesfosBag>();
+            for (int i = 0; i < Player.inventory.Length; i++)
+            {
+                Item it = Player.inventory[i];
+                if (it != null && !it.IsAir && it.type == bagType) { return true; }
+            }
+            return false;
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
@@ -416,14 +213,30 @@ namespace Waybound.Content.Items.Accessories.Misc
             isClosing = true;
         }
 
-        public void RecalculateSlots()
+        public const int BaseSlots = 5;    // слотов сразу
+        public const int GoldPerSlot = 5;  // каждые 5 золотых в инвентаре = +1 слот (до MaxSlots)
+
+        /// <summary>Сколько слотов положено по золоту: 5 + золото/5, максимум 20 (т.е. 75 золотых = максимум).</summary>
+        public int SlotsFromGold()
         {
-            long goldValue = GetTotalGoldValue();
-            int k = (int)Math.Floor(Math.Sqrt(goldValue));
-            extraSlots = Math.Clamp(5 + k, 5, MaxSlots);
+            long gold = GetTotalGoldValue();
+            int bonus = (int)Math.Min(MaxSlots, gold / GoldPerSlot);
+            return Math.Clamp(BaseSlots + bonus, BaseSlots, MaxSlots);
         }
 
-        private long GetTotalGoldValue()
+        public void RecalculateSlots()
+        {
+            // ВАЖНО: слоты никогда не сжимаются ниже последнего занятого, иначе предметы "пропадают" из виду,
+            // когда игрок тратит деньги.
+            int highest = -1;
+            for (int i = 0; i < MaxSlots; i++)
+            {
+                if (bagItems[i] != null && !bagItems[i].IsAir) { highest = i; }
+            }
+            extraSlots = Math.Clamp(Math.Max(SlotsFromGold(), highest + 1), BaseSlots, MaxSlots);
+        }
+
+        public long GetTotalGoldValue()
         {
             long value = 0;
             for (int i = 0; i < Player.inventory.Length; i++)
@@ -469,55 +282,109 @@ namespace Waybound.Content.Items.Accessories.Misc
             {
                 Item item = bagItems[i];
                 if (item == null || item.IsAir) continue;
+                if (!DesfosPools.TryGet(item.type, out DesfosPool pool) || item.stack < pool.Required) continue;
+                if (!pool.CanRoll(this)) continue; 
 
-                if (ConvertibleItems.TryGetValue(item.type, out ConvertEntry entry) && item.stack >= entry.RequiredAmount)
-                {
-                    convertingSlot = i;
-                    convertTimer = ConvertDuration;
+                int pending = item.stack / pool.Required;
+                convertDuration = pending >= 4 ? 18f : pending >= 2 ? 35f : 60f;
+                convertTimer = convertDuration;
+                convertingSlot = i;
 
-                    item.stack -= entry.RequiredAmount;
-                    if (item.stack <= 0)
-                        item.TurnToAir(true);
+                item.stack -= pool.Required;
+                if (item.stack <= 0)
+                    item.TurnToAir(true);
 
-                    Item reward = entry.GenerateReward();
-
-                    if (item.IsAir)
-                    {
-                        bagItems[i] = reward;
-                    }
-                    else
-                    {
-                        bool placed = false;
-                        for (int j = 0; j < extraSlots; j++)
-                        {
-                            if (bagItems[j] == null || bagItems[j].IsAir)
-                            {
-                                bagItems[j] = reward;
-                                placed = true;
-                                break;
-                            }
-                        }
-                        if (!placed)
-                        {
-                            Player.QuickSpawnItem(Player.GetSource_Misc("DesfosBag"), reward);
-                        }
-                    }
-
-                    // Более приятный звук
-                    SoundEngine.PlaySound(SoundID.Item37 with { Pitch = 0.35f, Volume = 0.75f }, Player.Center);
-                    SoundEngine.PlaySound(SoundID.Item4 with { Pitch = 0.6f, Volume = 0.4f }, Player.Center);
-                    break;
-                }
+                Item reward = pool.Roll(this, out DesfosTier tier);
+                convertColor = DesfosPools.TierColor(tier);
+                DeliverReward(reward, i);
+                PlayConvertEffects(tier, reward);
+                break;
             }
         }
 
-        // SaveData / LoadData без изменений
+        private void DeliverReward(Item reward, int preferredSlot)
+        {
+            if (reward == null || reward.IsAir) return;
+
+            for (int i = 0; i < extraSlots && reward.stack > 0; i++)
+            {
+                Item s = bagItems[i];
+                if (s == null || s.IsAir || s.type != reward.type || s.prefix != reward.prefix || s.stack >= s.maxStack) continue;
+                int move = Math.Min(reward.stack, s.maxStack - s.stack);
+                s.stack += move;
+                reward.stack -= move;
+            }
+
+            while (reward.stack > 0)
+            {
+                int slot = -1;
+                if (preferredSlot < extraSlots && (bagItems[preferredSlot] == null || bagItems[preferredSlot].IsAir))
+                    slot = preferredSlot;
+                else
+                {
+                    for (int j = 0; j < extraSlots; j++)
+                    {
+                        if (bagItems[j] == null || bagItems[j].IsAir) { slot = j; break; }
+                    }
+                }
+
+                if (slot == -1)
+                {
+                    Player.QuickSpawnItem(Player.GetSource_Misc("DesfosBag"), reward, reward.stack);
+                    return;
+                }
+
+                Item part = reward.Clone();
+                part.stack = Math.Min(reward.stack, reward.maxStack);
+                bagItems[slot] = part;
+                reward.stack -= part.stack;
+            }
+        }
+
+        private void PlayConvertEffects(DesfosTier tier, Item reward)
+        {
+            switch (tier)
+            {
+                case DesfosTier.Jackpot:
+                    SoundEngine.PlaySound(SoundID.Item29 with { Pitch = 0.2f, Volume = 0.9f }, Player.Center);
+                    SoundEngine.PlaySound(SoundID.Item4 with { Pitch = 0.7f, Volume = 0.6f }, Player.Center);
+                    break;
+                case DesfosTier.Rare:
+                    SoundEngine.PlaySound(SoundID.Item29 with { Pitch = 0.5f, Volume = 0.7f }, Player.Center);
+                    break;
+                default:
+                    SoundEngine.PlaySound(SoundID.Item37 with { Pitch = 0.35f, Volume = 0.75f }, Player.Center);
+                    SoundEngine.PlaySound(SoundID.Item4 with { Pitch = 0.6f, Volume = 0.4f }, Player.Center);
+                    break;
+            }
+
+            if (tier >= DesfosTier.Rare && !reward.IsAir)
+            {
+                int dusts = tier == DesfosTier.Jackpot ? 36 : 20;
+                for (int i = 0; i < dusts; i++)
+                {
+                    Dust d = Dust.NewDustPerfect(Player.Center, DustID.GoldFlame,
+                        (MathHelper.TwoPi * i / dusts).ToRotationVector2() * Main.rand.NextFloat(2f, 5f),
+                        120, convertColor, 1.4f);
+                    d.noGravity = true;
+                }
+                string text = reward.stack > 1 ? $"{reward.Name} x{reward.stack}" : reward.Name;
+                CombatText.NewText(Player.getRect(), convertColor, text, tier == DesfosTier.Jackpot);
+            }
+        }
+
         public override void SaveData(TagCompound tag)
         {
             var list = new List<Item>();
             for (int i = 0; i < MaxSlots; i++)
                 list.Add(bagItems[i] ?? new Item());
             tag["bagItems"] = list;
+
+            tag["pityRareKeys"] = pityRare.Keys.ToList();
+            tag["pityRareVals"] = pityRare.Values.ToList();
+            tag["pityJackKeys"] = pityJackpot.Keys.ToList();
+            tag["pityJackVals"] = pityJackpot.Values.ToList();
+            tag["obtained"] = obtained.ToList();
         }
 
         public override void LoadData(TagCompound tag)
@@ -532,6 +399,21 @@ namespace Waybound.Content.Items.Accessories.Misc
                         bagItems[i].TurnToAir(true);
                 }
             }
+
+            pityRare = LoadDict(tag, "pityRareKeys", "pityRareVals");
+            pityJackpot = LoadDict(tag, "pityJackKeys", "pityJackVals");
+            obtained = tag.ContainsKey("obtained") ? new HashSet<string>(tag.GetList<string>("obtained")) : new HashSet<string>();
+        }
+
+        private static Dictionary<string, int> LoadDict(TagCompound tag, string keysName, string valsName)
+        {
+            var dict = new Dictionary<string, int>();
+            if (!tag.ContainsKey(keysName) || !tag.ContainsKey(valsName)) return dict;
+            var keys = tag.GetList<string>(keysName);
+            var vals = tag.GetList<int>(valsName);
+            for (int i = 0; i < Math.Min(keys.Count, vals.Count); i++)
+                dict[keys[i]] = vals[i];
+            return dict;
         }
     }
 
@@ -721,8 +603,6 @@ namespace Waybound.Content.Items.Accessories.Misc
         public float TargetY;
         public float IndividualFade = 1f;
         public bool IsNew = false;
-        private bool _hover;
-        private Texture2D _pixel;
         private static Asset<Texture2D> rayTexture;
 
         public DesfosBagSlot(int slotIndex)
@@ -736,16 +616,6 @@ namespace Waybound.Content.Items.Accessories.Misc
         {
             if (rayTexture == null)
                 rayTexture = ModContent.Request<Texture2D>("Waybound/Assets/Textures/Ray");
-        }
-
-        private Texture2D GetPixel()
-        {
-            if (_pixel == null || _pixel.IsDisposed)
-            {
-                _pixel = new Texture2D(Main.graphics.GraphicsDevice, 1, 1);
-                _pixel.SetData(new[] { Color.White });
-            }
-            return _pixel;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -769,13 +639,15 @@ namespace Waybound.Content.Items.Accessories.Misc
             Color bg = new Color(35, 28, 12) * (0.82f * opacity);
             spriteBatch.Draw(invBack, rect, bg);
 
-            Texture2D pixel = GetPixel();
+            // стандартный пиксель вместо создания Texture2D на каждый слот (утечка видеопамяти в старой версии)
+            Texture2D pixel = TextureAssets.MagicPixel.Value;
             Color border = Color.Gold * (0.9f * opacity);
             int b = 2;
-            spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y, rect.Width, b), border);
-            spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y + rect.Height - b, rect.Width, b), border);
-            spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y, b, rect.Height), border);
-            spriteBatch.Draw(pixel, new Rectangle(rect.X + rect.Width - b, rect.Y, b, rect.Height), border);
+            Rectangle px = new Rectangle(0, 0, 1, 1);
+            spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y, rect.Width, b), px, border);
+            spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y + rect.Height - b, rect.Width, b), px, border);
+            spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y, b, rect.Height), px, border);
+            spriteBatch.Draw(pixel, new Rectangle(rect.X + rect.Width - b, rect.Y, b, rect.Height), px, border);
 
             if (!item.IsAir)
             {
@@ -811,19 +683,28 @@ namespace Waybound.Content.Items.Accessories.Misc
                     Color rare = ItemRarity.GetColor(item.rare) * (0.18f * opacity);
                     spriteBatch.Draw(invBack, rect, rare);
                 }
+
+                // тонкая полоска прогресса для предметов, которые сумка умеет конвертировать
+                if (DesfosPools.TryGet(item.type, out DesfosPool pool))
+                {
+                    float fill = MathHelper.Clamp(item.stack / (float)pool.Required, 0f, 1f);
+                    Rectangle bar = new Rectangle(rect.X + 4, rect.Bottom - 6, rect.Width - 8, 3);
+                    spriteBatch.Draw(pixel, bar, px, new Color(0, 0, 0) * (0.55f * opacity));
+                    Color barColor = fill >= 1f ? new Color(255, 225, 120) : new Color(200, 160, 70);
+                    spriteBatch.Draw(pixel, new Rectangle(bar.X, bar.Y, (int)(bar.Width * fill), bar.Height), px, barColor * opacity);
+                }
             }
+
             if (bagPlayer.convertingSlot == SlotIndex && bagPlayer.convertTimer > 0)
             {
-                float progress = 1f - (bagPlayer.convertTimer / DesfosBagPlayer.ConvertDuration);
-
+                float progress = 1f - (bagPlayer.convertTimer / bagPlayer.convertDuration);
                 float intensity = (float)Math.Sin(progress * MathHelper.Pi);
-                intensity = MathHelper.SmoothStep(0f, 1f, intensity); 
+                intensity = MathHelper.SmoothStep(0f, 1f, intensity);
 
-                Color flash = new Color(255, 225, 150) * (0.18f * intensity * opacity);
-                spriteBatch.Draw(TextureAssets.InventoryBack.Value, rect, flash);
+                Color tint = bagPlayer.convertColor; // цвет зависит от тира награды
 
-                Color glow = new Color(255, 210, 120) * (0.22f * intensity * opacity);
-                spriteBatch.Draw(invBack, rect, glow);
+                spriteBatch.Draw(invBack, rect, tint * (0.2f * intensity * opacity));
+                spriteBatch.Draw(invBack, rect, tint * (0.22f * intensity * opacity));
 
                 if (rayTexture != null && rayTexture.IsLoaded)
                 {
@@ -835,22 +716,18 @@ namespace Waybound.Content.Items.Accessories.Misc
                     Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp,
                         DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
 
-                    int rayCount = 6; 
-                    float globalRot = Main.GlobalTimeWrappedHourly * 1.6f + progress * 2.2f; 
+                    int rayCount = 6;
+                    float globalRot = Main.GlobalTimeWrappedHourly * 1.6f + progress * 2.2f;
 
                     for (int i = 0; i < rayCount; i++)
                     {
                         float angle = MathHelper.TwoPi / rayCount * i + globalRot;
-
                         float scaleX = 0.09f + 0.04f * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 3.5f + i);
                         float scaleY = 0.18f + 0.28f * intensity;
+                        Color rayColor = Color.Lerp(tint, Color.White, 0.35f) * (0.38f * intensity);
 
-                        Color rayColor = new Color(255, 235, 170) * (0.38f * intensity);
-
-                        Main.EntitySpriteDraw(ray, center, null, rayColor,
-                            angle, origin,
-                            new Vector2(scaleX, scaleY),
-                            SpriteEffects.None, 0);
+                        Main.EntitySpriteDraw(ray, center, null, rayColor, angle, origin,
+                            new Vector2(scaleX, scaleY), SpriteEffects.None, 0);
                     }
 
                     Main.spriteBatch.End();
@@ -858,15 +735,12 @@ namespace Waybound.Content.Items.Accessories.Misc
                         DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
                 }
 
-                if (Main.rand.NextBool(5)) 
+                if (Main.rand.NextBool(5))
                 {
                     Vector2 pos = GetDimensions().Center() + Main.rand.NextVector2Circular(11f, 11f);
                     Dust d = Dust.NewDustPerfect(pos, DustID.GoldFlame,
                         Main.rand.NextVector2Circular(0.6f, 0.6f) * (0.4f + intensity * 0.5f),
-                        140,                                          
-                        new Color(255, 230, 160),
-                        0.55f + intensity * 0.25f);                  
-
+                        140, tint, 0.55f + intensity * 0.25f);
                     d.noGravity = true;
                     d.fadeIn = 0.9f;
                 }
@@ -875,114 +749,38 @@ namespace Waybound.Content.Items.Accessories.Misc
             Utils.DrawBorderString(spriteBatch, (SlotIndex + 1).ToString(),
                 new Vector2(rect.X + 3f, rect.Y + 2f), Color.White * (0.22f * opacity), 0.5f);
 
-            if (_hover && !item.IsAir)
-            {
-                Main.HoverItem = item.Clone();
-                Main.hoverItemName = item.Name;
-            }
+            HandleVanillaSlot(bagPlayer);
         }
 
-        public override void MouseOver(UIMouseEvent evt)
+        // Весь ввод идёт через ванильный ItemSlot (как у сундука): слияние стаков, частичный перенос,
+        // замена предметов, правый клик с удержанием. Вручную больше ничего не двигаем - значит и дюпать нечему.
+        const int SlotContext = ItemSlot.Context.ChestItem;
+
+        void HandleVanillaSlot(DesfosBagPlayer bag)
         {
-            base.MouseOver(evt);
-            _hover = true;
+            if (!bag.bagActive || bag.opacity < 0.7f) { return; }
+            if (SlotIndex >= bag.extraSlots) { return; }
+            if (PlayerInput.IgnoreMouseInterface) { return; }
+            if (!ContainsPoint(Main.MouseScreen)) { return; }
+
+            // каждый кадр, пока курсор над слотом: иначе ваниль решит, что клик "мимо интерфейса"
+            // (использует предмет / выбрасывает его из руки), а мы ещё и положим его в слот
             Main.LocalPlayer.mouseInterface = true;
-        }
 
-        public override void MouseOut(UIMouseEvent evt)
-        {
-            base.MouseOut(evt);
-            _hover = false;
-        }
+            ref Item slot = ref bag.bagItems[SlotIndex];
+            ItemSlot.OverrideHover(ref slot, SlotContext);
 
-        public override void LeftClick(UIMouseEvent evt)
-        {
-            var bagPlayer = Main.LocalPlayer?.GetModPlayer<DesfosBagPlayer>();
-            if (bagPlayer == null || !bagPlayer.bagActive || bagPlayer.opacity < 0.7f) return;
-            if (SlotIndex >= bagPlayer.extraSlots) return;
-
-            Main.LocalPlayer.mouseInterface = true;
-            Main.mouseLeftRelease = false;
-            Main.mouseRightRelease = false;
-            Main.mouseLeft = false;
-            Main.LocalPlayer.releaseUseItem = false;
-            Main.LocalPlayer.controlUseItem = false;
-
-            ref Item slotItem = ref bagPlayer.bagItems[SlotIndex];
-            if (slotItem == null)
+            if (Main.mouseLeftRelease && Main.mouseLeft)
             {
-                slotItem = new Item();
-                slotItem.TurnToAir(true);
-            }
-
-            if (Main.mouseItem.IsAir)
-            {
-                if (!slotItem.IsAir)
-                {
-                    Main.mouseItem = slotItem.Clone();
-                    slotItem.TurnToAir(true);
-                    SoundEngine.PlaySound(SoundID.Grab);
-                }
+                ItemSlot.LeftClick(ref slot, SlotContext);
+                Recipe.FindRecipes();
             }
             else
             {
-                if (slotItem.IsAir)
-                {
-                    slotItem = Main.mouseItem.Clone();
-                    Main.mouseItem.TurnToAir(true);
-                    Main.mouseItem.SetDefaults(0);
-                    Main.mouseItem.type = 0;
-                    Main.mouseItem.stack = 0;
-                    Main.mouseItem.prefix = 0;
-
-                    Main.LocalPlayer.itemAnimation = 0;
-                    Main.LocalPlayer.itemTime = 0;
-                    Main.LocalPlayer.itemAnimationMax = 0;
-                    Main.LocalPlayer.releaseUseItem = false;
-                    Main.LocalPlayer.controlUseItem = false;
-                    SoundEngine.PlaySound(SoundID.Grab);
-                }
-                else
-                {
-                    Item temp = slotItem.Clone();
-                    slotItem = Main.mouseItem.Clone();
-                    Main.mouseItem = temp;
-
-                    Main.LocalPlayer.itemAnimation = 0;
-                    Main.LocalPlayer.itemTime = 0;
-                    SoundEngine.PlaySound(SoundID.Grab);
-                }
+                ItemSlot.RightClick(ref slot, SlotContext);
             }
-        }
 
-        public override void RightClick(UIMouseEvent evt)
-        {
-            var bagPlayer = Main.LocalPlayer?.GetModPlayer<DesfosBagPlayer>();
-            if (bagPlayer == null || !bagPlayer.bagActive || bagPlayer.opacity < 0.7f) return;
-            if (SlotIndex >= bagPlayer.extraSlots) return;
-
-            Main.LocalPlayer.mouseInterface = true;
-
-            ref Item slotItem = ref bagPlayer.bagItems[SlotIndex];
-            if (slotItem == null || slotItem.IsAir) return;
-
-            if (Main.mouseItem.IsAir)
-            {
-                Main.mouseItem = slotItem.Clone();
-                Main.mouseItem.stack = 1;
-                slotItem.stack--;
-                if (slotItem.stack <= 0)
-                    slotItem.TurnToAir(true);
-                SoundEngine.PlaySound(SoundID.Grab);
-            }
-            else if (Main.mouseItem.type == slotItem.type && Main.mouseItem.stack < Main.mouseItem.maxStack)
-            {
-                Main.mouseItem.stack++;
-                slotItem.stack--;
-                if (slotItem.stack <= 0)
-                    slotItem.TurnToAir(true);
-                SoundEngine.PlaySound(SoundID.Grab);
-            }
+            ItemSlot.MouseHover(ref slot, SlotContext);
         }
     }
 }

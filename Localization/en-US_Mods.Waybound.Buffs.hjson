@@ -62,3 +62,13 @@ DeepFire: {
 	DisplayName: Deep Fire
 	Description: Mods.Waybound.Buffs.DeepFire.Description
 }
+
+GoldKnightBuff: {
+	DisplayName: Gold Knight Buff
+	Description: Mods.Waybound.Buffs.GoldKnightBuff.Description
+}
+
+PlatinumKnightBuff: {
+	DisplayName: Platinum Knight Buff
+	Description: Mods.Waybound.Buffs.PlatinumKnightBuff.Description
+}

@@ -10,8 +10,6 @@ namespace Waybound.Content.Items.Weapons.Melee.Rapiers
 {
     public class IcebornRapier : ModItem
     {
-        public override void SetStaticDefaults() { }
-
         public override void SetDefaults()
         {
             Item.width = 42;
@@ -22,16 +20,15 @@ namespace Waybound.Content.Items.Weapons.Melee.Rapiers
             Item.damage = 8;
             Item.knockBack = 4f;
             Item.crit = 6;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.channel = true;
-            Item.autoReuse = false;
+            Item.channel = false;   
+            Item.autoReuse = true;    
             Item.shoot = ModContent.ProjectileType<IcebornRapierHoldout>();
             Item.shootSpeed = 1f;
-            Item.UseSound = SoundID.Item1;
         }
 
         public override bool CanUseItem(Player player)
@@ -49,12 +46,6 @@ namespace Waybound.Content.Items.Weapons.Melee.Rapiers
     public class IcebornRapierHoldout : BaseRapierHoldout
     {
         public override string RapierTexture => "Waybound/Content/Items/Weapons/Melee/Rapiers/IcebornRapier";
-        public override int MaxCharge => 55;
-        public override float MinLungeDistance => 95f;
-        public override float MaxLungeDistance => 185f;
-        public override float LungeOutSpeed => 0.26f;
-        public override float LungeReturnSpeed => 0.22f;
-        public override bool UseGreenPulse => true;
 
         protected override bool IsCorrectItem(Player player) => player.HeldItem.type == ModContent.ItemType<IcebornRapier>();
 
@@ -64,23 +55,21 @@ namespace Waybound.Content.Items.Weapons.Melee.Rapiers
         protected override Color GetGlowColor() => new Color(120, 200, 255, 180);
         protected override Color GetGreenPulseColor() => new Color(80, 255, 140, 220);
 
-        protected override void OnSpecialDuringGreenPulse(Player player)
+        protected override void OnEmpoweredStrike(Player player)
         {
-            Vector2 tip = Projectile.Center;
-            Vector2 velocity = Projectile.velocity * 14f;
-
-            int damage = (int)(Projectile.damage * 1.4f);
-            float knockback = Projectile.knockBack;
-
-            Projectile.NewProjectile(
-                Projectile.GetSource_FromThis(),
-                tip,
-                velocity,
-                ModContent.ProjectileType<IcebornRifleProj>(),
-                damage,
-                knockback,
-                player.whoAmI
-            );
+            int damage = (int)(Projectile.damage * 0.9f);
+            for (int i = -1; i <= 1; i++)
+            {
+                Vector2 vel = Projectile.velocity.RotatedBy(i * 0.14f) * 14f;
+                Projectile.NewProjectile(
+                    Projectile.GetSource_FromThis(),
+                    Tip,
+                    vel,
+                    ModContent.ProjectileType<IcebornRifleProj>(),
+                    damage,
+                    Projectile.knockBack,
+                    player.whoAmI);
+            }
         }
     }
 }

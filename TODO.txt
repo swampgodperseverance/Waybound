@@ -1,2 +1,8 @@
-Laser guns dusts need to be changed to particles
-Desert Hunter Battle axe direction fix
+Make Yoyo cooler
+Pans hitbox fix
+Korochun needs relic, mask and the master pet
+BESTIARY
+
+DEEPSTONE GOLEM COOP FIX
+Crystal Guardian loc fix
+Crystal guardian notes in coop unreadable 

@@ -9,7 +9,9 @@ namespace Waybound.Common.Biome
 {
 	public class CrystalDepthsBiome : ModBiome
 	{
-		public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.Find<ModUndergroundBackgroundStyle>("Waybound/CrystalDepthsBackgroundStyle");
+		public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => 
+		ModContent.GetInstance<CrystalDepthsBackgroundStyle>();
+
 
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/CrystalDepths");
 
@@ -17,7 +19,7 @@ namespace Waybound.Common.Biome
 
 		public override string BackgroundPath => "Waybound/Assets/Textures/Bestiary/CrystalDepthsBestiary_Background";
 		public override string BestiaryIcon => "Waybound/Assets/Textures/Bestiary/CrystalDepthsBestiary";
-		public override string MapBackground => "Waybound/Assets/Textures/Bestiary/CrystalDepthsBackgroundMap";
+		public override string MapBackground => "Waybound/Assets/Textures/Backgrounds/CrystalDepthsBackgroundMap";
 		public override Color? BackgroundColor => base.BackgroundColor;
 
 		public override bool IsBiomeActive(Player player)

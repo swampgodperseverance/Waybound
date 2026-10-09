@@ -37,7 +37,6 @@ public class BloodyNecklacePlayer : ModPlayer {
     }
     public override void ResetEffects() => equipped = false;
     public override void PostUpdate() {
-        //Main.NewText(Player.tileEntityAnchor.interactEntityID);
         if (ActiveMode == 0) { return; }
         _maxHP = (int)(Player.statLifeMax2 * GetLevel(1f, .8f, .6f, .4f, .2f));
         if (Player.statLife > _maxHP) { Player.statLife = _maxHP; };

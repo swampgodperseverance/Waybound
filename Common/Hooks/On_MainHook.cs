@@ -1,9 +1,8 @@
 ﻿using ReLogic.Content;
 using Terraria;
 using Terraria.ID;
-using Waybound.Common.Biome;
+using Waybound.Common.Biome.Water;
 using Waybound.Common.GlobalPlayer;
-using Waybound.Common.Water;
 using Waybound.Common.WUtils;
 
 namespace Waybound.Common.Hooks;
@@ -11,35 +10,26 @@ namespace Waybound.Common.Hooks;
 internal static class On_MainHook {
     internal static void Load() {
         On_Main.DrawHealthBar += FixNPCHPBar; // if(HP != MaxHP) { Draw(); };
-        On_Main.MouseTextHackZoom_string_int_byte_string += EditTextPos; // fix hover NPC text
-        On_Main.MouseText_string_string_int_byte_int_int_int_int_int_bool += EditTextPos2;
+        On_Main.MouseText_string_string_int_byte_int_int_int_int_int_bool += EditTextPos; // Edit pos
         On_Main.DrawInterface_36_Cursor += DrawBar; // Draw bar for acc ThunderSigil
-        On_Main.DrawMenu += On_Main_DrawMenu;
+        On_Main.DrawMenu += DrawMenu;
         On_Main.CalculateWaterStyle += On_Main_CalculateWaterStyle;
+        On_Main.GetInfoAccIconPosition += On_Main_GetInfoAccIconPosition;
     }
 
-    static void EditTextPos2(On_Main.orig_MouseText_string_string_int_byte_int_int_int_int_int_bool orig, Main self, string cursorText, string buffTooltip, int rare, byte diff, int hackedMouseX, int hackedMouseY, int hackedScreenWidth, int hackedScreenHeight, int pushWidthX, bool noOverride) {
+    static void FixNPCHPBar(On_Main.orig_DrawHealthBar orig, Main self, float X, float Y, int Health, int MaxHealth, float alpha, float scale, bool noFlip) {
+        if (Health != MaxHealth) { orig(self, X, Y, Health, MaxHealth, alpha, scale, noFlip); };
+    }
+    static void EditTextPos(On_Main.orig_MouseText_string_string_int_byte_int_int_int_int_int_bool orig, Main self, string cursorText, string buffTooltip, int rare, byte diff, int hackedMouseX, int hackedMouseY, int hackedScreenWidth, int hackedScreenHeight, int pushWidthX, bool noOverride) {
         string newPosText = "[" + Waybound.ModName + "]: new text pos";
         bool flag = false;
 
         if (!Main.gameMenu) { flag = Main.LocalPlayer.GetModPlayer<ThunderSigilPlayer>().BarAlpha > 0; };
-        if (cursorText.StartsWith(newPosText) || flag) {
-            orig(self, cursorText, buffTooltip, rare, diff, Main.mouseX + 4, Main.mouseY - 22, hackedScreenWidth, hackedScreenHeight, pushWidthX, noOverride);
+        if (cursorText.StartsWith(newPosText) && flag) {
+            orig(self, cursorText[newPosText.Length..], buffTooltip, rare, diff, Main.mouseX + 4, Main.mouseY - 22, hackedScreenWidth, hackedScreenHeight, pushWidthX, noOverride);
             return;
         }
         orig(self, cursorText, buffTooltip, rare, diff, hackedMouseX, hackedMouseY, hackedScreenWidth, hackedScreenHeight, pushWidthX, noOverride);
-    }
-    static void FixNPCHPBar(On_Main.orig_DrawHealthBar orig, Main self, float X, float Y, int Health, int MaxHealth, float alpha, float scale, bool noFlip) {
-        if (Health != MaxHealth) { orig(self, X, Y, Health, MaxHealth, alpha, scale, noFlip); };
-    }
-    static void EditTextPos(On_Main.orig_MouseTextHackZoom_string_int_byte_string orig, Main self, string text, int itemRarity, byte diff, string buffTooltip) {
-        string newPosText = "[" + Waybound.ModName + "]: new text pos";
-        if (text.StartsWith(newPosText)) {
-            self.MouseText(text[newPosText.Length..], buffTooltip, itemRarity, diff, Main.mouseX + 4, Main.mouseY - 22);
-            return;
-        }
-
-        orig(self, text, itemRarity, diff, buffTooltip);
     }
     static void DrawBar(On_Main.orig_DrawInterface_36_Cursor orig) {
         orig();
@@ -66,7 +56,7 @@ internal static class On_MainHook {
             };
         };
     }
-    static void On_Main_DrawMenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime) {
+    static void DrawMenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime) {
         orig(self, gameTime);
         if (Main.menuMode == 0) {
             IL_UICharacterCreationHook.saveData = null;
@@ -80,13 +70,18 @@ internal static class On_MainHook {
             return orig(ignoreFountains);
         }
     }
-    //=> Main.LocalPlayer.InModBiome<CryoLake>() ? GetInstance<CryoFluid>().Slot : orig(ignoreFountains);
+    static void On_Main_GetInfoAccIconPosition(On_Main.orig_GetInfoAccIconPosition orig, int drawnCount, int StartX, out int X, out int Y) {
+        orig(drawnCount, StartX, out X, out Y);
+        Y += 40 + Main.LocalPlayer.GetModPlayer<StaminaPlayer>().mapScaleY;
+        //orig.Invoke(drawnCount, StartX, out X, out Y);
+    }
+
+
     internal static void Unload() {
         On_Main.DrawHealthBar -= FixNPCHPBar;
-        On_Main.MouseTextHackZoom_string_int_byte_string -= EditTextPos;
-        On_Main.MouseText_string_string_int_byte_int_int_int_int_int_bool -= EditTextPos2;
+        On_Main.MouseText_string_string_int_byte_int_int_int_int_int_bool -= EditTextPos;
         On_Main.DrawInterface_36_Cursor -= DrawBar; 
-        On_Main.DrawMenu -= On_Main_DrawMenu;
+        On_Main.DrawMenu -= DrawMenu;
         On_Main.CalculateWaterStyle -= On_Main_CalculateWaterStyle;
     }
 }

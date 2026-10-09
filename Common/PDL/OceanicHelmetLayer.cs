@@ -13,6 +13,7 @@ public class OceanicHelmetLayer : PlayerDrawLayer {
         if (player.armor[10].type != ItemID.None && player.armor[10].type != ItemType<OceanicHelmet>()) { return; };
         int x = (int)(drawInfo.Position.X + player.width / 2f - Main.screenPosition.X);
         int y = (int)(drawInfo.Position.Y + player.height / 2f - Main.screenPosition.Y - 3);
+        if(player.mount.Active) { y += player.mount.YOffset; };
         drawInfo.DrawDataCache.Add(new(Resources.Textures.Extaras[6].Value, new(x + (player.direction == 1 ? -3 : 3), y - 13), Resources.Textures.Extaras[6].Value.Frame(1, 8, 0, (int)(Main.GlobalTimeWrappedHourly * 12f) % 8), drawInfo.colorArmorHead, 0f, Resources.Textures.Extaras[6].Value.Frame(1, 8, 0, 0).Size() / 2f, 1f, drawInfo.playerEffect, 0) { shader = drawInfo.cHead });
     }
 };

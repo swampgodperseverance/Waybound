@@ -67,6 +67,7 @@ namespace Waybound.Content.Buffs.Debuffs
 			deepFire = false;
 		}
 
+
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
 			if (deepFire)

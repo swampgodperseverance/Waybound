@@ -68,3 +68,31 @@ DeepWoodSink.MapEntry: Deep Wood Sink
 DeepWoodSofa.MapEntry: Deep Wood Sofa
 DeepWoodTable.MapEntry: Deep Wood Table
 DeepWoodWorkbench.MapEntry: Deep Wood Workbench
+ScorchedWoodWorkbench.MapEntry: Scorched Wood Workbench
+ScorchedWoodToilet.MapEntry: Scorched Wood Toilet
+ScorchedWoodTable.MapEntry: Scorched Wood Table
+ScorchedWoodSofa.MapEntry: Scorched Wood Sofa
+ScorchedWoodSink.MapEntry: Scorched Wood Sink
+ScorchedWoodPiano.MapEntry: Scorched Wood Piano
+ScorchedWoodLantern.MapEntry: Scorched Wood Lantern
+ScorchedWoodLamp.MapEntry: Scorched Wood Lamp
+ScorchedWoodDresser.MapEntry: Scorched Wood Dresser
+ScorchedWoodDoorOpen.MapEntry: Scorched Wood Door Open
+ScorchedWoodDoorClosed.MapEntry: Scorched Wood Door Closed
+ScorchedWoodClock.MapEntry: Scorched Wood Clock
+
+ScorchedWoodChest: {
+	MapEntry: Scorched Wood Chest
+	ChestName: Mods.Waybound.Tiles.ScorchedWoodChest.ChestName
+}
+
+ScorchedWoodChandelier.MapEntry: Scorched Wood Chandelier
+ScorchedWoodChair.MapEntry: Scorched Wood Chair
+ScorchedWoodCandle.MapEntry: Scorched Wood Candle
+ScorchedWoodCandelabra.MapEntry: Scorched Wood Candelabra
+ScorchedWoodBookcase.MapEntry: Scorched Wood Bookcase
+ScorchedWoodBed.MapEntry: Scorched Wood Bed
+ScorchedWoodBathtub.MapEntry: Scorched Wood Bathtub
+LastFroggyBanner.MapEntry: Last Froggy Banner
+CrystalBatBanner.MapEntry: Crystal Bat Banner
+CrystalHermitBanner.MapEntry: Crystal Hermit Banner

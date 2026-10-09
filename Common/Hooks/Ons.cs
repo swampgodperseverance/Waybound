@@ -2,8 +2,6 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
@@ -11,8 +9,6 @@ using Terraria.Localization;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Waybound.Common.GlobalPlayer;
-using Waybound.Common.ItemDropRules;
-using Waybound.Common.Water;
 using Waybound.Common.WUtils;
 using Waybound.Content.Race;
 
@@ -21,6 +17,8 @@ namespace Waybound.Common.Hooks;
 internal static class Ons {
     internal static void Load() {
         On_MainHook.Load();
+        //On_Main.DrawMap += On_Main_DrawMap;
+        //Main.DrawInterface_28_InfoAccs
         On_OverlayManager.Draw += On_OverlayManager_Draw;
 
         On_PlayerDrawLayers.DrawPlayer_28_ArmOverItem += FixNeck;
@@ -42,7 +40,6 @@ internal static class Ons {
             }
         }
     }
-
     static void FixNeck(On_PlayerDrawLayers.orig_DrawPlayer_28_ArmOverItem orig, ref PlayerDrawSet drawinfo) {
         orig(ref drawinfo);
         if (drawinfo.drawPlayer.GetModPlayer<BloodyNecklacePlayer>().equipped) {
@@ -61,7 +58,7 @@ internal static class Ons {
             orig(self, spriteBatch, texture, color);
             return;
         }
-        if (IL_UICharacterCreationHook.saveData.openRaceUI || IL_UICharacterCreationHook.saveData.raceConfirmUI != null) {
+        if (IL_UICharacterCreationHook.saveData.openRaceUI) {
             if (self is UITextPanel<LocalizedText> button) {
                 if (button.Text == Language.GetText("UI.Back").Value || button.Text == Language.GetText("UI.Create").Value || button.Text == Loc.GetUI("PlayerRaceMenu.Create")) {
                     CalculatedStyle dimensions = button.GetDimensions();

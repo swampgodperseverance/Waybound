@@ -7,6 +7,7 @@ using Terraria.ID;
 using Waybound.Content.Projectiles.Base;
 using Waybound.Helpers;
 using Waybound.Particles;
+using Waybound.Resources;
 
 namespace Waybound.Content.Items.Weapons.Melee.Heavy;
 
@@ -26,7 +27,7 @@ public class BaseballBat : ModItem
         Item.noUseGraphic = true;
         Item.useTime = 40;
         Item.useAnimation = 40;
-        Item.UseSound = SoundID.Item7;
+        Item.UseSound = Audio.Get("HeavyWeapon_Swing");
         Item.autoReuse = true;
         Item.DamageType = DamageClass.Melee;
         Item.damage = 50;
@@ -53,10 +54,30 @@ public class BaseballBatProjectile : BaseHeavySword
 
     protected override bool CanHit_OnSpecial(NPC target) => SpecialTimer > WIND_UP_TIME;
 
-    protected override void OnClick()
+    protected override void InitializeTrail()
     {
-        SoundEngine.PlaySound(SoundID.Item7,  Projectile.Center);
+        Trail = new DrawHelper.RibbonTrail(6);
+        Trail.Initialize();
+
+        Color color = new Color(189, 117, 82);
+        Trail.SetPasses(
+            x => (
+                -4,
+                Color.Lerp(color * 0.4f, Color.Transparent, x * x),
+                -4 * (x * x),
+                Color.Lerp(color * 0.7f, Color.Transparent, x * x),
+                null
+            ),
+            x => (
+                -4 + -28 * (1f - x),
+                Color.Transparent,
+                -4,
+                Color.Lerp(color * 0.3f, Color.Transparent, x * x),
+                null
+            )
+        );
     }
+    
 
     protected override void CastSpecialAttack()
     {
@@ -65,6 +86,8 @@ public class BaseballBatProjectile : BaseHeavySword
         Projectile.ResetLocalNPCHitImmunity();
         SoundEngine.PlaySound(SoundID.Item7,  Projectile.Center);
         CurrentState = AttackState.Special;
+        
+        ClearTrail();
     }
 
     private ref float SpecialTimer => ref Projectile.ai[1];
@@ -117,16 +140,14 @@ public class BaseballBatProjectile : BaseHeavySword
         
         float progress = time / THROW_BALL_TIME;
         UpdateAngle(MaxAngle, MinAngle, EaseFunctions.EaseOutCubic(progress));
-        
-        DrawTrail();
+        Direction = SwingDirection.Down;
+        UpdateTrail();
     }
 
     private void End()
     {
         SpecialTimer = 0;
         TimeLeft = ComboContinueTime;
-        //this will switch to up once lmb is clicked
-        Direction = SwingDirection.Down;
         CurrentState = AttackState.Default;
     }
 
@@ -138,7 +159,7 @@ public class BaseballBatProjectile : BaseHeavySword
         Vector2 direction = Main.MouseWorld - ballPosition;
         direction.Normalize();
 
-        SoundEngine.PlaySound(SoundID.Item70,  Projectile.Center);
+        SoundEngine.PlaySound(Audio.Get("BaseballBat_BallHit"),  Projectile.Center);
         if(Main.myPlayer == Projectile.owner)
             Projectile.NewProjectile(
                 Terraria.Entity.GetSource_None(),
@@ -180,7 +201,7 @@ public class BaseballBatProjectile : BaseHeavySword
 
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         if (SpecialTimer >= WIND_UP_TIME)
-            DrawTrail(texture, lightColor);
+            DrawTrail(lightColor);
         DrawSword(texture, Projectile.rotation, lightColor);
     }
 }

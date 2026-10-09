@@ -1,27 +1,30 @@
 using System;
-using ParticleLibrary.Core.V3.Particles;
-using ParticleLibrary.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
+using Waybound.Content.Items.Weapons.Melee.Heavy;
 using Waybound.Helpers;
-using Waybound.Particles;
+using Waybound.Resources;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Waybound.Content.Projectiles.Base;
 
+/// <summary>
+/// The base class for all heavy weapons' sword projectile. <br/>
+/// If you want to add your own heavy weapon, check <see cref="BaseballBat"/> as a reference for that.
+/// </summary>
 public abstract class BaseHeavySword : ModProjectile
 {
     #region Properties & Fields
     
     /// <summary>
     /// Representation of <see cref="Projectile.ai"/>[0] in <see cref="int"/> for writing and reading internal data. <br/>
-    /// • 1-8 bits - current combo; <br/>
-    /// • 9-20 bits - time left (syncs automatically with <see cref="Projectile.timeLeft"/>; <br/>
-    /// • 21 bit - direction (0 is up, 1 is down); <br/>
-    /// • 22 bit - state (0 is default state, 1 is special state). <br/>
+    /// • 1-8 bits - <see cref="Combo"/>; <br/>
+    /// • 9-20 bits - <see cref="TimeLeft"/>; <br/>
+    /// • 21 bit - <see cref="Direction"/>; <br/>
+    /// • 22 bit - <see cref="CurrentState"/>. <br/>
     /// 23-32 bits remain unused, so if your projectile needs to store some extra data
     /// (and Projectile.ai[1-2] is not enough for some reason), you can store it here.
     /// </summary>
@@ -60,6 +63,7 @@ public abstract class BaseHeavySword : ModProjectile
     /// <summary>
     /// Remaining projectile lifetime that's synced with server and other clients. <br/>
     /// You <b>should</b> use it instead of <see cref="Projectile.timeLeft"/> (mostly because changing it will do nothing).
+    /// <b>Note: TimeLeft should NOT be more than 4095.</b>
     /// </summary>
     protected int TimeLeft
     {
@@ -107,7 +111,7 @@ public abstract class BaseHeavySword : ModProjectile
     /// <summary>
     /// Length of the projectile hitbox.
     /// </summary>
-    protected virtual float SwordLength => 46f;
+    protected virtual float SwordLength => 50f;
     
     /// <summary>
     /// The angle (in degrees) of the sword on the sprite itself (0 = sword lying horizontally)
@@ -138,11 +142,6 @@ public abstract class BaseHeavySword : ModProjectile
     /// Time after a swing in which player can press LMB/RMB to continue combo attack. (in ticks)
     /// </summary>
     protected virtual int ComboContinueTime => 15;
-
-    /// <summary>
-    /// Length of the projectile trail in <see cref="DrawTrail()"/>.
-    /// </summary>
-    protected virtual int TrailLength => 4;
     
     #endregion
     
@@ -153,7 +152,7 @@ public abstract class BaseHeavySword : ModProjectile
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailingMode[Type] = 2;
-        ProjectileID.Sets.TrailCacheLength[Type] = TrailLength;
+        ProjectileID.Sets.TrailCacheLength[Type] = 1;
         
         SetStaticDefaults_Extra();
     }
@@ -183,8 +182,6 @@ public abstract class BaseHeavySword : ModProjectile
     {
         Direction = SwingDirection.Down;
         Projectile.rotation = MaxAngle;
-        for(int i = 0; i < TrailLength; i++)
-            Projectile.oldRot[i] = Projectile.rotation;
         TimeLeft = SwingTime + ComboContinueTime;
         
         OnSpawn_Extra(source);
@@ -229,11 +226,13 @@ public abstract class BaseHeavySword : ModProjectile
         OnHitNPC_Extra(target, hit, damageDone);
     }
     protected virtual void OnHitNPC_Extra(NPC target, NPC.HitInfo hit, int damageDone) { }
+
+    protected Vector2 GetSwordEdgePosition() => Projectile.Center + GetSwordEdgeOffset(Projectile.rotation);
     
-    protected Vector2 GetSwordEdgePosition()
+    protected Vector2 GetSwordEdgeOffset(float rotation)
     {
-        float finalRotation = MathHelper.PiOver2 - Projectile.rotation * Projectile.spriteDirection;
-        return Projectile.Center + new Vector2((SwordLength + SwordHiltOffset) * Projectile.scale + HAND_OFFSET_X, 0f).RotatedBy(finalRotation);
+        float finalRotation = MathHelper.PiOver2 - rotation * Projectile.spriteDirection;
+        return new Vector2((SwordLength + SwordHiltOffset) * Projectile.scale + HAND_OFFSET_X, 0f).RotatedBy(finalRotation);
     }
 
     protected Player Owner => Main.player[Projectile.owner];
@@ -275,24 +274,18 @@ public abstract class BaseHeavySword : ModProjectile
             {
                 CastSpecialAttack();
                 Projectile.netUpdate = true;
-                return;
             }
         }
 
-        if (Direction == SwingDirection.Down)
-            UpdateAngle(MaxAngle, MinAngle);
-        else
-            UpdateAngle(MinAngle, MaxAngle);
-        
-        if(TimeLeft > ComboContinueTime + 5 && TimeLeft < SwingTime + ComboContinueTime - 5)
-            DrawTrail();
+        UpdateAngle();
+        UpdateTrail();
         
         Owner.SetCompositeArmFront(
             true,
             Player.CompositeArmStretchAmount.Full, 
             Projectile.rotation * -Projectile.spriteDirection
         );
-
+        
         TimeLeft--;
     }
     protected virtual void AI_OnSpecial() {}
@@ -317,6 +310,46 @@ public abstract class BaseHeavySword : ModProjectile
     protected void UpdateAngle(float angleFrom, float angleTo, float progress)
     {
         Projectile.rotation = MathHelper.Lerp(angleFrom, angleTo, progress);
+    }
+    protected void UpdateAngle()
+    {
+        if (Direction == SwingDirection.Down)
+            UpdateAngle(MaxAngle, MinAngle);
+        else
+            UpdateAngle(MinAngle, MaxAngle);
+    }
+
+    protected const float TRAIL_INTERPOLATION_STEP = MathHelper.Pi / 36;
+    protected void UpdateTrail()
+    {
+        if (Trail == null)
+            return;
+
+        if (_needClearTrail)
+        {
+            _needClearTrail = false;
+            Trail.Clear();
+            return;
+        }
+        
+        Trail.Update();
+        
+        if (TimeLeft <= ComboContinueTime)
+            return;
+        
+        int direction = Math.Sign(Projectile.rotation - Projectile.oldRot[0]);
+        float currentRotation = Projectile.oldRot[0] + TRAIL_INTERPOLATION_STEP * direction;
+
+        bool iterated = false;
+        while ((currentRotation < Projectile.rotation && direction == 1) ||
+               (currentRotation > Projectile.rotation && direction == -1))
+        {
+            Trail.Add(GetSwordEdgeOffset(currentRotation));
+            currentRotation += TRAIL_INTERPOLATION_STEP * direction;
+            iterated = true;
+        }
+        if(!iterated)
+            Trail.Add(GetSwordEdgeOffset(Projectile.rotation));
     }
 
     public override void OnKill(int timeLeft)
@@ -347,8 +380,9 @@ public abstract class BaseHeavySword : ModProjectile
         TimeLeft = SwingTime + ComboContinueTime;
         Projectile.ResetLocalNPCHitImmunity();
         Owner.direction = Main.MouseWorld.X < Projectile.Center.X ? -1 : 1;
+        UpdateAngle();
+        ClearTrail();
         OnClick();
-        Projectile.netUpdate = true;
     }
 
     /// <summary>
@@ -356,7 +390,7 @@ public abstract class BaseHeavySword : ModProjectile
     /// </summary>
     protected virtual void OnClick()
     {
-        SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
+        SoundEngine.PlaySound(Audio.Get("HeavyWeapon_Swing"), Projectile.Center);
     }
 
     #region Drawing
@@ -390,34 +424,55 @@ public abstract class BaseHeavySword : ModProjectile
         );
     }
 
-    protected virtual void DrawTrail()
-    {
-        Vector2 offset = Main.rand.NextVector2Unit() * 1f;
-        ParticleSystem.TrailBuffer.Create(new ParticleInfo(
-            position: (GetSwordEdgePosition() + offset).ToNumerics(),
-            velocity: System.Numerics.Vector2.Zero,
-            rotation: Projectile.rotation * -Projectile.spriteDirection,
-            scale: new System.Numerics.Vector2(24f, 12f),
-            color: new Color(255, 255, 255, 80),
-            duration: 30
-        ));
-    }
-
     protected virtual void DefaultDraw(ref Color lightColor)
     {
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         
-        DrawTrail(texture, lightColor);
+        DrawTrail(lightColor);
         DrawSword(texture, Projectile.rotation, lightColor);
     }
 
-    protected virtual void DrawTrail(Texture2D texture, Color lightColor)
+    protected DrawHelper.RibbonTrail Trail;
+    protected virtual void DrawTrail(Color lightColor)
     {
-        for (int i = 0; i < TrailLength; i++)
-        {
-            float alpha = MathHelper.Clamp(0.75f - (float)i / TrailLength, 0, 1); 
-            DrawSword(texture, Projectile.oldRot[i], lightColor.WithAlpha(0.4f) * alpha);
-        }
+        if (Trail == null)
+            InitializeTrail();
+        
+        Trail?.Draw(
+            lightColor,
+            Direction == SwingDirection.Up ^ Projectile.spriteDirection == -1,
+            offset: Projectile.Center
+        );
+    }
+
+    private bool _needClearTrail;
+    protected void ClearTrail() => _needClearTrail = true;
+    
+    /// <summary>
+    /// The method where you can (and probably should) initialize your custom swing trail. <br/>
+    /// If trail wasn't initialized, then it just won't be drawn and updated at all.
+    /// </summary>
+    protected virtual void InitializeTrail()
+    {
+        Trail = new DrawHelper.RibbonTrail(10);
+        Trail.Initialize();
+
+        Trail.SetPasses(
+            x => (
+                -4f,
+                Color.Lerp(Color.White * 0.6f, Color.Transparent, x * x),
+                0f,
+                Color.Lerp(Color.White * 0.8f, Color.Transparent, x * x),
+                null
+            ),
+            x => (
+                -32f,
+                Color.Transparent,
+                -4f,
+                Color.Lerp(Color.White * 0.3f, Color.Transparent, x * x),
+                null
+            )
+        );
     }
 
     protected virtual void DrawSword(Texture2D texture, float rotation, Color lightColor)
