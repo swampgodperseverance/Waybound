@@ -54,37 +54,35 @@ public class TidebreakerProjectile : BaseHeavySword
     protected override int ComboContinueTime => 20;
 
     protected override float SwordLength => 90f;
-
-    protected override int TrailLength => 8;
     
     protected override void SetDefaults_Extra()
     {
         Projectile.scale = 1.25f;
     }
     
-    protected override void SpawnParticles()
-    {
-        Vector2 swordEdgePosition = GetSwordEdgePosition();
-        
-        ParticleSystem.TrailBuffer.Create(new ParticleInfo(
-            position: Vector2.Lerp(Projectile.Center, swordEdgePosition, 0.9f).ToNumerics(),
-            velocity: System.Numerics.Vector2.Zero,
-            rotation: Projectile.rotation * -Projectile.spriteDirection,
-            scale: new System.Numerics.Vector2(96f, 48f),
-            color: new Color(172, 227, 255, 80),
-            duration: 45
-        ));
-
-        for (int i = 0; i < 5; i++)
-        {
-            float progress =  (float)i / 5;
-            Dust.NewDust(
-                Vector2.Lerp(Projectile.Center, swordEdgePosition, progress),
-                16, 16,
-                DustID.Water_Snow
-            );
-        }
-    }
+    // protected override void SpawnParticles()
+    // {
+    //     Vector2 swordEdgePosition = GetSwordEdgePosition();
+    //     
+    //     ParticleSystem.TrailBuffer.Create(new ParticleInfo(
+    //         position: Vector2.Lerp(Projectile.Center, swordEdgePosition, 0.9f).ToNumerics(),
+    //         velocity: System.Numerics.Vector2.Zero,
+    //         rotation: Projectile.rotation * -Projectile.spriteDirection,
+    //         scale: new System.Numerics.Vector2(96f, 48f),
+    //         color: new Color(172, 227, 255, 80),
+    //         duration: 45
+    //     ));
+    //
+    //     for (int i = 0; i < 5; i++)
+    //     {
+    //         float progress =  (float)i / 5;
+    //         Dust.NewDust(
+    //             Vector2.Lerp(Projectile.Center, swordEdgePosition, progress),
+    //             16, 16,
+    //             DustID.Water_Snow
+    //         );
+    //     }
+    // }
 
     public override void PostAI()
     {

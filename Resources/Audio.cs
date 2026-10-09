@@ -1,4 +1,6 @@
-﻿namespace Waybound.Resources;
+﻿using Terraria.Audio;
+
+namespace Waybound.Resources;
 
 public class Audio {
     static readonly System.Collections.Generic.Dictionary<string, Terraria.Audio.SoundStyle> registerSounds = [];
@@ -10,6 +12,12 @@ public class Audio {
         Set("ThunderSigil_Restoration");
         Set("ThunderSigil_Destruction");
         Set("BloodyNecklace");
+
+        SoundStyle heavyWeaponSwing = new SoundStyle("Waybound/Assets/Sounds/Effect/HeavyWeapon_Swing");
+        heavyWeaponSwing.PitchRange = (-0.3f, -0.1f);
+        registerSounds.Add("HeavyWeapon_Swing", heavyWeaponSwing);
+        
+        Set("BaseballBat_BallHit");
     }
     internal static void Unload() { }
 };
