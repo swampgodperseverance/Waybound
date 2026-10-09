@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Waybound.Resources;
 
 namespace Waybound.Helpers;
 
@@ -124,23 +125,14 @@ public static class DrawHelper
         {
             if (Main.dedServ || Points.Count < 3)
                 return;
+
+            BasicEffect currentEffect = effect ?? Effects.BasicEffect;
             
-            if (Effect == null || Effect.IsDisposed)
-            {
-                Effect = new BasicEffect(GraphicsDevice)
-                {
-                    VertexColorEnabled = true,
-                    TextureEnabled = true,
-                    LightingEnabled = false,
-                    World = Matrix.Identity
-                };
-            }
+            currentEffect.Texture = texture ?? TextureAssets.MagicPixel.Value;
+            currentEffect.View = Main.GameViewMatrix.TransformationMatrix;
+            currentEffect.Projection = Matrix.CreateOrthographicOffCenter(0f, Main.screenWidth, Main.screenHeight, 0f, -1f, 1f);
             
-            Effect.Texture = Texture ?? TextureAssets.MagicPixel.Value;
-            Effect.View = Main.GameViewMatrix.TransformationMatrix;
-            Effect.Projection = Matrix.CreateOrthographicOffCenter(0f, Main.screenWidth, Main.screenHeight, 0f, -1f, 1f);
-            
-            foreach (EffectPass pass in Effect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in currentEffect.CurrentTechnique.Passes)
                 pass.Apply();
             VertexBufferBinding[] buffer = GraphicsDevice.GetVertexBuffers();
             
@@ -170,7 +162,7 @@ public static class DrawHelper
                     forward = Vector2.UnitX;
                 forward.Normalize();
 
-                float progress = 1f - (point.Timestamp - Tick) / (float)LifeTime;
+                float progress = 1f - (point.Timestamp - Tick) / (float)lifeTime;
                 pass.Calculate(progress);
                 
                 Vector2 normal = sideways ? new Vector2(-forward.Y, forward.X) : forward;

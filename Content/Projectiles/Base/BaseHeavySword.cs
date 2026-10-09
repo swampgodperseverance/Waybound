@@ -356,7 +356,6 @@ public abstract class BaseHeavySword : ModProjectile
     {
         Owner.itemAnimation = 0;
         Owner.itemTime = 0;
-        Trail?.Dispose();
         OnKill_Extra(timeLeft);
     }
     protected virtual void OnKill_Extra(int timeLeft) {}
