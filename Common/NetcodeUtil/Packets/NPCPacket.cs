@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Waybound.Common.Water;
+using Waybound.Common;
 
 namespace Waybound.Common.NetCodeUtil.Packets;
 

@@ -23,8 +23,8 @@ internal static class Loader {
         UI.WindowChatColor(ConsoleColor.Magenta, DebugLoc.GetLoc("Partical"));
         Console.ForegroundColor = ConsoleColor.DarkMagenta;
         Waybound.Instance.Logger.Info(DebugLoc.GetLoc("Hook"));
-        //Common.Hooks.Ons.Load();
-        //Common.Hooks.ILs.Load();
+        Common.Hooks.Ons.Load();
+        Common.Hooks.ILs.Load();
         Common.TagHandlers.TagLoader.Load();
         Console.ResetColor();
         UI.WindowChatColor(ConsoleColor.Green, DebugLoc.GetLoc("End"));

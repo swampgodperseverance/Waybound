@@ -10,7 +10,8 @@ namespace Waybound.Common.Hooks;
 internal class IL_MainHook {
     public static void Load() {
         IL_Main.HoverOverNPCs += HoverNPC; // Added Point if mouse in NPC
-        IL_Main.DrawInterface_14_EntityHealthBars += DrawBar; // Active draw if hp == maxHp
+        //IL_Main.DrawInterface_14_EntityHealthBars += DrawBar; // Active draw if hp == maxHp
+        //fix yo shit brother 😭
         IL_Main.CraftItem += DisableCraft;
         IL_Main.DrawMap += IL_Main_DrawMap;
     }
@@ -103,7 +104,7 @@ internal class IL_MainHook {
 
     public static void Unload() {
         IL_Main.HoverOverNPCs -= HoverNPC; // Added Point if mouse in NPC
-        IL_Main.DrawInterface_14_EntityHealthBars -= DrawBar; // Active draw if hp == maxHp
+        //IL_Main.DrawInterface_14_EntityHealthBars -= DrawBar; // Active draw if hp == maxHp
         IL_Main.CraftItem -= DisableCraft; //
     }
 };
