@@ -16,6 +16,8 @@ internal static class HeartStructureTiles
     public static ushort Wall => (ushort)WallType<ResinWall>();
 }
 
+
+
 public class HeartStructure : BaseWorldGens
 {
     // Gen variables
@@ -34,8 +36,11 @@ public class HeartStructure : BaseWorldGens
 
     public float AmplitudeInnerFac => 0.14f;
     public float AmplitudeOuterFac => 0.10f;
-    
-    
+
+
+    public readonly int EvilBiomeSearchStep = 50;
+    public readonly int EvilBiomeClusterThreshold = 200;
+
         
 
     public (int x, int y) Center { get; private set; }
@@ -54,9 +59,11 @@ public class HeartStructure : BaseWorldGens
     {
         progress.Message = Loc.GetChat("WorldGen.HeartStructure");
 
-        FindEvilBiome(WorldGen.crimson);
+        var biomes = FindEvilBiomes(WorldGen.crimson);
+        var inWhichBiome = WorldGen.genRand.Next(biomes.Count);
 
-        Center = GetSpawnPosition();
+    
+        Center = GetSpawnPosition(biomes[inWhichBiome]);
         VeinsGen(Center.x, Center.y);
         RoomGen(Center.x, Center.y);
         SlopeTiles();
@@ -64,31 +71,35 @@ public class HeartStructure : BaseWorldGens
     }
 
 
-    private (int x, int y) GetSpawnPosition()
+    private (int x, int y) GetSpawnPosition(GenHelper.PointCluster biome)
     {
-        var x = Main.maxTilesX / 2;
-        var y = (int)(Main.rockLayer + (Main.UnderworldLayer - Main.rockLayer) / 2);
+        var x = (int)biome.Center.X;
+        var y = (int)biome.Max.Y + 50;
         return (x, y);
     }
 
-    public static void FindEvilBiome(bool crimson)
+    public List<GenHelper.PointCluster> FindEvilBiomes(bool crimson)
     {
+        // TODO: mb fix long generating issue at seed 2.4.1.1434884539 
+
+        List<Vector2> biomePoints = [];
         var ids = crimson
             ? new HashSet<ushort>  { TileID.CrimsonGrass, TileID.Crimstone, TileID.Crimsand }
             : new HashSet<ushort> { TileID.CorruptGrass, TileID.Ebonstone, TileID.Ebonsand };
 
         
-        const int stepSize = 50;
-        for (int x = 0; x < Main.maxTilesX; x += stepSize)
-        for (int y = (int)Main.worldSurface; y < Main.rockLayer; y += stepSize)
+        for (int x = 0; x < Main.maxTilesX; x += EvilBiomeSearchStep)
+        for (int y = (int)Main.worldSurface; y < Main.rockLayer; y += EvilBiomeSearchStep)
         {
             Tile tile = Framing.GetTileSafely(x, y);
             if (ids.Contains(tile.TileType))
             {
-                // works
-                // PlaceVeinBlocks(x, y, 10);
+                biomePoints.Add(new Vector2(x, y));
             }
         }
+
+        var evilBiomes = GenHelper.ClusterPoints(biomePoints, EvilBiomeClusterThreshold);
+        return evilBiomes;
     }
 
 
