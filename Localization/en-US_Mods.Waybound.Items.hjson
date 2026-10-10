@@ -1319,3 +1319,8 @@ HewnDeepWoodPlatformI: {
 	DisplayName: Hewn Deep Wood Platform I
 	Tooltip: ""
 }
+
+Cron: {
+	DisplayName: Cron
+	Tooltip: ""
+}

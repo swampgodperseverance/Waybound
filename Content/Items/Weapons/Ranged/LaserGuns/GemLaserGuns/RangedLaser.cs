@@ -20,6 +20,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns.GemLaserGuns
         public float rotateToDecrease = 22.5f;
         public int maxDistance = 250;
         public int laserDust;
+        public bool noParticles;
         public Color colorLineBG, colorLinesAround;
 
         private Texture2D texture;
@@ -168,7 +169,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns.GemLaserGuns
 
         public override void AI()
         {
-            EnsureTexture(); 
+            EnsureTexture();
 
             Player player = Main.player[Projectile.owner];
             Projectile.scale = player.GetModPlayer<PlayerLaserGun>().laserScale;
@@ -199,6 +200,14 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns.GemLaserGuns
             Vector2 unit = Projectile.velocity.SafeNormalize(Vector2.UnitX);
             Vector2 start = player.Center + unit * moveDistance;
             Vector2 end = player.Center + unit * Distance;
+
+            if (noParticles)
+            {
+                Vector3 baseLight = new Vector3(colorLinesAround.R, colorLinesAround.G, colorLinesAround.B) / 255f;
+                Lighting.AddLight(end, baseLight * (0.8f + charge * 0.9f));
+                Lighting.AddLight(start, baseLight * (0.5f + charge * 0.5f));
+                return;
+            }
 
             for (int j = 0; j < Main.rand.Next(2, 5 + (int)(charge * 3)); j++)
             {
