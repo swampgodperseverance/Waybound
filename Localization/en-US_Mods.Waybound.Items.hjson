@@ -1299,8 +1299,14 @@ KorochunRelicItem: {
 	Tooltip: ""
 	DisplayName: Korochun Relic Item
 }
+
 Tidebreaker: {
 	DisplayName: Tidebreaker
+	Tooltip: ""
+}
+
+HielitiumStaff: {
+	DisplayName: Hielitium Staff
 	Tooltip: ""
 }
 
@@ -1311,5 +1317,10 @@ HewnDeepWoodItem: {
 
 HewnDeepWoodPlatformI: {
 	DisplayName: Hewn Deep Wood Platform I
+	Tooltip: ""
+}
+
+Cron: {
+	DisplayName: Cron
 	Tooltip: ""
 }
