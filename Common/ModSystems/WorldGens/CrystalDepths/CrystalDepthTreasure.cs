@@ -84,7 +84,7 @@ internal class CrystalDepthTreasure
 			switch (block)
 			{
 				case 0:
-					WorldGen.KillTile(globalX, globalY);
+					tile.HasTile = false;
 					break;
 				case 1:
 					tile.TileType = DepthsTiles.Dirt;

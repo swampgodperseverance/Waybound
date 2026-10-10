@@ -92,25 +92,54 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 
 			WorldGen.TileRunner(XPos, YPos, width, (int)(height / 2.3f), DepthsTiles.Dirt, true, 0f, 0f, false, true);
 
-			Measure("StoneGen", StoneGen);
-			Measure("GenerateCave", GenerateCave);
-			Measure("CrystalGen", CrystalGen);
-			Measure("PlaceGrid", () => PlaceGrid(startX, startY));
-			Measure("OtherGen", () => OtherGen(startX, startY));
-			Measure("GrassGen", () => GrassGen(startX, startY));
-			Measure("TreeGrowGen", () => TreeGrowGen(startX, startY));
-			Measure("ObjectTilesGen", () => ObjectTilesGen(startX, startY));
+			GenHelper.Measure("StoneGen", StoneGen);
+			GenHelper.Measure("GenerateCave", GenerateCave);
+			GenHelper.Measure("CrystalGen", CrystalGen);
+			GenHelper.Measure("PlaceGrid", () => PlaceGrid(startX, startY));
+			GenHelper.Measure("SlopePass", () => SlopePass(startX, startY));
+
+			GenHelper.Measure("OtherGen", () => OtherGen(startX, startY));
+			Cleaning(startX, startY);
+
+			GenHelper.Measure("GrassGen", () => GrassGen(startX, startY));
+			GenHelper.Measure("TreeGrowGen", () => TreeGrowGen(startX, startY));
+			GenHelper.Measure("ObjectTilesGen", () => ObjectTilesGen(startX, startY));
+
+			RangeFrame(startX, startY);
+		}
+
+		private void SlopePass(int startX, int startY)
+		{
+			for (int x = startX; x < startX + width; x++)
+			for (int y = startY; y < startY + height; y++)
+			{
+				SlopeTiles(x, y);
+			}
 		}
 		
-		private void Measure(string name, Action action)
+		private void Cleaning(int startX, int startY)
 		{
-			Stopwatch stopwatch = Stopwatch.StartNew();
+			for (int x = startX; x < startX + width; x++)
+			for (int y = startY; y < startY + height; y++)
 
-			action();
+			{
+				Tile tile = Framing.GetTileSafely(x, y);
 
-			stopwatch.Stop();
-			Console.WriteLine($"{name}: {stopwatch.ElapsedMilliseconds} ms");
+				BlendBiomeTiles(startX, startY, x, y);
+
+				if ((Main.rand.NextBool(3) && tile.WallType == DepthsTiles.GrassWall))
+				{
+					tile.WallType = DepthsTiles.DirtWall;
+				}
+			}
 		}
+
+
+		private void RangeFrame(int startX, int startY)
+		{
+			WorldGen.RangeFrame(startX, startY, startX + width, startY + height);
+		}
+
 		private void StoneGen()
 		{
 			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 10E-04); k++)
@@ -212,11 +241,11 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 					if (tile.TileType == DepthsTiles.Dirt
 						|| tile.TileType == DepthsTiles.Crystal)
 					{
-						WorldGen.PlaceWall(globalX, globalY, DepthsTiles.GrassWall);
+						tile.WallType = DepthsTiles.GrassWall;
 					}
 					if (tile.TileType == DepthsTiles.Stone)
 					{
-						WorldGen.PlaceWall(globalX, globalY, DepthsTiles.StoneWall);
+						tile.WallType = DepthsTiles.StoneWall;
 					}
 					if ((tile.TileType == DepthsTiles.Dirt
 						|| tile.TileType == DepthsTiles.Stone
@@ -224,7 +253,7 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 						&& tile.WallType != DepthsTiles.GrassWall
 						&& tile.WallType != DepthsTiles.StoneWall)
 					{
-						WorldGen.KillWall(globalX, globalY);
+						tile.WallType = WallID.None;
 					}
 
 					if (cavePoints[x, y] == 0
@@ -235,7 +264,7 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 						|| tile.TileType == TileID.Granite
 						|| tile.TileType == TileID.Marble))
 					{
-						WorldGen.KillTile(globalX, globalY);
+						tile.HasTile = false;
 					}
 					if (cavePoints[x, y] == 1)
 					{
@@ -388,12 +417,18 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 				for (int y = startY; y < startY + height; y++)
 				{
 					Tile tileAbove = Main.tile[x, y - 1];
+					Tile tile = Main.tile[x, y];
+
+					if (!tileAbove.HasTile)
+					{
+						continue;
+					}
 
 					if ((tileAbove.TileType == DepthsTiles.Dirt
 					     || tileAbove.TileType == DepthsTiles.Grass
 					     || tileAbove.TileType == DepthsTiles.Stone)
 					    && tileAbove.Slope == 0
-					    && Main.tile[x, y].HasTile == false
+					    && !tile.HasTile
 					   )
 					{
 						if (Main.rand.Next(100) <= 30)
@@ -402,7 +437,7 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 						}
 					}
 					else if (tileAbove.TileType == DepthsTiles.Vine
-					         && Main.tile[x, y].HasTile == false)
+					         && !tile.HasTile)
 					{
 						if (Main.rand.Next(100) <= 80)
 						{
@@ -411,30 +446,14 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 					}
 
 					if (tileAbove.TileType == DepthsTiles.Beam
-					    && Main.tile[x, y].HasTile == false)
+					    && !tile.HasTile)
 					{
 						WorldGen.PlaceTile(x, y, DepthsTiles.Beam);
 					}
-					
-					Cleaning(startX, startY, x, y);
 				}
 			}
-
 		}
 
-		private void Cleaning(int startX, int startY, int x, int y)
-		{
-			Tile tile = Framing.GetTileSafely(x, y);
-
-			BlendBiomeTiles(startX, startY, x, y);
-			
-			if ((Main.rand.NextBool(3) && tile.WallType == DepthsTiles.GrassWall))
-			{
-				tile.WallType = DepthsTiles.DirtWall;
-			}
-
-			SlopeTiles(x, y);
-		}
 
 		private void BlendBiomeTiles(int startX, int startY, int x, int y)
 		{
@@ -484,29 +503,29 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 		private void SlopeTiles(int x, int y)
 		{
 			Tile tile = Framing.GetTileSafely(x, y);
+			if (!tile.HasTile) return;
 
-			if (tile.TileType == DepthsTiles.Dirt || tile.TileType == DepthsTiles.Crystal || tile.TileType == DepthsTiles.Crystal2 ||
-			    tile.TileType == DepthsTiles.Stone)
+			ushort type = tile.TileType;
+			bool natural = type == DepthsTiles.Dirt || type == DepthsTiles.Crystal || type == DepthsTiles.Stone;
+
+			if (natural || type == DepthsTiles.Crystal2 || type == DepthsTiles.Brick)
 			{
 				GenHelper.SlopeZero(x, y);
 			}
 
 			GenHelper.RemoveAlone(x, y);
 
-			if (tile.TileType == DepthsTiles.Dirt || tile.TileType == DepthsTiles.Crystal || tile.TileType == DepthsTiles.Stone)
+			if (!tile.HasTile) return;
+
+			if (natural)
 			{
 				GenHelper.SlopeNaturally(x, y);
-			}
-
-			if (tile.TileType == DepthsTiles.Brick)
-			{
-				GenHelper.SlopeZero(x, y);
 			}
 		}
 
 
 		private static readonly HashSet<int> SolidTiles = new()
-			{ DepthsTiles.Dirt, DepthsTiles.Crystal, DepthsTiles.Brick, DepthsTiles.Stone };
+			{ DepthsTiles.Dirt, DepthsTiles.Crystal, DepthsTiles.Grass, DepthsTiles.Brick, DepthsTiles.Stone };
 
 		private static bool IsEmpty(int x, int y) => !Framing.GetTileSafely(x, y).HasTile;
 		private static bool IsSolid(Tile t) => t.HasTile && SolidTiles.Contains(t.TileType);
@@ -537,8 +556,8 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 
 					if (wideSpot)
 					{
-						int? id = Main.rand.NextBool(200) ? DepthsTiles.Pillar
-							: Main.rand.NextBool(40) ? DepthsTiles.Pot
+						int? id = Main.rand.NextBool(100) ? DepthsTiles.Pillar
+							: Main.rand.NextBool(20) ? DepthsTiles.Pot
 							: Main.rand.NextBool(15) ? Main.rand.Next([DepthsTiles.ShardBig1, DepthsTiles.ShardBig2, DepthsTiles.ShardBig3])
 							: null;
 
@@ -551,10 +570,22 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 						}
 					}
 
+					if (below.TileType == DepthsTiles.Grass)
+					{
+						if (Main.rand.Next(100) < 35)
+						{
+							WorldGen.SlopeTile(gx, gy + 1, 0, true);
+							if (WorldGen.PlaceObject(gx, gy, DepthsTiles.Herb, true, 0, -1, -1))
+							{
+								continue;
+							}
+						}
+					}
+
 					if (Main.rand.NextBool(4)) // 25%
 					{
 						WorldGen.SlopeTile(gx, gy + 1);
-						WorldGen.PlaceObject(gx, gy, (ushort)DepthsTiles.Shard, true, 0, -1, -1);
+						WorldGen.PlaceObject(gx, gy, DepthsTiles.Shard, true, 0, -1, -1);
 					}
 				}
 			}

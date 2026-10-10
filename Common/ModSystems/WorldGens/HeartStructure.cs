@@ -16,8 +16,6 @@ internal static class HeartStructureTiles
     public static ushort Wall => (ushort)WallType<ResinWall>();
 }
 
-
-
 public class HeartStructure : BaseWorldGens
 {
     // Gen variables
@@ -41,15 +39,15 @@ public class HeartStructure : BaseWorldGens
     public readonly int EvilBiomeSearchStep = 50;
     public readonly int EvilBiomeClusterThreshold = 200;
 
-        
 
     public (int x, int y) Center { get; private set; }
-    
-    
-    public (int x, int y) ApproximatePosMin => (Center.x - VeinOffset - VeinLength.max, Center.y - VeinOffset - VeinLength.max);
-    public (int x, int y) ApproximatePosMax => (Center.x + VeinOffset + VeinLength.max, Center.y + VeinOffset + VeinLength.max);
 
-    
+
+    public (int x, int y) ApproximatePosMin =>
+        (Center.x - VeinOffset - VeinLength.max, Center.y - VeinOffset - VeinLength.max);
+
+    public (int x, int y) ApproximatePosMax =>
+        (Center.x + VeinOffset + VeinLength.max, Center.y + VeinOffset + VeinLength.max);
 
 
     public override string NameGen => "Heart Structure????";
@@ -60,39 +58,59 @@ public class HeartStructure : BaseWorldGens
         progress.Message = Loc.GetChat("WorldGen.HeartStructure");
 
         var biomes = FindEvilBiomes(WorldGen.crimson);
-        var inWhichBiome = WorldGen.genRand.Next(biomes.Count);
 
-    
-        Center = GetSpawnPosition(biomes[inWhichBiome]);
-        VeinsGen(Center.x, Center.y);
-        RoomGen(Center.x, Center.y);
-        SlopeTiles();
+        GenHelper.Measure("GetSpawnPosition", () => Center = GetSpawnPosition(biomes));
+        GenHelper.Measure("VeinsGen", () => VeinsGen(Center.x, Center.y));
+        GenHelper.Measure("RoomGen", () => RoomGen(Center.x, Center.y));
+        GenHelper.Measure("SlopeTiles", SlopeTiles);
+
+
         return true;
     }
 
 
-    private (int x, int y) GetSpawnPosition(GenHelper.PointCluster biome)
+    private (int x, int y) GetSpawnPosition(List<GenHelper.PointCluster> biomes)
     {
-        var x = (int)biome.Center.X;
-        var y = (int)biome.Max.Y + 50;
-        return (x, y);
+        var isDungeonLeft = Main.dungeonX < Main.maxTilesX / 2;
+        var dungeonOpposite  = new List<GenHelper.PointCluster>();
+        foreach (var biome in biomes)
+        {
+            var isBiomeLeft = biome.Center.X < Main.maxTilesX / 2;
+            if (isBiomeLeft != isDungeonLeft)
+            {
+                dungeonOpposite.Add(biome);
+            } 
+        }
+        var targetList = dungeonOpposite;
+        if (dungeonOpposite.Count == 0)
+        {
+            targetList = biomes;
+        }
+        
+        var targetBiome = targetList[WorldGen.genRand.Next(targetList.Count)];
+                
+        var x = (int)targetBiome.Center.X;
+        var y = (int)targetBiome.Max.Y + 50;
+
+        return (x, y); 
     }
 
     public List<GenHelper.PointCluster> FindEvilBiomes(bool crimson)
     {
-        // TODO: mb fix long generating issue at seed 2.4.1.1434884539 
+        // TODO: mb fix long generating issue at seed 2.4.1.1434884539
 
         List<Vector2> biomePoints = [];
         var ids = crimson
-            ? new HashSet<ushort>  { TileID.CrimsonGrass, TileID.Crimstone, TileID.Crimsand }
+            ? new HashSet<ushort> { TileID.CrimsonGrass, TileID.Crimstone, TileID.Crimsand, }
             : new HashSet<ushort> { TileID.CorruptGrass, TileID.Ebonstone, TileID.Ebonsand };
 
-        
+
         for (int x = 0; x < Main.maxTilesX; x += EvilBiomeSearchStep)
-        for (int y = (int)Main.worldSurface; y < Main.rockLayer; y += EvilBiomeSearchStep)
+        for (int y = (int)Main.worldSurface; y < Main.rockLayer + 100; y += EvilBiomeSearchStep)
         {
             Tile tile = Framing.GetTileSafely(x, y);
-            if (ids.Contains(tile.TileType))
+            bool isEvilWall = WallID.Sets.Corrupt[tile.WallType] || WallID.Sets.Crimson[tile.WallType];
+            if (ids.Contains(tile.TileType) || isEvilWall)
             {
                 biomePoints.Add(new Vector2(x, y));
             }
@@ -148,18 +166,18 @@ public class HeartStructure : BaseWorldGens
             {
                 // inside
                 tile.LiquidAmount = 0;
-                WorldGen.KillTile(globalX, globalY);
-                WorldGen.KillWall(globalX, globalY);
-                WorldGen.PlaceWall(globalX, globalY, HeartStructureTiles.Wall);
+                tile.HasTile = false;
+                tile.WallType = HeartStructureTiles.Wall;
             }
             else if (dist <= outerR - halfThickness + 2)
             {
                 // inner border edge
-                WorldGen.KillWall(globalX, globalY);
-                WorldGen.PlaceWall(globalX, globalY, HeartStructureTiles.Wall);
+                tile.WallType = HeartStructureTiles.Wall;
                 tile.TileType = HeartStructureTiles.Solid;
                 tile.HasTile = true;
                 tile.Slope = 0;
+                tile.IsHalfBlock = false;
+
             }
             else if (dist <= outerR + halfThickness)
             {
@@ -167,8 +185,15 @@ public class HeartStructure : BaseWorldGens
                 tile.TileType = HeartStructureTiles.Solid;
                 tile.HasTile = true;
                 tile.Slope = 0;
+                tile.IsHalfBlock = false;
             }
         }
+
+        int half = (int)(size / 2);
+        int x0 = cX - half, y0 = cY - half;
+        int x1 = x0 + (int)size, y1 = y0 + (int)size;
+        WorldGen.RangeFrame(x0, y0, x1, y1);
+
     }
 
 

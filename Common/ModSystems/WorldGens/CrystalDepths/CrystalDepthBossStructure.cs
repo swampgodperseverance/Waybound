@@ -67,8 +67,7 @@ internal class CrystalDepthBossStructure
 					tile.HasTile = true;
 					break;
 				case 2:
-					WorldGen.KillTile(globalX, globalY);
-					WorldGen.KillTile(globalX, globalY);
+					tile.HasTile = false;
 					break;
 				case 3:
 					tile.TileType = DepthsTiles.Crystal2;

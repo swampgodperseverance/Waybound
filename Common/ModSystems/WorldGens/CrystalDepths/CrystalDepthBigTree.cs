@@ -146,8 +146,7 @@ internal class CrystalDepthBigTree
 					WorldGen.SlopeTile(globalX, globalY, 0);
 					break;
 				case 3:
-					WorldGen.KillTile(globalX, globalY);
-					WorldGen.KillTile(globalX, globalY);
+					tile.HasTile = false;
 					break;
 			}
 		}

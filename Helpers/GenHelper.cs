@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Terraria;
 
 namespace Waybound.Helpers;
@@ -26,33 +27,18 @@ public static class GenHelper
     
     public static void SlopeNaturally(int x, int y)
     {
-        if (IsTileAround(x, y, false, false, true, true) && Main.rand.NextBool(2))
-        {
-            WorldGen.SlopeTile(x, y, 1);
-        }
-        
-        
-        if (IsTileAround(x, y, false, false, true, true) && Main.rand.NextBool(2))
-        {
-            WorldGen.SlopeTile(x, y, 1);
-        }
+        Span<int> candidates = stackalloc int[4];
+        int n = 0;
 
-        if (IsTileAround(x, y, false, true, true, false) && Main.rand.NextBool(3))
-        {
-            WorldGen.SlopeTile(x, y, 2);
-        }
+        if (IsTileAround(x, y, false, false, true, true)) candidates[n++] = 1;
+        if (IsTileAround(x, y, false, true, true, false)) candidates[n++] = 2;
+        if (IsTileAround(x, y, true, false, false, true)) candidates[n++] = 3;
+        if (IsTileAround(x, y, true, true, false, false)) candidates[n++] = 4;
 
-        if (IsTileAround(x, y, true, false, false, true) && Main.rand.NextBool(3))
-        {
-            WorldGen.SlopeTile(x, y, 3);
-        }
+        if (n == 0 || !WorldGen.genRand.NextBool(2)) return;
 
-        if (IsTileAround(x, y, true, true, false, false) && Main.rand.NextBool(2))
-        {
-            WorldGen.SlopeTile(x, y, 4);
-        }
-
-    }    
+        WorldGen.SlopeTile(x, y, candidates[WorldGen.genRand.Next(n)], true);
+    } 
 
     private static bool IsTileAround(int x, int y, bool above, bool right, bool below, bool left)
     {
@@ -65,7 +51,17 @@ public static class GenHelper
                tileBelow.HasTile == below &&
                tileLeft.HasTile == left;
     }
+    
+    
+    public static void Measure(string name, Action action)
+    {
+        Stopwatch stopwatch = Stopwatch.StartNew();
 
+        action();
+
+        stopwatch.Stop();
+        Console.WriteLine($"{name}: {stopwatch.ElapsedMilliseconds} ms");
+    }
 
     public static List<PointCluster> ClusterPoints(
         List<Vector2> points,

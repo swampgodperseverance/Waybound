@@ -156,28 +156,23 @@ public class CrystalDepthHouse
                 WorldGen.SlopeTile(globalX, globalY, 0);
                 break;
             case 3:
-                WorldGen.KillTile(globalX, globalY);
-                WorldGen.KillWall(globalX, globalY);
-                WorldGen.PlaceWall(globalX, globalY, DepthsTiles.BrickWall);
+                tile.HasTile = false;
+                tile.WallType = DepthsTiles.BrickWall;
+
                 break;
             case 4:
-                WorldGen.KillTile(globalX, globalY);
-                WorldGen.KillWall(globalX, globalY);
-                WorldGen.PlaceWall(globalX, globalY, DepthsTiles.WoodWall);
+                tile.HasTile = false;
+                tile.WallType = DepthsTiles.WoodWall;
                 break;
             case 5:
-                WorldGen.KillTile(globalX, globalY);
                 tile.TileType = DepthsTiles.Platform;
                 tile.HasTile = true;
-                WorldGen.KillWall(globalX, globalY);
-                WorldGen.PlaceWall(globalX, globalY, DepthsTiles.BrickWall);
+                tile.WallType = DepthsTiles.BrickWall;
                 break;
             case 6:
-                WorldGen.KillTile(globalX, globalY);
                 tile.TileType = DepthsTiles.Platform;
                 tile.HasTile = true;
-                WorldGen.KillWall(globalX, globalY);
-                WorldGen.PlaceWall(globalX, globalY, DepthsTiles.WoodWall);
+                tile.WallType = DepthsTiles.WoodWall;
                 break;
             case 7:
                 if (!tile.HasTile)
@@ -188,7 +183,7 @@ public class CrystalDepthHouse
                 WorldGen.SlopeTile(globalX, globalY, 0);
                 break;
             case 8:
-                WorldGen.KillTile(globalX, globalY);
+                tile.HasTile = false;
                 break;
         }
     }

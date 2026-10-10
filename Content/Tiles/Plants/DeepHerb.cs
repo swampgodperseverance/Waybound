@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Waybound.Content.Dusts.DeepDusts;
+using Waybound.Content.Tiles.Blocks;
 
 namespace Waybound.Content.Tiles.Plants
 {
@@ -12,13 +13,14 @@ namespace Waybound.Content.Tiles.Plants
 		public override void SetStaticDefaults()
 		{
 			TileObjectData.newTile.CopyFrom(TileObjectData.StyleAlch);
+			TileObjectData.newTile.AnchorValidTiles = [TileType<DeepGrass>()];
 			TileObjectData.addTile(Type);
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 			Main.tileMergeDirt[Type] = false;
 			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
-			Main.tileBlockLight[Type] = true;
+			Main.tileBlockLight[Type] = false;
 			AddMapEntry(new Color(32, 143, 72));
 			HitSound = SoundID.Grass;
 			DustType = ModContent.DustType<DeepMagicDust>();
