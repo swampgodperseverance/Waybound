@@ -13,6 +13,7 @@ using Waybound.Content.Tiles.Furniture;
 using Waybound.Content.Tiles.Furniture.DeepWoodFurniture;
 using Waybound.Content.Tiles.Plants;
 using Waybound.Content.Tiles.Walls;
+using Waybound.Helpers;
 
 namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 {
@@ -487,53 +488,20 @@ namespace Waybound.Common.ModSystems.WorldGens.CrystalDepths
 			if (tile.TileType == DepthsTiles.Dirt || tile.TileType == DepthsTiles.Crystal || tile.TileType == DepthsTiles.Crystal2 ||
 			    tile.TileType == DepthsTiles.Stone)
 			{
-				WorldGen.SlopeTile(x, y, 0);
+				GenHelper.SlopeZero(x, y);
 			}
 
-			if (tile.HasTile && IsTileAround(x, y, false, false, false, false))
-			{
-				WorldGen.KillTile(x, y);
-			}
+			GenHelper.RemoveAlone(x, y);
 
 			if (tile.TileType == DepthsTiles.Dirt || tile.TileType == DepthsTiles.Crystal || tile.TileType == DepthsTiles.Stone)
 			{
-				if (IsTileAround(x, y, false, false, true, true) && Main.rand.NextBool(2))
-				{
-					WorldGen.SlopeTile(x, y, 1);
-				}
-
-				if (IsTileAround(x, y, false, true, true, false) && Main.rand.NextBool(3))
-				{
-					WorldGen.SlopeTile(x, y, 2);
-				}
-
-				if (IsTileAround(x, y, true, false, false, true) && Main.rand.NextBool(3))
-				{
-					WorldGen.SlopeTile(x, y, 3);
-				}
-
-				if (IsTileAround(x, y, true, true, false, false) && Main.rand.NextBool(2))
-				{
-					WorldGen.SlopeTile(x, y, 4);
-				}
+				GenHelper.SlopeNaturally(x, y);
 			}
 
 			if (tile.TileType == DepthsTiles.Brick)
 			{
-				WorldGen.SlopeTile(x, y, 0);
+				GenHelper.SlopeZero(x, y);
 			}
-		}
-
-		private bool IsTileAround(int x, int y, bool above, bool right, bool below, bool left)
-		{
-			Tile tileAbove = Framing.GetTileSafely(x, y - 1);
-			Tile tileRight = Framing.GetTileSafely(x + 1, y);
-			Tile tileBelow = Framing.GetTileSafely(x, y + 1);
-			Tile tileLeft = Framing.GetTileSafely(x - 1, y);
-			return tileAbove.HasTile == above &&
-			       tileRight.HasTile == right &&
-			       tileBelow.HasTile == below &&
-			       tileLeft.HasTile == left;
 		}
 
 
