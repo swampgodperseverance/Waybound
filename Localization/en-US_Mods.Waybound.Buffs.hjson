@@ -72,3 +72,8 @@ PlatinumKnightBuff: {
 	DisplayName: Platinum Knight Buff
 	Description: Mods.Waybound.Buffs.PlatinumKnightBuff.Description
 }
+
+HielitiumIcicleBuff: {
+	DisplayName: Hielitium Icicle Buff
+	Description: Mods.Waybound.Buffs.HielitiumIcicleBuff.Description
+}

@@ -43,7 +43,7 @@ namespace Waybound.Content.NPCs.CrystalGrove
 			NPC.defense = 10;
 			NPC.damage = 30;
 			NPC.width = 36;
-			NPC.height = 32;
+			NPC.height = 36;
 			NPC.value = 300;
 			NPC.DeathSound = SoundID.Item27;
 			NPC.HitSound = SoundID.Item27;

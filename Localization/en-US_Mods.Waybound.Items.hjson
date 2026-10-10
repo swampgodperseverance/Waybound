@@ -1307,6 +1307,9 @@ Tidebreaker: {
 
 HielitiumStaff: {
 	DisplayName: Hielitium Staff
+	Tooltip: ""
+}
+
 HewnDeepWoodItem: {
 	DisplayName: Hewn Deep Wood Item
 	Tooltip: ""
@@ -1314,6 +1317,5 @@ HewnDeepWoodItem: {
 
 HewnDeepWoodPlatformI: {
 	DisplayName: Hewn Deep Wood Platform I
-
 	Tooltip: ""
 }

@@ -1,14 +1,12 @@
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
-using Terraria.ModLoader;
+using Waybound.Content.Items.Placeable.Furniture.DeepWoodFurniture;
+using Waybound.Content.Tiles.Blocks;
 
-using Waybound.Content.Items.Placeable.Blocks;
-using Waybound.Content.Tiles.Furniture.DeepWoodFurniture;
-
-namespace Waybound.Content.Items.Placeable.Furniture.DeepWoodFurniture
+namespace Waybound.Content.Items.Placeable.Blocks
 {
-	public class DeepWoodPlatformI : ModItem
+	public class HewnDeepWoodItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -24,19 +22,20 @@ namespace Waybound.Content.Items.Placeable.Furniture.DeepWoodFurniture
 			Item.autoReuse = true;
 			Item.maxStack = 999;
 			Item.consumable = true;
-			Item.createTile = TileType<DeepWoodPlatform>();
+			Item.createTile = TileType<HewnDeepWood>();
 			Item.width = 12;
 			Item.height = 12;
-			Item.value = Item.sellPrice(0, 0, 2, 50);
+			Item.value = Item.sellPrice(0, 0, 1, 50);
 			Item.rare = 0;
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe(2)
+			CreateRecipe(1)
 				.AddIngredient(ItemType<DeepTreeItem>(), 1)
+				.AddTile(TileID.Sawmill)
 				.Register();
 			CreateRecipe(1)
-				.AddIngredient(ItemType<DeepWoodPlatformI>(), 2)
+				.AddIngredient(ItemType<HewnDeepWoodPlatformI>(), 2)
 				.Register();
 		}
 	}
