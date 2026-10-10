@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.WorldBuilding;
 using Waybound.Common.WUtils;
-using Waybound.Content.Tiles.Furniture;
+using Waybound.Content.Tiles.Blocks;
 using Waybound.Content.Tiles.Walls;
 using Waybound.Helpers;
 
@@ -10,8 +12,8 @@ namespace Waybound.Common.ModSystems.WorldGens;
 
 internal static class HeartStructureTiles
 {
-    public static ushort Solid => (ushort)TileType<DeepCrystal>();
-    public static ushort Wall => (ushort)WallType<DeepGrassWall>();
+    public static ushort Solid => (ushort)TileType<ResinBlock>();
+    public static ushort Wall => (ushort)WallType<ResinWall>();
 }
 
 public class HeartStructure : BaseWorldGens
@@ -31,16 +33,16 @@ public class HeartStructure : BaseWorldGens
     public readonly int Harmonics = 12;
 
     public float AmplitudeInnerFac => 0.14f;
-    public float AmplitudeOuterFac => 0.7f;
+    public float AmplitudeOuterFac => 0.10f;
     
     
         
 
-    private (int x, int y) _center;
+    public (int x, int y) Center { get; private set; }
     
     
-    public (int x, int y) ApproximatePosMin => (_center.x - VeinOffset - VeinLength.max, _center.y - VeinOffset - VeinLength.max);
-    public (int x, int y) ApproximatePosMax => (_center.x + VeinOffset + VeinLength.max, _center.y + VeinOffset + VeinLength.max);
+    public (int x, int y) ApproximatePosMin => (Center.x - VeinOffset - VeinLength.max, Center.y - VeinOffset - VeinLength.max);
+    public (int x, int y) ApproximatePosMax => (Center.x + VeinOffset + VeinLength.max, Center.y + VeinOffset + VeinLength.max);
 
     
 
@@ -52,9 +54,11 @@ public class HeartStructure : BaseWorldGens
     {
         progress.Message = Loc.GetChat("WorldGen.HeartStructure");
 
-        _center = GetSpawnPosition();
-        VeinsGen(_center.x, _center.y);
-        RoomGen(_center.x, _center.y);
+        FindEvilBiome(WorldGen.crimson);
+
+        Center = GetSpawnPosition();
+        VeinsGen(Center.x, Center.y);
+        RoomGen(Center.x, Center.y);
         SlopeTiles();
         return true;
     }
@@ -65,6 +69,26 @@ public class HeartStructure : BaseWorldGens
         var x = Main.maxTilesX / 2;
         var y = (int)(Main.rockLayer + (Main.UnderworldLayer - Main.rockLayer) / 2);
         return (x, y);
+    }
+
+    public static void FindEvilBiome(bool crimson)
+    {
+        var ids = crimson
+            ? new HashSet<ushort>  { TileID.CrimsonGrass, TileID.Crimstone, TileID.Crimsand }
+            : new HashSet<ushort> { TileID.CorruptGrass, TileID.Ebonstone, TileID.Ebonsand };
+
+        
+        const int stepSize = 50;
+        for (int x = 0; x < Main.maxTilesX; x += stepSize)
+        for (int y = (int)Main.worldSurface; y < Main.rockLayer; y += stepSize)
+        {
+            Tile tile = Framing.GetTileSafely(x, y);
+            if (ids.Contains(tile.TileType))
+            {
+                // works
+                // PlaceVeinBlocks(x, y, 10);
+            }
+        }
     }
 
 
@@ -116,6 +140,15 @@ public class HeartStructure : BaseWorldGens
                 WorldGen.KillTile(globalX, globalY);
                 WorldGen.KillWall(globalX, globalY);
                 WorldGen.PlaceWall(globalX, globalY, HeartStructureTiles.Wall);
+            }
+            else if (dist <= outerR - halfThickness + 2)
+            {
+                // inner border edge
+                WorldGen.KillWall(globalX, globalY);
+                WorldGen.PlaceWall(globalX, globalY, HeartStructureTiles.Wall);
+                tile.TileType = HeartStructureTiles.Solid;
+                tile.HasTile = true;
+                tile.Slope = 0;
             }
             else if (dist <= outerR + halfThickness)
             {
