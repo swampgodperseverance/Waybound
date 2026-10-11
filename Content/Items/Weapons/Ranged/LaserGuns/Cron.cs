@@ -60,6 +60,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns
             DustID.Blood,
             DustID.Silver,
             DustID.Shadowflame,//should've been black
+
             DustID.Copper,
             DustID.PurpleTorch
         };

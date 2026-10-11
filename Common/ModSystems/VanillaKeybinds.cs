@@ -7,6 +7,7 @@ namespace Waybound.Common.ModSystems
         public static ModKeybind AccBonusActivation { get; private set; } = null;
 
         public static ModKeybind ChangeWeaponStyle { get; private set; } = null;
+        public static ModKeybind RaceSpecial { get; private set; } = null;
 
         public override void Load()
         {
@@ -14,6 +15,7 @@ namespace Waybound.Common.ModSystems
             ArmorSetBonusActivation = KeybindLoader.RegisterKeybind(Mod, "ArmorSetBonusActivate", "K");
             AccBonusActivation = KeybindLoader.RegisterKeybind(Mod, "ActiveAcc", Microsoft.Xna.Framework.Input.Keys.Q);
             ChangeWeaponStyle = KeybindLoader.RegisterKeybind(Mod, "ChangeWeaponStyle", "V");
+            RaceSpecial = KeybindLoader.RegisterKeybind(Mod, "RaceSpecial", "V");
         }
 
         public override void Unload()
@@ -22,6 +24,7 @@ namespace Waybound.Common.ModSystems
             ArmorSetBonusActivation = null;
             AccBonusActivation = null;
             ChangeWeaponStyle = null;
+            RaceSpecial = null;
         }
     }
 }
