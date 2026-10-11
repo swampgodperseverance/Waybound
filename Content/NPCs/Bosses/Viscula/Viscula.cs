@@ -408,7 +408,7 @@ namespace Waybound.Content.NPCs.Bosses.Viscula
             NPC.noTileCollide = true;
             NPC.aiStyle = -1;
             NPC.npcSlots = 10f;
-            NPC.scale = 2f;
+            NPC.scale = 1f;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.lavaImmune = true;
 
