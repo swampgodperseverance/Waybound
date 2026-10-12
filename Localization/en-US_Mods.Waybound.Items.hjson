@@ -1329,3 +1329,23 @@ M16: {
 	DisplayName: M16
 	Tooltip: ""
 }
+
+M249: {
+	DisplayName: M249
+	Tooltip: ""
+}
+
+MauserC96: {
+	DisplayName: Mauser C96
+	Tooltip: ""
+}
+
+SVD: {
+	DisplayName: S V D
+	Tooltip: ""
+}
+
+ExtendedMagazine: {
+	DisplayName: Extended Magazine
+	Tooltip: ""
+}

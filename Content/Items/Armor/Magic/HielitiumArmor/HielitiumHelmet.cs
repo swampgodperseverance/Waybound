@@ -85,8 +85,8 @@ namespace Waybound.Content.Items.Armor.Magic.HielitiumArmor
         {
             playSound = false;
             RestoreMana(player, 12);
-            SpawnJumpParticles(player, 24); 
-            SpawnRingParticles(player, 16); 
+            SpawnJumpParticles(player, 24);
+            SpawnRingParticles(player, 16);
             SoundEngine.PlaySound(SoundID.Item27 with { Volume = 0.45f, Pitch = 0.2f }, player.Center);
         }
 
@@ -162,7 +162,7 @@ namespace Waybound.Content.Items.Armor.Magic.HielitiumArmor
         {
             playSound = false;
             HielitiumExtraJump1.RestoreMana(player, 12);
-            HielitiumExtraJump1.SpawnJumpParticles(player, 18); 
+            HielitiumExtraJump1.SpawnJumpParticles(player, 18);
             HielitiumExtraJump1.SpawnRingParticles(player, 12);
             SoundEngine.PlaySound(SoundID.Item27 with { Volume = 0.35f, Pitch = 0.4f }, player.Center);
         }

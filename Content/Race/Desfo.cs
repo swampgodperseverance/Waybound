@@ -21,13 +21,6 @@ public class DesfosNoCraftSystem : ModSystem
 {
     public override void PostAddRecipes()
     {
-        Condition cannotCraft = new Condition(
-            Language.GetOrRegister("Mods.Waybound.Conditions.DesfoCannotCraft", () => "Desfos cannot craft"),
-            () => Main.gameMenu || Main.LocalPlayer == null || !DesfosRace.IsDesfo(Main.LocalPlayer));
 
-        for (int i = 0; i < Recipe.numRecipes; i++)
-        {
-            Main.recipe[i].AddCondition(cannotCraft);
-        }
     }
 }
