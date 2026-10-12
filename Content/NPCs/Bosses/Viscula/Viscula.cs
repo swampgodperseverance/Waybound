@@ -321,7 +321,7 @@ namespace Waybound.Content.NPCs.Bosses.Viscula
             }
         }
     }
-
+    [AutoloadBossHead]
     public class Viscula : ModNPC
     {
         private struct Pending

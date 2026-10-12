@@ -203,7 +203,7 @@ namespace Waybound.Content.NPCs.Bosses.Korochun
             KorochunFx.UnloadAssets();
         }
     }
-
+    [AutoloadBossHead]
     public class Korochun : ModNPC
     {
         private const float SideOffset = 520f;

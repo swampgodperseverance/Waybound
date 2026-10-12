@@ -1349,3 +1349,18 @@ ExtendedMagazine: {
 	DisplayName: Extended Magazine
 	Tooltip: ""
 }
+
+ThemisNote1: {
+	DisplayName: Themis Note1
+	Tooltip: ""
+}
+
+HielitiumStaff2: {
+	DisplayName: Hielitium Staff2
+	Tooltip: ""
+}
+
+Benedict: {
+	DisplayName: Benedict
+	Tooltip: ""
+}

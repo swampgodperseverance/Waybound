@@ -77,3 +77,8 @@ HielitiumIcicleBuff: {
 	DisplayName: Hielitium Icicle Buff
 	Description: Mods.Waybound.Buffs.HielitiumIcicleBuff.Description
 }
+
+HielitiumStaff2Buff: {
+	DisplayName: Hielitium Staff2 Buff
+	Description: Mods.Waybound.Buffs.HielitiumStaff2Buff.Description
+}
