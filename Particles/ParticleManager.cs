@@ -18,6 +18,7 @@ public static class ParticleSystem
     public static ParticleBuffer<DeepGlowParticle> DeepGlowBuffer;
     public static ParticleBuffer<FireParticle> FireBuffer;
     public static ParticleBuffer<FlameBoomParticle> FlameBoomBuffer;
+    public static ParticleBuffer<LineParticle> LineBuffer;
     public static void Load()
     {
         if (Main.dedServ) return;
@@ -81,6 +82,12 @@ public static class ParticleSystem
         FlameBoomBuffer.SetBlendState(BlendState.Additive);
         ParticleManagerV3.RegisterUpdatable(FlameBoomBuffer);
         ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, FlameBoomBuffer);
+
+        //Line
+        LineBuffer = new ParticleBuffer<LineParticle>(1024);
+        LineBuffer.SetBlendState(BlendState.Additive);
+        ParticleManagerV3.RegisterUpdatable(LineBuffer);
+        ParticleManagerV3.RegisterRenderable(Layer.BeforeNPCs, LineBuffer);
     }
 
     public static void Unload()
@@ -95,5 +102,6 @@ public static class ParticleSystem
         DeepGlowBuffer = null;
         FireBuffer = null;
         FlameBoomBuffer = null;
+        LineBuffer = null;
     }
 }

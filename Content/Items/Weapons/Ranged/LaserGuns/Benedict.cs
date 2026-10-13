@@ -184,7 +184,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns
 
             Projectile.damage = (int)(player.GetTotalDamage(DamageClass.Ranged).ApplyTo(player.HeldItem.damage) * Projectile.scale);
         }
-//new wall bouncing here
+        //new wall bouncing here
         private void BuildPath(Player player)
         {
             points.Clear();
@@ -203,6 +203,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns
             while (remaining > 0f)
             {
                 bool hit = false;
+                bool outOfWorld = false;
                 Point prevTile = pos.ToTileCoordinates();
                 Point hitTile = prevTile;
 
@@ -211,7 +212,13 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns
                     Vector2 next = pos + dir * Step;
                     Point nt = next.ToTileCoordinates();
 
-                    if (!WorldGen.InWorld(nt.X, nt.Y, 2) || WorldGen.SolidTile(nt.X, nt.Y))
+                    if (!WorldGen.InWorld(nt.X, nt.Y, 2))
+                    {
+                        outOfWorld = true;
+                        break;
+                    }
+
+                    if (WorldGen.SolidTile(nt.X, nt.Y))
                     {
                         hit = true;
                         hitTile = nt;
@@ -225,7 +232,7 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns
 
                 points.Add(pos);
 
-                if (!hit)
+                if (outOfWorld || !hit)
                     break;
 
                 if (bounces >= MaxBounces)
@@ -264,9 +271,6 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns
 
                 bounces++;
             }
-
-            if (points.Count > 0 && endsOnWall == false && points.Count > 1 && remaining > 0f)
-                endsOnWall = true;
         }
 
         private void CastLights()
@@ -330,7 +334,6 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns
                 d.noGravity = true;
             }
 
-            // Дым у дула
             if (Main.rand.NextBool(30 - (int)(26f * scale)))
             {
                 Gore gore = Gore.NewGorePerfect(Projectile.GetSource_FromThis(), start,
@@ -388,7 +391,6 @@ namespace Waybound.Content.Items.Weapons.Ranged.LaserGuns
                 Lighting.AddLight(p, lc * (0.8f + charge * 0.9f));
             }
 
-            // Искры вдоль луча
             if (charge > 0.25f && Main.rand.NextBool(Math.Max(1, 4 - (int)(charge * 3f))))
             {
                 int s = Main.rand.Next(points.Count - 1);

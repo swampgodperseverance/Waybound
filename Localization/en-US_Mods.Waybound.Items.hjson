@@ -1364,3 +1364,53 @@ Benedict: {
 	DisplayName: Benedict
 	Tooltip: ""
 }
+
+IschemicStiletto: {
+	DisplayName: Ischemic Stiletto
+	Tooltip: ""
+}
+
+Aneurysm: {
+	DisplayName: Aneurysm
+	Tooltip: You can switch the modes by pressing switch weapon mode key
+}
+
+Fibrillation: {
+	DisplayName: Fibrillation
+	Tooltip: ""
+}
+
+AorticBreastplate: {
+	DisplayName: Aortic Breastplate
+	Tooltip: ""
+}
+
+AorticBreeches: {
+	DisplayName: Aortic Breeches
+	Tooltip: ""
+}
+
+AorticHelm: {
+	DisplayName: Aortic Helm
+	Tooltip: ""
+}
+
+HypertrophyBreastplate: {
+	DisplayName: Hypertrophy Breastplate
+	Tooltip: ""
+}
+
+HypertrophyHelm: {
+	DisplayName: Hypertrophy Helm
+	Tooltip: ""
+}
+
+DeepJellyfishBannerI: {
+	DisplayName: Deep Jellyfish Banner I
+	Tooltip: ""
+}
+
+CardiacTamponade: {
+	DisplayName: Cardiac Tamponade
+	Tooltip: ""
+}

@@ -82,3 +82,8 @@ HielitiumStaff2Buff: {
 	DisplayName: Hielitium Staff2 Buff
 	Description: Mods.Waybound.Buffs.HielitiumStaff2Buff.Description
 }
+
+FibrillationBuff: {
+	DisplayName: Fibrillation Buff
+	Description: Mods.Waybound.Buffs.FibrillationBuff.Description
+}

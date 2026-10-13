@@ -19,6 +19,7 @@ Armor: {
 		Crystal shards orbit you and when player got a hit, shard reduces its damage, heals you and releases an effect
 		Melee hits restore the shards. 
 		'''
+	AorticSetBonus: '''The bloodkeeper defends you. It can absorb one fatal hit once every two minutes.	 '''
 }
 
 Acc.BloodyNecklace: Press <{0}> for donation hp and up bonus
