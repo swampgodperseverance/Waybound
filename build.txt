@@ -1,4 +1,4 @@
 displayName = Waybound
-author = Waybound Crew
+author = Swampgod, Kashalotick and others.
 modReferences = ParticleLibrary
 version = 0.1
